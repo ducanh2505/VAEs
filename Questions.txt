@@ -1,0 +1,7 @@
+
+
+# 4/2 phần generative model
+
+- Tìm hiểu về Multinomial likelihood và Gaussian Likelihood, Logistic likelihood
+- Tìm hiểu deep lattent Gaussian
+- Tìm hiểu Collaborative Competitive filtering 
