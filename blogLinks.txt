@@ -1,0 +1,2 @@
+- Modern Recommender Systems: https://towardsdatascience.com/modern-recommender-systems-a0c727609aa8?source=rss----7f60cf5620c9---4&gi=80f2956c7e16
+- Recommendation System: https://towardsdatascience.com/recommendation-system-series-part-2-the-10-categories-of-deep-recommendation-systems-that-189d60287b58?source=rss----7f60cf5620c9---4&gi=57980a09a6a3
