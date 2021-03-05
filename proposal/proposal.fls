@@ -1,7 +1,7 @@
-PWD d:\Git\VAEs\proposal
+PWD d:\Git\VAEs\Proposal
 INPUT C:\Users\NHAN NGUYEN\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT d:\Git\VAEs\proposal\proposal.tex
-OUTPUT d:\Git\VAEs\proposal\proposal.log
+INPUT d:\Git\VAEs\Proposal\proposal.tex
+OUTPUT d:\Git\VAEs\Proposal\proposal.log
 INPUT C:\Program Files\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\base\article.cls
@@ -316,10 +316,10 @@ INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
-INPUT d:\Git\VAEs\proposal\proposal.aux
-INPUT d:\Git\VAEs\proposal\proposal.aux
-INPUT d:\Git\VAEs\proposal\proposal.aux
-OUTPUT d:\Git\VAEs\proposal\proposal.aux
+INPUT d:\Git\VAEs\Proposal\proposal.aux
+INPUT d:\Git\VAEs\Proposal\proposal.aux
+INPUT d:\Git\VAEs\Proposal\proposal.aux
+OUTPUT d:\Git\VAEs\Proposal\proposal.aux
 INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
@@ -348,18 +348,18 @@ INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\color.cfg
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-OUTPUT d:\Git\VAEs\proposal\proposal.pdf
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
-INPUT d:\Git\VAEs\proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+OUTPUT d:\Git\VAEs\Proposal\proposal.pdf
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
+INPUT d:\Git\VAEs\Proposal\logo.png
 INPUT C:\Program Files\MiKTeX\fonts\tfm\vntex\vnr\vnbx10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\vntex\vnr\vnbx12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\vntex\vnr\vnbx12.tfm
@@ -375,11 +375,7 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1440.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
-INPUT d:\Git\VAEs\proposal\proposal.bbl
-INPUT d:\Git\VAEs\proposal\proposal.bbl
-INPUT d:\Git\VAEs\proposal\proposal.bbl
-INPUT d:\Git\VAEs\proposal\proposal.bbl
-INPUT d:\Git\VAEs\proposal\proposal.aux
+INPUT d:\Git\VAEs\Proposal\proposal.aux
 INPUT C:\Users\NHAN NGUYEN\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1440.pk
 INPUT C:\Users\NHAN NGUYEN\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1440.pk
 INPUT C:\Program Files\MiKTeX\fonts\type1\vntex\vnr\vnbx10.pfb

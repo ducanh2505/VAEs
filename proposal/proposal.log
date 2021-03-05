@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2021.3.4)  5 MAR 2021 22:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2021.3.4)  5 MAR 2021 23:17
 entering extended mode
-**d:/Git/VAEs/proposal/proposal.tex
-(d:/Git/VAEs/proposal/proposal.tex
+**d:/Git/VAEs/Proposal/proposal.tex
+(d:/Git/VAEs/Proposal/proposal.tex
 LaTeX2e <2020-10-01> patch level 1
 L3 programming layer <2020-10-05> xparse <2020-03-03> ("C:\Program Files\MiKTeX\tex/latex/base\article.cls"
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
@@ -474,7 +474,7 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
 \l__kernel_color_stack_int=\count297
 \l__pdf_internal_box=\box104
-) (d:/Git\VAEs\proposal\proposal.aux)
+) (d:/Git\VAEs\Proposal\proposal.aux)
 \openout1 = `proposal.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
@@ -578,42 +578,85 @@ Overfull \hbox (12.75351pt too wide) detected at line 55
 
 [1
 
-{C:/ProgramData/MiKTeX/pdftex/config/pdftex.map} <d:/Git/VAEs/proposal/logo.png>] [2] [3] [4] [5]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 294.
+{C:/ProgramData/MiKTeX/pdftex/config/pdftex.map} <d:/Git/VAEs/Proposal/logo.png>] [2]
 
-Underfull \hbox (badness 1092) in paragraph at lines 302--303
+LaTeX Warning: Citation `neumf' on page 3 undefined on input line 209.
+
+[3]
+
+LaTeX Warning: Citation `mvae' on page 4 undefined on input line 240.
+
+[4]
+
+LaTeX Warning: Citation `bert4rec' on page 5 undefined on input line 264.
+
+
+LaTeX Warning: Citation `kl4rec' on page 5 undefined on input line 265.
+
+d:/Git/VAEs/Proposal/proposal.tex:266: Undefined control sequence.
+<argument> \vamp 
+                 
+l.266 trước đó như:\cite{\vamp}
+                                      , … đã đạt được kết quả...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Citation `mvae' on page 5 undefined on input line 284.
+
+[5]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 295.
+
+Underfull \hbox (badness 1092) in paragraph at lines 303--304
 []|\T5/cmr/m/n/14.4 Th�ng 01/2021 -
  []
 
 
-Underfull \hbox (badness 1092) in paragraph at lines 314--314
+Underfull \hbox (badness 1092) in paragraph at lines 315--315
 []|\T5/cmr/m/n/14.4 Th�ng 05/2021 -
  []
 
 
-Overfull \hbox (46.66887pt too wide) in paragraph at lines 294--317
+Overfull \hbox (46.66887pt too wide) in paragraph at lines 295--318
 [] 
  []
 
-(d:/Git\VAEs\proposal\proposal.bbl [6])
-Overfull \hbox (41.60847pt too wide) in paragraph at lines 335--343
+No file proposal.bbl.
+
+Overfull \hbox (41.60847pt too wide) in paragraph at lines 336--344
 []|[]| 
  []
 
 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package lastpage Warning: Rerun to get the references right on input line 348.
+
+
 AED: lastpage setting LastPage
-[7] (d:/Git\VAEs\proposal\proposal.aux) ) 
+[6] [7] (d:/Git\VAEs\Proposal\proposal.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6768 strings out of 480257
- 99912 string characters out of 2891234
- 395752 words of memory out of 3000000
- 23228 multiletter control sequences out of 15000+200000
+ 6762 strings out of 480257
+ 99813 string characters out of 2891234
+ 396734 words of memory out of 3000000
+ 23224 multiletter control sequences out of 15000+200000
  546496 words of font info for 44 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,24n,66p,264b,443s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\NHAN NGUYEN\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1440.pk><C:/Program Files/MiKTeX/fonts/type1/vntex/vnr/vnbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/vntex/vnr/vnbxti10.pfb><C:/Program Files/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Program Files/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Program Files/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb>
-Output written on d:/Git\VAEs\proposal\proposal.pdf (7 pages, 390686 bytes).
+Output written on d:/Git\VAEs\Proposal\proposal.pdf (7 pages, 384465 bytes).
 PDF statistics:
  58 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

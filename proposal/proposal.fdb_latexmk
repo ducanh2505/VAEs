@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proposal"] 1614958527 "proposal.aux" "proposal.bbl" "proposal" 1614958531
+["bibtex proposal"] 0 "proposal.aux" "proposal.bbl" "proposal" 0
   "C:/Program Files/MiKTeX/bibtex/bst/bibtex/ieeetr.bst" 1291864344 18361 1a00e58565e7f19bf2b3e1bfb82254ae ""
-  "proposal.aux" 1614958530 1392 0b545ae5b1a448e2c88e3970717620e8 "pdflatex"
+  "proposal.aux" 0 -1 0 "pdflatex"
   "sample.bib" 1614931520 2064 31eb1b3ac0076fe3f7694b4ecd681a23 ""
   (generated)
   "proposal.blg"
   "proposal.bbl"
-["pdflatex"] 1614958527 "d:/Git/VAEs/proposal/proposal.tex" "d:/Git/VAEs/proposal/proposal.pdf" "proposal" 1614958531
+["pdflatex"] 1614961038 "d:/Git/VAEs/Proposal/proposal.tex" "d:/Git/VAEs/Proposal/proposal.pdf" "proposal" 1614961038
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1440.tfm" 993062510 1460 05250f74aea2bdcfe9d6766811b8b7b2 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmmi12.tfm" 1136765053 1524 4414a8315f39513458b80dfc63bff03a ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmr12.tfm" 1136765053 1288 655e228510b4c2a1abe905c368440826 ""
@@ -73,15 +73,15 @@
   "C:/ProgramData/MiKTeX/pdftex/config/pdftex.map" 1614956600 88371 b965f57369ed322039596060d18f4416 ""
   "C:/Users/NHAN NGUYEN/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1440.pk" 1614956848 16968 cd4b834b6ac7a0a265a1cf7a463928bd ""
   "C:/Users/NHAN NGUYEN/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1614864788 10248041 31371f08e10b929bce7c8eb764639b07 ""
-  "d:/Git/VAEs/proposal/proposal.aux" 1614958530 1392 0b545ae5b1a448e2c88e3970717620e8 ""
-  "d:/Git/VAEs/proposal/proposal.tex" 1614958522 17467 d3157722ccc6546cff12d85d939ef747 ""
-  "logo.png" 1614931520 300865 bddcf76c7b049a60b825c9777009bcf7 ""
-  "proposal.aux" 1614958530 1392 0b545ae5b1a448e2c88e3970717620e8 "pdflatex"
-  "proposal.bbl" 1614958527 1310 9fe403a307f54d0efc634582a9677877 "bibtex proposal"
-  "proposal.tex" 1614958522 17467 d3157722ccc6546cff12d85d939ef747 ""
+  "d:/Git/VAEs/Proposal/proposal.aux" 1614961038 9 a94a2480d3289e625eea47cd1b285758 ""
+  "d:/Git/VAEs/Proposal/proposal.tex" 1614960736 17832 bc21a568e309ca06a1b2d443b25d21a7 ""
+  "logo.png" 1614958657 300865 bddcf76c7b049a60b825c9777009bcf7 ""
+  "proposal.aux" 0 -1 0 "pdflatex"
+  "proposal.bbl" 0 -1 0 "bibtex proposal"
+  "proposal.tex" 1614960736 17832 bc21a568e309ca06a1b2d443b25d21a7 ""
   (generated)
-  "d:/Git/VAEs/proposal/proposal.log"
+  "d:/Git/VAEs/Proposal/proposal.pdf"
   "proposal.pdf"
-  "d:/Git/VAEs/proposal/proposal.pdf"
+  "d:/Git/VAEs/Proposal/proposal.log"
   "proposal.log"
   "proposal.aux"
