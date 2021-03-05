@@ -35,6 +35,7 @@
 
 
 \begin{document}
+% \begin{obeylines}
     \begin{figure}[h]
         \begin{floatrow}
         \ffigbox{\includegraphics[scale = 0.1]{logo.png}}  
@@ -43,7 +44,9 @@
         }
         \capbtabbox{
             \begin{tabular}{l}
-            \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}} \\ \\ \\
+            \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}TRƯỜNG ĐẠI 
+HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}} 
+\\ \\ \\
             \end{tabular}
         }
         {%
@@ -63,11 +66,13 @@
     \begin{center}
     %Tên đề tài phải VIẾT HOA
         
-        \textbf{\huge  XÂY DỰNG HỆ THỐNG GỢI Ý SẢN PHẨM BẰNG PHƯƠNG PHÁP HỌC SÂU} \\
+        \textbf{\huge  XÂY DỰNG HỆ THỐNG GỢI Ý SẢN PHẨM BẰNG PHƯƠNG PHÁP HỌC 
+SÂU} \\
         
     %Tên đề tài bằng tiếng Anh (nếu có)
     \vspace{.5cm}
-        \textit{\textbf{\Large (Building Recommendation System using Deep Learning)}}
+        \textit{\textbf{\Large (Building Recommendation System using Deep 
+Learning)}}
     \end{center}
     
     \vspace{.5cm}
@@ -98,7 +103,8 @@
        %Chọn loại thích hợp
         \item \textbf{Loại đề tài:} Nghiên cứu
         
-        \item \textbf{Thời gian thực hiện:} Từ \textit{1/2021} đến \textit{6/2021}
+        \item \textbf{Thời gian thực hiện:} Từ \textit{1/2021} đến 
+\textit{6/2021}
         
         
     \end{itemize}
@@ -111,82 +117,176 @@
     \subsection{Giới thiệu về đề tài}
     
     % Phần này giới thiệu về đề tài và ngữ cảnh thực hiện đề tài.
+    
+    Hệ thống gợi ý sản phẩm (recommendation system) là một lớp con của hệ 
+thống lọc thông tin thường được tích hợp trên các trang web nhằm hỗ trợ 
+người dùng tìm kiếm được đúng sản phẩm cần thiết  và tìm cách dự đoán 
+\textit{xếp hạng} hoặc \textit{sở thích} của họ cho một sản phẩm nào đó.
+    
+    Các nội dung nói trên được gọi là các gợi ý, được tính toán thông qua dữ 
+liệu của người dùng về sản phẩm như lịch sử mua hàng, phản hồi của người 
+dùng về sản phẩm đó.
 
-    Hệ thống gợi ý sản phẩm (recommendation system) là một lớp con của hệ thống lọc thông tin thường được tích hợp trên các trang web nhằm hỗ trợ người dùng tìm kiếm được đúng sản phẩm cần thiết  và tìm cách dự đoán \textit{xếp hạng} hoặc \textit{sở thích} của họ cho một sản phẩm nào đó.
-    
-    Các nội dung nói trên được gọi là các gợi ý, được tính toán thông qua dữ liệu của người dùng về sản phẩm như lịch sử mua hàng, phản hồi của người dùng về sản phẩm đó.
-    
-    % Trong thời gian gần đây, có hai cách tiếp cận chính để xây dựng hệ thống gợi ý là \textit{Collaborative filtering} và \textit{Content-based filtering}. Trong đó, \textit{Collaborative filtering} được 
-    % Trong thời gian gần đây, một trong những  cách tiếp cận rộng rãi để xây dựng hệ thống gợi ý là sử dụng kỹ thuật lọc cộng tác(\textit{Collaborative filtering}). Trong hướng tiếp cận này, các mô hình được phát triển bằng cách sử dụng các thuật toán khai thác dữ liệu hoặc sử dụng máy học (machine learning) để thực hiện các thao tác dự đoán nói trên
-    
-    Collaborative filtering là một trong những hướng tiếp cận được áp dụng rộng rãi trong lĩnh vực xây dựng hệ thống gợi ý.
-    Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mạng nơ-ron nhân tạo (Neural network) trong việc cài đặt cho Collaborative filtering mang lại những tín hiệu tích cực. 
+    Collaborative filtering là một trong những hướng tiếp cận được áp dụng 
+rộng rãi trong lĩnh vực xây dựng hệ thống gợi ý.
+    Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mạng 
+nơ-ron nhân tạo (Neural network) trong việc cài đặt cho Collaborative 
+filtering mang lại những tín hiệu tích cực. 
     Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
     
-    % \textbf{Ghi chú:} Cần đăng ký tài khoản trên Overleaf\footnote{https://www.overleaf.com} và đọc cách sử dụng LaTeX tại hướng dẫn này \footnote{https://www.overleaf.com/learn/latex/Learn\_LaTeX\_in\_30\_minutes}% \cite{overleaf}.
+    % \textbf{Ghi chú:} Cần đăng ký tài khoản trên 
+Overleaf\footnote{https://www.overleaf.com} và đọc cách sử dụng LaTeX 
+tại hướng dẫn này 
+\footnote{https://www.overleaf.com/learn/latex/Learn\_LaTeX\_in\_30\_minut
+es}% \cite{overleaf}.
     
     \subsection{Mục tiêu đề tài}
     
     % Phần này mô tả mục tiêu thực hiện đề tài.
 \begin{itemize}
-\item     Hiểu rõ được tình hình nghiên của bài toán xây dựng hệ thống Gợi ý (recomemndation system) hiện nay (Biết được các hướng tiếp cận phổ biến hiện nay đồng thời cũng như là các ý tưởng của các hướng tiếp cận đó cùng với với ưu nhược điểm của chúng; ngoài ra còn nắm được các thách thức cũng như thuận lợi trong việc giải quyết bài toán gợi ý sản phẩm).
-Từ cơ sở đó có thể chọn ra một hướng tiếp cận phù hợp để tìm hiểu sâu và thực hiện cài đặt mô hình theo hướng đã chọn (và khả thi trong thời lượng cho phép của khóa luận).
-\item      Nắm rõ được các kiến thức nền tảng (Xác suất thống kê, học máy, học sâu,...)  của mô hình đã chọn.
-\item     Cài đặt lại mô hình  để đạt được kết quả như trong bài báo tương ứng; Có thể tiến hành thêm các thí nghiệm ngoài báo cáo để thấy rõ hơn về ưu nhược của mô hình.
-\item     Trên cơ sở kiến thức nắm được từ mô hình có thể thực hiện các tôi ưu (về kết quả, tốc độ huấn luyện, ...).
-\item     Rèn luyện các kĩ năng: suy nghĩ rõ ràng, lên kế hoạch làm việc, làm việc theo nhóm, khả năng trình bày báo cáo, thuyết trình, ...
+\item     Hiểu rõ được tình hình nghiên của bài toán xây dựng hệ thống Gợi ý 
+(recomemndation 
+system) hiện nay (Biết được các hướng tiếp cận phổ biến hiện nay đồng thời 
+cũng như 
+là các ý tưởng của các hướng tiếp cận đó cùng với với ưu nhược điểm của 
+chúng; ngoài 
+ra còn nắm được các thách thức cũng như thuận lợi trong việc giải quyết bài 
+toán gợi 
+ý sản phẩm). Từ cơ sở đó có thể chọn ra một hướng tiếp cận phù hợp để tìm 
+hiểu sâu 
+và thực hiện cài đặt mô hình theo hướng đã chọn (và khả thi trong thời lượng 
+cho phép của khóa luận).
+\item      Nắm rõ được các kiến thức nền tảng (Xác suất thống kê, học máy, 
+học sâu,...)  
+của mô hình đã chọn.
+\item     Cài đặt lại mô hình  để đạt được kết quả như trong bài báo tương 
+ứng; Có 
+thể tiến hành thêm các thí nghiệm ngoài báo cáo để thấy rõ hơn về ưu nhược 
+của mô hình.
+\item     Trên cơ sở kiến thức nắm được từ mô hình có thể thực hiện các tôi 
+ưu (về 
+kết quả, tốc độ huấn luyện, ...).
+\item     Rèn luyện các kĩ năng: suy nghĩ rõ ràng, lên kế hoạch làm việc, 
+làm việc 
+theo nhóm, khả năng trình bày báo cáo, thuyết trình, ...
 \end{itemize}
+
 
     
     \subsection{Phạm vi của đề tài}
     
     % Phần này giới hạn phạm vi thực hiện của đề tài.
-    Đề tài làm với dữ liệu có các phản hồi ẩn của người dùng cho một sản phẩm; cụ thể, chúng em dự kiến sẽ làm với bộ dữ liệu thường được sử  dụng trong lĩnh vực xây dựng  hệ thống gợi ý là MovieLens.
-    Về cơ bản, đề tài chỉ tìm hiểu và cài đặt lại mô hình của một bài báo uy tín, ngoài ra có thể thêm các thí nghiệm khác cũng như huấn luyện trên bộ dữ liệu khác ngoài bài báo để thấy rõ hơn về ưu, nhược điểm của mô hình.
-    Lý do chúng em giới hạn đề tài như vậy là vì: (i) chúng em thấy riêng việc hiểu rõ mô hình (và các kiến thức nền tảng bên dưới) và có thể tự cài đặt lại đã tốn khá nhiều thời gian, và (ii) chúng em xác định là chỉ trên cơ sở hiểu rõ mô hình (và các kiến thức nền tảng bên dưới) thì mớ i có thể có được các cải tiến thật sự trong tương lai, cũng như là có thể vận dụng mô hình được cho các bài toán khác.
-    Tất nhiên, trong khóa luận, nếu có đủ thời gian thì chúng em sẽ thử đề xuất và cài đặt các cải tiến; tuy nhiên, chúng em xác định đây không phải là mục đích chính.
+    Đề tài làm với dữ liệu có các phản hồi ẩn của người dùng cho một sản 
+phẩm; cụ thể, chúng em dự kiến sẽ làm với bộ dữ liệu thường được sử  
+dụng trong lĩnh vực xây dựng  hệ thống gợi ý là MovieLens.
+    Về cơ bản, đề tài chỉ tìm hiểu và cài đặt lại mô hình của một bài báo uy 
+tín, ngoài ra có thể thêm các thí nghiệm khác cũng như huấn luyện trên 
+bộ dữ liệu khác ngoài bài báo để thấy rõ hơn về ưu, nhược điểm của mô 
+hình.
+    Lý do chúng em giới hạn đề tài như vậy là vì: (i) chúng em thấy riêng 
+việc hiểu rõ mô hình (và các kiến thức nền tảng bên dưới) và có thể tự 
+cài đặt lại đã tốn khá nhiều thời gian, và (ii) chúng em xác định là chỉ 
+trên cơ sở hiểu rõ mô hình (và các kiến thức nền tảng bên dưới) thì mớ i 
+có thể có được các cải tiến thật sự trong tương lai, cũng như là có thể 
+vận dụng mô hình được cho các bài toán khác.
+    Tất nhiên, trong khóa luận, nếu có đủ thời gian thì chúng em sẽ thử đề 
+xuất và cài đặt các cải tiến; tuy nhiên, chúng em xác định đây không 
+phải là mục đích chính.
     
     \subsection{Cách tiếp cận dự kiến}
     
-    %Có thể bổ sung hình ảnh vào để làm rõ phương pháp hoặc cách tiếp cận dự kiến.
-    Sau đây sẽ là trình bày một số mô hình theo hướng tiếp cận sử dụng các mô hình học sâu để giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm mà chúng em đã tìm hiểu được cho đến thời điểm hiện tại, cũng như là mô hình mà chúng em dự kiến sẽ chọn để tập trung tìm hiểu sâu. 
+    %Có thể bổ sung hình ảnh vào để làm rõ phương pháp hoặc cách tiếp cận dự 
+kiến.
+    Sau đây sẽ là trình bày một số mô hình theo hướng tiếp cận sử dụng các 
+mô hình học sâu để giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm 
+mà chúng em đã tìm hiểu được cho đến thời điểm hiện tại, cũng như là mô 
+hình mà chúng em dự kiến sẽ chọn để tập trung tìm hiểu sâu. 
     
     
 \begin{itemize}
-\item  	“Neural collaborative filtering” của Xiangnan He cùng các cộng sự được công bố tại hội nghị WWW’] \cite{neumf} (số lần trích dẫn là 1967 tính cho đến thời điểm hiện tại là ngày 28/2/2020) là một trong những bài báo nổi bật được coi như là bước đặt nền móng cho việc áp dụng mạng nơ ron kết hợp với phương pháp truyền thống collaborative để xẩy dựng một hệ thống gợi ý sản phẩm.
-Điểm nổi bật của mô hình này là tận dụng sức mạnh của các mạng học sâu để đánh bật các thuật đoán tại thời điểm đó như Matrix Factorization, …  đã trích xuất được các đặc trưng phi tuyến từ đó mô hình có khả năng mô hình hóa dữ liệu tương tác trong quá khứ của người dùng từ đó trích xuất các đặc trưng ẩn giữa các user và các item để cải thiện độ chính xác cho hệ thống gợi ý.
+\item  	“Neural collaborative filtering” của Xiangnan He cùng các cộng sự 
+được công bố tại hội nghị WWW’] \cite{neumf} (số lần trích dẫn là 1967 tính 
+cho đến thời điểm hiện tại là ngày 28/2/2020) là một trong những bài báo nổi 
+bật được coi như là bước đặt nền móng cho việc áp dụng mạng nơ ron kết hợp 
+với phương pháp truyền thống collaborative để xẩy dựng một hệ thống gợi ý 
+sản phẩm.
+Điểm nổi bật của mô hình này là tận dụng sức mạnh của các mạng học sâu để 
+đánh bật các thuật đoán tại thời điểm đó như Matrix Factorization, …  đã 
+trích xuất được các đặc trưng phi tuyến từ đó mô hình có khả năng mô hình 
+hóa dữ liệu tương tác trong quá khứ của người dùng từ đó trích xuất các đặc 
+trưng ẩn giữa các user và các item để cải thiện độ chính xác cho hệ thống 
+gợi ý.
 Mô hình được đề xuất từ nhóm tác giả gồm 2 phần: 
 \begin{itemize}
-    \item  Generalized Matrix factorization viết tắt GMF là việc kết hợp nhân linear kernel cho với phương pháp Matrix factorization để học những các tương tác ẩn giữa tập người dùng và user (latent interaction).
+    \item  Generalized Matrix factorization viết tắt GMF là việc kết hợp 
+nhân linear kernel cho với phương pháp Matrix factorization để học những 
+các tương tác ẩn giữa tập người dùng và user (latent interaction).
     Trả về các embeding vector thể hiện cho người dùng và các item
-    \item 	Mạng nơ ron nhiều tầng MLP (Multi layer Perceptron) để đưa ra 	kết quả từ embeding vector có được từ GMF
+    \item 	Mạng nơ ron nhiều tầng MLP (Multi layer Perceptron) để đưa ra 	
+kết quả từ embeding vector có được từ GMF
 \end{itemize}
-Mô hình “NeuMF” này được huấn luyện với bộ dữ liệu implicit feedback bao gồm các vector one hot coding thể hiện tương tác giữa user và các item.
-Mô hình này tuy đơn giản sử dụng MLP nhưng đã học được các đặc trưng phi tuyến thông qua mạng nơ ron chứ không cần trích xuất bằng tay như những công trình nghiên cứu trước đó. 
-Và tại thời điểm ra mắt thì bài báo đã đạt được kết quả tốt nhất cho đến thời điểm đó.
+Mô hình “NeuMF” này được huấn luyện với bộ dữ liệu implicit feedback bao gồm 
+các vector one hot coding thể hiện tương tác giữa user và các item.
+Mô hình này tuy đơn giản sử dụng MLP nhưng đã học được các đặc trưng phi 
+tuyến thông qua mạng nơ ron chứ không cần trích xuất bằng tay như những công 
+trình nghiên cứu trước đó. 
+Và tại thời điểm ra mắt thì bài báo đã đạt được kết quả tốt nhất cho đến 
+thời điểm đó.
 
- \item 		Tiếp theo đó nhiều bài báo lần lượt áp dụng mạng nơ ron và mạng hồi quy để giải quyết bài toán này như . 
- Trong đó bài báo “Variational autoencoder for collaborative” được công bố tại hội nghị WWW2018\cite{mvae}  bởi nhóm nghiên cứu ở Netflix và Google, là một bài báo nổi bật khi mà sử dụng “Variational autoencoder” để phát sinh các latent variables cho việc xây dựng hệ thống gợi ý sản phẩm.
- Variational Autoencoder là một mô hình Autoencoder tuy nhiên thay vì encoder thực hiện encode dữ liệu thành một điểm thì mô hình generative này sẽ phát sinh phân phối xác xuất để có thể phát sinh dữ liệu. 
- Do đó dữ liệu được phát sinh từ các phân phối xác suất sẽ đảm bảo được tính chất là liên tục và hoàn chỉnh có nghĩa là 2 điểm dữ liệu gần nhau sau khi được giải mã bởi decoder vẫn sẽ gần nhau và với một điểm dữ liệu được phát sinh ngẫu nhiên từ phân phối xác suất mà được tạo ra từ encoder sẽ “mang ý nghĩa” sau khi được giải mã.
- Từ cơ sở này thì ta có thể thấy được việc áp dụng VAEs cho bài toán gợi ý sản phẩm và cụ thể là áp dụng cho việc mở rộng collaborative filltering khi ta có thể phát hiện và khai phá các đặc trưng giữa việc tương tác với các item của các user từ các tương tác trong quá khứ của họ. 
- Ngoài ra thuật toán học được sử dụng trong mô hình này còn có liên kết với các khái niệm trong lĩnh vực lý thuyết thông tin để có thể tối ưu được kết quả của mô hình. 
- Với cách tiếp cận này, kết quả từ bài báo mang lại đã đánh bại State-of-the-art tại thời điểm đó trên các tập dữ liệu lớn từ thế giới thật.  
- \item	Cho đến hiện nay nhiều cải tiến trong việc áp dụng các phương pháp học sâu để xây dựng hệ thống gợi ý sản phẩm đã được cộng đồng nghiên cứu quan tâm và phát triển nhiều hơn khi nay đã có nhiều hướng tiếp cận hiện đại như sử dụng cơ chế attention trong bài báo \cite{bert4rec} ,, đồ thị tri thức \cite{kl4rec}, …  hơn và có nhiều cải tiến từ những phương pháp trước đó như:\cite{\vamp} , … đã đạt được kết quả vượt trội đáng kể. 
+ \item 		Tiếp theo đó nhiều bài báo lần lượt áp dụng mạng nơ ron và mạng 
+hồi quy để giải quyết bài toán này như . 
+ Trong đó bài báo “Variational autoencoder for collaborative” được công bố 
+tại hội nghị WWW2018\cite{mvae}  bởi nhóm nghiên cứu ở Netflix và Google, 
+là một bài báo nổi bật khi mà sử dụng “Variational autoencoder” để phát 
+sinh các latent variables cho việc xây dựng hệ thống gợi ý sản phẩm.
+ Variational Autoencoder là một mô hình Autoencoder tuy nhiên thay vì 
+encoder thực hiện encode dữ liệu thành một điểm thì mô hình generative này 
+sẽ phát sinh phân phối xác xuất để có thể phát sinh dữ liệu. 
+ Do đó dữ liệu được phát sinh từ các phân phối xác suất sẽ đảm bảo được tính 
+chất là liên tục và hoàn chỉnh có nghĩa là 2 điểm dữ liệu gần nhau sau khi 
+được giải mã bởi decoder vẫn sẽ gần nhau và với một điểm dữ liệu được phát 
+sinh ngẫu nhiên từ phân phối xác suất mà được tạo ra từ encoder sẽ “mang ý 
+nghĩa” sau khi được giải mã.
+ Từ cơ sở này thì ta có thể thấy được việc áp dụng VAEs cho bài toán gợi ý 
+sản phẩm và cụ thể là áp dụng cho việc mở rộng collaborative filltering khi 
+ta có thể phát hiện và khai phá các đặc trưng giữa việc tương tác với các 
+item của các user từ các tương tác trong quá khứ của họ. 
+ Ngoài ra thuật toán học được sử dụng trong mô hình này còn có liên kết với 
+các khái niệm trong lĩnh vực lý thuyết thông tin để có thể tối ưu được kết 
+quả của mô hình. 
+ Với cách tiếp cận này, kết quả từ bài báo mang lại đã đánh bại 
+State-of-the-art tại thời điểm đó trên các tập dữ liệu lớn từ thế giới 
+thật.  
+ \item	Cho đến hiện nay nhiều cải tiến trong việc áp dụng các phương pháp 
+học sâu để xây dựng hệ thống gợi ý sản phẩm đã được cộng đồng nghiên cứu 
+quan tâm và phát triển nhiều hơn khi nay đã có nhiều hướng tiếp cận hiện 
+đại như sử dụng cơ chế attention trong bài báo \cite{bert4rec} ,, đồ thị 
+tri thức \cite{kl4rec}, …  hơn và có nhiều cải tiến từ những phương pháp 
+trước đó như:\cite{\vamp} , … đã đạt được kết quả vượt trội đáng kể. 
 \end{itemize}
-    Với những thông tin mà nhóm đã tìm hiểu ở trên thì nhóm em dự định sẽ tập trung tìm hiểu model được đề xuất ở bài báo [5].
-    Mặc dù không phải là mô hình đạt được kết quả tốt nhất hiện nay trong việc xây dựng hệ thống gợi ý sản tuy nhiên kiến thức nền tảng để xây dựng mô hình này bao phủ về mạng nơ ron, mô hình phát sinh (deep generative model) và kiến thức về mô hình xác suất. 
-    Ngoài ra mô hình này còn thể hiện mối liên hệ với kiến thức trong lý thuyết thông tin (information theory) do đó việc hiểu rõ được mô hình này sẽ là bước đệm cho các cải tiến sau này. 
+    Với những thông tin mà nhóm đã tìm hiểu ở trên thì nhóm em dự định sẽ 
+tập trung tìm hiểu model được đề xuất ở bài báo [5].
+    Mặc dù không phải là mô hình đạt được kết quả tốt nhất hiện nay trong 
+việc xây dựng hệ thống gợi ý sản tuy nhiên kiến thức nền tảng để xây 
+dựng mô hình này bao phủ về mạng nơ ron, mô hình phát sinh (deep 
+generative model) và kiến thức về mô hình xác suất. 
+    Ngoài ra mô hình này còn thể hiện mối liên hệ với kiến thức trong lý 
+thuyết thông tin (information theory) do đó việc hiểu rõ được mô hình 
+này sẽ là bước đệm cho các cải tiến sau này. 
     
     
     \subsection{Kết quả dự kiến của đề tài}
         
-    % Phần này nêu mô tả dự kiến các kết quả đạt được của đề tài, bao gồm sản phẩm, các cải tiến hoặc công trình khoa học có liên quan.
+    % Phần này nêu mô tả dự kiến các kết quả đạt được của đề tài, bao gồm 
+sản phẩm, các cải tiến hoặc công trình khoa học có liên quan.
     \begin{itemize}
         \item Cài đặt lại được mô hình đề xuất trong bài báo <Citation>.
-        \item Có được kết quả thí nghiệm cho thấy mô hình tự cài đặt ra được các kết quả như trong bài báo.
-        \item Có được các kết quả thí nghiệm để thấy rõ về ưu, nhược điểm của mô hình.
-        \item Nếu có thời gian thì có thể cài đặt và thí nghiệm thêm các cải tiến.
+        \item Có được kết quả thí nghiệm cho thấy mô hình tự cài đặt ra được 
+các kết quả như trong bài báo.
+        \item Có được các kết quả thí nghiệm để thấy rõ về ưu, nhược điểm 
+của mô hình.
+        \item Nếu có thời gian thì có thể cài đặt và thí nghiệm thêm các cải 
+tiến.
     \end{itemize}
     
     \subsection{Kế hoạch thực hiện}
@@ -194,16 +294,22 @@ Và tại thời điểm ra mắt thì bài báo đã đạt được kết qu�
 \begin{tabular}{ | m{20em} | m{4cm}| m{4cm} | } 
 
   \hline
-   \centering\textbf { Công Việc} &  \centering\textbf{Thời Gian}  & \begin{center}
+   \centering\textbf { Công Việc} &  \centering\textbf{Thời Gian}  & 
+\begin{center}
         \textbf{Người Thực hiện}   \end{center} \\ 
   \hline
-  Tìm hiểu tình hình nghiên cứu của bài toán xây dựng hệ thống gợi ý sản phẩm, chọn ra mô hình để tập trung tìm hiểu sâu & Tháng 01/2021 - Tháng 02/2021 & Anh, Nhân \\ 
+  Tìm hiểu tình hình nghiên cứu của bài toán xây dựng hệ thống gợi ý sản 
+phẩm, chọn ra mô hình để tập trung tìm hiểu sâu & Tháng 01/2021 - Tháng 
+02/2021 & Anh, Nhân \\ 
   \hline
-  Tìm hiểu lý thuyết của mô hình đã chọn (bao gồm cả việc tìm hiểu lý thuyết nền tảng bên dưới &  Tháng 03/2021 & Anh, Nhân \\ 
+  Tìm hiểu lý thuyết của mô hình đã chọn (bao gồm cả việc tìm hiểu lý thuyết 
+nền tảng bên dưới &  Tháng 03/2021 & Anh, Nhân \\ 
   \hline
-  Cài Đặt lại từ đầu mô hình để ra được kết quả giống như trong bài báo &  Tháng 4/2021 & Anh, Nhân \\
+  Cài Đặt lại từ đầu mô hình để ra được kết quả giống như trong bài báo &  
+Tháng 4/2021 & Anh, Nhân \\
   \hline
-  Tiến hành thí nghiệm để thấy rõ về ưu/nhược điểm của mô hình; xem xét cải tiến nếu có thể &  Tháng 05/2021 & Anh, Nhân \\
+  Tiến hành thí nghiệm để thấy rõ về ưu/nhược điểm của mô hình; xem xét cải 
+tiến nếu có thể &  Tháng 05/2021 & Anh, Nhân \\
   \hline
  Viết cuốn và slide &  Tháng 05/2021 - Tháng 06/2021 & Anh, Nhân \\
  \hline
@@ -223,8 +329,12 @@ Và tại thời điểm ra mắt thì bài báo đã đạt được kết qu�
     \begin{table}[h]
     \centering
         \begin{tabular}{p{7cm}p{7cm}}
-        \begin{tabular}[c]{@{}c@{}}\\\textbf{XÁC NHẬN}\\\textbf{CỦA NGƯỜI HƯỚNG DẪN}\\ \textbf{\textit{(Ký và ghi rõ họ tên)}}\\ \\ \\ \\ \\ \\ThS. Trần Trung Kiên\end{tabular} 
-        & \begin{tabular}[c]{@{}c@{}}\\\textbf{\textit{TP. Hồ Chí Minh, ngày 01 tháng 03 năm 2021}}\\\textbf{NHÓM SINH VIÊN THỰC HIỆN}\\\ \textbf{\textit{(Ký và ghi rõ họ tên)}}\\ \\ \\ \\ \\
+        \begin{tabular}[c]{@{}c@{}}\\\textbf{XÁC NHẬN}\\\textbf{CỦA NGƯỜI 
+HƯỚNG DẪN}\\ \textbf{\textit{(Ký và ghi rõ họ tên)}}\\ \\ \\ \\ \\ 
+\\ThS. Trần Trung Kiên\end{tabular} 
+        & \begin{tabular}[c]{@{}c@{}}\\\textbf{\textit{TP. Hồ Chí Minh, ngày 
+01 tháng 03 năm 2021}}\\\textbf{NHÓM SINH VIÊN THỰC HIỆN}\\\ 
+\textbf{\textit{(Ký và ghi rõ họ tên)}}\\ \\ \\ \\ \\
         \begin{tabular}{p{3cm}p{3.5cm}}
             \\ Đào Đức Anh
             & Nguyễn Thành Nhân
@@ -233,7 +343,7 @@ Và tại thời điểm ra mắt thì bài báo đã đạt được kết qu�
         \end{tabular}
     \end{table}
 
-    
+% \end{obeylines}
 \end{document}
 
 
