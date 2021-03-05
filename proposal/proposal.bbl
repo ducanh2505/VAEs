@@ -1,0 +1,29 @@
+\begin{thebibliography}{1}
+
+\bibitem{neumf}
+X.~He, L.~Liao, H.~Zhang, L.~Nie, and X.~H. T.-S. Chua, ``{Neural Collaborative
+  Filtering},'' {\em In Proceedings of WWW2017}, p.~173–182, 2017.
+
+\bibitem{mvae}
+D.~Liang, R.~G. Krishnan, M.~D. Hoffman, and T.~Jebara, ``Variational
+  autoencoders for collaborative filtering,'' {\em WWW '18: Proceedings of the
+  2018 World Wide Web Conference}, p.~689–698, 2017.
+
+\bibitem{bert4rec}
+F.~Sun, J.~Liu, J.~Wu, C.~Pei, X.~Lin, W.~Ou, and P.~Jiang, ``Bert4rec:
+  Sequential recommendation with bidirectional encoder representations from
+  transformer,'' {\em CIKM '19: Proceedings of the 28th ACM International
+  Conference on Information and Knowledge Management}, p.~1441–1450, 2019.
+
+\bibitem{kl4rec}
+C.~Chen, M.~Zhang, W.~Ma, Y.~Liu, and S.~Ma, ``Jointly non-sampling learning
+  for knowledge graph enhanced recommendation,'' {\em :SIGIR '20: Proceedings
+  of the 43rd International ACM SIGIR Conference on Research and Development in
+  Information Retrieval}, p.~189–198, 2020.
+
+\bibitem{vamp}
+D.~Kim and B.~Suh, ``Enhancing vaes for collaborative filtering: flexible
+  priors and gating mechanisms,'' {\em RecSys '19: Proceedings of the 13th ACM
+  Conference on Recommender Systems}, p.~403–407, 2019.
+
+\end{thebibliography}
