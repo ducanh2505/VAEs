@@ -64,16 +64,17 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
     %\vspace{.5cm}
     
     \begin{center}
-        %Tên đề tài phải VIẾT HOA
-            
-            \textbf{\huge  XÂY DỰNG HỆ THỐNG GỢI Ý SẢN PHẨM BẰNG PHƯƠNG PHÁP HỌC 
-    SÂU} \\
-            
-        %Tên đề tài bằng tiếng Anh (nếu có)
-        \vspace{.5cm}
-            \textit{\textbf{\Large (Building Recommendation System using Deep 
-    Learning)}}
-        \end{center}
+    %Tên đề tài phải VIẾT HOA
+        
+        \textbf{\huge  XÂY DỰNG HỆ THỐNG GỢI Ý SẢN PHẨM BẰNG PHƯƠNG PHÁP HỌC 
+SÂU} \\
+        
+    %Tên đề tài bằng tiếng Anh (nếu có)
+    \vspace{.5cm}
+        \textit{\textbf{\Large (Building Recommendation System using Deep 
+Learning)}}
+    \end{center}
+    
     \vspace{.5cm}
     
     \Large
@@ -117,61 +118,62 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
     
     % Phần này giới thiệu về đề tài và ngữ cảnh thực hiện đề tài.
     
-        Hệ thống gợi ý sản phẩm (recommendation system) là một lớp con của hệ thống
-    lọc thông tin thường được tích hợp trên các trang web nhằm hỗ trợ 
-    người dùng (user) tìm kiếm được đúng sản phẩm (item) cần thiết  
-    và tìm cách dự đoán \textit{xếp hạng} hoặc \textit{sở thích} 
-    của họ cho một sản phẩm.
+      % Phần này giới thiệu về đề tài và ngữ cảnh thực hiện đề tài.
     
-    Các nội dung nói trên được gọi là các gợi ý, được tính toán thông qua dữ liệu
-    của người dùng về các sản phẩm đó như lịch sử mua hàng, phản hồi, đánh giá của
-    người dùng, ...
-
-    Có hai cách tiếp cận chính để xây dựng hệ thống gợi ý là 
-    \textit{Collaborative filtering} và \textit{Content-based filtering}.
-    Trong đó, \textit{Collaborative filtering} là hướng tiếp cận dựa trên các 
-    tương tác của người dùng với sản phẩm trong quá khứ để đưa ra các gợi ý. 
-    \textit{Content-base filtering} là hướng tiếp cận dựa trên các thông tin 
-    của người dùng như: độ tuổi, giới tính, công việc, ... và các thông tin 
-    của sản phẩm như: phân loại, khối lượng, giá tiền, ... để đưa ra các gợi ý.
-
-    Collaborative filtering là hướng tiếp cận được sử dụng rộng rãi trong các 
-    hệ thống gợi ý. 
-    Mô hình gợi ý sản phẩn dựa trên Collaborative filtering được phát biểu như 
-    sau:
-    \begin{itemize}
-        \item Cho input là lịch sử tương tác của người dùng với các item:
-            số lượt nhấp chuột, ấn thích, đánh giá, ... 
-        \item Yêu cầu: đưa ra tập các item (không có trong lịch sử) 
-        được dự đoán là phù hợp với người dùng (tự động làm bằng máy).
-    \end{itemize}
-
-    Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mạng 
-    nơ-ron nhân tạo (neural network) trong việc cài đặt cho Collaborative filtering 
-    mang lại những tín hiệu tích cực. 
-    Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
-
-    \subsection{Mục tiêu đề tài}
-    
-    % Phần này mô tả mục tiêu thực hiện đề tài.
-\begin{itemize}
-\item     Hiểu rõ được tình hình nghiên cứu của bài toán xây dựng hệ thống gợi ý
- hiện nay (biết được các hướng tiếp cận phổ biến đồng thời cũng như là ý tưởng 
- và ưu nhược điểm của các hướng tiếp cận đó; ngoài ra còn nắm được các 
- thách thức và thuận lợi trong việc giải quyết bài toán gợi ý sản phẩm). Từ cơ 
- sở đó có thể chọn ra một hướng tiếp cận phù hợp để tìm hiểu sâu và thực hiện 
- cài đặt mô hình theo hướng đã chọn.
-\item      Nắm rõ các kiến thức nền tảng bên dưới (toán học, xác suất thống kê, 
-học máy, ...) của mô hình đã chọn.
-\item     Cài đặt lại mô hình  để đạt được kết quả như trong bài báo tương ứng; 
-có thể tiến hành thêm các thí nghiệm ngoài báo cáo để thấy rõ hơn về ưu nhược 
-của mô hình.
-\item     Trên cơ sở kiến thức nắm được từ mô hình có thể thực hiện các tối ưu 
-(về kết quả, tốc độ huấn luyện, ...).
-\item     Rèn luyện các kĩ năng: suy nghĩ rõ ràng, lên kế hoạch làm việc, 
-làm việc theo nhóm, khả năng trình bày báo cáo, thuyết trình, ...
-\end{itemize}
-
+      Hệ thống gợi ý sản phẩm (recommendation system) là một lớp con của hệ thống
+      lọc thông tin thường được tích hợp trên các trang web nhằm hỗ trợ 
+      người dùng (user) tìm kiếm được đúng sản phẩm (item) cần thiết  
+      và tìm cách dự đoán \textit{xếp hạng} hoặc \textit{sở thích} 
+      của họ cho một sản phẩm.
+      
+      Các nội dung nói trên được gọi là các gợi ý, được tính toán thông qua dữ liệu
+      của người dùng về các sản phẩm đó như lịch sử mua hàng, phản hồi, đánh giá của
+      người dùng, ...
+  
+      Có hai cách tiếp cận chính để xây dựng hệ thống gợi ý là 
+      \textit{Collaborative filtering} và \textit{Content-based filtering}.
+      Trong đó, \textit{Collaborative filtering} là hướng tiếp cận dựa trên các 
+      tương tác của người dùng với sản phẩm trong quá khứ để đưa ra các gợi ý. 
+      \textit{Content-base filtering} là hướng tiếp cận dựa trên các thông tin 
+      của người dùng như: độ tuổi, giới tính, công việc, ... và các thông tin 
+      của sản phẩm như: phân loại, khối lượng, giá tiền, ... để đưa ra các gợi ý.
+  
+      Collaborative filtering là hướng tiếp cận được sử dụng rộng rãi trong các 
+      hệ thống gợi ý. 
+      Mô hình gợi ý sản phẩn dựa trên Collaborative filtering được phát biểu như 
+      sau:
+      \begin{itemize}
+          \item Cho input là lịch sử tương tác của người dùng với các item:
+              số lượt nhấp chuột, ấn thích, đánh giá, ... 
+          \item Yêu cầu: đưa ra tập các item (không có trong lịch sử) 
+          được dự đoán là phù hợp với người dùng (tự động làm bằng máy).
+      \end{itemize}
+  
+      Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mạng 
+      nơ-ron nhân tạo (neural network) trong việc cài đặt cho Collaborative filtering 
+      mang lại những tín hiệu tích cực. 
+      Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
+  
+      \subsection{Mục tiêu đề tài}
+      
+      % Phần này mô tả mục tiêu thực hiện đề tài.
+  \begin{itemize}
+  \item     Hiểu rõ được tình hình nghiên cứu của bài toán xây dựng hệ thống gợi ý
+   hiện nay (biết được các hướng tiếp cận phổ biến đồng thời cũng như là ý tưởng 
+   và ưu nhược điểm của các hướng tiếp cận đó; ngoài ra còn nắm được các 
+   thách thức và thuận lợi trong việc giải quyết bài toán gợi ý sản phẩm). Từ cơ 
+   sở đó có thể chọn ra một hướng tiếp cận phù hợp để tìm hiểu sâu và thực hiện 
+   cài đặt mô hình theo hướng đã chọn.
+  \item      Nắm rõ các kiến thức nền tảng bên dưới (toán học, xác suất thống kê, 
+  học máy, ...) của mô hình đã chọn.
+  \item     Cài đặt lại mô hình  để đạt được kết quả như trong bài báo tương ứng; 
+  có thể tiến hành thêm các thí nghiệm ngoài báo cáo để thấy rõ hơn về ưu nhược 
+  của mô hình.
+  \item     Trên cơ sở kiến thức nắm được từ mô hình có thể thực hiện các tối ưu 
+  (về kết quả, tốc độ huấn luyện, ...).
+  \item     Rèn luyện các kĩ năng: suy nghĩ rõ ràng, lên kế hoạch làm việc, 
+  làm việc theo nhóm, khả năng trình bày báo cáo, thuyết trình, ...
+  \end{itemize}
 
     
     \subsection{Phạm vi của đề tài}
@@ -263,7 +265,7 @@ học sâu để xây dựng hệ thống gợi ý sản phẩm đã được c�
 quan tâm và phát triển nhiều hơn khi nay đã có nhiều hướng tiếp cận hiện 
 đại như sử dụng cơ chế attention trong bài báo \cite{bert4rec} ,, đồ thị 
 tri thức \cite{kl4rec}, …  hơn và có nhiều cải tiến từ những phương pháp 
-trước đó như:\cite{\vamp} , … đã đạt được kết quả vượt trội đáng kể. 
+trước đó như:\cite{vamp} , … đã đạt được kết quả vượt trội đáng kể. 
 \end{itemize}
     Với những thông tin mà nhóm đã tìm hiểu ở trên thì nhóm em dự định sẽ 
 tập trung tìm hiểu model được đề xuất ở bài báo [5].
@@ -279,9 +281,9 @@ này sẽ là bước đệm cho các cải tiến sau này.
     \subsection{Kết quả dự kiến của đề tài}
         
     % Phần này nêu mô tả dự kiến các kết quả đạt được của đề tài, bao gồm 
-%sản phẩm, các cải tiến hoặc công trình khoa học có liên quan.
+sản phẩm, các cải tiến hoặc công trình khoa học có liên quan.
     \begin{itemize}
-        \item Cài đặt lại được mô hình đề xuất trong bài báo\cite{mvae}>.
+        \item Cài đặt lại được mô hình đề xuất trong bài báo <Citation>.
         \item Có được kết quả thí nghiệm cho thấy mô hình tự cài đặt ra được 
 các kết quả như trong bài báo.
         \item Có được các kết quả thí nghiệm để thấy rõ về ưu, nhược điểm 
@@ -306,13 +308,13 @@ phẩm, chọn ra mô hình để tập trung tìm hiểu sâu & Tháng 01/2021 
   Tìm hiểu lý thuyết của mô hình đã chọn (bao gồm cả việc tìm hiểu lý thuyết 
 nền tảng bên dưới &  Tháng 03/2021 & Anh, Nhân \\ 
   \hline
-  Cài Đặt lại từ đầu mô hình để ra được kết quả giống như trong bài báo &  
+  Cài đặt lại từ đầu mô hình để ra được kết quả giống như trong bài báo &  
 Tháng 4/2021 & Anh, Nhân \\
   \hline
   Tiến hành thí nghiệm để thấy rõ về ưu/nhược điểm của mô hình; xem xét cải 
 tiến nếu có thể &  Tháng 05/2021 & Anh, Nhân \\
   \hline
- Viết cuốn và slide &  Tháng 05/2021 - Tháng 06/2021 & Anh, Nhân \\
+ Viết cuốn và slidess &  Tháng 05/2021 - Tháng 06/2021 & Anh, Nhân \\
  \hline
 \end{tabular}
 
@@ -324,7 +326,7 @@ tiến nếu có thể &  Tháng 05/2021 & Anh, Nhân \\
     %TÀI LIỆU TRÍCH DẪN
     %Đây là ví dụ
     \bibliographystyle{ieeetr}
-    \bibliography{sample.bib}
+    \bibliography{sample}
     \nocite{*}
 
     \begin{table}[h]
