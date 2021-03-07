@@ -70,7 +70,7 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
         
     %Tên đề tài bằng tiếng Anh (nếu có)
     \vspace{.5cm}
-        \textit{\textbf{\Large (Building Recommendation System using Autoencoders)}}
+        \textit{\textbf{\Large (Building Recommendation System using Autoencoder model)}}
     \end{center}
     
     \vspace{.5cm}
@@ -132,7 +132,7 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
       \textit{Collaborative filtering} và \textit{Content-based filtering}.
       Trong đó, \textit{Collaborative filtering} là hướng tiếp cận dựa trên các 
       tương tác của người dùng với sản phẩm trong quá khứ để đưa ra các gợi ý. 
-      \textit{Content-base filtering} là hướng tiếp cận dựa trên các thông tin 
+      Mặt khác, \textit{Content-base filtering} là hướng tiếp cận dựa trên các thông tin 
       của người dùng như: độ tuổi, giới tính, công việc, ... và các thông tin 
       của sản phẩm như: phân loại, khối lượng, giá tiền, ... để đưa ra các gợi ý.
   
@@ -147,10 +147,14 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
           được dự đoán là phù hợp với người dùng (tự động làm bằng máy).
       \end{itemize}
   
-      Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mạng 
-      nơ-ron nhân tạo (neural network) trong việc cài đặt cho Collaborative filtering 
-      mang lại những tín hiệu tích cực. 
-      Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
+    %   Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mạng 
+    %   nơ-ron nhân tạo (neural network) trong việc cài đặt cho Collaborative filtering 
+    %   mang lại những tín hiệu tích cực. 
+    %   Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
+    Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mô hình 
+    học sâu (deep learning model), cụ thể là mô hình Autoencoders trong việc 
+    cài đặt cho Collaborative filtering mang lại những tín hiệu tích cực. 
+    Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
   
       \subsection{Mục tiêu đề tài}
       
@@ -177,17 +181,21 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
     \subsection{Phạm vi của đề tài}
     
     % Phần này giới hạn phạm vi thực hiện của đề tài.
-    Đề tài làm với dữ liệu có các phản hồi ẩn của người dùng cho một sản 
-phẩm; cụ thể, chúng em dự kiến sẽ làm với bộ dữ liệu thường được sử  
-dụng trong lĩnh vực xây dựng  hệ thống gợi ý là MovieLens.
+    Đề tài làm với dữ liệu có các phản hồi ẩn của người dùng (implicit feedback) 
+    cho một sản phẩm; implicit feedback là phản hồi được suy ra từ hành vi của người dùng; 
+    cụ thể, nếu người dùng xem bộ phim A, chúng ta có thể suy ra họ thích nó. 
+    Chúng em dự kiến sẽ làm với bộ dữ liệu thường được sử 
+    dụng trong lĩnh vực xây dựng  hệ thống gợi ý là MovieLens.
     Về cơ bản, đề tài chỉ tìm hiểu và cài đặt lại mô hình của một bài báo uy 
 tín, ngoài ra có thể thêm các thí nghiệm khác cũng như huấn luyện trên 
 bộ dữ liệu khác ngoài bài báo để thấy rõ hơn về ưu, nhược điểm của mô 
 hình.
-    Lý do chúng em giới hạn đề tài như vậy là vì: (i) chúng em thấy riêng 
+    Lý do chúng em giới hạn đề tài như vậy là vì: (i) chúng em thấy việc sử dụng 
+    dữ liệu implicit feedback sẽ xây dựng được một hệ thống gợi ý khách quan hơn, 
+     ngoài ra, (ii) chúng em thấy riêng 
 việc hiểu rõ mô hình (và các kiến thức nền tảng bên dưới) và có thể tự 
-cài đặt lại đã tốn khá nhiều thời gian, và (ii) chúng em xác định là chỉ 
-trên cơ sở hiểu rõ mô hình (và các kiến thức nền tảng bên dưới) thì mớ i 
+cài đặt lại đã tốn khá nhiều thời gian, và (iii) chúng em xác định là chỉ 
+trên cơ sở hiểu rõ mô hình (và các kiến thức nền tảng bên dưới) thì mới 
 có thể có được các cải tiến thật sự trong tương lai, cũng như là có thể 
 vận dụng mô hình được cho các bài toán khác.
     Tất nhiên, trong khóa luận, nếu có đủ thời gian thì chúng em sẽ thử đề 
@@ -299,8 +307,7 @@ cải tiến sau này.
     
     \subsection{Kết quả dự kiến của đề tài}
         
-    % Phần này nêu mô tả dự kiến các kết quả đạt được của đề tài, bao gồm 
-sản phẩm, các cải tiến hoặc công trình khoa học có liên quan.
+    % Phần này nêu mô tả dự kiến các kết quả đạt được của đề tài, bao gồm sản phẩm, các cải tiến hoặc công trình khoa học có liên quan.
     \begin{itemize}
         \item Cài đặt lại được mô hình đề xuất trong bài báo \cite{mvae}.
         \item Có được kết quả thí nghiệm cho thấy mô hình tự cài đặt ra được 
