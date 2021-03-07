@@ -199,83 +199,104 @@ phải là mục đích chính.
     \subsection{Cách tiếp cận dự kiến}
     
     %Có thể bổ sung hình ảnh vào để làm rõ phương pháp hoặc cách tiếp cận dự 
-kiến.
-    Sau đây sẽ là trình bày một số mô hình theo hướng tiếp cận sử dụng các 
-mô hình học sâu để giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm 
-mà chúng em đã tìm hiểu được cho đến thời điểm hiện tại, cũng như là mô 
-hình mà chúng em dự kiến sẽ chọn để tập trung tìm hiểu sâu. 
-    
-    
-\begin{itemize}
-\item  	“Neural collaborative filtering” của Xiangnan He cùng các cộng sự 
-được công bố tại hội nghị WWW’] \cite{neumf} (số lần trích dẫn là 1967 tính 
-cho đến thời điểm hiện tại là ngày 28/2/2020) là một trong những bài báo nổi 
-bật được coi như là bước đặt nền móng cho việc áp dụng mạng nơ ron kết hợp 
-với phương pháp truyền thống collaborative để xẩy dựng một hệ thống gợi ý 
-sản phẩm.
-Điểm nổi bật của mô hình này là tận dụng sức mạnh của các mạng học sâu để 
-đánh bật các thuật đoán tại thời điểm đó như Matrix Factorization, …  đã 
-trích xuất được các đặc trưng phi tuyến từ đó mô hình có khả năng mô hình 
-hóa dữ liệu tương tác trong quá khứ của người dùng từ đó trích xuất các đặc 
-trưng ẩn giữa các user và các item để cải thiện độ chính xác cho hệ thống 
-gợi ý.
-Mô hình được đề xuất từ nhóm tác giả gồm 2 phần: 
-\begin{itemize}
-    \item  Generalized Matrix factorization viết tắt GMF là việc kết hợp 
-nhân linear kernel cho với phương pháp Matrix factorization để học những 
-các tương tác ẩn giữa tập người dùng và user (latent interaction).
-    Trả về các embeding vector thể hiện cho người dùng và các item
-    \item 	Mạng nơ ron nhiều tầng MLP (Multi layer Perceptron) để đưa ra 	
-kết quả từ embeding vector có được từ GMF
-\end{itemize}
-Mô hình “NeuMF” này được huấn luyện với bộ dữ liệu implicit feedback bao gồm 
-các vector one hot coding thể hiện tương tác giữa user và các item.
-Mô hình này tuy đơn giản sử dụng MLP nhưng đã học được các đặc trưng phi 
-tuyến thông qua mạng nơ ron chứ không cần trích xuất bằng tay như những công 
-trình nghiên cứu trước đó. 
-Và tại thời điểm ra mắt thì bài báo đã đạt được kết quả tốt nhất cho đến 
-thời điểm đó.
 
- \item 		Tiếp theo đó nhiều bài báo lần lượt áp dụng mạng nơ ron và mạng 
-hồi quy để giải quyết bài toán này như . 
- Trong đó bài báo “Variational autoencoder for collaborative” được công bố 
-tại hội nghị WWW2018\cite{mvae}  bởi nhóm nghiên cứu ở Netflix và Google, 
-là một bài báo nổi bật khi mà sử dụng “Variational autoencoder” để phát 
-sinh các latent variables cho việc xây dựng hệ thống gợi ý sản phẩm.
- Variational Autoencoder là một mô hình Autoencoder tuy nhiên thay vì 
-encoder thực hiện encode dữ liệu thành một điểm thì mô hình generative này 
-sẽ phát sinh phân phối xác xuất để có thể phát sinh dữ liệu. 
- Do đó dữ liệu được phát sinh từ các phân phối xác suất sẽ đảm bảo được tính 
-chất là liên tục và hoàn chỉnh có nghĩa là 2 điểm dữ liệu gần nhau sau khi 
-được giải mã bởi decoder vẫn sẽ gần nhau và với một điểm dữ liệu được phát 
-sinh ngẫu nhiên từ phân phối xác suất mà được tạo ra từ encoder sẽ “mang ý 
-nghĩa” sau khi được giải mã.
- Từ cơ sở này thì ta có thể thấy được việc áp dụng VAEs cho bài toán gợi ý 
-sản phẩm và cụ thể là áp dụng cho việc mở rộng collaborative filltering khi 
-ta có thể phát hiện và khai phá các đặc trưng giữa việc tương tác với các 
-item của các user từ các tương tác trong quá khứ của họ. 
- Ngoài ra thuật toán học được sử dụng trong mô hình này còn có liên kết với 
-các khái niệm trong lĩnh vực lý thuyết thông tin để có thể tối ưu được kết 
-quả của mô hình. 
- Với cách tiếp cận này, kết quả từ bài báo mang lại đã đánh bại 
-State-of-the-art tại thời điểm đó trên các tập dữ liệu lớn từ thế giới 
-thật.  
- \item	Cho đến hiện nay nhiều cải tiến trong việc áp dụng các phương pháp 
-học sâu để xây dựng hệ thống gợi ý sản phẩm đã được cộng đồng nghiên cứu 
-quan tâm và phát triển nhiều hơn khi nay đã có nhiều hướng tiếp cận hiện 
-đại như sử dụng cơ chế attention trong bài báo \cite{bert4rec} ,, đồ thị 
-tri thức \cite{kl4rec}, …  hơn và có nhiều cải tiến từ những phương pháp 
-trước đó như:\cite{vamp} , … đã đạt được kết quả vượt trội đáng kể. 
+    Trong thời đại bùng nổ thông tin hiện nay thì việc xây dựng một hệ thống gợi 
+    ý sản phẩm hiệu quả có thể sẽ mang lại việc tăng lợi nhuận hay cải thiện trải 
+    nghiệm người dùng cho các doanh nghiệp. Do đó việc nghiên cứu xây dựng một hệ 
+    thống gợi ý sản phẩm cũng là một chủ đề được quan tâm hiện nay. Cùng với sự 
+    phát triển mạnh mẽ của mạng học sâu (Deep Neuron Network) trong các lĩnh vực 
+    hình ảnh, âm thanh, văn bản, … thì đã có nhiều nghiên cứu rộng rãi trong việc 
+    áp dụng mạng học sâu trong bài toán gợi ý sản phẩm. Một số hướng tiếp cận áp 
+    dụng mạng học sâu ta có thể điểm qua như: Mạng nơ ron nhiều tầng (Multi Layer 
+    Perceptron), mạng nơ ron hồi quy (Recurrent Neuron Network), Autoencoder, cơ chế attention, … 
+    Trong khóa luận này, chúng em sẽ nghiên cứu và tìm hiểu hướng tiếp cận sử 
+    dụng Autoencoder trong việc xây dựng hệ thống gợi ý sản phẩm. Mô hình 
+    Autoencoder là một mạng nơ ron bao gồm 2 phần: (1) Encoder là một mạng nơ ron 
+    có nhiệm vụ biểu diễn dữ liệu ở chiều không gian ban đầu thành một điểm dữ 
+    liệu ở chiều không gian thấp hơn. Điểm dữ liệu ở chiều không gian mới này có 
+    thể dùng để biểu diễn các đặc trưng ẩn (latent variable) của dữ liệu ban đầu; 
+    (2) Decoder là một mạng nơ ron khác dùng để tái cấu trúc lại dữ liệu ban đầu 
+    từ các đặc trưng ẩn.
+    Dưới đây sẽ trình bày một số hướng tiếp cận sử dụng mô hình Autoencoder để 
+    giải quyết bài toán gợi ý sản phẩm mà chúng em đã tìm hiểu được cho đến thời 
+    điểm hiện tại, cũng như là mô hình mà chúng em dự kiến sẽ chọn để tập trung 
+    tìm hiểu sâu:
+    
+    
+    
+\begin{itemize}
+    \item   “AutoRec: Autoencoders Meet Collaborative Filtering”\cite{autorec} được đề xuất bởi 
+    nhóm tác giả từ trường đại học quốc gia Australia  ở hội nghị WWW2015, là một 
+    trong những bài báo đầu tiên áp dụng mô hình Autoencoder để xây dựng một hệ 
+    thống gợi ý sản phẩm. Mô hình AutoRec được đề xuất bởi nhóm tác giả nhậninput 
+    là vector tương tác giữa user và item, mô hình sẽ chiếu input lên một không 
+    gian có số chiều thấp hơn để biểu diễn các đặc trưng ẩn của dữ liệu, và sau 
+    đó chúng sẽ được tái cấu trúc lại với mục đích để dự đoán những tương tác bị 
+    trống trước đó. Mô hình học bằng cách tối thiểu độ lỗi trong việc tái cấu 
+    trúc dữ liệu ban đầu từ các đặc trưng ẩn và để tránh overfitting thì mô hình 
+    có áp dụng kĩ thuật chính quy hóa (regularization) trong việc huấn luyện mạng 
+    nơ ron trong Autoencoder. Trong bài báo này, tác giả đã thực nghiệm và cho 
+    kết quả đáng mong đợi khi mô hình đã đánh bại được mô hình nổi bật trong các 
+    hệ thống gợi ý sản phẩm theo hướng Collaborative Filtering là Matrix 
+    Factorization. Bên cạnh đó, tác giả còn có các thử nghiệm mang lại những dấu 
+    hiệu tích cực trong việc áp dụng mạng nơ ron khi tăng số tầng ẩn hay kích 
+    thước của các tầng ẩn trong mạng thì kết quả được cải thiện theo. Điều này đã 
+    dẫn đến việc áp dụng các phương pháp học sâu trong việc xây dựng hệ thống gợi 
+    ý sản phẩm được quan tâm và nghiên cứu nhiều hơn trong cộng đồng nghiên cứu 
+    khoa học.
+    \item Sau đó không lâu đã có nhiều bài báo được xuất bản dựa trên mô hình 
+    Autoencoder để xây dựng hệ thống gợi ý sản phẩm. Một trong những bài báo cáo 
+    khoa học nổi bật đó là “Hybrid Recommender System based on Autoencoders” 
+    \cite{cfn} của Florian Strub cùng các cộng sự, nhóm tác giả đã đề xuất mô 
+    hình có tên là CFN, đây được xem như là một mô hình mở rộng của Autorec. 
+    Input của mô hình tương đồng với Autorec, tuy nhiên nhóm tác giả đề xuất 2 
+    điểm cải thiện cho mô hình đó là: (1) áp dụng kĩ thuật khử nhiễu 
+    (denoising); (2) ngoài dữ liệu tương tác của user và item thì tác giả còn 
+    kết hợp với những thông tin khác như dữ liệu về user hay dữ liệu của item để 
+    giải quyết hai vấn đề thường gặp trong hệ thống gợi ý sản phẩm là dữ liệu 
+    thưa\footnote{Dữ liệu ban đầu có nhiều trường bị trống, hay tương tác giữa 
+    user và item quá ít} và cold start\footnote{khi một user mới hoặc item mới 
+    được thêm vào hệ thống thì sẽ có rất ít tương tác của user hay đối với item 
+    đó thì sẽ khó để tìm được sự tương đồng giữa các user trong việc tương tác 
+    với item đó}; Bên cạnh đó có thể kể đến “Collaborative Denoising 
+    Auto-Encoders for Top-N Recommender Systems” \cite{cde} nói về mô hình CDE 
+    được đề xuất bởi nhóm nghiên cứu tại trường đại học Beihang, Trung Quốc, 
+    cũng là một bài báo nổi bật trong việc áp dụng mô hình Autoencoder, mô hình 
+    này sử dụng một biến thể của Autoencoder là Denoising Autoencoder để xây 
+    dựng hệ thống gợi ý sản phẩm, điểm khác biệt của mô hình CDE là input của mô 
+    hình sẽ được thêm nhiễu nhằm giúp mô hình tránh tình trạng overfitting. Và 
+    theo bài báo thì CDE có được kết quả vượt trội hơn so với những state of the 
+    art tại thời điểm được đề xuất.
+\item	Đặc biệt mô hình Multi-VAE được đề xuất bởi nhóm nghiên cứu của Netflix và 
+Google tại hội nghị WWW2018 với tiêu đề "Variational Autoencoders for 
+Collaborative Filtering" \cite{mvae}, là một trong những bài báo đáng chú ý trong việc xây 
+dựng hệ thống gợi ý sản phẩm, mô hình được cải thiện so với những mô hình trước 
+đó bằng cách áp dụng Variational Autoencoders (VAEs), là một biến thể của 
+Autoencoder. Ở Variational Autoencoder thì latent variables sẽ là phân phối xác 
+suất thay vì một điểm dữ liệu trong chiều không gian thấp hơn như Autoencoder 
+hay Denoising Autoencoder. Do đó dữ liệu sau khi tái cấu trúc sẽ đảm bảo được 
+tính chất “liên tục” và “toàn vẹn” cho dữ liệu. Điều đó có nghĩa là 2 điểm dữ 
+liệu gần nhau trong không gian dữ liệu ban đầu nếu gần nhau thì sau khi tái cấu 
+trúc sẽ gần nhau (tính liên tục) và việc phát sinh ngẫu nhiên dữ liệu từ phân 
+phối xác suất ẩn sẽ đảm bảo được tính toàn vẹn của dữ liệu (tính toàn vẹn). Từ 
+cơ sở này ta có thể thấy được áp dụng VAEs cho bài toán gợi ý sản phẩm và cụ 
+thể là theo hướng Collaborative Filtering là một lựa chọn phù hợp khi sự tương 
+đồng giữa các user trong việc tương tác với các item sẽ được khám phá tốt hơn. 
+Do đó ta có thể xây dựng một hệ thống gợi ý sản phẩm hiệu quả. Ngoài ra trong 
+bài báo này, tác giả còn đề xuất việc sử dụng Multinomial Loglikelihood là phù 
+hợp cho việc mô hình hóa dữ liệu implicit feedback thay vì những hàm phân phối 
+phổ biến như logistic likelihood hay Gaussian Likelihood. Và mô hình đã mang 
+lại một kết quả vượt bậc so với những mô hình trước đó.
+
 \end{itemize}
-    Với những thông tin mà nhóm đã tìm hiểu ở trên thì nhóm em dự định sẽ 
-tập trung tìm hiểu model được đề xuất ở bài báo [5].
-    Mặc dù không phải là mô hình đạt được kết quả tốt nhất hiện nay trong 
-việc xây dựng hệ thống gợi ý sản tuy nhiên kiến thức nền tảng để xây 
-dựng mô hình này bao phủ về mạng nơ ron, mô hình phát sinh (deep 
-generative model) và kiến thức về mô hình xác suất. 
-    Ngoài ra mô hình này còn thể hiện mối liên hệ với kiến thức trong lý 
-thuyết thông tin (information theory) do đó việc hiểu rõ được mô hình 
-này sẽ là bước đệm cho các cải tiến sau này. 
+Với những thông tin mà nhóm đã tìm hiểu ở trên thì nhóm em dự định sẽ tập trung 
+tìm hiểu model được đề xuất ở bài báo . Mặc dù không phải là mô hình đạt 
+được kết quả tốt nhất hiện nay trong việc xây dựng hệ thống gợi ý sản phẩm, tuy 
+nhiên kiến thức nền tảng để xây dựng mô hình này bao phủ về mạng nơ ron, mô 
+hình phát sinh (deep generative model) và kiến thức về mô hình xác suất. Ngoài 
+ra mô hình này còn thể hiện mối liên hệ với kiến thức trong lý thuyết thông tin 
+(information theory) do đó việc hiểu rõ được mô hình này sẽ là bước đệm cho các 
+cải tiến sau này.
     
     
     \subsection{Kết quả dự kiến của đề tài}
@@ -283,7 +304,7 @@ này sẽ là bước đệm cho các cải tiến sau này.
     % Phần này nêu mô tả dự kiến các kết quả đạt được của đề tài, bao gồm 
 sản phẩm, các cải tiến hoặc công trình khoa học có liên quan.
     \begin{itemize}
-        \item Cài đặt lại được mô hình đề xuất trong bài báo <Citation>.
+        \item Cài đặt lại được mô hình đề xuất trong bài báo \cite{mvae}.
         \item Có được kết quả thí nghiệm cho thấy mô hình tự cài đặt ra được 
 các kết quả như trong bài báo.
         \item Có được các kết quả thí nghiệm để thấy rõ về ưu, nhược điểm 
