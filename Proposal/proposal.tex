@@ -66,7 +66,7 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
     \begin{center}
     %Tên đề tài phải VIẾT HOA
         
-        \textbf{\huge  XÂY DỰNG HỆ THỐNG GỢI Ý SẢN PHẨM DỰA TRÊN MÔ HÌNH AUTOENCODERS} \\
+        \textbf{\huge  XÂY DỰNG HỆ THỐNG GỢI Ý SẢN PHẨM DỰA TRÊN MÔ HÌNH AUTOENCODER} \\
         
     %Tên đề tài bằng tiếng Anh (nếu có)
     \vspace{.5cm}
@@ -117,45 +117,34 @@ HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}}
     % Phần này giới thiệu về đề tài và ngữ cảnh thực hiện đề tài.
     
       % Phần này giới thiệu về đề tài và ngữ cảnh thực hiện đề tài.
-    
-      Hệ thống gợi ý sản phẩm (recommendation system) là một lớp con của hệ thống
-      lọc thông tin thường được tích hợp trên các trang web nhằm hỗ trợ 
-      người dùng (user) tìm kiếm được đúng sản phẩm (item) cần thiết  
-      và tìm cách dự đoán \textit{xếp hạng} hoặc \textit{sở thích} 
-      của họ cho một sản phẩm.
-      
-      Các nội dung nói trên được gọi là các gợi ý, được tính toán thông qua dữ liệu
-      của người dùng về các sản phẩm đó như lịch sử mua hàng, phản hồi, đánh giá của
-      người dùng, ...
-  
-      Có hai cách tiếp cận chính để xây dựng hệ thống gợi ý là 
-      \textit{Collaborative filtering} và \textit{Content-based filtering}.
-      Trong đó, \textit{Collaborative filtering} là hướng tiếp cận dựa trên các 
-      tương tác của người dùng với sản phẩm trong quá khứ để đưa ra các gợi ý. 
-      Mặt khác, \textit{Content-base filtering} là hướng tiếp cận dựa trên các thông tin 
-      của người dùng như: độ tuổi, giới tính, công việc, ... và các thông tin 
-      của sản phẩm như: phân loại, khối lượng, giá tiền, ... để đưa ra các gợi ý.
-  
-      Collaborative filtering là hướng tiếp cận được sử dụng rộng rãi trong các 
-      hệ thống gợi ý. 
-      Mô hình gợi ý sản phẩn dựa trên Collaborative filtering được phát biểu như 
-      sau:
+      Bài toán xây dựng hệ thống gợi ý sản phẩm (recommendation system) được phát biểu như sau:
       \begin{itemize}
-          \item Cho input là lịch sử tương tác của người dùng với các item:
-              số lượt nhấp chuột, ấn thích, đánh giá, ... 
-          \item Yêu cầu: đưa ra tập các item (không có trong lịch sử) 
+          \item Cho input là lịch sử tương tác của người dùng (user)  với 
+          các sản phẩm (item) (đối với bài toán \textit{Collaborative filtering}) 
+          hoặc có thêm các mô tả của người dùng và sản phẩm. 
+          (Các sản phẩm có thể là: quảng cáo, bộ phim, văn bản để đọc, ... tùy thuộc vào ngành nghề)
+          (đối với bài toán \textit{Content-base filtering}).
+          \item Yêu cầu: đưa ra tập các items (không có trong lịch sử) 
           được dự đoán là phù hợp với người dùng (tự động làm bằng máy).
       \end{itemize}
-  
-    %   Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mạng 
-    %   nơ-ron nhân tạo (neural network) trong việc cài đặt cho Collaborative filtering 
-    %   mang lại những tín hiệu tích cực. 
-    %   Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
-    Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng mô hình 
-    học sâu (deep learning model), cụ thể là mô hình Autoencoders trong việc 
-    cài đặt cho Collaborative filtering mang lại những tín hiệu tích cực. 
-    Và đây cũng là hướng tiếp cận mà chúng em chọn để tìm hiểu.
-  
+      Nếu giải quyết được bài toán này thì một ứng dụng có thể có là xây dựng 
+      hệ thống hỗ trợ các dịch vụ thương mại điện tử, quảng cáo trực tuyến: 
+      giúp các nhà cung cấp dịch vụ đưa ra sản phẩm/quảng cáo phù hợp với 
+      thị hiếu người dùng. Một ứng dụng khác có thể có khác là hệ thống gợi ý các 
+      khóa học hoặc bài giảng trong lĩnh vực giáo dục.
+
+      Trong khóa luận này, chúng em sẽ tập trung vào bài toán 
+      \textit{Collaborative filtering} vì nó giải quyết tốt 2 nhược điểm chính 
+      của \textit{Content-base filtering} là: 
+      (i) tận dụng được các thông tin từ các user khác và 
+      (ii) trường hợp sản phẩm thiếu hoặc ít các mô tả chi tiết.
+      
+      Trong thời gian gần đây, các nghiên cứu chỉ ra rằng việc áp dụng các 
+      mô hình phát sinh (generative model) dựa trên phương pháp học sâu 
+      (deep learning), cụ thể hơn là mô hình Autoencoder trong việc cài đặt cho 
+      \textit{Collaborative filtering} mang lại các kết quả tốt. 
+      Và đây cũng là hướng tiếp cận chúng em chọn để tìm hiểu.
+
       \subsection{Mục tiêu đề tài}
       
       % Phần này mô tả mục tiêu thực hiện đề tài.
