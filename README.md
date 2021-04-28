@@ -14,5 +14,5 @@ bài báo này đã vượt qua được các phương pháp tiên tiến trư�
 
 <br>**Bảng phân công công việc theo tuần :** https://docs.google.com/spreadsheets/d/1joecZMn_caYEaRLrfIpxsj4facKcTHWPb-i0QhrDeWw/edit?usp=sharing
 
-
+<br>**Notebook + Dataset:** https://www.kaggle.com/thnhnhnnguyn/mulvae-cf
 
