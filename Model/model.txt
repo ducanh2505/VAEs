@@ -1,0 +1,7 @@
+VAE:
+- MovieLens: https://www.kaggle.com/thnhnhnnguyn/movielensmodelbeta10205
+- MSD: https://www.kaggle.com/ntnhan54/msd-beta1
+- NetflixPrize: 
+
+
+DAE:
