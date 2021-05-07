@@ -1,0 +1,31 @@
+\contentsline {chapter}{LỜI CẢM ƠN}{i}{chapter*.1}%
+\contentsline {chapter}{MỤC LỤC}{ii}{chapter*.1}%
+\contentsline {chapter}{DANH MỤC HÌNH ẢNH}{iii}{chapter*.1}%
+\contentsline {chapter}{DANH MỤC BẢNG}{iv}{chapter*.1}%
+\contentsline {chapter}{\numberline {1}Giới Thiệu }{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Kiến Thức Nền Tảng}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}``Sparse Coding''}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}``Sparse Auto-Encoders''}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3}``Softmax Regression''}{12}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Hàm dự đoán của ``Softmax Regression''}{12}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Tìm các tham số của hàm dự đoán của ``Softmax Regression''}{13}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}``Gradient Descent''}{14}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}``Batch Gradient Descent''}{14}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}``Stochastic Gradient Descent''}{17}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Chiến lược ``dừng sớm''}{19}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {3}Sparse Rectified Auto-Encoders}{22}{chapter.3}%
+\contentsline {section}{\numberline {3.1}``Sparse Rectified Auto-Encoders'' (SRAEs)}{22}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Ràng buộc thưa trong SRAEs}{23}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Khó khăn của việc huấn luyện SRAEs với chuẩn L1}{25}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Thuật toán ``Sleep-Wake Stochastic Gradient Descent''}{28}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Ràng buộc trọng số trong SRAEs}{30}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Cách ràng buộc trọng số đề xuất cho SRAEs}{31}{subsection.3.3.1}%
+\contentsline {chapter}{\numberline {4}Các Kết Quả Thí Nghiệm}{34}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Các thiết lập thí nghiệm}{34}{section.4.1}%
+\contentsline {section}{\numberline {4.2}SGD và SW-SGD}{36}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Cách ràng buộc trọng số đề xuất của chúng tôi và các cách ràng buộc trọng số khác}{39}{section.4.3}%
+\contentsline {section}{\numberline {4.4}SRAEs và các loại ``Auto-Encoders'' khác}{41}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Kết Luận và Hướng Phát Triển}{43}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Kết luận}{43}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Hướng phát triển}{44}{section.5.2}%
+\contentsline {chapter}{Phụ Lục: Các Công Trình Đã Công Bố}{46}{chapter*.18}%

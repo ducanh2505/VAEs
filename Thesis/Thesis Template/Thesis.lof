@@ -1,0 +1,18 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Minh họa về một biểu diễn đặc trưng tốt}}{2}{figure.caption.2}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Minh họa các đặc trưng học được của ``Sparse Coding'' khi huấn luyện trên ảnh tự nhiên}}{9}{figure.caption.3}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Minh họa ``Auto-Encoders''\relax }}{11}{figure.caption.4}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces So sánh giữa ``Sparse Coding'' và SAEs}}{12}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Minh họa quá trình chạy của thuật toán BGD}}{15}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Minh họa chiến lược ``dừng sớm''}}{20}{figure.caption.7}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Minh họa hàm $KL(\rho \|\bar {h}_j)$ với $\rho =0.2$}}{24}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces So sánh giữa hàm sai biệt KL và hàm lỗi bình phương}}{27}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Minh họa SRAEs}}{32}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Minh họa mặt phi tuyến mà SRAEs học được}}{33}{figure.caption.11}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Một số ảnh mẫu của bộ dữ liệu MNIST\relax }}{35}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces So sánh giữa SGD với SW-SGD}}{37}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces So sánh giữa các bộ lọc học được bởi SGD với SW-SGD}}{38}{figure.caption.14}%
+\addvspace {10\p@ }
