@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.5)  10 MAY 2021 07:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.5)  10 MAY 2021 21:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1568,23 +1568,23 @@ LaTeX3 Info: Redefining command \BeforeClosingMainAux with sig. 'm' on line
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Thesis.out' has not changed.
-(rerunfilecheck)             Checksum: AD6427F2B4371DAAA3FB2632E51C0AAD;6590.
+(rerunfilecheck)             Checksum: F4891AD2A43FE5345FF123AD6F588535;6633.
 Package rerunfilecheck Info: File `Thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: 9FA5ABAA264E9AD2E4CF98A7D9713220;2338.
+(rerunfilecheck)             Checksum: E435F516799F1552B29CCFB20B539DC5;2338.
  ) 
 Here is how much of TeX's memory you used:
  20209 strings out of 479023
  314276 string characters out of 5863351
- 742000 words of memory out of 5000000
+ 742008 words of memory out of 5000000
  37000 multiletter control sequences out of 15000+600000
  454265 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  113i,17n,116p,2719b,552s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2020/texmf-dist/fonts/enc/dvips/vntex/t5.enc}{c:/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2020/texmf-dist/fonts/type1/vntex/urwvn/utmb8v.pfb><c:/texlive/2020/texmf-dist/fonts/type1/vntex/urwvn/utmbi8v.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2020/texmf-dist/fonts/type1/vntex/urwvn/utmr8v.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb><c:/texlive/2020/texmf-dist/fonts/type1/vntex/urwvn/utmri8v.pfb><c:/texlive/2020/texmf-dist/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on "c:/Users/Admin/Desktop/HCMUS/graduated/repo/VAEs/Thesis/Thesis Template/Thesis.pdf" (60 pages, 2036058 bytes).
+Output written on "c:/Users/Admin/Desktop/HCMUS/graduated/repo/VAEs/Thesis/Thesis Template/Thesis.pdf" (60 pages, 2034280 bytes).
 PDF statistics:
- 877 PDF objects out of 1000 (max. 8388607)
- 719 compressed objects within 8 object streams
+ 875 PDF objects out of 1000 (max. 8388607)
+ 717 compressed objects within 8 object streams
  145 named destinations out of 1000 (max. 500000)
  414 words of extra memory for PDF output out of 10000 (max. 10000000)
 

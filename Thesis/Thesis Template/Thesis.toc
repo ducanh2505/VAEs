@@ -2,15 +2,15 @@
 \contentsline {chapter}{MỤC LỤC}{ii}{chapter*.1}%
 \contentsline {chapter}{DANH MỤC HÌNH ẢNH}{iv}{chapter*.1}%
 \contentsline {chapter}{DANH MỤC BẢNG}{v}{chapter*.1}%
-\contentsline {chapter}{\numberline {1}Giới Thiệu }{1}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Kiến Thức Nền Tảng}{6}{chapter.2}%
+\contentsline {chapter}{\numberline {1}Giới thiệu }{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Kiến thức nền tảng}{6}{chapter.2}%
 \contentsline {section}{\numberline {2.1}"Auto-Encoders"}{6}{section.2.1}%
 \contentsline {section}{\numberline {2.2}"Variational Auto-Encoders"}{10}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Mô hình xác suất}{10}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}"Variational Inferene"}{10}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}"Kullback-Leiber Devergence"}{12}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.2}"Variational inferene"}{10}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}"Kullback-Leiber devergence"}{12}{subsection.2.2.3}%
 \contentsline {section}{\numberline {2.3}"Loglikelihood function"}{13}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Mul-Variational Auto-Encoder}{20}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Multinomial Variational Auto-Encoder}{20}{chapter.3}%
 \contentsline {section}{\numberline {3.1}"Explicit Feedback" và "Implicit Feedback"}{20}{section.3.1}%
 \contentsline {section}{\numberline {3.2}"Mul-VAEs" - Mở rộng VAE cho bài toán gợi ý sản phẩm}{21}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Huấn luyện mô hình}{23}{subsection.3.2.1}%
