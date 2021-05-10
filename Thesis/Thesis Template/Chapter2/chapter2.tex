@@ -6,9 +6,10 @@
 \fi
 
 \begin{quote}
-\textit{Trong chương này, đầu tiên chúng tôi trình bày về thuật toán học đặc trưng không giám sát ``Sparse Coding''. Sau đó, chúng tôi trình bày về ``Sparse Auto-Encoders'' (SAEs) và so sánh với ``Sparse Coding'' để thấy được sự kết nối giữa SAEs và ``Sparse Coding'' cũng như là những điểm lợi của SAEs so với ``Sparse Coding''; những điểm lợi này là lý do để chúng tôi tập trung nghiên cứu SAEs. Ngoài ra, chúng tôi cũng trình bày về ``Softmax Regression'' - mô hình phân lớp mà chúng tôi sẽ sử dụng để đánh giá các đặc trưng học được, và thuật toán ``Stochastic Gradient Descent'' - thuật toán mà chúng tôi sẽ sử dụng để cực tiểu hóa hàm chi phí của SAEs cũng như của ``Softmax Regression''. Chương này, đặc biệt là phần về ``Sparse Coding'' và SAEs, cung cấp những kiến thức nền tảng để có thể hiểu rõ về những đề xuất của chúng tôi ở chương kế tiếp.}
+\textit{Tong chương này, đầu tiên chúng tôi sẽ trình bày về mô hình "Auto-Encoders", là một mạng nơ-ron được dùng để học đặc trưng ẩn, là phương pháp học không giám sát.
+Sau đó, chúng tôi giới thiệu và trình bày về nền tảng xác suất của "Variational Auto-encoders"(VAEs) và lợi ích mang lại của mô hình này so với "Auto-Encoder" trong tác vụ học đặc trưng ẩn; Những điểm lợi này chính là lý do mà chúng tôi tập trung nghiên cứu VAEs. Bên cạnh đó, chúng tôi sẽ trình bày về "Log-likelihood fuctions" - là phép đo mức độ học của mô hình dựa trên các dữ liệu ta quan sát được cũng như các lựa chọn Log-likelihood fucntion cho các bài toán học máy hiện nay. Chương này đặc biệt là phần về "Variational Auto-Encoders" cung cấp những kiến thức nền tảng để có thể hiểu rõ về những đề xuất của chúng tôi ở chương kế tiếp.}
 \end{quote}
-\section{``Sparse Coding''}
+\section{"Auto-Encoders"}
 ``Sparse Coding'' được đề xuất lần đầu tiên trong lĩnh vực khoa học nơ-ron (neuroscience) để mô hình vùng vỏ não thị giác V1 \cite{olshausen1996emergence}. ``Sparse Coding'' sử dụng \emph{sự hiểu biết trước (prior) về tính thưa của các yếu tố giải thích ẩn} (với mỗi mẫu dữ liệu quan sát được, chỉ có một số ít các yếu tố giải thích trong tập lớn các yếu tố giải thích) để phân tách chúng. Mục tiêu của ``Sparse Coding'' là tìm ra tập các véc-tơ cơ sở (tập các yếu tố giải thích) sao cho mỗi mẫu dữ liệu có thể được ``giải thích'' bởi một số ít các véc-tơ cơ sở (chỉ có một số ít các véc-tơ cơ sở có hệ số khác 0, hay nói một cách khác, véc-tơ hệ số ``thưa''). Lưu ý là số chiều của không gian đặc trưng (số lượng véc-tơ cơ sở tìm được) có thể lớn hơn số chiều của không gian ban đầu; tính chất này được gọi là ``over-complete''.
 
 Một cách cụ thể, với một véc-tơ đầu vào $x$ có kích thước $D_x \times 1$, ``Sparse Coding'' tối thiểu hóa hàm chi phí sau sau:
@@ -43,7 +44,9 @@ Một kết quả được biết đến phổ biến của ``Sparse Coding'' l�
 	\caption[Minh họa các đặc trưng học được của ``Sparse Coding'' khi huấn luyện trên ảnh tự nhiên]{Minh họa các đặc trưng (các véc-tơ cơ sở) học được của ``Sparse Coding'' khi huấn luyện trên ảnh tự nhiên \cite{zeiler2014thesis}. Các đặc trưng học được có dạng các cạnh ở các vị trí khác nhau và với các hướng khác nhau. Véc-tơ đầu vào $x$ có thể được tái tạo từ một số ít các đặc trưng trong tập các đặc trưng; nghĩa là, đa số các phần tử của véc-tơ đặc trưng (véc-tơ hệ số) $h$ bằng 0 (trong hình vẽ chỉ thể hiện các phần tử khác 0 của $h$).}
 	\label{fig_SparseCoding}
 \end{figure}
-\section{``Sparse Auto-Encoders''}
+\section{"Variational Auto-Encoders"}
+\subsection{Mô hình xác suất}
+\subsection{"Variational Inferene"}
 ``Auto-Encoder'' đơn giản là một mạng nơ-ron truyền thẳng gồm có hai phần: 
 \begin{itemize}
 	\item Phần thứ nhất, được gọi là \emph{bộ mã hóa} (encoder), ánh xạ véc-tơ đầu vào $x \in \mathbb{R}^{D_x \times 1}$ sang véc-tơ biểu diễn ẩn $h \in \mathbb{R}^{D_h \times 1}$ theo công thức: 
@@ -92,31 +95,9 @@ Tuy nhiên, điểm khác biệt giữa chúng là (minh họa ở hình \ref{fi
 	\label{fig_SCvsSAE}
 \end{figure}
 
-\section{``Softmax Regression''}
+\subsection{"Kullback-Leiber Devergence"}
 ``Softmax Regression'' là mô hình phân $K$ lớp. Trong ngữ cảnh của bài toán học đặc trưng, ``Softmax Regression'' thường được dùng để đánh giá các đặc trưng học được (bởi mô hình này đơn giản, không có nhiều siêu tham số).
-\subsection{Hàm dự đoán của ``Softmax Regression''}
-Với một véc-tơ đầu vào $x \in \mathbb{R}^{D \times 1}$, hàm dự đoán $h(x)$ của ``Softmax Regression'' sẽ trả về một véc-tơ gồm có $K$ phần tử (ứng với $K$ lớp), trong đó phần tử thứ $k$ của véc-tơ này cho biết xác suất $p(y=k|x)$ với $y \in \{1,\ldots,K\}$ là nhãn lớp của véc-tơ đầu vào $x$. Như vậy, ta có thể quyết định $x$ sẽ thuộc về lớp mà có xác suất lớn nhất.
 
-Cụ thể, hàm dự đoán $h(x)$ của ``Softmax Regression'' như sau:
-\begin{equation}
-\begin{split}
-	h(x) &= \left[\begin{array}{c}
-			p(y=1|x)\\
-			p(y=2|x)\\
-			\vdots\\
-			p(y=K|x)
-			\end{array}\right]\\
-		 &= \left[\begin{array}{c}
-		 	\frac{\exp(W_1^Tx + b_1)}{\sum_{k=1}^{K}\exp(W_k^Tx + b_k)}\\
-		 	\frac{\exp(W_2^Tx + b_2)}{\sum_{k=1}^{K}\exp(W_k^Tx + b_k)}\\
-		 	\vdots\\
-		 	\frac{\exp(W_K^Tx + b_K)}{\sum_{k=1}^{K}\exp(W_k^Tx + b_k)}
-		 	\end{array}\right]
-\end{split}
-\label{eq_SoftmaxHypotheses}
-\end{equation}
-với $W=\{W_1, \ldots, W_K\}$ ($W_k \in \mathbb{R}^{D\times 1}$) và $b = \{b_1, \ldots, b_K\}$ ($b_k \in \mathbb{R}$) là các tham số của hàm dự đoán. Để ý tổng các phần tử của véc-tơ $h(x)$ bằng 1.
-\subsection{Tìm các tham số của hàm dự đoán của ``Softmax Regression''}
 Cho tập huấn luyện $\{(x^{(1)}, y^{(1)}), \ldots, (x^{(N)}, y^{(N)})\}$. Để tìm ra được các tham số $W$ và $b$ của hàm dự đoán của ``Softmax Regression'' ở công thức (\ref{eq_SoftmaxHypotheses}), ta sẽ dùng phương pháp ``maximum likelihood''. Giả sử các mẫu dữ liệu trong tập huấn luyện được phát sinh một cách độc lập với nhau, ta có hàm ``likelihood'':
 \begin{equation}
 \begin{split}
@@ -140,8 +121,11 @@ Như vậy, ta sẽ tìm các tham số $W$ và $b$ của hàm dự đoán của
 \end{split}
 \end{equation}
 Để cực tiểu hóa hàm này, ta có thể sử dụng thuật toán ``Gradient Descent'' (sẽ được trình bày ở dưới).
-\section{``Gradient Descent''}
-\subsection{``Batch Gradient Descent''}
+
+
+
+\section{"Loglikelihood function"}
+
 Thuật toán ``Batch Gradient Descent'' (BGD) dùng để cực tiểu hóa hàm chi phí $C(W)$ \emph{trên toàn bộ tập huấn luyện} theo tham số $W$ (ví dụ, $C(W)$ có thể là hàm chi phí trên toàn bộ tập huấn luyện của ``Auto-Encoders'' hay của ``Softmax Regression''). Một cách cụ thể, xét hàm chi phí trên toàn bộ tập huấn luyện của một mô hình học nào đó (ví dụ, ``Auto-Encoders'' hay ``Softmax Regression''):
 \begin{equation}
 	C(W) = \frac{1}{N} \sum_{i=1}^N C^{(i)}(W)
@@ -246,7 +230,7 @@ Tổng thể thuật toán BGD được trình bày ở thuật toán \ref{alg_B
 		\EndWhile
 	\end{algorithmic}
 \end{algorithm}
-\subsection{``Stochastic Gradient Descent''}
+
 Thuật toán ``Stochastic Gradient Descent'' (SGD) là cải tiến của ``Batch Gradient Descent'' (BGD) để tăng tốc quá trình tối ưu hóa khi phải làm việc với tập dữ liệu lớn. Một cách cụ thể, xét công thức cập nhật tham số (\ref{eq_UpdateW_VariabeStep}) của BGD, ta thấy để đi một bước (thực hiện một lần cập nhật $W$), ta cần phải tính véc-tơ đạo hàm riêng $\nabla C(W)$. Từ công thức (\ref{eq_CostFunct}) của hàm chi phí $C(W)$ ta có:
 \begin{equation}
 	\nabla C(W) = \frac{1}{N} \sum_{i=1}^N \nabla C^{(i)}(W)
@@ -296,7 +280,7 @@ Tổng thể thuật toán SGD được trình bày ở thuật toán \ref{alg_S
 	\end{algorithmic}
 \end{algorithm}
 
-\subsection{Chiến lược ``dừng sớm''}{\label{sec_early_stopping}}
+
 ``Dừng sớm'' (early stopping) là một cách ``miễn phí'' để quyết định số vòng lặp của SGD (hay BGD). Sở dĩ nói ``miễn phí'' là vì để chọn một siêu tham số, thông thường ta cần phải tiến hành huấn luyện nhiều lần với các giá trị khác nhau của siêu tham số này, và chọn ra giá trị mà cho kết quả tốt nhất trên tập ``validation'' (tập ngoài tập huấn luyện); ở đây, với chiến lược ``dừng sớm'', số lượng vòng lặp sẽ được xác định ngay trong quá trình huấn luyện (nghĩa là, chỉ tốn một lần huấn luyện). Ngoài ra, chiến lược ``dừng sớm'' cũng giúp chống vấn đề quá khớp (overfitting).
 
 Ý tưởng của chiến lược ``dừng sớm'' đơn giản là trong khi thực hiện các vòng lặp của quá trình tối ưu hóa với SGD (hay BGD), ta sẽ theo dõi ``độ lỗi'' trên tập ``validation'' (ở đây, ``độ lỗi'' được định nghĩa tùy theo ngữ cảnh; ví dụ, nếu dùng SGD để cực tiểu hóa hàm chi phí của ``Softmax Regression'' thì ``độ lỗi'' có thể là tỉ lệ phân lớp sai, còn nếu dùng SGD để cực tiểu hóa hàm chi phí của SAEs thì ``độ lỗi'' có thể là giá trị của hàm chi phí). Khi SGD (hay BGD) càng thực hiện nhiều vòng lặp thì nhìn chung ``độ lỗi'' trên tập huấn luyện sẽ càng giảm xuống, còn ``độ lỗi'' trên tập ``validation'' (ngoài tập huấn luyện) ban đầu sẽ giảm xuống nhưng đến một lúc nào đó sẽ tăng lên, báo hiệu bắt đầu xảy ra sự quá khớp. Do đó, trong quá trình tối ưu hóa với SGD (hay BGD), nếu thấy ``độ lỗi'' trên tập ``validation'' tăng lên thì ta sẽ dừng quá trình tối ưu hóa. Ý tưởng này của chiến lược ``dừng sớm'' được minh họa ở hình \ref{fig_EarlyStopping}.

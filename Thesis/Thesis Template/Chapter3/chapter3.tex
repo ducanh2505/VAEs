@@ -1,4 +1,4 @@
-\chapter{Sparse Rectified Auto-Encoders}
+\chapter{Mul-Variational Auto-Encoder}
 \ifpdf
     \graphicspath{{Chapter3/Chapter3Figs/PNG/}{Chapter3/Chapter3Figs/PDF/}{Chapter3/Chapter3Figs/}}
 \else
@@ -6,14 +6,14 @@
 \fi
 \label{chap_3}
 \begin{quote}
-\textit{Chương này trình bày về những đóng góp của luận văn. Ở đây, chúng tôi tập trung nghiên cứu ``Sparse Auto-Encoders''  với hàm kích hoạt ``rectified linear'' ($f(x)=max(0, x)$) ở tầng ẩn vì hàm này tính nhanh và có thể cho tính thưa thật sự (đúng bằng 0). Chúng tôi gọi ``Sparse Auto-Encoders''  với hàm kích hoạt như vậy là ``Sparse Rectified Auto-Encoders''  (SRAEs). Đóng góp của chúng tôi là làm rõ SRAEs ở hai điểm:
+\textit{Chương này trình bày về những đóng góp của luận văn. Ở đây, Chúng tôi phân tích hai loại dữ liệu phản hồi chính từ người dùng là :"explicit feedback" và "implicit feedback". Đặc biệt, chúng tôi tập trung nghiên cứu mở rộng mô hình ``Variational Auto-Encoders'' cho implicit feedback với hàm lỗi là ``Multinomial Log-likelihood'' ở hàm mục tiêu. Chúng tôi gọi ``Variational Auto-Encoders''  với hàm lỗi như vậy là ``Mul-VAE''. Đóng góp của chúng tôi là làm rõ Mul-VAE ở hai điểm:
 \begin{itemize}
-	\item Ràng buộc thưa: chúng tôi cố gắng hiểu khó khăn của việc huấn luyện SRAEs khi dùng chuẩn L1 để ràng buộc thưa; từ đó, chúng tôi đề xuất một phiên bản hiệu chỉnh của thuật toán ``Stochastic Gradient Descent''  (SGD), gọi là ``Sleep-Wake Stochastic Gradient Descent''  (SW-SGD), để giải quyết khó khăn này.
-	\item Ràng buộc trọng số: chúng tôi cũng đưa ra một cách ràng buộc trọng số hợp lý cho SRAEs.
+	\item Tính xếp hạng: Chúng tôi chỉ ra điểm phù hợp của Multinomial Log-likelihood cho bài toán xây dựng hệ thống gợi ý sản phẩm so với các hàm Log-likelihood thông dụng khác.
+	\item KL-Annealing: chúng tôi cũng đưa ra một cách "heuristic" nhằm lựa chọn siêu tham số của mô hình Mul-VAEs.
 \end{itemize}}
 \end{quote}
 
-\section{``Sparse Rectified Auto-Encoders''  (SRAEs)}
+\section{"Explicit Feedback" và "Implicit Feedback"}
 Các hàm kích hoạt thường được sử dụng trong mạng nơ-ron là:
 \begin{itemize}
 \item hàm sigmoid: $f(x) = \frac{1}{1+e^{-x}}$ 
@@ -22,7 +22,8 @@ Các hàm kích hoạt thường được sử dụng trong mạng nơ-ron là:
 Gần đây, cộng đồng nghiên cứu mạng nơ-ron phát hiện ra một hàm kích hoạt mới hoạt động rất tốt là hàm ``rectified linear'' \cite{nair2010rectified}\cite{glorot2011deep}\cite{zeiler2013rectified}: $f(x) = max(0, x)$.
 
 Hàm kích hoạt ``rectified linear'' rất phù hợp với ``Sparse Auto-Encoders''  (SAEs) bởi vì hàm này vốn dĩ đã tạo ra véc-tơ đặc trưng thưa (với một véc-tơ đầu vào, hàm ``rectified linear'' vốn dĩ đã tạo ra một véc-tơ đặc trưng với khoảng 50\% số phần tử bằng 0). Khác với hàm sigmoid là khi véc-tơ đầu vào không chứa đặc trưng tương tự với đặc trưng của bộ lọc (ở đây bộ lọc ám chỉ véc-tơ gồm các trọng số đi vào một nơ-ron ẩn), hàm ``rectified linear'' thường sẽ cho giá trị đúng bằng 0; trong khi đó, hàm sigmoid thường vẫn cho một giá trị dương nhỏ. Ngoài ra, hàm ``rectified linear'' tính nhanh hơn hàm sigmoid và hàm tanh bởi vì hàm này chỉ phải thực hiện phép max chứ không phải thực hiện phép lũy thừa và phép chia như ở hai hàm kia. Cuối cùng, hàm ``rectified linear'' có tiềm năng để có thể huấn luyện đồng thời nhiều tầng biểu diễn đặc trưng một cách không giám sát (thay vì phải huấn luyện từng tầng biễu diễn đặc trưng một) bởi vì hàm này đã được dùng để huấn luyện thành công nhiều tầng biểu diễn đặc trưng trong ngữ cảnh có giám sát \cite{glorot2011deep}\cite{zeiler2013rectified}. Với những điểm trên, trong luận văn này, chúng tôi sẽ tập trung nghiên cứu SAEs với hàm kích hoạt ở tầng ẩn là hàm ``rectified linear''. Chúng tôi gọi SAEs với hàm kích hoạt như vậy là ``Sparse Rectified Auto-Encoders''  (SRAEs).
-\section{Ràng buộc thưa trong SRAEs}
+\section{"Mul-VAEs" - Mở rộng VAE cho bài toán gợi ý sản phẩm}
+
 Cách thường được dùng để ràng buộc thưa trong ``Sparse Auto-Encoders''  (SAEs) là ép giá trị đầu ra trung bình $\bar{h}_j$ của nơ-ron ẩn thứ $j$ về một giá trị cố định gần không $\rho$ \cite{goodfellow2009measuring}\cite{coates2011analysis}\cite{coates2012demystifying} (giá trị đầu ra trung bình này được tính với toàn bộ các mẫu huấn luyện, hoặc nếu dùng ``mini-batch'' thì sẽ được tính với các mẫu huấn luyện trong một ``mini-batch'' nhưng kích thước của ``mini-batch'' cần phải tương đối lớn). Trong trường hợp giá trị đầu ra của nơ-ron ẩn thuộc $[0, 1]$ (ví dụ, dùng hàm kích hoạt sigmoid), việc ép thưa có thể được thực hiện bằng cách cực tiểu hóa sự sai biệt Kullback-Leibler (KL):
 \begin{equation}
 	\sum_jKL(\rho||\bar{h}_j) = \sum_j\left(\rho\log\frac{\rho}{\bar{h}_j} + (1-\rho)\log\frac{(1-\rho)}{(1-\bar{h}_j)}\right)
@@ -46,7 +47,7 @@ Lưu ý là cách ràng buộc thưa này (ép các giá trị đầu ra trung b
 Tuy nhiên, cách ràng buộc thưa như trên đưa thêm một siêu tham số (giá trị đầu ra trung bình mong muốn $\rho$) vào danh sách các siêu tham số vốn đã có rất nhiều của SAEs (hệ số ``thỏa hiệp'' giữa độ lỗi tái tạo và độ thưa, số lượng node ẩn, hệ số học, kích thước ``mini-batch'', ...). Điều này sẽ làm cho quá trình chọn lựa các siêu tham số trở nên ``phiền phức'' hơn và tốn thời gian hơn. 
 
 Tại sao lại không dùng chuẩn L1 để ràng buộc thưa trong SAEs? Đây là một cách tự nhiên vì chuẩn L1 đã được dùng để ràng buộc thưa trong Sparse Coding. Hơn nữa, chuẩn L1 không đưa thêm siêu tham số nào. Ngoài ra, cách tính chuẩn L1 cũng rất đơn giản; trong trường hợp dùng hàm kích hoạt ``rectified linear'', chuẩn L1 của véc-tơ đặc trưng $h$ đơn giản là bằng tổng giá trị các phần tử của $h$. Trong phần dưới đây, chúng tôi sẽ giải thích về khó khăn gặp phải khi huấn luyện SAEs, cụ thể là SRAEs, với chuẩn L1.
-\subsection{Khó khăn của việc huấn luyện SRAEs với chuẩn L1}
+\subsection{Huấn luyện mô hình}
 Vấn đề gặp phải khi huấn luyện SRAEs với chuẩn L1 là trong quá trình tối ưu hóa hàm chi phí, chuẩn L1 có thể đẩy véc-tơ gồm các trọng số đi vào một nơ-ron ẩn vào trạng thái mà ở đó nơ-ron ẩn luôn luôn không kích hoạt (có giá trị đầu ra bằng 0 với tất cả các mẫu trong tập huấn luyện). Và một khi véc-tơ trọng số đi vào này đã rơi vào trạng thái nói trên, nó sẽ bị mắc kẹt ở đó mãi mãi và không bao giờ được cập nhật nữa; véc-tơ trọng số đi ra của nơ-ron ẩn này cũng không bao giờ được cập nhật nữa. Một cách cụ thể, xét một nơ-ron ẩn $j$: có trọng số $W^{(e)}_{ji}$ nối với nơ-ron đầu vào $i$, và có trọng số $W^{(d)}_{kj}$ nối với nơ-ron đầu ra $k$. Các đạo hàm riêng của hàm chi phí $C$ (hàm chi phí của một mẫu huấn luyện) ở công thức (\ref{eq_SAE}) (với hàm ép thưa $s(\cdot)=||\cdot||_1$) theo $W^{(e)}_{ji}$ và $W^{(d)}_{kj}$ có thể được tính bằng thuật toán lan truyền ngược như sau:
 \begin{equation}
 	\frac{\partial C}{\partial W^{(d)}_{kj}} = 2(\hat{x}_k - x_k)h_j
@@ -74,7 +75,7 @@ Vấn đề nơ-ron ``ngủ'' nêu trên có thể giúp lý giải cho việc t
 \end{figure}
 
 Mặc dù ``Sparse Coding''sử dụng chuẩn L1 để ràng buộc thưa, nhưng ta thấy rõ ràng là ``Sparse Coding'' sẽ không mắc phải vấn đề nơ-ron ngủ ở trên vì ``Sparse Coding'' không có bộ mã hóa cụ thể như SAEs.
-\subsection{Thuật toán ``Sleep-Wake Stochastic Gradient Descent''}
+\subsection{Cách Mul-VAE đưa ra gợi ý cho người dùng}
 Để khắc phục khó khăn của việc huấn luyện SRAEs với chuẩn L1, chúng tôi đề xuất một phiên bản điều chỉnh của thuật toán ``Stochastic Gradient Descent'' (SGD), gọi là ``Sleep-Wake Stochastic Gradient Descent'' (SW-SGD). Ý tưởng là trong mỗi ``epoch'' của SGD (một ``epoch'' ứng một lần duyệt qua tất cả các mẫu trong tập huấn luyện), ta tính tổng giá trị đầu ra của mỗi nơ-ron ẩn; và sau mỗi ``epoch'', ta kiểm xem có nơ-ron nào ``ngủ'' không (có tổng giá trị đầu ra bằng không) và ``đánh thức'' chúng bằng cách khởi tạo lại véc-tơ trọng số đi vào. Mặc dù cách làm này rất đơn giản, nhưng thí nghiệm của chúng tôi cho thấy nó có thể giúp SRAEs học được thành công các đặc trưng mà không có đặc trưng nào ``ngủ''.
 
 Một cách cụ thể, cho tập huấn luyện không có nhãn $\{x^{(1)}, x^{(2)}, \ldots, x^{(N)}\}$, thuật toán SW-SGD dùng để cực tiểu hóa hàm chi phí sau của SRAEs:
@@ -145,7 +146,7 @@ Từng bước của thuật toán SW-SGD được trình bày ở thuật toán
 	\end{algorithmic}
 \end{algorithm}
 
-\section{Ràng buộc trọng số trong SRAEs}
+\section{"KL-Annealing"}
 Bên cạnh ràng buộc thưa, ràng buộc trọng số cũng là một thành phần quan trọng để làm cho SAEs ``hoạt động''. Tại sao cần phải ràng buộc trọng số? Ví dụ, trong Sparse Coding, ta cần phải ràng buộc các véc-tơ cơ sở được chuẩn hóa (có chiều dài bằng 1); nếu không thì sẽ xảy ra trường hợp là giá trị của hàm chi phí ở công thức (\ref{eq_SparseCoding}) có thể được làm giảm xuống một cách ``tầm thường'' bằng cách chia hệ số cho một số lớn tùy ý và nhân véc-tơ cơ sở tương ứng với cùng số lớn đó (làm như vậy sẽ làm độ thưa giảm xuống tùy ý, còn độ lỗi tái tạo thì giữ nguyên). Các véc-tơ cơ cở trong ``Sparse Coding'' tương ứng với các cột của ma trận trọng số $W^{(d)}$ của bộ giải mã của SAEs (mỗi cột của $W^{(d)}$ ứng với véc-tơ trọng số đi ra tại mỗi nơ-ron ẩn). Như vậy, trong SAEs, ta cũng có thể ràng buộc mỗi cột của $W^{(d)}$ được chuẩn hóa (có chiều dài bằng 1) giống như ở Sparse Coding. Nhưng còn ma trận trọng số $W^{(e)}$ của bộ mã hóa của SAEs? Ta nên ràng buộc $W^{(e)}$ như thế nào cho hợp lý?
 
 Dưới đây là một số cách đã được đề xuất để ràng buộc trọng số của SAEs:
@@ -155,7 +156,7 @@ Dưới đây là một số cách đã được đề xuất để ràng buộc
 	\item \textbf{Ràng buộc các trọng số có giá trị bình phương nhỏ (weight decay)}: các trọng số của cả bộ mã hóa và bộ giải mã đều được ràng buộc là có độ lớn nhỏ bằng cách phạt tổng bình phương của chúng \cite{goodfellow2009measuring}\cite{coates2011analysis}. Cách ràng buộc này vốn ban đầu được dùng trong mạng nơ-ron học có giám sát để tránh vấn đề quá khớp. Khi áp dụng cho SAEs, ta có hiểu nó là một phiên bản ``mềm'' của cách ràng buộc $W^{(d)}$ được chuẩn hóa ở trên và nhờ đó cũng sẽ giúp cho SAEs tránh khỏi tình trạng hàm chi phí bị giảm xuống một cách ``tầm thường''; ngoài ra, nó còn ràng buộc thêm là các véc-tơ dòng của $W^{(e)}$ (ứng với các bộ lọc đặc trưng) có độ dài xấp xỉ bằng nhau (đều nhỏ). Tuy nhiên, cách ràng buộc này lại làm xuất hiện thêm một siêu tham số; ta không muốn điều này.
 \end{itemize}
 
-\subsection{Cách ràng buộc trọng số đề xuất cho SRAEs}
+
 Với SRAEs (SAEs sử dụng hàm kích hoạt ``rectified linear'' ở tầng ẩn), không rõ là ta nên sử dụng cách ràng buộc trọng số nào trong những cách ở trên. Trong phần này, chúng tôi đề xuất một cách ràng buộc trọng số mới và hợp lý cho SRAEs. Cách ràng buộc này không đưa thêm siêu tham số nào. Cụ thể là, cách ràng buộc trọng số của chúng tôi bao gồm đồng thời hai ràng buộc:
 \begin{itemize}
 	\item Thứ nhất, chúng tôi ràng buộc ma trận trọng số $W^{(e)}$ của bộ mã hóa và ma trận trọng số $W^{(d)}$ của bộ giải mã là chuyển vị của nhau: $W^{(d)} = (W^{(e)})^T$.
