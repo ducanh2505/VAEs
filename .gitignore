@@ -6,3 +6,17 @@ Proposal/*.fls
 Proposal/*.synctex.gz
 Proposal/*.blg
 Proposal/*.bbl
+Thesis/*.fls
+Thesis/*.lof
+Thesis/*.log
+Thesis/*.lot
+Thesis/*.out
+main.run.xml
+Thesis/*.toc
+main.synctex.gz
+Thesis/*/*.aux
+Thesis/*.bib
+Thesis/*.aux
+Thesis/*.bbl
+Thesis/*.blg
+Thesis/*.fdb_latexmk
