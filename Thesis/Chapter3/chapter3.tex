@@ -1,7 +1,22 @@
 \chapter{Mô hình ``Variational Auto-Encoder'' cho bài toán xây dựng hệ thống gợi ý''}
 \label{Chapter3}
-
+\textit{Chương này trình bày về những đóng góp của luận văn. 
+Ở đây, Chúng tôi phân tích hai loại dữ liệu phản hồi chính từ người dùng là: 
+``explicit feedback'' và ``implicit feedback''.
+Đặc biệt, chúng tôi tập trung nghiên cứu mở rộng mô hình ``Variational Auto-Encoders'' 
+cho implicit feedback với hàm lỗi là ``Multinomial Log-likelihood'' ở hàm mục tiêu.
+Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là ``Mul-VAE''. 
+Đóng góp của chúng tôi là làm rõ Mul-VAE ở hai điểm:     
+\begin{itemize}
+	\item Tính xếp hạng: Chúng tôi chỉ ra điểm phù hợp của Multinomial Log-likelihood cho bài toán xây dựng hệ thống gợi ý sản phẩm so với các hàm Log-likelihood thông dụng khác.
+	\item KL-Annealing: chúng tôi cũng đưa ra một cách ``heuristic'' nhằm lựa chọn siêu tham số của mô hình Mul-VAEs.
+    \end{itemize}
+}
 \section{``Explicit feedback'' và ``Implicit feedback''}
-\section{``Mul-VAE???''}
+
+\section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
+\section{``Mul-VAEs''}
+    \subsection{Quá trình huấn luyện mô hình}
+    \subsection{Quá trình phát sinh gợi ý}
 \section{``KL-Vanishing''}
     \subsection{``KL-Annealing''}

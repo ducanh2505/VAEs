@@ -4,7 +4,7 @@
 <br>Khóa luận này tập trung việc tìm hiểu việc xây dựng một hệ thống gợi ý sản phẩm cũng như là các khó khăn gặp phải khi xây dựng một hệ thống 
 gợi ý sản phẩm. Với hướng tiếp cận sử dụng một mô hình phát sinh dựa trên đặc trưng ẩn "Latent Factor" là Variational Autoencoders (VAE) được đề 
 xuất bởi Dawen Liang và các cộng sự trong bài cáo "Variational Autoencoders for Collaborative Filtering" tại hội nghị Proceedings of the 2018 World Wide Web Conference on World Wide Web, WWW 2018,
-đã mổ rộng mô hình Variational Autoencoder thông thường để xây dựng một hệ thống gợi ý sản phẩm theo hướng Collaborative Filtering. Tại thời điểm ra mắt 
+đã mở rộng mô hình Variational Autoencoder thông thường để xây dựng một hệ thống gợi ý sản phẩm theo hướng Collaborative Filtering. Tại thời điểm ra mắt 
 bài báo này đã vượt qua được các phương pháp tiên tiến trước đó trên cùng các tập dữ liệu lớn.  
 
 <br>**Paper gốc:** https://arxiv.org/abs/1802.05814
