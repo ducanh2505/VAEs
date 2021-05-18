@@ -20,3 +20,4 @@ Thesis/*.aux
 Thesis/*.bbl
 Thesis/*.blg
 Thesis/*.fdb_latexmk
+Thesis/*.pdf
