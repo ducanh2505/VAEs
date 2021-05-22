@@ -1,7 +1,6 @@
 \chapter{Giới thiệu}
 \label{Chapter1}
-
-
+\graphicspath{{Chapter1/Chapter1Figs}}
 
 % Ngôn ngữ để viết và trình bày báo cáo khóa luận tốt nghiệp, đồ án tốt nghiệp, thực tập tốt nghiệp (sau đây gọi chung là báo cáo) là tiếng Việt hoặc tiếng Anh. 
 % Trường hợp chọn ngôn ngữ tiếng Anh để viết và trình bày báo cáo,  sinh viên cần có đơn đề nghị, được cán bộ hướng dẫn (CBHD) đồng ý và nộp cho bộ phận Giáo vụ của Khoa vào thời điểm đăng ký đề tài để xin ý kiến.
@@ -51,23 +50,6 @@ Amazon - một nền tảng mua bán trực tuyến mà 35\% sản phẩm đư�
 
 Trong lĩnh vực khoa học máy tính, hệ thống gợi ý sản phẩm là một chủ đề 
 đang được quan tâm và nghiên cứu từ cộng đồng nghiên cứu khoa học.
-Tuy nhiên, việc xây dựng một hệ thống gợi ý sản phẩm một cách hiệu quả là không đơn giản.
-Trong thực tế ta cần xét đến nhiều yếu tố khác nhau, 
-từ đó mới có thể lựa chọn được ``cách'' để xây dựng hệ thống gợi ý phù hợp. % ``cách'' == ``hướng tiếp cận''
-Đầu tiên, mặc dù đa số các lĩnh vực hiện nay đều có thể áp dụng các hệ thống gợi ý, tuy nhiên không phải là tất cả.
-Từ thực tế cho thấy, các lĩnh vực mà sản phẩm ``tiêu thụ'' và ``sản xuất'' nhanh như: phim, hình ảnh, âm nhạc, ... 
-thì hệ thống gợi ý sẽ ít nhiều đóng vai trò quan trọng. 
-Thực tế, một nền tảng cung cấp video nổi tiếng hiện nay - Netflix,
-75\% số bộ phim được thuê đến từ hệ thống gợi ý, chứng tỏ sự ảnh hưởng lớn của hệ thống gợi ý đối với lĩnh vực này. 
-Mặt khác, các lĩnh vực cung cấp dịch vụ hay sản phẩm giá trị cao như:
-thuê nhà, phương tiện giao thông, ... người dùng cần đánh giá thông qua nhiều yếu tố mới có thể quyết định được. 
-Thứ hai, tùy thuộc vào nhu cầu của người sử dụng mới có thể lựa chọn ``cách'' mà hệ thống gợi ý hoạt động.
-Việc đưa ra gợi ý là sản phẩm ``phù hợp'' với người dùng dựa vào nhóm người dùng có sở thích tương tự với họ 
-hay dựa trên tính liên quan đến các sản phẩm họ đã ``thích'' trước đó là khác nhau. 
-Điều này cũng liên quan đến khó khăn thứ ba khi xây dựng hệ thống gợi ý, cả trong cộng đồng nghiên cứu khoa học cũng như thực tiễn, 
-ta cần một độ đo và một phương pháp để đánh giá một cách tổng thể và khách quan nhất, 
-khi mà dữ liệu và các thuật toán để xây dựng hệ thống gợi ý là rất đa dạng.
-
 Bài toán xây dựng hệ thống gợi ý được phát biểu như sau:
 \begin{itemize}
     \item Đầu vào là lịch sử tương tác của người dùng (user) với các sản phẩm (items). 
@@ -75,12 +57,76 @@ Bài toán xây dựng hệ thống gợi ý được phát biểu như sau:
     \item Yêu cầu máy tính tự động đưa ra các item (không có trong lịch sử) được dự đoán là phù hợp với người dùng.
     Chúng tôi gọi sản phẩm phù hợp với người dùng là sản phẩm được người dùng ``thích''.
 \end{itemize}
+
+Tuy nhiên, việc xây dựng một hệ thống gợi ý sản phẩm một cách hiệu quả là không đơn giản.
+Đầu tiên, không có một ``lời giải'' chung cho tất cả trường hợp,
+mặc dù đa số các lĩnh vực hiện nay đều có thể áp dụng các hệ thống gợi ý, tuy nhiên không phải là tất cả,
+ta cần xét đến nhiều yếu tố khác nhau, 
+từ đó mới có thể lựa chọn được ``cách'' để xây dựng hệ thống gợi ý phù hợp. % ``cách'' == ``hướng tiếp cận''
+Từ thực tế cho thấy, các lĩnh vực mà sản phẩm ``tiêu thụ'' và ``sản xuất'' nhanh như: phim, hình ảnh, âm nhạc, ... 
+thì hệ thống gợi ý sẽ ít nhiều đóng vai trò quan trọng. 
+Theo số liệu tổng hợp được, một nền tảng cung cấp video nổi tiếng hiện nay - Netflix,
+75\% số bộ phim được thuê đến từ hệ thống gợi ý, chứng tỏ sự ảnh hưởng lớn của hệ thống gợi ý đối với lĩnh vực này. 
+Mặt khác, hệ thống gợi ý tác động không nhiều đến các lĩnh vực cung cấp dịch vụ hay sản phẩm giá trị cao như:
+thuê nhà, phương tiện giao thông, thiết bị điện tử, ... người dùng cần đánh giá thông qua nhiều yếu tố mới có thể quyết định được. 
+Thứ hai, tùy thuộc vào nhu cầu của người sử dụng mới có thể lựa chọn ``cách'' mà hệ thống gợi ý hoạt động.
+Việc gợi ý các sản phẩm phù hợp với người dùng dựa vào nhóm người dùng có sở thích tương tự với họ 
+hay dựa trên tính liên quan đến các sản phẩm họ đã ``thích'' trước đó là khác nhau. 
+Điều này cũng liên quan đến khó khăn thứ ba khi xây dựng hệ thống gợi ý, cả trong cộng đồng nghiên cứu khoa học cũng như thực tiễn, 
+ta cần một độ đo và một phương pháp để đánh giá một cách tổng thể và khách quan nhất, 
+khi mà dữ liệu và các thuật toán để xây dựng hệ thống gợi ý là rất đa dạng.
+
 Để xây dựng hệ thống gợi ý, một hướng tiếp cận chúng ta thường nghĩ ngay đến đầu tiên
 là dự đoán các sản phẩm có ``độ tương đồng'' cao so với các sản phẩm người dùng đã ``thích'' trước đó,
 hướng tiếp cận này được gọi là ``Content-Based Filtering'' (lọc dựa trên nội dung).
+\begin{figure}
+    \centering
+	\includegraphics[width=0.6\textwidth]{CBF.jpg}
+    \caption{Minh họa cách hoạt động của ``Content-Based Filtering'':
+    mô hình gợi ý bộ phim có độ tương đồng cao với các bộ phim
+    người dùng đã xem trước đó}
+    \label{fig_CBF}
+\end{figure}
+Với hướng tiếp cận này, mô hình chỉ cần các thuộc tính mô tả của sản phẩm mà 
+không đòi hỏi dữ liệu tương tác từ người dùng khác
+vì các gợi ý là dành riêng cho từng cá nhân, do đó nó có khả năng nắm bắt tốt các sở thích
+đặc biệt của người dùng.
+Vì dựa trên tính tương đồng của sản phẩm, hệ thống có thể gợi ý cho người dùng một sản phẩm có ít sự quan tâm từ người dùng khác.
+Để áp dụng ``Content-Based Filtering'' cho từng loại dữ liệu cụ thể,
+ta cần ``domain knowledge'' cho lĩnh vực đó để thiết kế mô hình.
+Trong trường hợp dữ liệu có ít mô tả chi tiết, hướng tiếp cận này vẫn còn hạn chế.
+
 Một hướng tiếp cận khác là tìm ra ``độ tương đồng'' giữa các người dùng với nhau, hay tìm ra được một nhóm người dùng
 có cùng sở thích dựa trên dữ liệu tương tác của tất cả người dùng. Khi đó, để có thể gợi ý cho một người dùng cụ thể,
 hệ thống sẽ tìm các sản phẩm không có trong lịch sử của người dùng đó, và đã được những người dùng ``tương đồng'' tương tác,
 hướng tiếp cận này gọi là ``Collaborative Filtering'' (lọc cộng tác).
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{CF.jpg}
+    \caption{Minh họa cách hoạt động của ``Collaborative Filtering'': hai người dùng cùng xem một (hoặc nhiều) bộ phim 
+    sẽ được hệ thống đánh giá là hai người dùng ``tương đồng'' nhau, khi đó một bộ phim được
+    người dùng A xem sẽ được gợi ý cho người dùng B}
+\end{figure}
+Đối với hướng tiếp cận ``Collaborative Filtering'', mô hình dựa vào lịch sử tương tác từ người dùng khác
+và không cần các thuộc tính mô tả của sản phẩm, do đó nó có khả năng tạo ra sự tình cờ cho người dùng:
+hệ thống có thể gợi ý một sản phẩm ``tốt'' cho người dùng trong trường hợp sản phẩm đó có ít điểm tương đồng
+so với các sản phẩm người dùng đã ``thích'' trước đó. Dữ liệu đầu vào của hướng tiếp cận này là ma trận tương tác
+của người dùng và sản phẩm, do đó có thể áp dụng cho nhiều lĩnh vực khác nhau mà không cần thiết kế lại hệ thống.
+Tuy nhiên, ``Collaborative Filtering'' có một vấn đề tồn tại là vấn đề khởi động nguội (``cold-start''),
+khi một người dùng mới đến với hệ thống thì hệ thống sẽ thường khó đưa ra được gợi ý tốt cho họ,
+cũng như khi một sản phẩm được ít người dùng tương tác, hệ thống thường có xu hướng không gợi ý sản phẩm đó.
+
 Ngoài ra, một hướng tiếp cận khác là ``Hybrid'', là sự kết hợp giữa hai hướng tiếp cận bên trên.
-Trong luận văn này, chúng tôi chỉ tập trung tìm hiểu về ``Content-Based Filtering'' và  ``Collaborative Filtering''
+Trong luận văn này, chúng tôi chỉ tập trung tìm hiểu về hướng tiếp cận ``Collaborative Filtering''
+vì hai lý do chính là ``Collaborative Filtering'' tổng quan hơn so với ``Content-Based Filtering'', hướng tiếp cận cần 
+``domain knowledge'' cụ thể để thiết kế hệ thống cho từng lĩnh vực cụ thể, và với số lượng lớn cùng
+sự đa dạng của dữ liệu hiện nay, ta quan tâm đến sở thích của người dùng nhiều hơn là độ tương đồng giữa các sản phẩm.
+
+
+
+
+
+
+
+
+
