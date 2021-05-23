@@ -78,7 +78,7 @@ khi mà dữ liệu và các thuật toán để xây dựng hệ thống gợi 
 
 Để xây dựng hệ thống gợi ý, một hướng tiếp cận chúng ta thường nghĩ ngay đến đầu tiên
 là dự đoán các sản phẩm có ``độ tương đồng'' cao so với các sản phẩm người dùng đã ``thích'' trước đó,
-hướng tiếp cận này được gọi là ``Content-Based Filtering'' (lọc dựa trên nội dung).
+hướng tiếp cận này được gọi là ``Content-Based Filtering'' (lọc dựa trên nội dung) (hình~\ref{fig_CBF} mô tả hướng tiếp cận này).
 \begin{figure}
     \centering
 	\includegraphics[width=0.6\textwidth]{CBF.jpg}
@@ -99,13 +99,14 @@ Trong trường hợp dữ liệu có ít mô tả chi tiết, hướng tiếp c
 Một hướng tiếp cận khác là tìm ra ``độ tương đồng'' giữa các người dùng với nhau, hay tìm ra được một nhóm người dùng
 có cùng sở thích dựa trên dữ liệu tương tác của tất cả người dùng. Khi đó, để có thể gợi ý cho một người dùng cụ thể,
 hệ thống sẽ tìm các sản phẩm không có trong lịch sử của người dùng đó, và đã được những người dùng ``tương đồng'' tương tác,
-hướng tiếp cận này gọi là ``Collaborative Filtering'' (lọc cộng tác).
+hướng tiếp cận này gọi là ``Collaborative Filtering'' (lọc cộng tác) (hình~\ref{fig_CF} mô tả hướng tiếp cận này).
 \begin{figure}
     \centering
     \includegraphics[width=0.4\textwidth]{CF.jpg}
     \caption{Minh họa cách hoạt động của ``Collaborative Filtering'': hai người dùng cùng xem một (hoặc nhiều) bộ phim 
     sẽ được hệ thống đánh giá là hai người dùng ``tương đồng'' nhau, khi đó một bộ phim được
     người dùng A xem sẽ được gợi ý cho người dùng B}
+    \label{fig_CF}
 \end{figure}
 Đối với hướng tiếp cận ``Collaborative Filtering'', mô hình dựa vào lịch sử tương tác từ người dùng khác
 và không cần các thuộc tính mô tả của sản phẩm, do đó nó có khả năng tạo ra sự tình cờ cho người dùng:
@@ -118,11 +119,13 @@ cũng như khi một sản phẩm được ít người dùng tương tác, hệ
 
 Ngoài ra, một hướng tiếp cận khác là ``Hybrid'', là sự kết hợp giữa hai hướng tiếp cận bên trên.
 Trong luận văn này, chúng tôi chỉ tập trung tìm hiểu về hướng tiếp cận ``Collaborative Filtering''
-vì hai lý do chính là ``Collaborative Filtering'' tổng quan hơn so với ``Content-Based Filtering'', hướng tiếp cận cần 
-``domain knowledge'' cụ thể để thiết kế hệ thống cho từng lĩnh vực cụ thể, và với số lượng lớn cùng
-sự đa dạng của dữ liệu hiện nay, ta quan tâm đến sở thích của người dùng nhiều hơn là độ tương đồng giữa các sản phẩm.
+vì hai lý do chính là ``Collaborative Filtering'' tổng quan hơn so với ``Content-Based Filtering''
+- hướng tiếp cận cần ``domain knowledge'' cụ thể để thiết kế hệ thống cho từng lĩnh vực cụ thể
+và với số lượng lớn cùng sự đa dạng của dữ liệu hiện nay,
+ta quan tâm đến sở thích của người dùng nhiều hơn là độ tương đồng giữa các sản phẩm.
 
-
+Một phương pháp để cài đặt cho ``Collaborative Filtering'' là sử dụng 
+mô hình nhân tố ẩn (``latent factor model'') được Yu giới thiệu vào năm 2008, 
 
 
 
