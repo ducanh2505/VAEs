@@ -1,5 +1,5 @@
 # VAEs for Recommendation
-**Đây là Repotory về Khóa luận xây dựng hệ thổng Gợi ý sản phẩm dựa trên mô hình Autoencoders. (Build A recommendation system based on Autoencoders.)**
+**Đây là Repotory về Khóa luận xây dựng hệ thổng Gợi ý sản phẩm dựa trên mô hình Autoencoders. (Building A recommendation system based on Autoencoders.)**
 <br>Ngày nay, dữ liệu được đăng tải lên mạng Internet ngày càng nhiều, một cá nhân khó có thể nắm bắt được toàn bộ thông tin dẫn đến việc tìm kiếm thông tin phù hợp dần trở nên khó khăn hơn. Recommendation system,hay là một hệ thống gợi ý sản phẩm ra đời nhằm giúp đỡ người dùng có thể dễ dàng hơn trong việc tiếp cận thông tin bằng cách đưa ra các gợi ý phù hợp với người dùng trên mạng Internet. Bên cạnh đó một hệ thống gợi ý sản phẩm còn có thể tăng thêm lợi nhuận cũng như mang lại giá trị cao cho các doanh nghiệp trong nhiều lĩnh vực khác nhau. 
 <br>Khóa luận này tập trung việc tìm hiểu việc xây dựng một hệ thống gợi ý sản phẩm cũng như là các khó khăn gặp phải khi xây dựng một hệ thống 
 gợi ý sản phẩm. Với hướng tiếp cận sử dụng một mô hình phát sinh dựa trên đặc trưng ẩn "Latent Factor" là Variational Autoencoders (VAE) được đề 
