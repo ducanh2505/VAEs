@@ -16,27 +16,6 @@
 %Tóm tắt luận án phải phản ảnh trung thực kết cấu, bố cục và nội dung của luận án, phải ghi đầy đủ toàn văn kết luận của luận án.
 %Mẫu trình bày trang bìa của tóm tắt luận văn (phụ lục 1).
 
-% Với việc bùng nổ dữ liệu trên mạng Internet hiện nay, con người khó có thể nắm bắt được hết tất cả các thông tin.
-% Do đó việc tìm kiếm dữ liệu, thông tin phù hợp với nhu cầu của bản thân dần trở nên khó khăn.
-% Việc có một hệ thống gợi ý hỗ trợ chúng ta trong việc tìm kiếm thông tin là cực kỳ hữu ích. 
-% Một hệ thống gợi ý sản phẩm là một bài toán trong lĩnh vực khai thác dữ liệu và học máy. 
-% Hệ thống gợi ý được xây dựng để dự đoán những sản phẩm phù hợp với người dùng, đặc biệt hiện nay 
-% việc đưa ra quyết định khi mà có quá nhiều lựa chọn dành cho người dùng là không hề dễ dàng. 
-% Điều này dẫn đến vai trò của một hệ thống gợi ý ngày càng quan trọng hơn, 
-% không chỉ hỗ trợ người dùng đưa ra quyết định mà còn đóng góp trong việc phát triển doanh nghiệp
-%  khi mà việc thu hút khách hàng và nâng cao trải nghiệm người dùng sẽ phù thuộc vào 
-% một hệ thống gợi ý sản phẩm hiệu quả. 
-% Có rất nhiều lĩnh vực cần xây dựng hệ thống gợi ý có thể kể đến như thương mại điện thử, 
-% các nền tàng cung cấp các dịch vụ đa phương tiện (âm thanh, hình ảnh, video, ...), 
-% mạng xã hội (Facebook, tweeter, linkedin, ... ).  
-% Theo số liệu tổng hợp được thì 75\% phim được thuê trên Netflix - một nền tảng cung cấp video nổi tiếng hiện nay đến từ hệ thống gợi ý; 38\% lượt click từ người dùng GOOGLE cũng đến từ hệ thống gợi ý và Amazon - một nền tảng mua bán trực tuyến mà 35\% sản phẩm được bán thông qua hệ thống gợi ý sản phẩm. 
-
-% Để xây dựng một hệ thống gợi ý sản phẩm ta có các hướng tiếp cận là 
-
-
-% Một trong những hướng nghiên cứu đang được quan tâm rộng rãi trong lĩnh vực trí tuệ nhân tạo gần đây
-% là tạo ra các thuật toán giúp máy tính có thể ``hiểu'' được sở thích của người dùng và gợi ý cho họ
-% các nội dung có liên quan. 
 
 Hiện nay, với việc bùng nổ dữ liệu trên mạng Internet, người dùng có cơ hội tiếp cận
 nhiều hơn với đa dạng các sản phẩm trên nền tảng số, song song đó,
@@ -71,7 +50,11 @@ Mặt khác, hệ thống gợi ý tác động không nhiều đến các lĩnh
 thuê nhà, phương tiện giao thông, thiết bị điện tử, ... người dùng cần đánh giá thông qua nhiều yếu tố mới có thể quyết định được. 
 Thứ hai, tùy thuộc vào nhu cầu của người sử dụng mới có thể lựa chọn ``cách'' mà hệ thống gợi ý hoạt động.
 Việc gợi ý các sản phẩm phù hợp với người dùng dựa vào nhóm người dùng có sở thích tương tự với họ 
-hay dựa trên tính liên quan đến các sản phẩm họ đã ``thích'' trước đó là khác nhau. 
+hay dựa trên tính liên quan đến các sản phẩm họ đã ``thích'' trước đó là khác nhau.
+Bài toán gợi ý sản phẩm có thể xem như là một bài toán hồi quy (``regression'') 
+nếu kết quả trả về là điểm số được dự đoán của người dùng cho tập các sản phẩm 
+hoặc có thể là một bài toán xếp hạng (``top-N ranking'') nếu ta cần kết quả trả về 
+là tập các sản phẩm phù hợp nhất với người dùng.
 Điều này cũng liên quan đến khó khăn thứ ba khi xây dựng hệ thống gợi ý, cả trong cộng đồng nghiên cứu khoa học cũng như thực tiễn, 
 ta cần một độ đo và một phương pháp để đánh giá một cách tổng thể và khách quan nhất, 
 khi mà dữ liệu và các thuật toán để xây dựng hệ thống gợi ý là rất đa dạng.
@@ -115,14 +98,14 @@ so với các sản phẩm người dùng đã ``thích'' trước đó. Dữ li
 của người dùng và sản phẩm, do đó có thể áp dụng cho nhiều lĩnh vực khác nhau mà không cần thiết kế lại hệ thống.
 Tuy nhiên, ``Collaborative Filtering'' có một vấn đề tồn tại là vấn đề khởi động nguội (``cold-start''),
 khi một người dùng mới đến với hệ thống thì hệ thống sẽ thường khó đưa ra được gợi ý tốt cho họ,
-cũng như khi một sản phẩm được ít người dùng tương tác, hệ thống thường có xu hướng không gợi ý sản phẩm đó.
+hoặc khi một sản phẩm được ít người dùng tương tác, hệ thống thường có xu hướng không gợi ý sản phẩm đó.
 
 Ngoài ra, một hướng tiếp cận khác là ``Hybrid'', là sự kết hợp giữa hai hướng tiếp cận bên trên.
 Trong giới hạn của luận văn này, chúng tôi chỉ tập trung tìm hiểu về hướng tiếp cận ``Collaborative Filtering'' 
 vì hai lý do chính là:
 \begin{itemize}
 \item ``Collaborative Filtering'' tổng quan hơn so với ``Content-Based Filtering''
-- hướng tiếp cận cần ``domain knowledge'' cụ thể để thiết kế hệ thống cho từng lĩnh vực cụ thể
+- hướng tiếp cận cần ``domain knowledge'' để thiết kế hệ thống cho từng lĩnh vực cụ thể.
 \item Với số lượng lớn cùng sự đa dạng của dữ liệu hiện nay,
 ta quan tâm đến sở thích của người dùng nhiều hơn là độ tương đồng giữa các sản phẩm.
 
