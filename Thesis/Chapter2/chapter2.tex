@@ -28,6 +28,24 @@ của chúng tôi ở chương kế tiếp.}
 
 \section{``Variational Auto-Encoder''} \label{chap2/sec2}
     \subsection{Nền tảng xác suất} \label{chap2/subsec21}
+        \subsubsection{Mô hình xác suất}
+        \textbf{\textit{Mô hình xác suất}} là một mô hình được dùng để mô tả một phân 
+        phối xác suất bằng cách sử dụng một đồ thị để mô tả các biến 
+        ngẫu nhiên tương tác với nhau trong phân phối xác suất. Ở đây 
+        chúng tôi sử dụng từ ``đồ thị'' là một định nghĩa về cấu trúc 
+        dữ liệu được mô tả trong lĩnh vực lý thuyết đồ thị. Đồ thị 
+        bao gồm các đỉnh được kết nối trực tiếp với nhau thông qua 
+        các cạnh. Vì cấu trúc của mô hình đươc mô tả bằng đồ thị cho 
+        nên những mô hình này còn được gọi với một tên gọi khác là 
+        ``Graphical model''.
+
+        Mục tiêu của một mô hình học máy hay mô hình học sâu là có thể giải quyết được các vấn đề mà ta không có một cách trực tiếp để giải quyết, tuy nhiên bên cạnh đó lại có dữ liệu được thu thập về vấn đề đó. Điều đó có nghĩa là ta cần xây dựng các mô hình học có thể ``hiểu'' được hình ảnh, âm thanh tiếng nói hay một đoạn văn bản. Nhưng để xây dựng được các mô hình này ta sẽ phải đối mặt với nhiều khó khăn cần giải quyết. Một trong những khó khăn đó là việc dữ liệu ta thu thập được thường có các cấu trúc phức tạp và dữ liệu ở chiều không gian cao, để có thể xử lý được những dữ liệu như vậy là điều không dễ dàng. 
+
+        Điểm mạnh của một mô hình xác suất đó là khả năng có thể giảm được chi phí cho việc thể hiện một mô hình xác suất và cũng như là chi phí cho việc huấn luyện cũng như suy diễn. Cơ chế hoạt động chính của mô hình xác suất cho phép tát cả các phép tính được thực hiện với thời gian thực thi và bộ nhớ hơn so với các mô hình mô hình hoá dữ liệu. Một lợi ích khác trong việc sử dụng mô hình xác suất khác đó là cho phép chúng ta tách biệt các thể hiện của ``kiến thức'' một cách chi tiết từ quá trình huấn luyện hay quá trình suy diễn. Điều này làm cho các mô hình dễ dàng để cài đặt và ``debug''. Chúng ta có thể thiết kế, phân tích và đánh quá thuật toán huấn luyện và thuật toán suy diễn mà có thể áp dụng rộng rãi ở tất cả các loại đồ thị. Một cách độc lập, chúng ta có thể thiết kế các mô hình mà có thể nắm bắt được mối quan hệ mà chúng ta tin rằng nó quan trọng trong dữ liệu mà chúng ta có. Sau đó chugn ta có thể kết hợp các thuật toán và các cấu trúc khác nhau và có các ``tích Đề-Các'' bất kỳ nào mà phù hợp có thể để áp dụng. Tuy nhiên nó sẽ khó hơn trong việc thiết kế một thuật toán ``end-to-end'' cho tất cả các trường hợp.
+
+        
+        
+
         \subsubsection{ ``Maximum Likelihood Estimation''}
     \subsection{Phương pháp ``Variational Inference'' } \label{chap2/subsec22}
     \subsection{Độ sai biệt ``Kullback-Leiber Devergence'' giữa hai phân phối xác suất}  \label{chap2/subsec23}
