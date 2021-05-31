@@ -43,9 +43,50 @@ của chúng tôi ở chương kế tiếp.}
 
         Điểm mạnh của một mô hình xác suất đó là khả năng có thể giảm được chi phí cho việc thể hiện một mô hình xác suất và cũng như là chi phí cho việc huấn luyện cũng như suy diễn. Cơ chế hoạt động chính của mô hình xác suất cho phép tát cả các phép tính được thực hiện với thời gian thực thi và bộ nhớ hơn so với các mô hình mô hình hoá dữ liệu. Một lợi ích khác trong việc sử dụng mô hình xác suất khác đó là cho phép chúng ta tách biệt các thể hiện của ``kiến thức'' một cách chi tiết từ quá trình huấn luyện hay quá trình suy diễn. Điều này làm cho các mô hình dễ dàng để cài đặt và ``debug''. Chúng ta có thể thiết kế, phân tích và đánh quá thuật toán huấn luyện và thuật toán suy diễn mà có thể áp dụng rộng rãi ở tất cả các loại đồ thị. Một cách độc lập, chúng ta có thể thiết kế các mô hình mà có thể nắm bắt được mối quan hệ mà chúng ta tin rằng nó quan trọng trong dữ liệu mà chúng ta có. Sau đó chugn ta có thể kết hợp các thuật toán và các cấu trúc khác nhau và có các ``tích Đề-Các'' bất kỳ nào mà phù hợp có thể để áp dụng. Tuy nhiên nó sẽ khó hơn trong việc thiết kế một thuật toán ``end-to-end'' cho tất cả các trường hợp.
 
-        
-        
-
         \subsubsection{ ``Maximum Likelihood Estimation''}
     \subsection{Phương pháp ``Variational Inference'' } \label{chap2/subsec22}
+
+        Inference là một lớp bài toán để giải quyết vấn đề tìm hiểu về nhưng thứ mà ta biết được dựa trên những thứ mà ta đã biết. Nói một cách khác thì bài toán này là tiến trình để có thể dưa ra kết luận cho một ước lượng, hay khoảng tin cậy hoặc xấp xỉ một phân phối về một ``biến ẩn'' (lateent variable) thường được gọi kết quả trong mẫu dữ liệu, dựa trên một vài các biến mà ta đã quan sát được thường được gọi là nguyên nhân trong mẫu dữ liệu. 
+
+        Một cách cụ thể thì, ``Bayesian inferene'' là quá trình đưa ra các suy diễn thống kê dựa trên ``định lý Bayes''. Phương pháp Bayesian là một phương pháp trong lĩnh vực xác suất thống kê mà ở đó kiến thức biết được biết trước ``prior knowledge'' được mô hình hoá bởi một phân phối xác suất và được cập nhật mỗi khi có một quan sát mới và những thứ mà ta không chắc chắn hay không quan sát được sẽ được mô hình bởi một phân phôi xác suất khác. Một ví dụ kinh diển là về các tham số của bayesian inference, giả định rằng một mô hình mà dữ liệu x được phát sinh từ một phân phối xác suất mà phân phối xác suất này được xác định bỏi các tham số $\theta$, tuy nhiên giá trị của $\theta$ thì ta chưa biết. Bên cạnh đó, ta giả định rằng, ta có một vài kiến thức được biết từ $\theta$ được gọi là ``prior knowledge'', nó có thể là phân phối xác suất $p(\theta)$. Sau đó, mỗi khi ta có một quan sát x mới, ta có thể cập nhật lại ``prior knowledge'' về tham số $\theta$ thông qua định lý Bayes theo công thức :
+
+        trong đó 
+
+        
+        Bayesian Inference là một vấn đề thường được phải giải quyết trong các bài toán trong lĩnh vực xác suất thống kê tuy nhiên trong lĩnh vực học máy, nhiều phương pháp được xây dựng dựa trên việc giải quyết vấn đề Bayesian Inference. Ví dụ: ``Gaussian mixture models'' được dùng để giải quyêt bài toán phân lớp, hay ``Latent Dirichlet Allocation'' để giải quyết bài toán phân loại chủ đề văn vản. Và cả hai mô hình kể trên đều được xây dựng dựa trên việc giải quyết bài toán Bayes Inference.  
+
+        \subsubsection{Computational diffficulties}
+        Theo công thứ thì để tính toán ``posterior'' ta cần phải có: ``prior'', ``likelihood'' và ``evedience''. Hai giá trị ở trên tử số ta có thể dễ dàng ác định được trong hầu hết các trường hợp vì đó một phần là giả định của chúng ta về mô hình. Tuy nhiên, ở mẫu số ta cần tính:
+
+        để tính giá trị này với dữ liệu ở chiều không gian thấp có thể không gặp nhiều khó khăn, nhưng khi tính toán ở những chiều không gian cao thì nó có thể trở thành một vấn đề nan giải. Khi dữ liệu có số chiều lớn thì việc tính chính xác giá trị ``posterior'' trong thực tiễn thường sẽ là một việc cực kỳ khó khăn và bất khả thi và ta cần một vài kĩ thuật xấp xỉ thường được dùng để giải quyết việc tính ``posterior''. 
+
+        Chúng ta ca cần chú ý thêm một vài khó khăn khác có thể phải đối mặt khi giải quyết bài toán bayesian inference  như là việc lấy ``tổ hợp'' khi dữ liệu là rời rạc thay vì giá trị liên tục. 
+
+        Bài toán bayesian inference thông thường sẽ xuất hiện trong các phương pháp học máy mà giả định rằng có một Graphical model và khi mà cho trước một vài dữ liệu mà ta có thể quan sát được và mục đích của chúng ta là muốn tái tạo lại dữ liệu ẩn của mô hình. Xét ví dụ trong phương pháp Latent Dircichlet Allocation, một phương pháp để xác định chủ đề của một đoạn văn bản. Ta được cho trước một tập ``từ điển'' với kích thước V từ và có T chủ đề có thể có, mô hình này giải định rằng
+        \begin{itemize}
+            \item Với mỗi chủ đề, tồn tại một phân phối xác suất ``topic-word''  trên toàn bộ tập từ điển (giả định về prior)
+            \item Với mỗi đoạn văn bản, có tồn tại một phân phối xác suất ``document-topic'' trên toàn bộ tập các chủ đề (một giả định prior khác)
+            \item Với mỗi từ trong trong văn bản được lấy mẫu từ các phân phối giải định ở trên, cụ thể là đầu tiên chúng ta sẽ lấy mẫu một chủ đè từ phân phối xác suất ``document-topic'' của đoạn văn bản, tiếp theo, từ phân phối xác suất ``topic-word'' ta lấy mẫu một từ từ phân phối xác suất đi kèm với chủ đề được lấy mẫu ở bước trước. 
+        \end{itemize}
+        Tên của phương pháp này là xuất phát từ giả định Dirichlet pior của mô hình. Mục tiêu của mô hình là có thể suy diễn ``latent topic'' từ từ điển ta quan sát được cũng như là có thể phân rã chủ đề của từng đoạn văn bản. Kể cả khi nếu chúng ta không đi sâu vào chi tiết của mô hình LDA, chúng ta có thể nói một cách đại khái rằng với w là một véc-tơ các từ có trong từ điển và z là véc-tơ liên hệ với những từ đó, chúng ta muốn suy diễn được z dựa trên các quan sát từ w theo công thức bayes đó là:
+
+                $\text{có một công thức ở đây}$
+ 
+        
+        \subsubsection{Variational inference}
+        Variational inference(VI) là một phương pháp thường hay được sử dụng để giải quyết bài toán bayesian inference. Phương pháp này sử dụng hướng tiếp cận là tìm ra xấp xỉ tốt nhất cho một phân phối xác suất bằng cách tìm ra bộ tham số tốt nhất định nghĩa cho phân phối. 
+
+        Phương pháp VI bao gồm việc tìm ra một xấp sỉ tốt nhất cho một mục tiêu là phân phối xác suất giữa một lớp các phân phối xác suất cho trước. Cụ thể hơn, ý tưởng của VI đó là ta định nghĩa một lớp các phân phối xác suất và tìm ra trên đó bộ tham số sao cho ta có đạt được một phần tử gần nhất với mục tiêu của chúng ta tương ứng với một độ lỗi được định nghĩa cụ thể. 
+
+        Ta xét một phân phối xác suất $\pi$ được định nghĩa từ một ``normalisation factor'' C:        
+        $$\pi(.) = C \times g(.) g(.)$$
+        Tiếp theo, về cho tiết toán học thì ta nếu ta ký hiệu lớp tham số hoá của các phân phối xác suất như sau
+        $$\mathcal{F}_\Omega = {f_\omega; \omega \in \Omega} \Omega  \text{tập các tham số có thể có  }$$
+        và chúng ta xét độ lỗi E(q,p) giữa hai phân phối xác suất p và q, việc tìm ra bộ tham số tốt nhất được thể hiện bởi:
+        $$\omega^* = \text{arg}_{\omega\in\Omega} \text{min}E(f_\omega,\pi) $$
+
+        Nếu chúng ta có thể thối thiểu hoá được bài toán trên mà không cần có một phân phối $\pi$ được chuẩn hoá một cách chi tiết, ta có thể  sử dụng $f_\omega^*$ như là một xấp xỉ để ước lượng thay vì phải tính toán các biểu thức mà gần như không thể tính được khi ở chiều không gian lớn. 
+        
+        Do đó phương pháp này có thể dễ dàng được áp dụng và mở rộng cho những trường hợp mà ta cần giải quyết một bài toán với quy mô dữ liệu lớn. 
+
     \subsection{Độ sai biệt ``Kullback-Leiber Devergence'' giữa hai phân phối xác suất}  \label{chap2/subsec23}
