@@ -154,6 +154,10 @@ lưu trữ, truy vấn, tìm kiếm.
 
 \section{``Variational Auto-Encoder''} \label{chap2/sec2}
     \subsection{Nền tảng xác suất} \label{chap2/subsec21}
+
+        \subsubsection{Lý thuyết xác suất}
+        Trong lĩnh vực ``máy học'' và ``thống kê Bayesian'', chúng ta thường 
+        
         \subsubsection{Mô hình xác suất}
         \textbf{\textit{Mô hình xác suất}} là một mô hình được dùng để mô tả một phân 
         phối xác suất bằng cách sử dụng một đồ thị để mô tả các biến 
@@ -164,6 +168,8 @@ lưu trữ, truy vấn, tìm kiếm.
         các cạnh. Vì cấu trúc của mô hình đươc mô tả bằng đồ thị cho 
         nên những mô hình này còn được gọi với một tên gọi khác là 
         ``Graphical model''.
+        Mô hình xác suất thể hiện những khía cạnh mà mang tính chất ``chưa chắc chắn'' (uncertain) của một ``thí nghiệm'' dưới dạng của một phân phối xác suất. Ở đây, xét trong quá trình giải quyết một vấn đề nào đó bất kỳ, một thí nghiệm được thực hiện để kiểm chứng lý thuyết, ... thì cụm từ ``chưa chắc chắn'' mang ý nghĩa là chỉ những điểm dữ liệu mà chúng ta chưa quan sát hay chưa thu thập được, do đó về giá trị cụ thể, khoảng dữ liệu và tính chất của những điểm dữ liệu này chúng ta chưa có thể kiểm chứng được. Mô hình xác suất mang lại cho chúng các công cụ để có thể xây dựng một mô hình học, thuật toán học, cách đưa ra dự đoán từ mô hình đã được huấn luyện và cả việc lựa chọn mô hình. Các công cụ này nhất quán và đồng nhất do nó dựa trên nền tảng 
+
 
         Mục tiêu của một mô hình học máy hay mô hình học sâu là có thể giải quyết được các vấn đề mà ta không có một cách trực tiếp để giải quyết, tuy nhiên bên cạnh đó lại có dữ liệu được thu thập về vấn đề đó. Điều đó có nghĩa là ta cần xây dựng các mô hình học có thể ``hiểu'' được hình ảnh, âm thanh tiếng nói hay một đoạn văn bản. Nhưng để xây dựng được các mô hình này ta sẽ phải đối mặt với nhiều khó khăn cần giải quyết. Một trong những khó khăn đó là việc dữ liệu ta thu thập được thường có các cấu trúc phức tạp và dữ liệu ở chiều không gian cao, để có thể xử lý được những dữ liệu như vậy là điều không dễ dàng. 
 
@@ -214,5 +220,8 @@ lưu trữ, truy vấn, tìm kiếm.
         Nếu chúng ta có thể thối thiểu hoá được bài toán trên mà không cần có một phân phối $\pi$ được chuẩn hoá một cách chi tiết, ta có thể  sử dụng $f_\omega^*$ như là một xấp xỉ để ước lượng thay vì phải tính toán các biểu thức mà gần như không thể tính được khi ở chiều không gian lớn. 
         
         Do đó phương pháp này có thể dễ dàng được áp dụng và mở rộng cho những trường hợp mà ta cần giải quyết một bài toán với quy mô dữ liệu lớn. 
+        
+
+        \subsubsection{Kullback-Leiber Devergence}
 
     \subsection{Độ sai biệt ``Kullback-Leiber Devergence'' giữa hai phân phối xác suất}  \label{chap2/subsec23}
