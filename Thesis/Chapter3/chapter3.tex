@@ -13,12 +13,62 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
     \end{itemize}
 }
 \section{Dữ liệu phản hồi của người dùng trong bài toán xây dựng hệ thống gợi ý sản phẩm}
+    Như đã trình bày ở phần~\ref{Chapter1}, để xây dựng một hệ thống gợi ý 
+    theo hướng tiếp cận ``Collaborative filtering'' ta chỉ cần dữ liệu là ma trận tương tác của người dùng.
+    Tương tác ở đây có nghĩa là các phản hồi của người dùng dành cho sản phẩm, và các phản hồi này bao gồm hai loại:
+    \begin{itemize}
+        \item Phản hồi cụ thể ``explicit feedback''
+        \item Phản hồi ngầm ``implicit feedback''
+    \end{itemize}
+    Trong phần này, chúng tôi sẽ làm rõ về hai loại dữ liệu phản hồi cũng như tính chất của chúng.
     \subsection{Dữ liệu phản hồi cụ thể ``explicit feedback''}
+    Dữ liệu phản hồi cụ thể (``explicit feedback'') được hiểu là những
+    phản hồi của khách hàng về sản phẩm một cách tường minh và cụ thể, ví dụ như: số điểm đánh giá,
+    bình luận, ... ``Explicit feedback'' có thể thể hiện rõ về mức độ thích/không thích của người dùng về sản phẩm;
+    ví dụ người dùng có thể thể hiện sự yêu thích của họ từ 1 đến 5 sao cho một sản phẩm (một cách đánh giá thông dụng), 
+    sản phẩm được đánh giá 5 sao chứng tỏ nó được thích hơn so với sản phẩm được đánh giá 4 sao. 
+    Trong thực tế, dữ liệu ``explicit feedback'' thường khó để thu thập cũng như gặp trở ngại về tính tin cậy.
+    Thu thập loại dữ liệu này gặp khó khăn vì không phải người dùng nào cũng sẵn sàng phản hồi về sản phẩm. 
+    Sự miễn cưỡng của người dùng cũng như những tác động khi họ phản hồi có thể dẫn đến sự thiếu khách quan,
+    làm sai lệch kết quả của hệ thống gợi ý. 
+    Thêm nữa, vì phản hồi của người dùng thể hiện mức độ thích/không thích của người dùng, mà người dùng thì chỉ tương tác với
+    một lượng sản phẩm nhỏ trên toàn hệ thống, những sản phẩm còn lại sẽ rơi vào trường hợp thiếu dữ liệu (``missing data''),
+    gây khó khăn cho việc xử lí. 
+    Ngày nay, số lượng sản phẩm trong hệ thống là rất lớn, ``explicit feedback'' sẽ gặp khó khăn rất lớn khi có quá nhiều trường hợp thiếu dữ liệu,
+    tác động đáng kể đến hiệu quả của hệ thống. Mặc khác, ``collaborative filtering'' sẽ có cơ sở đánh giá nhóm người dùng ``tương đồng'' với nhau
+    một cách khắt khe hơn, giúp các gợi ý là những sản phẩm ``tốt'' hơn, tuy nhiên đôi lúc làm cho gợi ý không được đa dạng.
+
     \subsection{Dữ liệu phản hồi ngầm ``implicit feedback''}
+    Dữ liệu phản hồi ngầm (``implicit feedback'') là dữ liệu được suy ra từ hành động của người dùng, nếu họ xem một bộ phim
+    thì ta có thể hiểu là họ ``thích'' bộ phim đó. ``Implicit feedback'' cũng có thể được suy ra từ ``tín hiệu ngầm'' (``implicit signal''),
+    xét ví dụ người dùng đánh giá một sản phẩm là 4 sao (trên thang đánh giá từ 1 đến 5 sao), từ ``tín hiệu ngầm'' dựa trên số sao họ đánh giá,
+    ta có thể suy ra họ ``thích'' sản phẩm đó. 
+    ``Implicit feedback'' chỉ thể hiện rõ về sự ``thích'' cũng như chỉ thể hiện một cách tương đối mức độ yêu thích của người dùng.
+    Cụ thể, người dùng không xem một bộ phim không có nghĩa là họ không thích bộ phim đó, có thể là họ chưa xem hoặc không biết nó có trên hệ thống.
+    Cũng như họ xem một bài hát 10 lần chứng tỏ họ thích hơn so với một bài hát họ chỉ nghe 2 lần, 
+    và ``implicit feedback'' không thể thể hiện được rõ điều này.
+    Trong thực tế, lượng dữ liệu phản hồi ngầm rất lớn và dễ dàng thu thập được, quá trình ``phản hồi'' của người dùng là bị động
+    nên không bị ảnh hưởng bởi các yếu tố ngoại cảnh khác. 
+
+    Ma trận tương tác của người dùng với dữ liệu phản hồi ngầm sẽ có dạng là một ma trận nhị phân, với giá trị \textbf{1} 
+    thể hiện người dùng ``thích'' sản phẩm đó, giá trị \textbf{0} thể hiện hệ thống chưa có cơ sở để xác định người dùng ``thích'' sản phẩm đó.
+
+    Với dữ liệu phản hồi ẩn, ``collaborative filtering'' sẽ xác định nhóm người dùng ``tương đồng'' với nhau rộng hơn
+    do chỉ quan tâm đến các sản phẩm họ thích. Điều này sẽ giúp các gợi ý của hệ thống 
+    đa dạng hơn, tuy nhiên các sản phẩm mà người dùng không thích cũng có thể sẽ được gợi ý.
+
+    Trong giới hạn luận văn này, chúng tôi chỉ tìm hiểu về một hệ thống gợi ý với dữ liệu phản hồi ngầm do tính khách quan
+    cũng như giải quyết được các khó khăn của ``explicit feedback''.
+
+
+    
+
+
+
 
 \section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
 \section{``Mult-VAEs''}
     \subsection{Quá trình huấn luyện mô hình}
     \subsection{Quá trình phát sinh gợi ý}
 \section{Vấn đề ``KL-Vanishing'' trong việc huấn luyện ``Variational Auto-Encoder''}
-    \subsection{Phương pháp ``KL-Annealing''}
+    \subsection{Phương pháp ``KL-Annealing''}1
