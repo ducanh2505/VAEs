@@ -161,7 +161,10 @@ lưu trữ, truy vấn, tìm kiếm.
         
 
     \subsection{Nền tảng xác suất} \label{chap2/subsec21}
-        Mục tiêu của một mô hình trong lĩnh vực học máy là có thể giải quyết được các vấn đề mà ta không có một ``lời giải'' trực tiếp nhưng ta lại có các dữ liệu được ghi lại về vấn đề mà ta quan tâm đến. Một mô hình học máy hiệu quả sẽ cố gắng ``học'' từ dữ liệu, và từ những ``kiến thức'' đã học được có thể đưa ra các ``quyết định'' để giải quyết được vấn đề đó. 
+        
+        
+
+        Mục tiêu của một mô hình trong lĩnh vực học máy là có thể giải quyết được các vấn đề mà ta không có một ``lời giải'' trực tiếp nhưng ta lại có các dữ liệu được ghi lại về vấn đề mà ta quan tâm đến. Một mô hình học máy hiệu quả sẽ cố gắng ``học'' từ dữ liệu, và từ những ``kiến thức'' đã học được có thể đưa ra các ``quyết định'' để giải quyết được vấn đề đó. Để làm được điều này thì thì ta cần tập các dữ liệu liên quan với vấn đề cần giải quyết, và huấn luyện được mô hình để tìm ra được bộ tham số tốt nhất sao cho mô hình 
 
         \subsubsection{Định lý Bayes và ứng dụng trong lĩnh vực học máy}
         Trong lĩnh vực ``máy học'' và ``thống kê Bayesian'', chúng ta thường quan tâm đến việc thực hiện các phép suy diễn dữ liệu ẩn ta không quan sát được khi cho trước các dữ liệu ta quan đã quan sát được. Ví dụ như một mô hình phát hiện sản phẩm lỗi, thì ta sẽ quan tâm đến việc khi ta đã có các thông tin về sản phẩm, đây là dữ liệu ta đã quan sát được và từ đó ta suy diễn hay còn được gọi là dự đoán về tình trạng của sản phẩm mà tình trạng này chưa quan sát được. Giả sử rằng, ta có $x$ biến ngẫu nhiên thể hiện cho dữ liệu mà ta đã có, và $y$ là biến ngẫu nhiên của dữ liệu mà ta chưa quan sát được. Theo đó, ta sẽ quan tâm đến việc tìm ra được giá trị $y$ cụ thể khi cho trước giá trị $x$. Về xác suất, hay cụ thể ở đây, theo định lý Bayes, nếu ta có $p(x)$ là thông tin mà ta đã nắm được; và một vài mẫu dữ liệu $p(y|x)$ mà ta đã có trong việc thể hiện mối quan hệ giữa $y$ và $x$, cụ thể là giá trị của $y$ khi ta đã có $x$, thì theo công thức Bayes ta có: $$p(x|y) = \frac{p(y|x)p(x)}{p(y)}$$
