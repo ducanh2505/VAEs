@@ -291,7 +291,7 @@ lưu trữ, truy vấn, tìm kiếm.
         
         Tiếp đến, Kullback Leiber Devergence được sử dụng để xấp xỉ posterior. 
         với $$KL(q_\lambda(z|x) || p (z|x)) = E_q[log q_\lambda(z|x)] - E_q[log p(x,z)] + \log p(x)$$
-        Mục tiêu của chúng ta là tìm ra bộ tham số $\lmabda$ sao cho tối thiểu được divergence trên. với $q^*$ là phân phối q lý tưởng để xấp sỉ posterior thì ta có
+        Mục tiêu của chúng ta là tìm ra bộ tham số $\lambda$ sao cho tối thiểu được divergence trên. với $q^*$ là phân phối q lý tưởng để xấp sỉ posterior thì ta có
         $$q^*_\lambda(z|x) = \text{arg min}_\lambda KL(q_\lambda(z|x)|| p(x))$$
         Tuy nhiên ta vẫn chưa có thể tính được trực tiếp bởi trong công thức thì vân còn xuất hiện p(x), marginial likelihood không thể tính một cách trực tiếp. 
         Xét biến đổi sau:
@@ -301,7 +301,7 @@ lưu trữ, truy vấn, tìm kiếm.
         Điều này có nghĩa rằng thay vì tối thiểu hoá KL thì ta sẽ thực hiện cực đại hoá ELBO.
         
         Ở trên là lý thuyết nền tảng về xác suất của mô hình VAEs, tiếp theo ta sẽ liên hệ với mạng nơ ron để thể hiện cho mô hình.
-        
+
 
 
         Điểm mấu chốt bên trong của mô hình variational autoencoder đó là nó có thể được huấn luyện bằng cách tối đa variational lower bound được liên hệ với các điểm dữ liệu x:
