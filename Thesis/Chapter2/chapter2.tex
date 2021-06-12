@@ -28,7 +28,7 @@ của chúng tôi ở chương kế tiếp.}
 Mô hình ``Auto-Encoder'' là một mạng nơ-ron truyền thẳng được huấn luyện
 để cố gắng sao chép đầu vào của nó thành đầu ra. Bên trong ``Auto-Encoder''
 có một lớp ẩn \textbf{\textit{h}} mô tả đặc trưng ẩn, gọi là véc-tơ biểu diễn ẩn đại diện cho đầu vào của nó.
-
+ 
 Kiến trúc của một ``Auto-Encoder'' (được minh họa trong hình~\ref{fig_AE}) bao gồm hai phần:
 \begin{itemize}
     \item Bộ mã hóa (encoder) ánh xạ véc-tơ đầu vào sang véc-tơ biểu diễn ẩn: 
@@ -218,28 +218,46 @@ lưu trữ, truy vấn, tìm kiếm.
  
         
         \subsubsection{Variational inference}
-        Variational inference(VI) là một phương pháp thường hay được sử dụng để giải quyết bài toán bayesian inference. Phương pháp này sử dụng hướng tiếp cận là tìm ra xấp xỉ tốt nhất cho một phân phối xác suất bằng cách tìm ra bộ tham số tốt nhất định nghĩa cho phân phối. 
+        Variational inference(VI) là một phương pháp thường hay được sử dụng để giải quyết bài toán bayesian inference. 
+        Phương pháp này sử dụng hướng tiếp cận là tìm ra xấp xỉ tốt nhất cho một phân phối xác suất bằng cách tìm ra bộ tham số tốt nhất định nghĩa cho phân phối khác, sao cho phân phối này sẽ ``gần'' với phân phối mà ta quan tâm. 
+        
+        Phương pháp VI, đầu tiên ta sẽ tìm một phân phối xác suất có cùng ``họ''(family) với phân phối xác suất mà ta quan tâm. Một họ phân phối xác suất là tập các phân phối xác suất được định nghĩa bởi bộ tham số có cùng định dạng. Ví như họ phân phối Gaussian sẽ được định nghĩa bởi $\mu$ là giá trị kỳ vọng (mean) và $\sigma$ là độ lệch chuẩn (standard devieation)
+        Việc lựa chọn ``họ'' phân phối sẽ kiểm soát giữa độ phức tạp và độ chính xác của của phương pháp này. Nếu ta giả định rằng dữ liệu tuân theo một phân phối đơn giản thì kết quả suy diễn được sẽ không quá chính xác nhưng có thể dễ dàng tìm được nghiệm tối ưu. Ngược lại nếu ta lựa chọn ``họ'' phân phối phức tạp thì sẽ khó tìm đươc nghiệm tối ưu nhưng kết quả suy diễn sẽ có kết quả tốt hơn. 
 
-        Phương pháp VI bao gồm việc tìm ra một xấp sỉ tốt nhất cho một mục tiêu là phân phối xác suất giữa một lớp các phân phối xác suất cho trước. Cụ thể hơn, ý tưởng của VI đó là ta định nghĩa một lớp các phân phối xác suất và tìm ra trên đó bộ tham số sao cho ta có đạt được một phần tử gần nhất với mục tiêu của chúng ta tương ứng với một độ lỗi được định nghĩa cụ thể. 
-
-        Ta xét một phân phối xác suất $\pi$ được định nghĩa từ một ``normalisation factor'' C:        
-        $$\pi(.) = C \times g(.) g(.)$$
-        Tiếp theo, về cho tiết toán học thì ta nếu ta ký hiệu lớp tham số hoá của các phân phối xác suất như sau
-        $$\mathcal{F}_\Omega = {f_\omega; \omega \in \Omega} \Omega  \text{tập các tham số có thể có  }$$
-        và chúng ta xét độ lỗi E(q,p) giữa hai phân phối xác suất p và q, việc tìm ra bộ tham số tốt nhất được thể hiện bởi:
+        Sau khi xác định được ``họ'' phân phối xác suất dùng để xấp sỉ phân phối xác suất mà chúng ta quan tâm thì việc tiếp theo là làm sao để tìm ra được xấp xỉ tốt nhất. 
+        Chúng ta xét độ lỗi E(q,p) giữa hai phân phối xác suất p và q, việc tìm ra bộ tham số tốt nhất được thể hiện bởi:
         $$\omega^* = \text{arg}_{\omega\in\Omega} \text{min}E(f_\omega,\pi) $$
 
-        Nếu chúng ta có thể thối thiểu hoá được bài toán trên mà không cần có một phân phối $\pi$ được chuẩn hoá một cách chi tiết, ta có thể  sử dụng $f_\omega^*$ như là một xấp xỉ để ước lượng thay vì phải tính toán các biểu thức mà gần như không thể tính được khi ở chiều không gian lớn. 
-        
-        Do đó phương pháp này có thể dễ dàng được áp dụng và mở rộng cho những trường hợp mà ta cần giải quyết một bài toán với quy mô dữ liệu lớn. 
+        Do đó, sau khi xác định được một hàm lỗi để xấp xỉ phân phối xác suất mà chúng ta quan tâm.
+        Việc tìm ra phân phối xác suất tốt nhất này trở thành một bài toán tìm nghiệm tối ưu nên phương pháp này có thể dễ dàng được áp dụng và mở rộng cho những trường hợp mà ta cần giải quyết một bài toán với quy mô dữ liệu lớn. 
         
         \subsubsection{Kullback-Leiber Devergence}
-        Kullback-Leiber Devergence, hay sự sai biệt Kullback-Leiber thường được sử dụng để tính sự khác biệt giữa phân phối xác suất. 
+        Vậy trong bài toán variational inference thì làm sao để xác định hai phân phối xác suất có ``gần'' nhau hay không thì chúng ta sẽ dùng sự sai biệt Kullback-Leiber (KL).
+        KL là môt
         Nếu p và q là hai phân phối xác suất, sự khai biệt Kullback-Leiber sẽ được định nghĩa như sau:
+            
 
         \subsubsection{ ``Maximum Likelihood Estimation''}
+        Trong lĩnh vực máy học, chúng ta sử dụng một mô hình để mô tả một tiến trình mà tổng hợp, phân tích tự động dữ liệu được thu thập để có thể giải quyết các vấn đề như tìm ra các đặc trưng, đưa ra các dự đoán dựa trên dữ liệu quan sát được. 
+        Và để làm được mục đích trên thì mỗi mô hình sẽ được định nghĩa bởi một các tham số để thể hiện cho các phép tính toán của mô hình. 
+        Ví dụ với mô hình hồi quy tuyến tính (linear regression),  giả sử rằng với dữ liệu x ta quan sát được và ta muốn dự đoán giá trị của y dựa trên x, theo mô hình này thì y sẽ được dự đoán như sau: 
+        $$y = mx+c$$ 
+        Trong đó m và c là các tham số của mô hình này. 
+        Vậy nên với mỗi bộ tham số khác nhau thì dẫn đến kết quả trả về của mô hình là khác nhau.
+        Việc huấn luyện một mô hình là việc tìm ra bộ tham số sao cho mô hình có thể đạt được kết quả tốt nhất trên các tập kiểm định. 
+        Maximum likelihood Estimation(MLE) với ý tưởng là giả định các điểm dữ liệu mà ta quan sát được độc lập, và thể hiện một phân phối xác suất nào đó, và MLE sẽ xác định một hàm số với bộ tham số sao cho có thể tối đa được likelihood của mô hình.       
+        MLE sẽ xác định xem với bộ tham số đó thì phân phối của kết quả trả về của mô hình có ``gần'' với phân phối của dữ liệu mà ta có.
         
-
+        Nói một cách khác thì likelihood của mô hình với một bộ tham số cụ thể trên dữ liệu mà ta quan sát được sẽ thể hiện khả năng mà mà mô hình sẽ trả về là dữ liệu mà ta có.
+        Thì việc cực đại likelihood là việc tối đa khả năng mà mô hình sẽ trả về kết quả chính là dữ liệu mà ta có.
+        Cụ thể thì với một biến ngẫu nhiên x thể hiện cho dữ liệu và hàm mật độ  xác suất p(x|theta) cũng chính là likelihood của mô hình với theta là bộ tham số của mô hình thì Negative log-likelihood được thể hiện như sau 
+        $$\mathcal{L}_x(\theta) = -\log p(x|\theta)$$
+        Với dữ liệu x cố định và theta biên đổi, và hàm p(x|theta) thể hiện một mô hình với một bộ tham số cụ thể của theta. 
+        Để cực đại likelihood của mô hình sẽ tương đương với việc tối  thiểu biểu thức trên. 
+        Do đó, để tìm ra được bộ tham số cho mô hình học máy với MLE, thì ta sẽ tìm bộ tham số sao cho tối thiểu biểu thức trên.  
+        
+        
+    
 
 
         \subsection{Variational Auto-encoder} 
@@ -260,8 +278,11 @@ lưu trữ, truy vấn, tìm kiếm.
 
         Điểm mạnh của một mô hình xác suất đó là khả năng có thể giảm được chi phí cho việc thể hiện một mô hình xác suất và cũng như là chi phí cho việc huấn luyện cũng như suy diễn. Cơ chế hoạt động chính của mô hình xác suất cho phép tát cả các phép tính được thực hiện với thời gian thực thi và bộ nhớ hơn so với các mô hình mô hình hoá dữ liệu. Một lợi ích khác trong việc sử dụng mô hình xác suất khác đó là cho phép chúng ta tách biệt các thể hiện của ``kiến thức'' một cách chi tiết từ quá trình huấn luyện hay quá trình suy diễn. Điều này làm cho các mô hình dễ dàng để cài đặt và ``debug''. Chúng ta có thể thiết kế, phân tích và đánh quá thuật toán huấn luyện và thuật toán suy diễn mà có thể áp dụng rộng rãi ở tất cả các loại đồ thị. Một cách độc lập, chúng ta có thể thiết kế các mô hình mà có thể nắm bắt được mối quan hệ mà chúng ta tin rằng nó quan trọng trong dữ liệu mà chúng ta có. Sau đó chugn ta có thể kết hợp các thuật toán và các cấu trúc khác nhau và có các ``tích Đề-Các'' bất kỳ nào mà phù hợp có thể để áp dụng. Tuy nhiên nó sẽ khó hơn trong việc thiết kế một thuật toán ``end-to-end'' cho tất cả các trường hợp.
         \subsubsection{variational Auto-encoder}
-        Variational autoenncoder là một mô hình graphical sử dụng phương pháp xấp sỉ variational inference và có thể được huấn luyện dựa trên các thuật toán dựa trên gradient truyền thống.
-        
+        Với góc nhìn mạng nơ ron thông thường thì Variational autoencoder cũng chỉ là một mạng nơ ron đơn giản với cấu trúc hai phần như autoencoder cơ bản, gồm encoder và decoder. 
+        Encoder được dùng để trích xuất đặc trưng ẩn từ dữ liệu, điểm khác biệt so với autoencoder cơ bản là encoder của VAEs sẽ là một phân phối xác suất.
+        Và tương tự thì decoder sẽ là mạng nơ ron cố gắng để tái tạo lại dữ liệu ban đầu từ đặc trưng ẩn.
+        Tuy nhiên để hiểu rõ hơn về nền tảng toán học cũng như xác suất trong mô hình chúng tôi sẽ trình bày mô hình VAEs dưới góc độ là một mô hình xác suất.
+        Variational autoenncoder là một mô hình graphical có hướng mô tả mối quan hệ giữa dữ liệu quan sát được và đặc trưng ẩn.
         Xét graphical model thể hiện cho mô hình VAE như sau:
 
         theo đó thì variational autoencode bao gồm một biến x thể hiện cho dữ liệu, đây là biến dữ liệu quan sát được, và z là biến ẩn thể hiện cho đặc trưng ẩn của dữ liệu. 
@@ -272,10 +293,14 @@ lưu trữ, truy vấn, tìm kiếm.
             \item Đặc trưng ẩn $z_i$ được lấy mẫu từ phân phối p(z)
             \item điểm dữ liệu $x|i$ được lấy mẫu từ phân phối p(x|z)
         \end{itemize}
-        Đây là mục tiêu chính khi ta xét variational auto-encoder dưới góc độ của xác suất.
-        Biến đặc trưng ẩn được chọn ra từ một phân phố prior p(z). Điểm dữ liệu x có một phân phối liklihood p(x|z).
+
+        Cụ thể thì biến đặc trưng ẩn z được chọn ra từ một phân phố prior p(z). Điểm dữ liệu x có một phân phối liklihood p(x|z).
         Mô hình định nghĩa một phân phối hợp của dữ liệu và đặc trưng ẩn: p(x,z). 
-        Chúng ta có thể phân tách phân phối hợp trên thành prior và likelihood như sau: p(x,z) = p(x|z)p(z).
+        Chúng ta có thể phân tách phân phối hợp trên thành prior và likelihood như sau: p(x,z) = p(x|z)p(z). Đây chíh là mục tiêu chính khi ta xét variational auto-encoder dưới góc độ của xác suất.
+
+
+        Mô hình này sử dụng phương pháp xấp sỉ variational inference để tìm ra đặc trưng ẩn,đây cũng là lý do dẫn đến cái tên variational autoencoder. và VAEs có thể được huấn luyện dựa trên các thuật toán dựa trên gradient truyền thống.
+        
         
         Tiếp theo, ta xét đến việc suy diễn trong mô hình này. 
         Mục tiêu của việc suy diễn là tìm ra được một giá trị ``tốt'' thể hiện cho đặc trưng ẩn khi ta có các điểm dữ liệu, hay nói cách khác là ta tính posterior.
@@ -284,13 +309,13 @@ lưu trữ, truy vấn, tìm kiếm.
         theo như những gì đã trình bày ở những phần trên thì phần mẫu số được gọi là marginal likelihood. 
         Và marginal likelihood sẽ không dẽ dang tính toán được một cách chính xác khi đặc trưng ẩn ở không gian có số chiều cao. 
 
-        Do đó, vairational inference được áp dụng để xấp xỉ phân phối posterior này, đây cũng là lý do dẫn đến cái tên variational autoencoder.
+        Do đó, vairational inference được áp dụng để xấp xỉ phân phối posterior này.
         VI xấp xỉ posterior thông qua một lớp phân phối xác suất $q_\lambda(z|x)$.
         trong đó $\lambda$ thể hiện cho bộ tham số định nghĩa cho phân phối q, ví dụ nếu q là phân phối Gaussian thì $\lambda_{xi} = (\mu_{xi},\sigma^2_{x_i})$.
         
         Tiếp đến, Kullback Leiber Devergence được sử dụng để xấp xỉ posterior. 
         với $$KL(q_\lambda(z|x) || p (z|x)) = E_q[log q_\lambda(z|x)] - E_q[log p(x,z)] + \log p(x)$$
-        Mục tiêu của chúng ta là tìm ra bộ tham số $\lambda$ sao cho tối thiểu được divergence trên. với $q^*$ là phân phối q lý tưởng để xấp sỉ posterior thì ta có
+        Mục tiêu của chúng ta là tìm ra bộ tham số $\lambda$ sao cho tối thiểu được sự sai biệt trên. với $q^*$ là phân phối q lý tưởng để xấp sỉ posterior thì ta có
         $$q^*_\lambda(z|x) = \text{arg min}_\lambda KL(q_\lambda(z|x)|| p(x))$$
         Tuy nhiên ta vẫn chưa có thể tính được trực tiếp bởi trong công thức thì vân còn xuất hiện p(x), marginial likelihood không thể tính một cách trực tiếp. 
         Xét biến đổi sau:
@@ -300,14 +325,15 @@ lưu trữ, truy vấn, tìm kiếm.
         Điều này có nghĩa rằng thay vì tối thiểu hoá KL thì ta sẽ thực hiện cực đại hoá ELBO.
         
         Ở trên là lý thuyết nền tảng về xác suất của mô hình VAEs, tiếp theo ta sẽ liên hệ với mạng nơ ron để thể hiện cho mô hình.
+        Mục tiêu cuối cùng của chúng ta là tìmm ra bộ tham số có thể xấp xỉ được posterior $q_theta(z|x,lamda) p(z|x,lamda)$ thông qua một mạng nơ ron thường được gọi là  ``inference network'' hay là encoder. Mạng này nhận đầu vào là dữ liệu x và trả về kết quả là bộ tham số lamda thể hiện phân phối xác suất của đặc trưng ẩn. 
+        Bên cạnh đó, sẽ có một mạng nơ ron được gọi là ``genetive netowrk'' hay còn được biết đến là decoder thể hiện cho likelihood $p_phi(x|z)$ của mô hình. 
+        Tiếp theo đặc trưng ẩn sẽ được lấy mẫu từ phân phối xác suất trả ra từ encoder, đây chính là bước đầu tiên trong mô hình xác suất nói trên.
+        Dữ liệu đầu vào của decoder là đặc trưng ẩn được lấy mẫu dựa trên phân phối của đặc trưng ẩn, và decoder sẽ cố gắng tái tạo lại dữ liệu ban đầu từ đặc trưng ẩn z, đây chính là bước thứ hai trong mô hình xác suất.
+        Inference network và generative network sẽ có bộ tham số tương ứng là theta và phi.
+        Thông thường bộ tham số là các trọng số và bias trong một mạng nơ ron thông thường. 
+        Để huấn luyện mô hình ta sẽ cực đại ELBO bằng các phương pháp tối ưu bộ tham số như trong các mạng nơ ron thông thường. 
 
 
-
-        Điểm mấu chốt bên trong của mô hình variational autoencoder đó là nó có thể được huấn luyện bằng cách tối đa variational lower bound được liên hệ với các điểm dữ liệu x:
-
-        trong công thức trên, chúng ta nhận ra rằng phần đầu tiên chính là log-likelihood hợp của biến ta quan sát được là x và biến đặc trưng ẩn z dựa vào việc xấp sỉ posterior trên biên đặc trưng ẩn. 
-        Ngoà ra, phần thứ 2 chính là entropy của việc xấp sỉ posterior. 
-        Khi q được chọn là phân phối Gaussian, với việc thêm nhiễu đ
 
   
         
