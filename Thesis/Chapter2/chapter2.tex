@@ -169,24 +169,40 @@ lưu trữ, truy vấn, tìm kiếm.
         
         \subsubsection{Định lý Bayes và ứng dụng trong lĩnh vực học máy}
         Trong lĩnh vực ``máy học'' và ``thống kê Bayesian'', chúng ta thường quan tâm đến việc thực hiện các phép suy diễn dữ liệu ẩn ta không quan sát được khi cho trước các dữ liệu ta quan đã quan sát được.
-        Ví dụ như một mô hình phát hiện sản phẩm lỗi, thì ta sẽ quan tâm đến việc khi ta đã có các thông tin về sản phẩm, đây là dữ liệu ta đã quan sát được và từ đó ta suy diễn hay còn được gọi là dự đoán về tình trạng của sản phẩm mà tình trạng này chưa quan sát được. 
-        Giả sử rằng, ta có $x$ biến ngẫu nhiên thể hiện cho dữ liệu mà ta đã có, và $y$ là biến ngẫu nhiên của dữ liệu mà ta chưa quan sát được.
-        Theo đó, ta sẽ quan tâm đến việc tìm ra được giá trị $y$ cụ thể khi cho trước giá trị $x$. 
-        Về xác suất, hay cụ thể ở đây, theo định lý Bayes, nếu ta có $p(y)$ là thông tin mà ta đã nắm được về biến ta không quan sát được y; và một vài mẫu dữ liệu $p(y|x)$ mà ta đã có trong việc thể hiện mối quan hệ giữa $y$ và $x$, cụ thể là dữ liệu mà ta có nhãn $y$ khi ta đã có $x$, thì theo công thức Bayes ta có: $$p(y|x) = \frac{p(y|x)p(x)}{p(y)}$$
-        Trong đó, $p(x)$ được gọi là ``prior'', ``prior'' thể hiện ``kiến thức'' chủ quan ban đầu của chúng ta trước khi ta có bất kỳ về thông tin nào về liệu ẩn mà ta quan sát được.
-        prior có thể được thể hiện thông qua một phân phối xác suất của biến ẩn, nó có thể là phân phối xác suất bất kỳ sao cho phù hợp với chúng ta, nhưng một điều chúng ta cần phải đảm bảo đó là ``prior'' phải là có giá trị khác không trên tất cả các giá trị có thể xuất hiện của $x$, kể cả khi giá trị đó rất hiếm khi xảy ra.
-        $p(y|x)$ là ``likelihood'', mô tả mối quan hệ giữa $x$ và $y$ liên quan với nhau như thế nào, và cụ thể thì nó là xác suất của việc giá trị $y$ cụ thể khi ta đã biết về dữ liệu ẩn $x$.
-        ``posterior'' $p(x|y)$ sẽ là giá trị mà ta quan tâm theo này quan điểm của Bayes. Nó thể hiện rằng chúng ta có được thông tin gì về $x$ khi ta có dữ liệu về $y$.
-        Theo công thức trên, thì ta còn một giá trị nữa đó là $$p(y) = \int {p(y|x)p(x)\text{d}x = \mathrm{E}_X[p(y|x)]}$$ là ``marginal likelihood'' hay còn được gọi là ``evedience''. Trong công thức trên thì kí hiệu $\mathrm{E}$ thể hiện giá trị kỳ vọng của phân phối xác suất. Theo công thức của bayes thì, ``marginal likelihood'' độc lập với dữ liệu ẩn $x$, do đó ``marginal likelihood'' sẽ đóng vai trò đảm bảo giá trị của ``posterior'' sẽ được chuẩn hoá, có nghĩa là ``posterior'' sẽ có khoảng giá trị từ 0 đến 1. Tuy nhiên, với việc tính ``marginal likelihood'' là một giá trị tích phân, do đó thông thường việc tính toán giá trị chính xác cho ``marginal likelihood'' sẽ không dễ dàng. 
+        Ví dụ như ứng dụng một mô hình học máy trong việc phát hiện sản phẩm lỗi, khi ta đã có ghi nhận lại một số lượng dữ liệu mô tả của sản phẩm và đã biết được sản phẩm nào có lỗi hay không, đây chính là dữ liệu mà ta đã quan sát được. Điều mà ta quan tâm đến đó là mô hình có thể phát hiện được những `patterm' hay những đặc trưng quyết định đến việc xác định một sản phẩm có được xem là sản phẩm lỗi hay không, thì những patterm hoặc những đặc trưng này sẽ được xem là những dữ liệu ẩn.
+
+        Giả sử rằng, ta có $a$ biến ngẫu nhiên thể hiện cho dữ liệu ẩn mà ta không có dữ liệu về biến ngẫu nhiên này, và $b$ là biến ngẫu nhiên của dữ liệu mà ta có thể quan sát được.
+        Theo đó, ta sẽ quan tâm đến việc tìm ra được giá trị $a$ cụ thể khi cho trước giá trị $b$. 
+        Về xác suất, hay cụ thể ở đây, theo định lý Bayes, nếu ta có $p(a)$ là thông tin mà ta đã biết trước về biến ta không quan sát được $a$; và một số mẫu dữ liệu thể hiện mối quan hệ giữa $a$ và $b$ được thể hiện bởi $p(b|a)$, thì theo công thức Bayes ta có:$$p(a|b) = \frac{p(b|a)p(a)}{p(b)}$$
+        Trong đó: 
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.25]{bayes.png}
+            \caption{Định lý ``Bayes''}
+            \label{fig_bayes}
+        \end{figure}
+        \begin{itemize}
+            \item $p(a)$ được gọi là ``prior'', prior thể hiện cho ``kiến thức biết trước'' theo góc nhìn chủ quan ban đầu của chúng ta trước khi ta có bất kỳ về thông tin nào về liệu mà ta quan sát được.
+            prior có thể được thể hiện thông qua một phân phối xác suất theo biến ẩn, nó có thể là phân phối xác suất bất kỳ sao cho phù hợp với chúng ta, nhưng một điều chúng ta cần phải đảm bảo đó là phân phối prior phải là có giá trị khác không trên tất cả các giá trị có thể xuất hiện của $a$, kể cả khi giá trị đó rất hiếm khi xảy ra.
+
+            \item $p(b|a)$ là ``likelihood'', mô tả mối quan hệ giữa $a$ và $b$ liên quan với nhau như thế nào, và cụ thể thì nó là khả năng của việc xảy ra giá trị $b$ khi ta đã biết về dữ liệu ẩn $a$ cụ thể.
+            
+            \item Phân phối ``posterior'' $p(a|b)$ sẽ là giá trị mà ta quan tâm theo quan điểm của Bayes. Nó thể hiện rằng chúng ta có được thông tin gì về dữ liệu ẩn $a$ không quan sát được  khi ta có dữ liệu quan sát được là  $b$.
+            
+            \item $p(b)$ là ``evedience'' hay cũng còn được biết đến là ``marginal likelihood''. Phân phối thể hiện cho khả năng xảy ra của một giá trị B cụ thể. Ngoài ra evedience độc lập với $a$ nó còn có vai trò để chuẩn hoá cho posterior, có nghĩa là posterior sẽ có khoảng giá trị từ 0 đến 1.
+        \end{itemize}
+
+        % Theo công thức trên thì
+        %  $$p(y) = \int {p(y|x)p(x)\text{d}x = \mathrm{E}_X[p(y|x)]}$$ là ``marginal likelihood'' hay còn được gọi là ``evedience''. Trong công thức trên thì kí hiệu $\mathrm{E}$ thể hiện giá trị kỳ vọng của phân phối xác suất. Theo công thức của bayes thì, ``marginal likelihood'' độc lập với dữ liệu ẩn $x$, do đó ``marginal likelihood'' sẽ đóng vai trò đảm bảo giá trị của ``posterior'' sẽ được chuẩn hoá, có nghĩa là ``posterior'' sẽ có khoảng giá trị từ 0 đến 1. Tuy nhiên, với việc tính ``marginal likelihood'' là một giá trị tích phân, do đó thông thường việc tính toán giá trị chính xác cho ``marginal likelihood'' sẽ không dễ dàng. 
 
 
         \subsubsection{Khó khăn trong việc tính toán}
         Với góc nhìn này thì ``posterior'' sẽ là giá trị mà chúng ta quan tâm đến, nó thể hiện mối quan hệ giữa ``prior'' của chúng ta và dữ liệu. 
         Việc tính toán ``posterior'' sẽ giúp chúng ta giải quyết các vấn đề trong thực tế.
         Theo công thứ thì để tính toán ``posterior'' ta cần phải có: ``prior'', ``likelihood'' và ``evedience''. Hai giá trị ở trên tử số ta có thể dễ dàng xác định được trong hầu hết các trường hợp vì đó một phần là giả định của chúng ta về mô hình. Tuy nhiên, ở mẫu số ta cần tính:
-
+        $$p(b) = \int {p(b|a)p(a)\text{d}a = \mathbb{E}_a[p(b|a)]}$$ 
         theo đó ta thấy được để tính được ``marginal likelihood'' thì ta cần tính biểu thức với dấu tích phân. Để tính giá trị này với dữ liệu ở chiều không gian thấp có thể không gặp nhiều khó khăn, nhưng khi tính toán ở những chiều không gian cao thì nó có thể trở thành một vấn đề nan giải. 
-        Cụ thể ta thấy được rằng việc tính ``marginal likelihood'' sẽ thể hiện giá trị ``likelihood'' trung bình trên toàn bộ giá trị có thể xuất hiện của x, do đó x ở chiều không gian càng cao thì việc tính toán càng trở nên phức tạp hơn. 
+        Cụ thể ta thấy được rằng việc tính marginal likelihood sẽ thể hiện giá trị ``likelihood'' trung bình trên toàn bộ giá trị có thể xuất hiện của x, do đó x ở chiều không gian càng cao thì việc tính toán càng trở nên phức tạp hơn. 
 
         Chúng ta ca cần chú ý thêm một vài khó khăn khác có thể phải đối mặt khi tính toán ``posterior'' đó là việc lấy ``tổ hợp'' khi dữ liệu là rời rạc thay vì giá trị liên tục. 
         Ở miền không gian liên tục thì ta có thể áp dụng hàm số trong lĩnh vực giải tích để tính toán, tuy nhiên trong những trường hợp mà chiều không gian của dữ liệu không liên lục, dữ liệu rời rạc thì việc tính toán sẽ còn phải xét thêm việc lấy tổ hợp dữ liệu. 
@@ -223,22 +239,35 @@ lưu trữ, truy vấn, tìm kiếm.
         
         \subsubsection{Variational inference}
         Variational inference(VI) là một phương pháp thường hay được sử dụng để giải quyết bài toán bayesian inference. 
-        Phương pháp này sử dụng hướng tiếp cận là tìm ra xấp xỉ tốt nhất cho một phân phối xác suất bằng cách tìm ra bộ tham số tốt nhất định nghĩa cho phân phối khác, sao cho phân phối này sẽ ``gần'' với phân phối mà ta quan tâm. 
+        Phương pháp này sử dụng hướng tiếp cận là tìm ra xấp xỉ tốt nhất cho một phân phối xác suất bằng cách tìm ra giá trị của bộ tham số tốt nhất định nghĩa cho một phân phối khác, sao cho phân phối này sẽ ``gần'' với phân phối mà ta quan tâm. 
         
-        Phương pháp VI, đầu tiên ta sẽ tìm một phân phối xác suất có cùng ``họ''(family) với phân phối xác suất mà ta quan tâm. Một họ phân phối xác suất là tập các phân phối xác suất được định nghĩa bởi bộ tham số có cùng định dạng. Ví như họ phân phối Gaussian sẽ được định nghĩa bởi $\mu$ là giá trị kỳ vọng (mean) và $\sigma$ là độ lệch chuẩn (standard devieation)
-        Việc lựa chọn ``họ'' phân phối sẽ kiểm soát giữa độ phức tạp và độ chính xác của của phương pháp này. Nếu ta giả định rằng dữ liệu tuân theo một phân phối đơn giản thì kết quả suy diễn được sẽ không quá chính xác nhưng có thể dễ dàng tìm được nghiệm tối ưu. Ngược lại nếu ta lựa chọn ``họ'' phân phối phức tạp thì sẽ khó tìm đươc nghiệm tối ưu nhưng kết quả suy diễn sẽ có kết quả tốt hơn. 
+        Phương pháp VI, đầu tiên ta sẽ tìm một phân phối xác suất có cùng ``họ''(family) với phân phối xác suất mà ta quan tâm. 
+        Một họ phân phối xác suất là tập các phân phối xác suất được định nghĩa bởi cùng một bộ tham số. 
+        Ví như họ phân phối Gaussian sẽ được định nghĩa bởi $\mu$ là giá trị kỳ vọng (mean) và $\sigma$ là độ lệch chuẩn (standard devieation)
+        Việc lựa chọn ``họ'' phân phối sẽ kiểm soát giữa độ phức tạp và độ chính xác của của phương pháp này. 
+        Nếu ta giả định rằng dữ liệu tuân theo một phân phối đơn giản thì kết quả suy diễn được sẽ không quá chính xác nhưng có thể dễ dàng tìm được nghiệm tối ưu. Ngược lại nếu ta lựa chọn ``họ'' phân phối phức tạp thì sẽ khó tìm đươc nghiệm tối ưu nhưng kết quả suy diễn sẽ có kết quả tốt hơn. 
 
-        Sau khi xác định được ``họ'' phân phối xác suất dùng để xấp sỉ phân phối xác suất mà chúng ta quan tâm thì việc tiếp theo là làm sao để tìm ra được xấp xỉ tốt nhất. 
-        Chúng ta xét độ lỗi E(q,p) giữa hai phân phối xác suất p và q, việc tìm ra bộ tham số tốt nhất được thể hiện bởi:
-        $$\omega^* = \text{arg}_{\omega\in\Omega} \text{min}E(f_\omega,\pi) $$
-
-        Do đó, sau khi xác định được một hàm lỗi để xấp xỉ phân phối xác suất mà chúng ta quan tâm.
-        Việc tìm ra phân phối xác suất tốt nhất này trở thành một bài toán tìm nghiệm tối ưu nên phương pháp này có thể dễ dàng được áp dụng và mở rộng cho những trường hợp mà ta cần giải quyết một bài toán với quy mô dữ liệu lớn. 
+        Sau khi xác định được ``họ'' phân phối xác suất dùng để xấp xỉ phân phối xác suất mà chúng ta quan tâm thì việc tiếp theo là làm sao để tìm ra được xấp xỉ tốt nhất. 
         
-        \subsubsection{Kullback-Leiber Devergence}
-        Vậy trong bài toán variational inference thì làm sao để xác định hai phân phối xác suất có ``gần'' nhau hay không thì chúng ta sẽ dùng sự sai biệt Kullback-Leiber (KL).
-        KL là môt
-        Nếu p và q là hai phân phối xác suất, sự khai biệt Kullback-Leiber sẽ được định nghĩa như sau:
+        Giả sử rằng chúng ta cần sấp xỉ phân phối $p$ bởi một phân phối $q$ cùng thuộc họ phân phối $\mathcal{F}$.
+        Chúng ta xét độ lỗi $\mathbb{E}(q,p)$ giữa hai phân phối xác suất $p$ và $q$, việc tìm ra bộ tham số tốt nhất được thể hiện bởi:
+        $$q^* = \text{arg}_{q\in\mathcal{F}} \text{min}\mathbb{E}(q,p)$$
+
+        Vậy trong bài toán variational inference thì làm sao để xác định hai phân phối xác suất có ``gần'' nhau hay không hay làm sao để xác định độ lỗi $\mathbb{E}(q,p)$. 
+        Sự sai biệt Kullback-Leiber (KL) là một cách để tính mức độ lệch của một phân bố đối với một phân bố được chỉ định và thường được sử dụng để đo sự khác nhau giữa hai phân phối xác suất. 
+
+        KL là môt thuật ngữ đến từ lĩnh lý thuyết thông tin, nó còn có tên gọi khác là entropy tương đối. Nói theo ngôn ngữ lý thuyết thông tin, nó đo lượng trung bình thông tin thêm vào nếu chúng ta mã hóa thông tin của phân bố $q$  thay cho mã hóa thông tin phân bố $p$.
+
+        Nếu $p(x)$ và $q(x)$ là hai phân phối xác suất với $x$ là biến ngẫu nhiên bất kỳ, thì sự khai biệt KL sẽ được định nghĩa như sau:
+        $$KL(q,p) = \mathbb{E}_q[\log q(x)] - \mathbb{E}_q[\log p(x)] $$
+
+        Sau khi xác định được một hàm lỗi để xấp xỉ phân phối xác suất mà chúng ta quan tâm $p$,  bởi phân phối $q$ thì bài toán sẽ trở thành việc tìm phân phối $q^*$ như sau:
+        $$q^* = \text{arg}_{q\in\mathcal{F}} \text{min}\mathbb{E}_q[\log q(x)] - \mathbb{E}_q[\log p(x)] $$
+
+        Việc tìm ra phân phối xác suất tốt nhất này trở thành một bài toán tìm nghiệm tối ưu do đó phương pháp này  có thể dễ dàng được áp dụng và mở rộng cho những trường hợp mà ta cần giải quyết một bài toán với quy mô dữ liệu lớn. 
+        
+        % \subsubsection{Kullback-Leiber Devergence}
+        
             
 
         \subsubsection{ ``Maximum Likelihood Estimation''}
@@ -256,7 +285,7 @@ lưu trữ, truy vấn, tìm kiếm.
         Thì việc cực đại likelihood là việc tối đa khả năng mà mô hình sẽ trả về kết quả chính là dữ liệu mà ta có.
         Cụ thể thì với một biến ngẫu nhiên x thể hiện cho dữ liệu và hàm mật độ  xác suất p(x|theta) cũng chính là likelihood của mô hình với theta là bộ tham số của mô hình thì Negative log-likelihood được thể hiện như sau 
         $$\mathcal{L}_x(\theta) = -\log p(x|\theta)$$
-        Với dữ liệu x cố định và theta biên đổi, và hàm p(x|theta) thể hiện một mô hình với một bộ tham số cụ thể của theta. 
+        Với dữ liệu $x$ cố định và $\theta$ biên đổi, và hàm $p(x|\theta)$ thể hiện một mô hình với một bộ tham số cụ thể của $\theta$. 
         Để cực đại likelihood của mô hình sẽ tương đương với việc tối  thiểu biểu thức trên. 
         Do đó, để tìm ra được bộ tham số cho mô hình học máy với MLE, thì ta sẽ tìm bộ tham số sao cho tối thiểu biểu thức trên.  
         
@@ -292,7 +321,13 @@ lưu trữ, truy vấn, tìm kiếm.
         Variational auto-enncoder là một mô hình graphical có hướng mô tả mối quan hệ giữa dữ liệu quan sát được và đặc trưng ẩn. Một graphical có hướng là một graphical model mà các đỉnh được kết nối với nhau có thứ tự. Có nghĩa là để có học được mẫu ở node ``cha'' thì trước đó ta cần mô hình hoá đưọc dữ liệu ở node con. Bên cạnh đó thì một graphical có hướng còn có tên gọi khác là Bayesian network.
 
         Xét graphical model thể hiện cho mô hình VAE như sau:
-
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.25]{dag_vae.png}
+            \caption{graphical model thể hiện cho mô hìn variation auto-encoder. Dữ liệu quan sát được sẽ được giả định được phát sinh từ biến ẩn z} 
+            \label{fig_dag_vae}
+        \end{figure}
+        
         theo đó thì variational autoencode bao gồm một biến x thể hiện cho dữ liệu, đây là biến dữ liệu quan sát được, và z là biến ẩn thể hiện cho đặc trưng ẩn của dữ liệu. 
         Là một graphical có hướng do đó quá trình phát sinh dữ liệu của VAE được thực hiện qua các bước theo thứ tự như sau: 
         
