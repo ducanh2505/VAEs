@@ -168,15 +168,19 @@ lưu trữ, truy vấn, tìm kiếm.
         Trên lý thuyết thì có ít nhất hai cách diễn giải của xác suất:  ``diễn giải tần suất'' (frequentist interetation) và ``diễn giải bayesian''. Ở cách diễn giải thứ nhất thì xác suất được thể hiện thông qua việc thực hiện các thí nghiệm nhiều lần. Ví dụ như nếu ta thực hiện thí nghiệm tung đồng xu thì ta kì vọng rằng việc đồng xu xuất hiện mặt ngửa khoảng một nửa lần trong quá trình thực hiện. Còn ở cách diễn giải bayesian của xác suất thì thường được sử dụng để định lượng về ``những điều chưa chắc chắn''. Vậy nên ở góc nhìn này sẽ liên quan đến các thông tin hơn là việc lặp lại các thí nghiệm. Một trong những ưu điểm của cách diễn giải này đó là nó có thể được sử dụng để mô hình ``những điều chưa chắc chắn'' của sự việc/sự kiện mà ta đang quan tâm đến mà không có tần suất xuất dài hạn. Ví dụ liên hệ với các bài toán trong lĩnh vực học máy như chúng ta nhận một email và ta quan tâm đến việc tính phân phôi xác suất mà email vừa nhận là spam; hay trong bài toán chúng ta nhận thấy được một vật thể thông qua màn hình radar và ta muốn tính phân phối xác suất theo vật thể vừa được phát hiện chính xác là gì ? một con chim, hay máy bay? Trong những trường hợp trên thì ý tưởng việc lặp lại các thí nghiệm sẽ không giúp ích cho chúng ta trong việc giải quyết các vấn đề nhưng với Bayesian thì điều này khá là tự nhiên và có thể được áp dụng để giải quyết bất kỳ vấn đề nào liên quan tới những ``điều không chắc chắn''.
         
         \subsubsection{Định lý Bayes và ứng dụng trong lĩnh vực học máy}
-        Trong lĩnh vực ``máy học'' và ``thống kê Bayesian'', chúng ta thường quan tâm đến việc thực hiện các phép suy diễn dữ liệu ẩn ta không quan sát được khi cho trước các dữ liệu ta quan đã quan sát được. Ví dụ như một mô hình phát hiện sản phẩm lỗi, thì ta sẽ quan tâm đến việc khi ta đã có các thông tin về sản phẩm, đây là dữ liệu ta đã quan sát được và từ đó ta suy diễn hay còn được gọi là dự đoán về tình trạng của sản phẩm mà tình trạng này chưa quan sát được. Giả sử rằng, ta có $x$ biến ngẫu nhiên thể hiện cho dữ liệu mà ta đã có, và $y$ là biến ngẫu nhiên của dữ liệu mà ta chưa quan sát được. Theo đó, ta sẽ quan tâm đến việc tìm ra được giá trị $y$ cụ thể khi cho trước giá trị $x$. Về xác suất, hay cụ thể ở đây, theo định lý Bayes, nếu ta có $p(x)$ là thông tin mà ta đã nắm được; và một vài mẫu dữ liệu $p(y|x)$ mà ta đã có trong việc thể hiện mối quan hệ giữa $y$ và $x$, cụ thể là giá trị của $y$ khi ta đã có $x$, thì theo công thức Bayes ta có: $$p(x|y) = \frac{p(y|x)p(x)}{p(y)}$$
-        Trong đó, $p(x)$ được gọi là ``prior'', ``prior'' thể hiện ``kiến thức'' chủ quan ban đầu của chúng ta trước khi ta có bất kỳ về thông tin nào về liệu ẩn mà chưa quan sát được.
-        Ta có thể chọn ``prior'' nào bất kỳ sao cho phù hợp với chúng ta, nhưng một điều chúng ta cần phải đảm bảo đó là ``prior'' phải là có giá trị khác không trên tất cả các giá trị có thể xuất hiện của $x$, kể cả khi giá trị đó rất hiếm khi xảy ra.
-        $p(y|x)$ là ``likelihood'', mô tả mối quan hệ giữa $x$ và $y$ liên quan với nhau như thế nào, và trong trường hợp dữ liệu không liên tục (miền giá trị của $x$ và $y$ không phải là một miền giá trị liên tục), thì nó là xác suất của việc giá trị $y$ cụ thể khi ta đã biết về dữ liệu ẩn $x$. Chú ý rằng ``likelihood'' không phải là một phân phối xác suất của $x$, nó chỉ là phân phối cho $y$. Ta gọi $p(y|x)$ là ``likelihood của $x$ (khi cho trước $y$)'' hoặc là ``xác suất của $y$ khi cho trước $x$'' chứ không được gọi là ``likelihood của $y$''\cite{MacKay2003}.
+        Trong lĩnh vực ``máy học'' và ``thống kê Bayesian'', chúng ta thường quan tâm đến việc thực hiện các phép suy diễn dữ liệu ẩn ta không quan sát được khi cho trước các dữ liệu ta quan đã quan sát được.
+        Ví dụ như một mô hình phát hiện sản phẩm lỗi, thì ta sẽ quan tâm đến việc khi ta đã có các thông tin về sản phẩm, đây là dữ liệu ta đã quan sát được và từ đó ta suy diễn hay còn được gọi là dự đoán về tình trạng của sản phẩm mà tình trạng này chưa quan sát được. 
+        Giả sử rằng, ta có $x$ biến ngẫu nhiên thể hiện cho dữ liệu mà ta đã có, và $y$ là biến ngẫu nhiên của dữ liệu mà ta chưa quan sát được.
+        Theo đó, ta sẽ quan tâm đến việc tìm ra được giá trị $y$ cụ thể khi cho trước giá trị $x$. 
+        Về xác suất, hay cụ thể ở đây, theo định lý Bayes, nếu ta có $p(y)$ là thông tin mà ta đã nắm được về biến ta không quan sát được y; và một vài mẫu dữ liệu $p(y|x)$ mà ta đã có trong việc thể hiện mối quan hệ giữa $y$ và $x$, cụ thể là dữ liệu mà ta có nhãn $y$ khi ta đã có $x$, thì theo công thức Bayes ta có: $$p(y|x) = \frac{p(y|x)p(x)}{p(y)}$$
+        Trong đó, $p(x)$ được gọi là ``prior'', ``prior'' thể hiện ``kiến thức'' chủ quan ban đầu của chúng ta trước khi ta có bất kỳ về thông tin nào về liệu ẩn mà ta quan sát được.
+        prior có thể được thể hiện thông qua một phân phối xác suất của biến ẩn, nó có thể là phân phối xác suất bất kỳ sao cho phù hợp với chúng ta, nhưng một điều chúng ta cần phải đảm bảo đó là ``prior'' phải là có giá trị khác không trên tất cả các giá trị có thể xuất hiện của $x$, kể cả khi giá trị đó rất hiếm khi xảy ra.
+        $p(y|x)$ là ``likelihood'', mô tả mối quan hệ giữa $x$ và $y$ liên quan với nhau như thế nào, và cụ thể thì nó là xác suất của việc giá trị $y$ cụ thể khi ta đã biết về dữ liệu ẩn $x$.
         ``posterior'' $p(x|y)$ sẽ là giá trị mà ta quan tâm theo này quan điểm của Bayes. Nó thể hiện rằng chúng ta có được thông tin gì về $x$ khi ta có dữ liệu về $y$.
-        Theo công thức trên, thì ta còn một giá trị nữa đó là $$p(y) = \int {p(y|x)p(x)\text{d}x = \mathrm{E}_X[p(y|x)]}$$ là ``marginal likelihood'' hay còn được gọi là ``evedience''. Trong công thức trên thì kí hiệu $\mathrm{E}$ thể hiện giá trị kỳ vọng của phân phối xác suất. Theo công thức của bayes thì, ``marginal likelihood'' độc lập với dữ liệu ẩn $x$, do đó ``marginal likelihood'' sẽ đóng vai trò đảm bảo giá trị của ``posterior'' sẽ được chuẩn hoá, có nghĩa là ``posterior'' sẽ có khoảng giá trị từ 0 đến 1. Ngoài tác dụng để chuẩn hoá ra thì ``marginal likelihood'' sẽ đóng vai trò trong việc lựa chọn mô hình ``model selection'' (là việc chọn ra mô hình tốt nhất, giữa các mô hình hoặc giữa các bộ siêu tham số). Tuy nhiên, với việc tính ``marginal likelihood'' là một giá trị tích phân, do đó thông thường việc tính toán giá trị chính xác cho ``marginal likelihood'' sẽ không dễ dàng. 
+        Theo công thức trên, thì ta còn một giá trị nữa đó là $$p(y) = \int {p(y|x)p(x)\text{d}x = \mathrm{E}_X[p(y|x)]}$$ là ``marginal likelihood'' hay còn được gọi là ``evedience''. Trong công thức trên thì kí hiệu $\mathrm{E}$ thể hiện giá trị kỳ vọng của phân phối xác suất. Theo công thức của bayes thì, ``marginal likelihood'' độc lập với dữ liệu ẩn $x$, do đó ``marginal likelihood'' sẽ đóng vai trò đảm bảo giá trị của ``posterior'' sẽ được chuẩn hoá, có nghĩa là ``posterior'' sẽ có khoảng giá trị từ 0 đến 1. Tuy nhiên, với việc tính ``marginal likelihood'' là một giá trị tích phân, do đó thông thường việc tính toán giá trị chính xác cho ``marginal likelihood'' sẽ không dễ dàng. 
 
 
-        \subsubsection{Computational diffficulties}
+        \subsubsection{Khó khăn trong việc tính toán}
         Với góc nhìn này thì ``posterior'' sẽ là giá trị mà chúng ta quan tâm đến, nó thể hiện mối quan hệ giữa ``prior'' của chúng ta và dữ liệu. 
         Việc tính toán ``posterior'' sẽ giúp chúng ta giải quyết các vấn đề trong thực tế.
         Theo công thứ thì để tính toán ``posterior'' ta cần phải có: ``prior'', ``likelihood'' và ``evedience''. Hai giá trị ở trên tử số ta có thể dễ dàng xác định được trong hầu hết các trường hợp vì đó một phần là giả định của chúng ta về mô hình. Tuy nhiên, ở mẫu số ta cần tính:
@@ -190,9 +194,9 @@ lưu trữ, truy vấn, tìm kiếm.
         Khi dữ liệu có số chiều lớn thì việc tính chính xác giá trị ``posterior'' trong thực tiễn thường sẽ là một việc cực kỳ khó khăn và bất khả thi và ta cần một vài kĩ thuật xấp xỉ thường được dùng để giải quyết việc tính ``posterior''. 
 
         \subsubsection{Bài toán Inference}
-        Inference là một lớp bài toán để giải quyết vấn đề tìm hiểu về nhưng thứ mà ta biết được dựa trên những thứ mà ta đã biết. Nói một cách khác thì bài toán này là tiến trình để có thể dưa ra kết luận cho một ước lượng, hay khoảng tin cậy hoặc xấp xỉ một phân phối về một ``biến ẩn'' (lateent variable) thường được gọi kết quả trong mẫu dữ liệu, dựa trên một vài các biến mà ta đã quan sát được thường được gọi là nguyên nhân trong mẫu dữ liệu. 
+        Inference là một lớp bài toán để giải quyết vấn đề tìm hiểu về nhưng thứ mà ta biết được dựa trên những thứ mà ta đã biết. Nói một cách khác thì bài toán này là tiến trình để có thể dưa ra kết luận giá trị ước lượng, hay khoảng tin cậy hoặc xấp xỉ một phân phối cho một ``biến ẩn'' (latent variable) thường được gọi kết quả hay nhãn  trong mẫu dữ liệu, dựa trên một vài các biến mà ta đã quan sát được thường được gọi là nguyên nhân hay dữ là dữ liêu đầu vào trong mẫu dữ liệu. Ví dụ như ta có dữ liệu là hình ảnh của các đối tượng trong tự nhiên và có nhãn đi kèm mỗi ảnh, bài toán inference sẽ trả lời câu hỏi rằng nếu một tấm ảnh mới không có trước đó thì liệu ta có biết được nhãn của đối tượng trong ảnh hay không?. 
 
-        Một cách cụ thể thì, ``Bayesian inferene'' là quá trình đưa ra các suy diễn thống kê dựa trên ``định lý Bayes''. Phương pháp Bayesian là một phương pháp trong lĩnh vực xác suất thống kê mà ở đó kiến thức biết được biết trước ``prior knowledge'' được mô hình hoá bởi một phân phối xác suất và được cập nhật mỗi khi có một quan sát mới và những thứ mà ta không chắc chắn hay không quan sát được sẽ được mô hình bởi một phân phôi xác suất khác. Một ví dụ kinh diển là về các tham số của bayesian inference, giả định rằng một mô hình mà dữ liệu x được phát sinh từ một phân phối xác suất mà phân phối xác suất này được xác định bỏi các tham số $\theta$, tuy nhiên giá trị của $\theta$ thì ta chưa biết. Bên cạnh đó, ta giả định rằng, ta có một vài kiến thức được biết từ $\theta$ được gọi là ``prior knowledge'', nó có thể là phân phối xác suất $p(\theta)$. Sau đó, mỗi khi ta có một quan sát x mới, ta có thể cập nhật lại ``prior knowledge'' về tham số $\theta$ thông qua định lý Bayes theo công thức :
+        ``Bayesian inferene'' là việc giải quyết bài toán inference dựa trên ``định lý Bayes''. Phương pháp Bayesian inference là một phương pháp trong lĩnh vực xác suất thống kê mà ở đó kiến thức biết được biết trước ``prior knowledge'' được mô hình hoá bởi một phân phối xác suất và được cập nhật mỗi khi có một quan sát mới và những thứ mà ta không chắc chắn hay không quan sát được sẽ được mô hình bởi một phân phôi xác suất khác. Một ví dụ kinh diển là về các tham số của bayesian inference, giả định rằng một mô hình mà dữ liệu x được phát sinh từ một phân phối xác suất mà phân phối xác suất này được xác định bỏi các tham số $\theta$, tuy nhiên giá trị của $\theta$ thì ta chưa biết. Bên cạnh đó, ta giả định rằng, ta có một vài kiến thức được biết từ $\theta$ được gọi là ``prior knowledge'', nó có thể là phân phối xác suất $p(\theta)$. Sau đó, mỗi khi ta có một quan sát x mới, ta có thể cập nhật lại ``prior knowledge'' về tham số $\theta$ thông qua định lý Bayes theo công thức :
 
         trong đó 
 
@@ -263,7 +267,7 @@ lưu trữ, truy vấn, tìm kiếm.
         \subsection{Variational Auto-encoder} 
         \subsubsection{Mô hình xác suất}
         \textbf{\textit{Mô hình xác suất}} là một mô hình được dùng để mô tả một phân 
-        phối xác suất bằng cách sử dụng một đồ thị để mô tả các biến 
+        phối xác suất hợp của dữ liệu bằng cách sử dụng một đồ thị để mô tả các biến 
         ngẫu nhiên tương tác với nhau trong phân phối xác suất. Ở đây 
         chúng tôi sử dụng từ ``đồ thị'' là một định nghĩa về cấu trúc 
         dữ liệu được mô tả trong lĩnh vực lý thuyết đồ thị. Đồ thị 
@@ -271,67 +275,95 @@ lưu trữ, truy vấn, tìm kiếm.
         các cạnh. Vì cấu trúc của mô hình đươc mô tả bằng đồ thị cho 
         nên những mô hình này còn được gọi với một tên gọi khác là 
         ``Graphical model''.
-        Mô hình xác suất thể hiện những khía cạnh mà mang tính chất ``chưa chắc chắn'' (uncertain) của một ``thí nghiệm'' dưới dạng của một phân phối xác suất. Ở đây, xét trong quá trình giải quyết một vấn đề nào đó bất kỳ, một thí nghiệm được thực hiện để kiểm chứng lý thuyết, ... thì cụm từ ``chưa chắc chắn'' mang ý nghĩa là chỉ những điểm dữ liệu mà chúng ta chưa quan sát hay chưa thu thập được, do đó về giá trị cụ thể, khoảng dữ liệu và tính chất của những điểm dữ liệu này chúng ta chưa có thể kiểm chứng được. Mô hình xác suất mang lại cho chúng các công cụ để có thể xây dựng một mô hình học, thuật toán học, cách đưa ra dự đoán từ mô hình đã được huấn luyện và cả việc lựa chọn mô hình. Các công cụ này nhất quán và đồng nhất do nó dựa trên nền tảng 
+        Một graphical model sẽ thể hiện phân phối hợp như sau:
+        $$p(x_1,x_2, .. ,x_N)$$
+        trong đó $[x_1,x_2,..,x_N]$ là các đặc trưng dữ liệu, hoặc các tham số của mô hình,\dots Ví dụ như với bài toán phân loại thì một graphical model sẽ thể hiện cho phân phối $p(y,x, \theta)$ trong đó $x$ là đặc trưng đầu vào, $y$ là nhãn của dữ liệu và $\theta$ là trọng số của mô hình. 
 
+        Graphical model cũng chính là một nhánh trong học máy, bằng cách thể hiện bài toán học máy dưới dạng một đồ thị. 
+        Sự kết hợp giữa xác suất vào một mô hình học máy sẽ giúp mô hình ``giải thích'' vấn đề thực tế một cách tốt hơn. 
+        Theo đó thì vấn đề cần quan tâm hoặc dữ liệu liên quan bởi các biến ngẫu nhiên. Và các biến ngẫu nhiên này chính là các đỉnh trong đồ thị và mối quan hệ giữa các đỉnh sẽ hình thành cạnh. Bằng cách thể hiện mối quan hệ giữa các biến dữ liệu bởi đồ thị ta dựa vào đó để có thể giải quyết các vấn đề mà chúng ta quan tâm. Ngoài ra bằng cách thể hiện bằng đồ thị, ta cũng thể hiện được tương quan giữa các biến dữ liệu, mà đa số các thuật toán máy học hiện nay thì tính tương quan giữa dữ liệu sẽ ảnh hưởng đến kết quả của mô hình. Dữ liệu có tính tương quan càng cao thì có thể sẽ ít đóng góp thêm ``thông tin'' cho mô hình thì có thể dẫn đến việc kết quả mô hình mang lại sẽ không cao. Do đó khi xây dựng thuật toán hay mô hình cho một vấn đề cụ thể, ta có thể áp dụng các kiến thức ta biết trước về lĩnh vực đó, về dữ liệu để có thể xác định các đặc trưng cho mô hình thông qua đồ thị. Ngoài ra việc sử dụng graphical cũng sẽ cung cấp một cái nhìn tổng quan về mô hình cũng như dữ liệu, từ đó việc phân tích, thiết kế và cài đặt cũng sẽ dễ dàng hơn.
 
-        Mục tiêu của một mô hình học máy hay mô hình học sâu là có thể giải quyết được các vấn đề mà ta không có một cách trực tiếp để giải quyết, tuy nhiên bên cạnh đó lại có dữ liệu được thu thập về vấn đề đó. Điều đó có nghĩa là ta cần xây dựng các mô hình học có thể ``hiểu'' được hình ảnh, âm thanh tiếng nói hay một đoạn văn bản. Nhưng để xây dựng được các mô hình này ta sẽ phải đối mặt với nhiều khó khăn cần giải quyết. Một trong những khó khăn đó là việc dữ liệu ta thu thập được thường có các cấu trúc phức tạp và dữ liệu ở chiều không gian cao, để có thể xử lý được những dữ liệu như vậy là điều không dễ dàng. 
-
-        Điểm mạnh của một mô hình xác suất đó là khả năng có thể giảm được chi phí cho việc thể hiện một mô hình xác suất và cũng như là chi phí cho việc huấn luyện cũng như suy diễn. Cơ chế hoạt động chính của mô hình xác suất cho phép tát cả các phép tính được thực hiện với thời gian thực thi và bộ nhớ hơn so với các mô hình mô hình hoá dữ liệu. Một lợi ích khác trong việc sử dụng mô hình xác suất khác đó là cho phép chúng ta tách biệt các thể hiện của ``kiến thức'' một cách chi tiết từ quá trình huấn luyện hay quá trình suy diễn. Điều này làm cho các mô hình dễ dàng để cài đặt và ``debug''. Chúng ta có thể thiết kế, phân tích và đánh quá thuật toán huấn luyện và thuật toán suy diễn mà có thể áp dụng rộng rãi ở tất cả các loại đồ thị. Một cách độc lập, chúng ta có thể thiết kế các mô hình mà có thể nắm bắt được mối quan hệ mà chúng ta tin rằng nó quan trọng trong dữ liệu mà chúng ta có. Sau đó chugn ta có thể kết hợp các thuật toán và các cấu trúc khác nhau và có các ``tích Đề-Các'' bất kỳ nào mà phù hợp có thể để áp dụng. Tuy nhiên nó sẽ khó hơn trong việc thiết kế một thuật toán ``end-to-end'' cho tất cả các trường hợp.
-        \subsubsection{variational Auto-encoder}
-        Với góc nhìn mạng nơ ron thông thường thì Variational autoencoder cũng chỉ là một mạng nơ ron đơn giản với cấu trúc hai phần như autoencoder cơ bản, gồm encoder và decoder. 
+        \subsubsection{Variational Auto-encoder dưới góc nhìn xác suất}
+        Với góc nhìn của một mô hình mạng nơ-ron thì variational autoencoder cũng chỉ là một mạng nơ ron đơn giản với cấu trúc hai phần như autoencoder cơ bản, gồm encoder và decoder. 
         Encoder được dùng để trích xuất đặc trưng ẩn từ dữ liệu, điểm khác biệt so với autoencoder cơ bản là encoder của VAEs sẽ là một phân phối xác suất.
         Và tương tự thì decoder sẽ là mạng nơ ron cố gắng để tái tạo lại dữ liệu ban đầu từ đặc trưng ẩn.
+
         Tuy nhiên để hiểu rõ hơn về nền tảng toán học cũng như xác suất trong mô hình chúng tôi sẽ trình bày mô hình VAEs dưới góc độ là một mô hình xác suất.
-        Variational autoenncoder là một mô hình graphical có hướng mô tả mối quan hệ giữa dữ liệu quan sát được và đặc trưng ẩn.
+        Variational auto-enncoder là một mô hình graphical có hướng mô tả mối quan hệ giữa dữ liệu quan sát được và đặc trưng ẩn. Một graphical có hướng là một graphical model mà các đỉnh được kết nối với nhau có thứ tự. Có nghĩa là để có học được mẫu ở node ``cha'' thì trước đó ta cần mô hình hoá đưọc dữ liệu ở node con. Bên cạnh đó thì một graphical có hướng còn có tên gọi khác là Bayesian network.
+
         Xét graphical model thể hiện cho mô hình VAE như sau:
 
         theo đó thì variational autoencode bao gồm một biến x thể hiện cho dữ liệu, đây là biến dữ liệu quan sát được, và z là biến ẩn thể hiện cho đặc trưng ẩn của dữ liệu. 
-        Quá trình phát sinh dữ liệu của VAE được thực hiện như sau: 
+        Là một graphical có hướng do đó quá trình phát sinh dữ liệu của VAE được thực hiện qua các bước theo thứ tự như sau: 
         
-        Với mỗi điểm dữ liệu i thì: 
+        Với mỗi điểm dữ liệu thì: 
         \begin{itemize}
             \item Đặc trưng ẩn $z_i$ được lấy mẫu từ phân phối p(z)
-            \item điểm dữ liệu $x|i$ được lấy mẫu từ phân phối p(x|z)
+            \item Điểm dữ liệu $x_i$ được lấy mẫu từ phân phối p(x|z)
         \end{itemize}
 
-        Cụ thể thì biến đặc trưng ẩn z được chọn ra từ một phân phố prior p(z). Điểm dữ liệu x có một phân phối liklihood p(x|z).
-        Mô hình định nghĩa một phân phối hợp của dữ liệu và đặc trưng ẩn: p(x,z). 
-        Chúng ta có thể phân tách phân phối hợp trên thành prior và likelihood như sau: p(x,z) = p(x|z)p(z). Đây chíh là mục tiêu chính khi ta xét variational auto-encoder dưới góc độ của xác suất.
+        Cụ thể thì biến đặc trưng ẩn $z$ được chọn ra từ một phân phối prior $p(z)$ chính là những kiến thức ta biết trước ta biết trước hoặc là giả định của chúng ta về $z$. Điểm dữ liệu $x$ có một phân phối likelihood $p(x|z)$ thể hiện quan hệ giữa dữ liệu ta có với đặc trưng ẩn.
+        Mô hình định nghĩa một phân phối hợp của dữ liệu và đặc trưng ẩn: $p(x,z)$. 
+        Với quy tắc nhân trong xác suất, chúng ta có thể phân tách phân phối hợp trên thành prior và likelihood như sau: $p(x,z) = p(x|z)p(z)$. Đây chính là mục tiêu chính khi ta xét variational auto-encoder dưới góc độ của xác suất.
 
 
-        Mô hình này sử dụng phương pháp xấp sỉ variational inference để tìm ra đặc trưng ẩn,đây cũng là lý do dẫn đến cái tên variational autoencoder. và VAEs có thể được huấn luyện dựa trên các thuật toán dựa trên gradient truyền thống.
+        Mô hình này sử dụng phương pháp variational inference để tìm ra đặc trưng ẩn,đây cũng là lý do dẫn đến cái tên variational auto-encoder. Và VAEs có thể được huấn luyện dựa trên các thuật toán  học dựa trên gradient truyền thống.
         
         
-        Tiếp theo, ta xét đến việc suy diễn trong mô hình này. 
+        Tiếp theo, ta xét đến việc suy diễn (inference) trong mô hình này. 
         Mục tiêu của việc suy diễn là tìm ra được một giá trị ``tốt'' thể hiện cho đặc trưng ẩn khi ta có các điểm dữ liệu, hay nói cách khác là ta tính posterior.
         Theo công thức bayes thì 
         $$p(z|x) = \frac{p(z|x)p(z)}{p(x)}$$
         theo như những gì đã trình bày ở những phần trên thì phần mẫu số được gọi là marginal likelihood. 
-        Và marginal likelihood sẽ không dẽ dang tính toán được một cách chính xác khi đặc trưng ẩn ở không gian có số chiều cao. 
+        Và marginal likelihood sẽ không dễ dàng tính toán được một cách chính xác khi đặc trưng ẩn ở không gian có số chiều cao. 
 
-        Do đó, vairational inference được áp dụng để xấp xỉ phân phối posterior này.
-        VI xấp xỉ posterior thông qua một lớp phân phối xác suất $q_\lambda(z|x)$.
-        trong đó $\lambda$ thể hiện cho bộ tham số định nghĩa cho phân phối q, ví dụ nếu q là phân phối Gaussian thì $\lambda_{xi} = (\mu_{xi},\sigma^2_{x_i})$.
+        Do đó, vairational inference(VI) được áp dụng để xấp xỉ phân phối posterior $p(z|x)$ này.
+        VI xấp xỉ posterior thông qua một phân phối xác suất có cùng họ phân phối $q_\lambda(z|x)$.
+        Trong đó $\lambda$ thể hiện cho bộ tham số định nghĩa cho phân phối $q$, ví dụ nếu $q$ là  họ phân phối Gaussian thì $\lambda = (\mu;\sigma^2)$.
         
         Tiếp đến, Kullback Leiber Devergence được sử dụng để xấp xỉ posterior. 
-        với $$KL(q_\lambda(z|x) || p (z|x)) = E_q[log q_\lambda(z|x)] - E_q[log p(x,z)] + \log p(x)$$
+        với
+        $$\mathbb{KL}(q_\lambda(z|x) || p (z|x)) = \mathbb{E}_q[\log q_\lambda(z)] - \mathbb{E}_q[\log p(z|x)]$$
+        trong đó các kỳ vọng đưọc lấy theo $q_\lambda(z)$.
+        
+        Biến đổi xác suất có điều kiện $p(z|x)$ ta có :        
+        $$ \mathbb{KL}(q_\lambda(z|x) || p (z|x)) =   \mathbb{E}_q[\log q_\lambda[(z|x)] - E_q[log p(x,z)] + \log p(x)$$
         Mục tiêu của chúng ta là tìm ra bộ tham số $\lambda$ sao cho tối thiểu được sự sai biệt trên. với $q^*$ là phân phối q lý tưởng để xấp sỉ posterior thì ta có
         $$q^*_\lambda(z|x) = \text{arg min}_\lambda KL(q_\lambda(z|x)|| p(x))$$
-        Tuy nhiên ta vẫn chưa có thể tính được trực tiếp bởi trong công thức thì vân còn xuất hiện p(x), marginial likelihood không thể tính một cách trực tiếp. 
-        Xét biến đổi sau:
+        Tuy nhiên ta vẫn chưa có thể tính được trực tiếp bởi trong công thức thì vân còn xuất hiện $p(x)$, cho nên marginial likelihood vẫn không thể tính một cách trực tiếp.
 
+        Vì không thể tính một cách trực tiếp ta xét một hàm số thay thế khác như sau:
 
-        theo bất đẳng thức jensen thì Kullback-Leiber divergence luôn lớn hơn hoặc bằng không. 
-        Điều này có nghĩa rằng thay vì tối thiểu hoá KL thì ta sẽ thực hiện cực đại hoá ELBO.
+        $$ELBO(q_\lambda) = \mathbb{E}[\log p(z,x)] - \mathbb{E}[\log q_\lambda(z)]$$
         
-        Ở trên là lý thuyết nền tảng về xác suất của mô hình VAEs, tiếp theo ta sẽ liên hệ với mạng nơ ron để thể hiện cho mô hình.
-        Mục tiêu cuối cùng của chúng ta là tìmm ra bộ tham số có thể xấp xỉ được posterior $q_theta(z|x,lamda) p(z|x,lamda)$ thông qua một mạng nơ ron thường được gọi là  ``inference network'' hay là encoder. Mạng này nhận đầu vào là dữ liệu x và trả về kết quả là bộ tham số lamda thể hiện phân phối xác suất của đặc trưng ẩn. 
-        Bên cạnh đó, sẽ có một mạng nơ ron được gọi là ``genetive netowrk'' hay còn được biết đến là decoder thể hiện cho likelihood $p_phi(x|z)$ của mô hình. 
-        Tiếp theo đặc trưng ẩn sẽ được lấy mẫu từ phân phối xác suất trả ra từ encoder, đây chính là bước đầu tiên trong mô hình xác suất nói trên.
-        Dữ liệu đầu vào của decoder là đặc trưng ẩn được lấy mẫu dựa trên phân phối của đặc trưng ẩn, và decoder sẽ cố gắng tái tạo lại dữ liệu ban đầu từ đặc trưng ẩn z, đây chính là bước thứ hai trong mô hình xác suất.
-        Inference network và generative network sẽ có bộ tham số tương ứng là theta và phi.
+        Biến đổi phân phối hợp $p(z,x)$ ta lại có: 
+        $$ELBO(q_\lambda) = \mathbb{E}[\log p(z)]+ \mathbb{E}[\log p(x|z)] - \mathbb{E}[\log q_\lambda(z)] $$
+        $$= \mathbb{E}[\log p(x|z)] - \mathbb{KL}( q_\lambda(z)|| p(z))$$
+        
+
+        Hàm số trên được gọi là ``evidence lower bound'' (ELBO).
+        ELBO là trừ của sai biệt KL cộng với một lượng $\log p(x)$, bởi $\log p(x)$ là hằng số theo $q_\lambda(z)$.
+        Bây giờ, việc cực đại ELBO sẽ tương đương với việc tối thiểu độ sai biệt KL.
+        
+        Bên cạnh đó, sau khi biến đổi mở rộng ELBO thì ta thấy rằng ELBO được tính từ 2 phần đó là kỳ vọng của likelihood và trừ KL giữa prior và phân phối sấp xỉ $q_\lambda(z)$.
+        Với kỳ vọng của likelihood, nó thể hiện khả năng mô hình hoá dữ liệu còn sai biệt KL thì đảm bảo việc phân phối được xấp xỉ sẽ gần với prior của  dữ liệu.
+        Đây chính là sự đánh đổi thường gặp trong những bài toán Bayesian inference, đánh đổi giữa khả năng mô hình hoá dữ liệu và việc đảm bảo phân phối được xấp sỉ hay cụ thể là đặc trưng ẩn sẽ gần với prior của chúng ta.
+
+        % theo bất đẳng thức jensen thì Kullback-Leiber divergence luôn lớn hơn hoặc bằng không. 
+        % Điều này có nghĩa rằng thay vì tối thiểu hoá KL thì ta sẽ thực hiện cực đại hoá ELBO.
+        
+        Sau khi nắm được lý thuyết nền tảng về xác suất của mô hình VAEs, tiếp theo ta sẽ liên hệ với mạng nơ ron để thể hiện cho mô hình.
+        Mục tiêu cuối cùng của chúng ta là tìm ra bộ tham số có thể xấp xỉ được posterior $ p(z|x,\lambda)$ bằng $q_\theta(z|x,\lambda) $ thông qua một mạng nơ ron thường được gọi là  ``inference network'' hay chính là encoder. Mạng này nhận đầu vào là dữ liệu $x$ và trả về kết quả là bộ tham số $\lambda$ thể hiện phân phối xác suất của đặc trưng ẩn. 
+        Bên cạnh đó, sẽ có một mạng nơ ron được gọi là ``genetive network'' hay còn được biết đến là decoder thể hiện cho likelihood $p_{\phi}(x|z)$ của mô hình. 
+        Tiếp theo đặc trưng ẩn sẽ được lấy mẫu từ phân phối xác suất trả ra từ encoder, đây chính là bước đầu tiên trong mô hình xác suất đã được nói ở  trên.
+        Dữ liệu đầu vào của decoder là đặc trưng ẩn được lấy mẫu dựa trên phân phối của đặc trưng ẩn, và decoder sẽ cố gắng tái tạo lại dữ liệu ban đầu từ đặc trưng ẩn $z$, đây chính là bước thứ hai trong mô hình xác suất.
+        
+        Inference network và generative network sẽ có bộ tham số tương ứng là $\theta$ và $\phi$.
         Thông thường bộ tham số là các trọng số và bias trong một mạng nơ ron thông thường. 
-        Để huấn luyện mô hình ta sẽ cực đại ELBO bằng các phương pháp tối ưu bộ tham số như trong các mạng nơ ron thông thường. 
+        Mục tiêu của mô hình sẽ là cực đại hàm ELBO tương ứng như sau:
+        $$ELBO(\theta,\phi) = \mathbb{E}_{q_\theta}(z|x)[\log p_\phi(x|z)] - \mathbb{KL}(q_\theta(z)||p(z))$$
+        Để huấn luyện mô hình, ta có thể sử dụng những thuật toán học như gradient descent để có thể tìm ra bộ trọng số $\theta,\phi$.
+ 
 
 
 
