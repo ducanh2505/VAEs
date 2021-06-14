@@ -60,9 +60,23 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
     Trong giới hạn của khóa luận này, chúng tôi chỉ tìm hiểu về một hệ thống gợi ý với dữ liệu phản hồi ngầm do tính khách quan
     cũng như giải quyết được các khó khăn của ``explicit feedback''.
 
-\section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
-\section{``Mult-VAEs''}
+% \section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
+\section{Áp dụng mô hình auto-encode cho bài toán gợi ý sản phẩm}
+    Phuơng pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử đụng kiến trúc auto-encoder, một mạng nơ ron nhận input đầu vào là một phần tương tác của người dùng trong quá khứ và mô hình được huấn luyện để tái tạo lại toàn bộ tương tác của người dùng.  Mô hình này là một mạng nơ ron bao gồm hai thành phần:
+    \begin{itemize}
+        \item Mạng nơ-ron encoder có chức năng rút trích đặc trưng ẩn từ những tương tác của người dùng trong quá khứ
+        \item Mạn nơ-ron decoder có chức năng tái tạo lại tương tác của người dùng
+    \end{itemize}
+
+    Mặc dù cách hoạt động của mô hình trong giai đoạn huấn luyện và trong giai đoạn kiểm tra có phần khác nhau, nhưng ở phần này chúng tôi chỉ trình bày cách hoạt động của mô hình trong giai đoạn huấn luyện để qua đó diễn giải kiến trúc mô hình một cách thuận tiện. Và sau đó chúng tôi sẽ trình bày cách để đưa ra gợi ý cho người dùng mới sau.
+
+    Với tập dữ liệu được sử dụng huấn luyện gồm $U$ người dùng ${u_1,u_2, .., u_U}$ và cần xây dựng mô hình đưa ra gợi ý trong tập $I$ sản phẩm ${i_1,i_2, ..., i_I}$. Bên cạnh đó, dữ liệu tương tác của người dùng với các sản phẩm sẽ được thể hiện bởi một ma trận tương tác $X \in \mathbb{N}^{U\times I}$. Tương tác một người dùng sẽ là một véc-tơ $x_u = [x_{u1}, x_{u2}, ..., x_{uI}]^T \in \mathbb{N}^I $ với $u \in U$.
+    
+    Mục tiêu của mô hình là nhận đầu vào là tương tác của người dùng, tương tác này được chiếu vào một không gian đặc trưng có số chiều thấp hơn và sau đó lại tái tạo lại dữ liệu ban đầu với mục đích để dự đoán những sản phẩm chưa được tương tác trước đó.
+    Một cách đơn giản là để huấn luyện mô hình auto-encoder là ta sẽ cố gắng tái tạo lại tương tác của người dùng để dựa vào kết quả tương tác được tái tạo để đưa ra tập sản phẩm ``tốt'' nhất mà người dùng chưa tương tác trước đó. 
+     
+
     \subsection{Quá trình huấn luyện mô hình}
     \subsection{Quá trình phát sinh gợi ý}
-\section{Vấn đề ``KL-Vanishing'' trong việc huấn luyện ``Variational Auto-Encoder''}
-    \subsection{Phương pháp ``KL-Annealing''}1
+\section{Mở rộng mô hình variational autoencoder cho bài toán gợi ý san phẩm}
+    \subsection{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
