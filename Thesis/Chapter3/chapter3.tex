@@ -72,11 +72,39 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
 
     Với tập dữ liệu được sử dụng huấn luyện gồm $U$ người dùng ${u_1,u_2, .., u_U}$ và cần xây dựng mô hình đưa ra gợi ý trong tập $I$ sản phẩm ${i_1,i_2, ..., i_I}$. Bên cạnh đó, dữ liệu tương tác của người dùng với các sản phẩm sẽ được thể hiện bởi một ma trận tương tác $X \in \mathbb{N}^{U\times I}$. Tương tác một người dùng sẽ là một véc-tơ $x_u = [x_{u1}, x_{u2}, ..., x_{uI}]^T \in \mathbb{N}^I $ với $u \in U$.
     
+    Với giả định rằng việc một người dùng tương tác với các sản phẩm sẽ đến từ những đặc trưng ẩn của người dùng đó. 
+    Việc trích xuất đặc trưng ẩn của ngừoi dùng dựa trên những tương tác với hệ thống trong quá khứ được hi vọng rằng những đặc đặc trưng ẩn sẽ có thể được sử dụng để thể hiện cho người dùng. 
+    Sau khi có đưọc đặc trưng ẩn của người dùng thì vì dựa trên mục tiêu rằng đặc trưng sẽ thể hiện tốt được những yếu tố quyết định đến các tương tác của người dùng thì việc huấn luyện mô hình sẽ cần phải đảm bảo rằng đặc trưng ẩn có thê dùng để hình thành tương tác của người dùng. 
+
+    
     Mục tiêu của mô hình là nhận đầu vào là tương tác của người dùng, tương tác này được chiếu vào một không gian đặc trưng có số chiều thấp hơn và sau đó lại tái tạo lại dữ liệu ban đầu với mục đích để dự đoán những sản phẩm chưa được tương tác trước đó.
-    Một cách đơn giản là để huấn luyện mô hình auto-encoder là ta sẽ cố gắng tái tạo lại tương tác của người dùng để dựa vào kết quả tương tác được tái tạo để đưa ra tập sản phẩm ``tốt'' nhất mà người dùng chưa tương tác trước đó. 
-     
+    Một cách đơn giản là để huấn luyện mô hình auto-encoder là ta sẽ cố gắng tái tạo lại tương tác của người dùng để dựa vào kết quả tương tác được tái tạo để đưa ra tập sản phẩm ``tốt'' nhất mà người dùng chưa tương tác trước đó. Hoặc ta có thể xem như là một bài toán hồi quy, khi mà dữ liệu đầu vào là một con số thể hiện cho tương tác của người dùng, và mục tiêu của mô hình chính là kết quả của mô hình cũng là một véc tơ số ``gần'' với dữ liệu tương tác ban đầu.  
+    Để áp dụng hướng tiếp cận cơ bản này, chúng tôi sẽ trình bày về kiến trúc của một mô hình auto-encoder để xây dựng hệ thống gợi ý cơ bản.
+    Mô hình được cấu thành từ hai mạng nơ ron tách biệt được gọi là encoder và decoder. 
+    Ta có thể xem rằng mạng nơ-ron encoder là một hàm phi tuyến ánh xạ dữ liệu đầu vào ở chiều không gian cao, $x_u \in R^I$ sang một không gian thấp hơn để biểu diễn cho đặc trưng ẩn $z_u \in R^k$ với $k$ là số chiều của không gian đặc trưng ẩn và thường thì $k$ sẽ rất nhỏ so với $I$. Cụ thể thì ta có:
+    $$ z_u = f(W * b_1)$$
+    trong đó $f(.)$ là hàm kích hoạt phi tuyến và $W,b_1$ tương ứng sẽ là trọng số và hệ số ``bias'' của encoder. 
+
+    Sau khi có được đặc trưng ẩn, $z_u$ sẽ được lan truyền thẳng thông qua mạng nơ-ron decoder nhằm mục đích xây dựng lại tương tác ban đầu từ $z_u$
+    $$x'_u = g(V \times z_u + b_2)$$
+    Tương tự với encoder, $V,b_2$ sẽ tương ứng là các trọng số và ``bias'' của mạng nơ ron và g(.) chính là hàm kích hoạt của mạng nơ-ron.
+
+    Để huấn luyện một mô hình auto-encoder để thực hiện gợi ý sản phẩm ta có thể dùng hàm chi phí sau:
+    $$ \text{min}_\phi \sum_{x_u \in X}(||r - h(x_u,\theta)||^2_2)$$
+    trong đó $h(x_u,\theta)$ là tương tác được tái tạo lại từ dữ liệu đầu vào cũng chính là tương tác của người dùng $u \in U$ và $x_u \in R^I$.
+    Với hàm chi phí này thì mô hình sẽ huấn luyện và tìm ra bộ tham số $\theta^*$ sao cho với bộ tham số này, thì mô hình sẽ có thể tự động trích xuất được những đặc trưng ẩn có thể được dùng để hình thành nên các tương tác của ngừoi dùng.
+
+    Tuy nhiên 
+
+    Đây chính là kiến trúc cơ bản nhất khi ta sử dụng mô hình auto-encoder để xây dựng một thống gợi ý sản phẩm.
+    
+
+    $$h(x_u,\theta) = f(W \times g(V \times x_u + b_1) + b_2)$$
+    với f(.) và g(.) sẽ là các hàm kích hoạt của mạng nơ-ron và $\theta = {W, V, b_1, b_2}$ với $W,V$ là trọng số tương ứng của encoder và decoder, $b_1,b_2$ tương ứng sẽ là hệ số ``bias'' của decoder và encoder.
+
+
 
     \subsection{Quá trình huấn luyện mô hình}
-    \subsection{Quá trình phát sinh gợi ý}
+
 \section{Mở rộng mô hình variational autoencoder cho bài toán gợi ý san phẩm}
     \subsection{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
