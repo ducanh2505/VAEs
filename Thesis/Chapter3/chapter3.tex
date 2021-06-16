@@ -20,7 +20,7 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
         \item Phản hồi cụ thể ``explicit feedback''
         \item Phản hồi ngầm ``implicit feedback''
     \end{itemize}
-    Trong phần này, chúng tôi sẽ làm rõ về tính chất của hai loại dữ liệu phản hồi cũng như ảnh hưởng của chúng đến hệ thống.
+    Trong phần này, chúng tôi sẽ làm rõ về tính chất của hai loại dữ liệu phản hồi cũng như ảnh hưởng của chúng đến hệ thống gợi ý.
     \subsection{Dữ liệu phản hồi cụ thể ``explicit feedback''}
     Dữ liệu phản hồi cụ thể (``explicit feedback'') được hiểu là những
     phản hồi của khách hàng về sản phẩm một cách tường minh và cụ thể, ví dụ như: số điểm đánh giá,
@@ -35,8 +35,8 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
     một lượng sản phẩm nhỏ trên toàn hệ thống, những sản phẩm còn lại sẽ rơi vào trường hợp thiếu dữ liệu (``missing data''),
     gây khó khăn cho việc xử lí. 
     Ngày nay, số lượng sản phẩm trong hệ thống là rất lớn, ``explicit feedback'' sẽ gặp khó khăn rất lớn khi có quá nhiều trường hợp thiếu dữ liệu,
-    tác động đáng kể đến hiệu quả của hệ thống. Mặc khác, ``collaborative filtering'' sẽ có cơ sở đánh giá nhóm người dùng ``tương đồng'' với nhau
-    một cách khắt khe hơn, giúp các gợi ý là những sản phẩm ``tốt'' hơn, tuy nhiên đôi lúc làm cho gợi ý không được đa dạng.
+    tác động đáng kể đến hiệu quả của hệ thống. Mặt khác, ``collaborative filtering'' sẽ có cơ sở đánh giá nhóm người dùng ``tương đồng'' với nhau
+    một cách khắt khe hơn, giúp các gợi ý là những sản phẩm ``tốt'' hơn, tuy nhiên đôi lúc làm cho các gợi ý không được đa dạng.
 
     \subsection{Dữ liệu phản hồi ngầm ``implicit feedback''}
     Dữ liệu phản hồi ngầm (``implicit feedback'') là dữ liệu được suy ra từ hành động của người dùng, nếu họ xem một bộ phim
@@ -59,7 +59,7 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
 
     Trong giới hạn của khóa luận này, chúng tôi chỉ tìm hiểu về một hệ thống gợi ý với dữ liệu phản hồi ngầm do tính khách quan
     cũng như giải quyết được các khó khăn của ``explicit feedback''.
-
+môk 
 \section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
 \section{``Mult-VAEs''}
     \subsection{Quá trình huấn luyện mô hình}
