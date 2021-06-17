@@ -25,7 +25,7 @@ của chúng tôi ở chương kế tiếp.}
 \section{Mô hình rút trích đặc trưng ``Auto-Encoder''}
 \label{chap2/sec1}
 Mô hình ``Auto-Encoder'' là một mạng nơ-ron truyền thẳng được huấn luyện
-để cố gắng sao chép đầu vào của nó thành đầu ra. Bên trong ``Auto-Encoder''
+để cố gắng sao chép đầu vào của nó thành đầu ra với mục đích trích xuất được các đặc trưng ẩn. Bên trong ``Auto-Encoder''
 có một lớp ẩn \textbf{\textit{h}} mô tả đặc trưng ẩn, gọi là véc-tơ biểu diễn ẩn đại diện cho đầu vào của nó.
  
 Kiến trúc của một ``Auto-Encoder'' (được minh họa trong hình~\ref{fig_AE}) bao gồm hai phần:
@@ -152,7 +152,15 @@ lưu trữ, truy vấn, tìm kiếm.
 
 
 \section{Mô hình ``Variational Auto-Encoder''} \label{chap2/sec2}
-        ``Variational Auto-encoder'' (VAEs) là một biến thể đặc biệt của ``Auto-encoder'' cơ bản (được minh họa trong hình~\ref{fig_VAE}). VAEs ngoài là một mô hình rút trích đặc trưng ẩn dựa trên phương pháp học không giám sát, còn là một mô hình phát sinh dữ liệu hiệu quả. Khả năng phát sinh thêm dữ liệu là việc dựa trên những đặc trưng ẩn đã học được, VAEs dựa vào những đặc trưng này để thực hiện tác vụ phát sinh dữ liệu. Đây là một điểm khác biệt so với mô hình ``Auto-Encoder'' khi mà đặc trưng ẩn học từ ``Auto-Encoder'' cơ bản không thể được sử dụng để phát sinh. Điều tạo nên sự khác biệt này là bởi đặc trưng ẩn có được từ VAEs là một phân phối xác suất. ``Auto-Encoder'' hay kể cả ``Denosing Auto-Encoder'', việc nhận dữ liệu đầu vào và trích xuất đặc trưng ẩn đều có thể được xem như là một phép chiếu dữ liệu ở chiều không gian cao lên một chiều không gian thấp hơn (thông thường thì kích thước của véc-tơ biểu diễn ẩn của một ``Auto-Encoder'' sẽ có tính chất ``under-complete'' như đã đề cập ở phần~\ref{chap2/subsec11}). Do đó, ta có thể xem đặc trưng ẩn này như là một điểm dữ liệu mới thể hiện cho dữ liệu ban đầu ở một chiều không gian khác với số chiều thấp hơn. Mặt khác, với VAEs thì đặc trưng ẩn không còn là một điểm dữ liệu, thay vào đó sẽ là một ``phân phối xác suất''. Phân phối xác suất là quy luật cho ta biết với mỗi giá trị cụ thể của một đại lượng, một biến số nào đó sẽ tương ứng với giá trị xác suất là bao nhiêu. 
+        ``Variational Auto-encoder'' (VAEs) là một biến thể đặc biệt của ``Auto-encoder'' cơ bản (được minh họa trong hình~\ref{fig_VAE}). 
+        VAEs ngoài là một mô hình rút trích đặc trưng ẩn dựa trên phương pháp học không giám sát, còn là một mô hình phát sinh dữ liệu hiệu quả. 
+        Phát sinh dữ liệu là việc mô hình có khả năng tạo ra những điểm dữ liệu `mới' dựa trên đặc trưng ẩn đã học được.
+        Đây là một điểm khác biệt so với mô hình ``Auto-Encoder'' khi mà đặc trưng ẩn học từ ``Auto-Encoder'' cơ bản không thể được sử dụng để phát sinh. 
+        Điều tạo nên sự khác biệt này là bởi đặc trưng ẩn có được từ VAEs là một phân bố chứ không phải là một điểm dữ liệu cụ thể. 
+        ``Auto-Encoder'' hay kể cả ``Denosing Auto-Encoder'', việc nhận dữ liệu đầu vào và trích xuất đặc trưng ẩn đều có thể được xem như là một phép chiếu dữ liệu ở chiều không gian cao lên một chiều không gian thấp hơn (thông thường thì kích thước của véc-tơ biểu diễn ẩn của một ``Auto-Encoder'' sẽ có tính chất ``under-complete'' như đã đề cập ở phần~\ref{chap2/subsec11}). 
+        Do đó, ta có thể xem đặc trưng ẩn này như là một điểm dữ liệu ở một chiều không gian khác với số chiều thấp hơn thể hiện cho dữ liệu ban đầu. 
+        Mặt khác, với VAEs thì đặc trưng ẩn không còn là một điểm dữ liệu, thay vào đó sẽ là một ``phân phối xác suất''. 
+        Phân phối xác suất thể hiện cho phân bố của một đại lượng, một biến ngẫu nhiên nào đó.
     
         Tuy nhiên, để làm rõ được sự hiệu quả của VAEs trong việc phát sinh đặc trưng và phát sinh dữ liệu từ đặc trưng thì ta cần phải xét qua góc nhìn xác suất của mô hình này.
         Bản chất của một mô hình VAEs là một mô hình đồ thị (graphical models) - là một mô hình dùng để giải thích các mối quan hệ giữa các biến ngẫu nhiên trong xác suất thống kê. Và nền tảng của mô hình là ``Variation Inference'' - là một phương pháp cũng thuộc lĩnh vực xác suất thống kê với mục đích có thể ``giải thích'' được dữ liệu mà ta không quan sát được từ những dữ liệu mà ta đã có. Tận dụng sức mạnh của mạng nơ-ron trong lĩnh vực học máy, các hàm số xác suất được thay thành các mạng nơ-ron. Và thông qua việc huấn luyện mô hình để tìm ra bộ trọng số tốt nhất để giải quyết bài toán được giả định mà mô hình cần giải quyết. 

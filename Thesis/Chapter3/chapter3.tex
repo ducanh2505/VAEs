@@ -148,7 +148,7 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
     Ở phần này chúng tôi sẽ trình bày về kiến trúc mô hình đã tìm hiểu cho bài toán gợi ý sản phẩm trong bài báo cũng như là những đề xuất cải thiện cho mô hình VAEs trong tác vụ gợi ý sản phẩm cho người dùng. 
 
     \subsection{Mô hình variational autoencoder cho bài toán gợi ý sản phẩm}
-    Dữ liệu lương tác trong hệ thống gợi ý sản phẩm thường là dữ liệu thưa, có nghĩa là các phần tử trong véc-tơ input đầu vào sẽ đa phần sẽ mang giá trị 0. 
+    Dữ liệu lương tác trong hệ thống gợi ý sản phẩm thường là dữ liệu thưa, có nghĩa là các phần tử trong véc-tơ input đầu vào sẽ đa phần sẽ mang giá trị 0 thể hiện cho ý nghĩa về mặt xác suất. 
     Ngoài ra, mục tiêu của một hệ thống gợi ý sản phẩm chính là việc tăng thêm số lượng tương tác của người dùng lên hệ thống, đặc biệt là khi người dùng chưa tương tác nhiều.
     Do đó, trong trường hợp này, nếu áp dụng những phương pháp dựa trên mạng nơ-ron thông thường sẽ dễ dẫn đến tình trạng ``overfiting'' khi mà dữ liệu đầu vào ít nên mô hình không học được.
     
