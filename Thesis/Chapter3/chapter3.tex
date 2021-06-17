@@ -61,7 +61,7 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
     cũng như giải quyết được các khó khăn của ``explicit feedback''.
 
 % \section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
-\section{Áp dụng mô hình auto-encode cho bài toán gợi ý sản phẩm}
+\section{Áp dụng mô hình ``Auto-Encoder'' để xây dựng hệ thống gợi ý sản phẩm}
     Phuơng pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử đụng kiến trúc auto-encoder, một mạng nơ ron nhận input đầu vào là một phần tương tác của người dùng trong quá khứ và mô hình được huấn luyện để tái tạo lại toàn bộ tương tác của người dùng.  Mô hình này là một mạng nơ ron bao gồm hai thành phần:
     \begin{itemize}
         \item Mạng nơ-ron encoder có chức năng rút trích đặc trưng ẩn từ những tương tác của người dùng trong quá khứ
@@ -118,7 +118,7 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
 
 
 
-    \subsection{tầng dropout}
+    \subsection{Tăng khả năng phát sinh gợi ý cho người dùng bằng kỹ thuật ``drop-out''}
     Như đã thảo luận ở phần trên, thì chúng ta đã xây dựng một kiến trúc cơ bản nhất trong việc xây dựng một hệ thống gợi ý sản phẩm dựa trên mô hình auto-encoder.
     Tuy nhiên, mô hình trên vẫn còn nhiều hạn chế sau: 
     \begin{itemize}
@@ -139,7 +139,7 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
 
     
 
-\section{Mở rộn g mô hình variational autoencoder cho bài toán gợi ý san phẩm}
+\section{Mở rộng mô hình ``Variational Auto-encoder'' cho bài toán gợi ý sản phẩm}
     Trong lĩnh vực trí tuệ nhân tạo thì dữ liệu đóng vài trò cực kỳ quan trọng.
     Đặc biệt là lĩnh vực máy học, thì hiểu được dữ liệu sẽ góp phần không ít đến việc xây dựng một mô hình hiệu quả. 
     Do đó, để có thể tận dụng được tính chất của dữ liệu trong bài toán xây dựng gợi ý sản phẩm đó là thưa, có nghĩa là người dùng trong thực tế sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm.
@@ -147,7 +147,6 @@ Chúng tôi gọi ``Variational Auto-Encoders'' với hàm lỗi như vậy là 
 
     Ở phần này chúng tôi sẽ trình bày về kiến trúc mô hình đã tìm hiểu cho bài toán gợi ý sản phẩm trong bài báo cũng như là những đề xuất cải thiện cho mô hình VAEs trong tác vụ gợi ý sản phẩm cho người dùng. 
 
-    
     \subsection{Mô hình variational autoencoder cho bài toán gợi ý sản phẩm}
     Dữ liệu lương tác trong hệ thống gợi ý sản phẩm thường là dữ liệu thưa, có nghĩa là các phần tử trong véc-tơ input đầu vào sẽ đa phần sẽ mang giá trị 0. 
     Ngoài ra, mục tiêu của một hệ thống gợi ý sản phẩm chính là việc tăng thêm số lượng tương tác của người dùng lên hệ thống, đặc biệt là khi người dùng chưa tương tác nhiều.
