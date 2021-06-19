@@ -6,12 +6,8 @@
 ``Auto-Encoders'', một mạng nơ-ron được dùng để học đặc trưng ẩn dựa trên
 phương pháp học không giám sát.
 Sau đó, chúng tôi giới thiệu và trình bày về nền tảng xác suất 
-của ``Variational Auto-encoders'' (VAEs) và lợi ích mang lại của 
-mô hình này so với ``Auto-Encoder'' trong tác vụ học đặc trưng ẩn; 
-Những điểm lợi này chính là lý do mà chúng tôi tập trung nghiên cứu VAEs. 
-Bên cạnh đó, chúng tôi sẽ trình bày về ``Maximum Likelihood Estimation'', 
-một phương pháp dùng để đánh giá các tham số của mô hình, đại diện cho các tham số 
-của các phân phối xác suất dựa trên dữ liệu huấn luyện. 
+của ``Variational Auto-encoders'' (VAEs). Bao gồm kiến thức về định lý Bayes, định lý cơ bản được áp dụng rộng rãi trong lĩnh vực xác suất thống kê; 
+phương pháp Variational Inference, một phương pháp suy diễn dữ liệu hiệu quả; và Maximum Likelihood Estimation, một phương pháp để ước lượng một bộ tham số tốt cho mô hình.
 Chương này đặc biệt là phần về ``Variational Auto-Encoders'' 
 cung cấp những kiến thức nền tảng để có thể hiểu rõ về những đề xuất 
 của chúng tôi ở chương kế tiếp.}
@@ -175,7 +171,16 @@ lưu trữ, truy vấn, tìm kiếm.
 
     \subsection{Nền tảng xác suất của mô hình} \label{chap2/subsec21}
         
-        Với sự tăng nhanh về số lượng dữ liệu có trên các nền tảng số thì nhu cầu cần một phương pháp có thể phân tích dữ liệu một cách tự động đang  càng ngày càng tăng theo. Mục tiêu của học máy đó là phát triển các phương pháp mà có thể tự động phát hiện các mẫu ``pattern'' trong dữ liệu và sau đó sử dụng những ``pattern'' vừa khám phá được để có thể dự đoán dữ liệu trong tương lai hoặc để thực hiện các mục đích khác như thực hiện các quyết định/ dự đoán dựa trên ``những điều chưa chắc chắn''. Lý thuyết xác suất (``probability theory'') có thể được áp dụng cho bất kỳ vấn đề nào liên quan đến ``những điều chưa chắc chắn''. Trong máy học, ``những điều chưa chắc chắn'' đến từ nhiều dạng như: dự đoán/ quyết định nào là tốt nhất khi cho trước một vài điểm dữ liệu? Mô hình nào là tốt nhất khi cho trước các một vài điểm dữ liệu? \dots Do đó học máy có liên quan khá là gần gũi với lĩnh vực xác suất thống kê và khai thác dữ liệu, nhưng khác ở các trọng tâm và các thuật ngữ. 
+        Với sự tăng nhanh về số lượng dữ liệu có trên các nền tảng số thì nhu cầu cần một phương pháp có thể phân tích dữ liệu một cách tự động đang  càng ngày càng tăng theo.
+        Mục tiêu của học máy đó là phát triển các phương pháp mà có thể tự động phát hiện các mẫu ``pattern'' trong dữ liệu.
+        Các mô hình học máy tìm được những ``pattern'' này thông qua việc tìm các bộ tham số phù hợp với mô hình.
+        Sau đó sử dụng những ``pattern'' vừa khám phá được để có thể dự đoán dữ liệu trong tương lai hoặc để thực hiện các mục đích khác như đưa ra các quyết định.
+        Lý thuyết xác suất (``probability theory'') có thể được áp dụng cho bất kỳ vấn đề nào liên quan đến ``những điều chưa chắc chắn''. 
+        Trong máy học, ``những điều chưa chắc chắn'' có thể là những sự thay đổi trong dữ liệu mà chúng ta chưa biết trước được, hay là những bộ tham số của mô hình.
+        Gọi là chưa chắc chắn bởi vì ta không biết trước được và cũng không quan sát được về những điều này và ta không thể khẳng định hoàn toàn về những điều đó.
+        Mô hình sẽ hoạt động như thế nào khi dữ liệu thay đổi? Liệu bộ tham số hiện tại của mô hình đã đủ tốt?
+        Do đó học máy có liên quan khá là gần gũi với lĩnh vực xác suất thống kê và khai thác dữ liệu.
+
         
         Trên lý thuyết thì có ít nhất hai cách diễn giải của xác suất: ``diễn giải tần suất'' (frequentist interetation) và ``diễn giải bayesian''. Ở cách diễn giải thứ nhất thì xác suất được thể hiện thông qua việc thực hiện các thí nghiệm nhiều lần. Ví dụ như nếu ta thực hiện thí nghiệm tung đồng xu thì ta kì vọng rằng việc đồng xu xuất hiện mặt ngửa khoảng một nửa lần trong quá trình thực hiện. Còn ở cách diễn giải bayesian của xác suất thì thường được sử dụng để định lượng về ``những điều chưa chắc chắn''. Vậy nên ở góc nhìn này sẽ liên quan đến các thông tin hơn là việc lặp lại các thí nghiệm. Một trong những ưu điểm của cách diễn giải này đó là nó có thể được sử dụng để mô hình ``những điều chưa chắc chắn'' của sự việc/sự kiện mà ta đang quan tâm đến mà không có tần suất xuất dài hạn. Ví dụ liên hệ với các bài toán trong lĩnh vực học máy như chúng ta nhận một email và ta quan tâm đến việc tính phân phôi xác suất mà email vừa nhận là spam; hay trong bài toán chúng ta nhận thấy được một vật thể thông qua màn hình radar và ta muốn tính phân phối xác suất theo vật thể vừa được phát hiện chính xác là gì? một con chim, hay máy bay? Trong những trường hợp trên thì ý tưởng việc lặp lại các thí nghiệm sẽ không giúp ích cho chúng ta trong việc giải quyết các vấn đề nhưng với Bayesian thì điều này khá là tự nhiên và có thể được áp dụng để giải quyết bất kỳ vấn đề nào liên quan tới những ``điều không chắc chắn''.
         
@@ -225,15 +230,17 @@ lưu trữ, truy vấn, tìm kiếm.
         \end{equation}
         
         theo đó ta thấy được để tính được ``marginal likelihood'' thì ta cần tính biểu thức với dấu tích phân. Để tính giá trị này với dữ liệu ở chiều không gian thấp có thể không gặp nhiều khó khăn, nhưng khi tính toán ở những chiều không gian cao thì nó có thể trở thành một vấn đề nan giải. 
-        Cụ thể ta thấy được rằng việc tính ``marginal likelihood'' sẽ thể hiện giá trị ``likelihood'' trung bình trên toàn bộ giá trị có thể xuất hiện của $x$, do đó $x$ ở chiều không gian càng cao thì việc tính toán càng trở nên phức tạp hơn. 
+        Cụ thể ta thấy được rằng việc tính ``marginal likelihood'' sẽ thể hiện giá trị ``likelihood'' trung bình trên toàn bộ giá trị có thể xuất hiện của $a$, là những điều chưa chắc chắn trong mô hình, do đó $a$ ở chiều không gian càng cao thì việc tính toán càng trở nên phức tạp hơn. 
 
-        Chúng ta ca cần chú ý thêm một vài khó khăn khác có thể phải đối mặt khi tính toán ``posterior'' đó là việc lấy ``tổ hợp'' khi dữ liệu là rời rạc thay vì giá trị liên tục. 
+        Chúng ta cần chú ý thêm một vài khó khăn khác có thể phải đối mặt khi tính toán ``posterior'' đó là việc lấy ``tổ hợp'' khi dữ liệu là rời rạc thay vì giá trị liên tục. 
         Ở miền không gian liên tục thì ta có thể áp dụng hàm số trong lĩnh vực giải tích để tính toán, tuy nhiên trong những trường hợp mà chiều không gian của dữ liệu không liên lục, dữ liệu rời rạc thì việc tính toán sẽ còn phải xét thêm việc lấy tổ hợp dữ liệu. 
 
         Khi dữ liệu có số chiều lớn thì việc tính chính xác giá trị ``posterior'' trong thực tiễn thường sẽ là một việc cực kỳ khó khăn và bất khả thi và ta cần một vài kĩ thuật xấp xỉ thường được dùng để giải quyết việc tính ``posterior''. 
 
         \subsubsection{Bài toán Inference}
-        Inference là một lớp bài toán để giải quyết vấn đề tìm hiểu về nhưng thứ mà ta biết được dựa trên những thứ mà ta đã biết. Nói một cách khác thì bài toán này là tiến trình để có thể dưa ra kết luận giá trị ước lượng, hay khoảng tin cậy hoặc xấp xỉ một phân phối cho một ``biến ẩn'' (``latent variable'') thường được gọi là kết quả hay nhãn trong mẫu dữ liệu, dựa trên một vài các biến mà ta đã quan sát được thường được gọi là nguyên nhân hay dữ là dữ liêu đầu vào trong mẫu dữ liệu. Ví dụ như ta có dữ liệu là hình ảnh của các đối tượng trong tự nhiên và có nhãn đi kèm mỗi ảnh, bài toán inference sẽ trả lời câu hỏi rằng nếu một tấm ảnh mới không có trước đó thì liệu ta có biết được nhãn của đối tượng trong ảnh hay không?. 
+        Inference là một lớp bài toán để giải quyết vấn đề tìm hiểu về nhưng thứ mà ta biết được dựa trên những thứ mà ta đã biết. 
+        Nói một cách khác thì bài toán này là tiến trình để có thể dưa ra kết luận giá trị ước lượng, hay khoảng tin cậy hoặc xấp xỉ một phân phối cho một ``biến ẩn'' (``latent variable'') thường được gọi là kết quả hay nhãn trong mẫu dữ liệu, dựa trên một vài các biến mà ta đã quan sát được thường được gọi là nguyên nhân hay dữ là dữ liệu đầu vào trong mẫu dữ liệu. 
+        Ví dụ như ta có dữ liệu là hình ảnh của các đối tượng trong tự nhiên và có nhãn đi kèm mỗi ảnh, bài toán inference sẽ trả lời câu hỏi rằng nếu một tấm ảnh mới không có trước đó thì liệu ta có biết được nhãn của đối tượng trong ảnh hay không?. 
 
         ``Bayesian inferene'' là việc giải quyết bài toán inference dựa trên ``định lý Bayes''. Phương pháp Bayesian inference là một phương pháp trong lĩnh vực xác suất thống kê mà ở đó kiến thức biết được biết trước ``prior knowledge'' được mô hình hoá bởi một phân phối xác suất và được cập nhật mỗi khi có một quan sát mới và những thứ mà ta không chắc chắn hay không quan sát được sẽ được mô hình bởi một phân phôi xác suất khác. Một ví dụ kinh diển là về các tham số của ``Bayesian inference'', giả định rằng một mô hình mà dữ liệu $x$ được phát sinh từ một phân phối xác suất mà phân phối xác suất này được xác định bỏi các tham số $\theta$, tuy nhiên giá trị của $\theta$ thì ta chưa biết. Bên cạnh đó, ta giả định rằng, ta có một vài kiến thức được biết từ $\theta$ được gọi là ``prior knowledge'', nó có thể là phân phối xác suất $p(\theta)$. Sau đó, mỗi khi ta có một quan sát x mới, ta có thể cập nhật lại ``prior knowledge'' về tham số $\theta$ thông qua định lý Bayes theo công thức:
 
