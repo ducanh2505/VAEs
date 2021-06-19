@@ -2,6 +2,41 @@
 \label{Chapter4}
 
 \section{Tập dữ liệu sử dụng}
+Chúng tôi tiến hành thí nghiệm trên các tập dữ liệu vừa và lớn ở các lĩnh vực khác nhau là Movielens-20M \cite{Ml20M} 
+và Million Song Dataset (MSD) \cite{MSD}; đây là các tập dữ liệu thường được dùng cho bài toán xây dựng hệ thống gợi ý,
+với hướng tiếp cận ``Collaborative Filtering''.
+\begin{itemize}
+    \item Tập dữ liệu Movielens-20M bao gồm dữ liệu đánh giá của 138,000 người dùng với khoảng 27,000 bộ phim,
+    với 20 triệu đánh giá. Chúng tôi chỉ giữ lại những người dùng đã đánh giá ít nhất 5 bộ phim trở lên. 
+    \item Tập dữ liệu Million Song Dataset bao gồm số lượt nghe của khoảng 1 triệu người dùng và hơn 300,000 bài hát.
+    Chúng tôi chỉ giữ lại những bài hát được nghe bởi 200 người dùng, và những người dùng nghe ít nhất 20 bài hát trong số còn lại.
+\end{itemize}
+Sau khi lọc dữ liệu theo điều kiện đã nói, số lượng người dùng, số lượng sản phẩm, số lượng tương tác, tỉ lệ tương tác được mô tả trong bảng~\ref{table_dataset}.
+\begin{table}[]
+\centering
+    \begin{tabular}{|l|c|c|}
+    \hline
+                                                & \textbf{MovieLens} & \textbf{MSD}    \\ \hline
+    \textbf{Số lượng người dùng}                  & 136,677            & 571,355         \\ \hline
+    \textbf{Số lượng sản phẩm}                    & 20,108             & 41,140          \\ \hline
+    \textbf{Số lượng tương tác}                   & 10.0M              & 33.6M           \\ \hline
+    \textbf{\% tương tác}                         & 0.36               & 0.14            \\ \hline
+    \textbf{Số người dùng trong tập ``held-out``} & \textbf{10,000}    & \textbf{50,000} \\ \hline
+    \end{tabular}
+    \label{table_dataset}
+    \caption{Thống kê số lượng người dùng, số lượng sản phẩm, số lượng tương tác trong các tập dữ liệu}    
+\end{table}
+
+
+Ở bước tiền xử lí dữ liệu, đối với tập dữ liệu Movielens là dạng ``explicit feedback'', chúng tôi 
+chúng tôi chuyển dữ liệu thành dạng ma trận tương tác nhị phân, với các đánh giá của người dùng từ 4 trở lên (nghĩa là người dùng thích bộ phim đó) mang giá trị 1 trong ma trận nhị phân.
+Với tập dữ liệu MSD là dữ liệu ``implicit feedback'', chúng tôi chỉ chuyển các giá trị số lượt nghe của người dùng thành dạng nhị phân và ngược lại.
+
+Với mỗi tập dữ liệu, chúng tôi lần lượt lấy ra một số lượng người dùng bằng nhau cho tập đánh giá (validation) và tập kiểm tra (testing), gọi chung là các tập ``held-out''.
+Với 10,000 người dùng cho tập dữ liệu Movielens và 50,000 người dùng cho tập MSD.
+Với mỗi người dùng trong tập ``held-out'', chúng tôi chọn ngẫu nhiên 80\% số sản phẩm mà họ đã tương tác để làm đầu vào của mô hình, và đánh giá trên 20\% còn lại với 
+độ đo Recall@k và NDCG@k.
+
 
 \section{Các thiết lập thí nghiệm}
 \section{Các kết quả thí nghiệm}
