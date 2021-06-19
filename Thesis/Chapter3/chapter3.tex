@@ -55,7 +55,7 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
     cũng như giải quyết được các khó khăn của ``explicit feedback''.
 
 % \section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
-\section{Áp dụng mô hình ``Auto-Encoder'' để xây dựng hệ thống gợi ý sản phẩm}
+\section{Xây dựng một hệ thông gợi ý sản phẩm cơ bản bằng Auto-encoder}
     Phuơng pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử đụng kiến trúc auto-encoder, một mạng nơ ron nhận input đầu vào là một phần tương tác của người dùng trong quá khứ và mô hình được huấn luyện để tái tạo lại toàn bộ tương tác của người dùng.  Mô hình này là một mạng nơ ron bao gồm hai thành phần:
     \begin{itemize}
         \item Mạng nơ-ron encoder có chức năng rút trích đặc trưng ẩn từ những tương tác của người dùng trong quá khứ
@@ -133,7 +133,7 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
 
     
 
-\section{Mở rộng mô hình ``Variational Auto-encoder'' cho bài toán gợi ý sản phẩm}
+\section{Áp dụng mô hình ``Variational Auto-encoder'' cho bài toán gợi ý sản phẩm}
     Trong lĩnh vực trí tuệ nhân tạo thì dữ liệu đóng vài trò cực kỳ quan trọng.
     Đặc biệt là lĩnh vực máy học, thì hiểu được dữ liệu sẽ góp phần không ít đến việc xây dựng một mô hình hiệu quả. 
     Do đó, để có thể tận dụng được tính chất của dữ liệu trong bài toán xây dựng gợi ý sản phẩm đó là thưa, có nghĩa là người dùng trong thực tế sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm.
