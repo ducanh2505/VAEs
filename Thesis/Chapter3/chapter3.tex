@@ -1,4 +1,4 @@
-\chapter{Mô hình ``Variational Auto-Encoder'' cho bài toán xây dựng hệ thống gợi ý}
+\chapter{Xây dựng hệ thống gợi ý sản phẩm dựa trên mô hình Auto-encoder}
 \label{Chapter3}
 \textit{Chương này chúng tôi sẽ trình bày về những tìm hiểu của chúng tôi trong việc giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm. 
 Đầu tiên, Chúng tôi phân tích hai loại dữ liệu phản hồi được dùng trong bài toán này từ người dùng là:
@@ -56,48 +56,76 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
 
 % \section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
 \section{Xây dựng một hệ thông gợi ý sản phẩm cơ bản bằng Auto-encoder}
+    \subsection{Kiến trúc mô hình}
+    \label{chap3/sec11}
     Phuơng pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử đụng kiến trúc auto-encoder, một mạng nơ ron nhận input đầu vào là một phần tương tác của người dùng trong quá khứ và mô hình được huấn luyện để tái tạo lại toàn bộ tương tác của người dùng.  Mô hình này là một mạng nơ ron bao gồm hai thành phần:
     \begin{itemize}
         \item Mạng nơ-ron encoder có chức năng rút trích đặc trưng ẩn từ những tương tác của người dùng trong quá khứ
-        \item Mạn nơ-ron decoder có chức năng tái tạo lại tương tác của người dùng
+        \item Mạng nơ-ron decoder có chức năng tái tạo lại tương tác của người dùng
     \end{itemize}
 
-    Mặc dù cách hoạt động của mô hình trong giai đoạn huấn luyện và trong giai đoạn kiểm tra có phần khác nhau, nhưng ở phần này chúng tôi chỉ trình bày cách hoạt động của mô hình trong giai đoạn huấn luyện để qua đó diễn giải kiến trúc mô hình một cách thuận tiện. Và sau đó chúng tôi sẽ trình bày cách để đưa ra gợi ý cho người dùng mới sau.
+    % Mặc dù cách hoạt động của mô hình trong giai đoạn huấn luyện và trong giai đoạn kiểm tra có phần khác nhau, nhưng ở phần này chúng tôi chỉ trình bày cách hoạt động của mô hình trong giai đoạn huấn luyện để qua đó diễn giải kiến trúc mô hình một cách thuận tiện. Và sau đó chúng tôi sẽ trình bày cách để đưa ra gợi ý cho người dùng mới sau.
 
-    Với tập dữ liệu được sử dụng huấn luyện gồm $U$ người dùng ${u_1,u_2, .., u_U}$ và cần xây dựng mô hình đưa ra gợi ý trong tập $I$ sản phẩm ${i_1,i_2, ..., i_I}$. Bên cạnh đó, dữ liệu tương tác của người dùng với các sản phẩm sẽ được thể hiện bởi một ma trận tương tác $X \in \mathbb{N}^{U\times I}$. Tương tác một người dùng sẽ là một véc-tơ $x_u = [x_{u1}, x_{u2}, ..., x_{uI}]^T \in \mathbb{N}^I $ với $u \in U$.
+    Với tập dữ liệu được sử dụng huấn luyện gồm $U$ người dùng $[u_1,u_2, .., u_U]$ và cần xây dựng mô hình đưa ra gợi ý trong tập $I$ sản phẩm $[i_1,i_2, ..., i_I]$. Bên cạnh đó, dữ liệu tương tác của người dùng với các sản phẩm sẽ được thể hiện bởi một ma trận tương tác $X \in \mathbb{N}^{U\times I}$. Tương tác một người dùng sẽ là một véc-tơ $x_u = [x_{u1}, x_{u2}, ..., x_{uI}]^T \in \mathbb{N}^I $ với $u \in U$.
     
-    Với giả định rằng việc một người dùng tương tác với các sản phẩm sẽ đến từ những đặc trưng ẩn của người dùng đó. 
-    Việc trích xuất đặc trưng ẩn của ngừoi dùng dựa trên những tương tác với hệ thống trong quá khứ được hi vọng rằng những đặc đặc trưng ẩn sẽ có thể được sử dụng để thể hiện cho người dùng. 
-    Sau khi có đưọc đặc trưng ẩn của người dùng thì vì dựa trên mục tiêu rằng đặc trưng sẽ thể hiện tốt được những yếu tố quyết định đến các tương tác của người dùng thì việc huấn luyện mô hình sẽ cần phải đảm bảo rằng đặc trưng ẩn có thê dùng để hình thành tương tác của người dùng. 
+    Với giả định rằng mỗi người dùng sẽ có một đặc trưng ẩn nào đó sẽ quyết định đến việc người đó có tương tác với một sản phẩm nào đó hay không.
+    Do đó, bằng cách dựa vào lịch sử tương tác của người dùng ta sẽ cố gắng để có thể trích xuất được đặc trưng ẩn của họ.
+    Sau khi có đưọc đặc trưng ẩn của người dùng thì việc huấn luyện mô hình sẽ cần phải đảm bảo rằng đặc trưng ẩn có thê dùng để hình thành tương tác của người dùng. 
+    Điều đó sẽ giúp ta có được một đặc trưng ẩn thể hiện được những yếu tố quyết định đến tương tác của người dùng.
+    Hay nói cách khác, ta hy vọng đặc trưng ẩn được trích xuất sẽ thể hiện cho sở thích của người dùng. 
 
-    
-    Mục tiêu của mô hình là nhận đầu vào là tương tác của người dùng, tương tác này được chiếu vào một không gian đặc trưng có số chiều thấp hơn và sau đó lại tái tạo lại dữ liệu ban đầu với mục đích để dự đoán những sản phẩm chưa được tương tác trước đó.
-    Một cách đơn giản là để huấn luyện mô hình auto-encoder là ta sẽ cố gắng tái tạo lại tương tác của người dùng để dựa vào kết quả tương tác được tái tạo để đưa ra tập sản phẩm ``tốt'' nhất mà người dùng chưa tương tác trước đó. Hoặc ta có thể xem như là một bài toán hồi quy, khi mà dữ liệu đầu vào là một con số thể hiện cho tương tác của người dùng, và mục tiêu của mô hình chính là kết quả của mô hình cũng là một véc tơ số ``gần'' với dữ liệu tương tác ban đầu.  
+    Auto-encoder là một mạng nơ-ron thường được sử dụng để trích xuất đặc trưng ẩn bằng phương pháp học không giám sát.
+    Một cách đơn giản để huấn luyện mô hình auto-encoder cho bài toán xây dựng hệ thống gợi ý là ta sẽ cố gắng tái tạo lại tương tác của người dùng.
+    Dựa vào kết quả tương tác được tái tạo để đưa ra tập sản phẩm ``tốt'' nhất mà người dùng chưa tương tác trước đó. 
+    Hoặc ta có thể xem như là một bài toán hồi quy, khi mà dữ liệu đầu vào là một con số thể hiện cho tương tác của người dùng.
+    Mục tiêu của mô hình chính là kết quả của mô hình cũng là một véc tơ số ``gần'' với dữ liệu tương tác ban đầu.  
     Để áp dụng hướng tiếp cận cơ bản này, chúng tôi sẽ trình bày về kiến trúc của một mô hình auto-encoder để xây dựng hệ thống gợi ý cơ bản.
+
     Mô hình được cấu thành từ hai mạng nơ ron tách biệt được gọi là encoder và decoder. 
-    Ta có thể xem rằng mạng nơ-ron encoder là một hàm phi tuyến ánh xạ dữ liệu đầu vào ở chiều không gian cao, $x_u \in R^I$ sang một không gian thấp hơn để biểu diễn cho đặc trưng ẩn $z_u \in R^k$ với $k$ là số chiều của không gian đặc trưng ẩn và thường thì $k$ sẽ rất nhỏ so với $I$. Cụ thể thì ta có:
-    $$ z_u = f(W * b_1)$$
+    Ta có thể xem rằng mạng nơ-ron encoder là một hàm phi tuyến ánh xạ dữ liệu đầu vào ở chiều không gian cao, $x_u \in R^I$ sang một không gian thấp hơn để biểu diễn cho đặc trưng ẩn $z_u \in R^k$ với $k$ là số chiều của không gian đặc trưng ẩn. 
+    Thường thì $k$ sẽ rất nhỏ so với $I$. Cụ thể thì ta có:
+    \begin{equation}
+        z_u = f(W * x_u + b_1)
+    \end{equation}
+
+  
     trong đó $f(.)$ là hàm kích hoạt phi tuyến và $W,b_1$ tương ứng sẽ là trọng số và hệ số ``bias'' của encoder. 
 
     Sau khi có được đặc trưng ẩn, $z_u$ sẽ được lan truyền thẳng thông qua mạng nơ-ron decoder nhằm mục đích xây dựng lại tương tác ban đầu từ $z_u$
-    $$x'_u = g(V \times z_u + b_2)$$
+    \begin{equation}
+        \widehat{x}_u = h(x_u,\theta) = g(V \times z_u + b_2)
+    \end{equation}
+
     Tương tự với encoder, $V,b_2$ sẽ tương ứng là các trọng số và ``bias'' của mạng nơ ron và g(.) chính là hàm kích hoạt của mạng nơ-ron.
 
-    Để huấn luyện một mô hình auto-encoder để thực hiện gợi ý sản phẩm ta có thể dùng hàm chi phí sau:
-    $$ \text{min}_\phi \sum_{x_u \in X}(||r - h(x_u,\theta)||^2_2)$$
+    \subsection{Quá trình huấn luyện}
+    
+    Để huấn luyện một mô hình auto-encoder để thực hiện gợi ý sản phẩm ta có thể dùng hàm lỗi sau:
+    \begin{equation}
+        \label{ae_rec_loss}
+        \mathcal{L}(x;\theta) = \frac {1}{|U|}\sum_{x_u \in X}(||x_u - h(x_u,\theta)||^2_2)
+    \end{equation}
     trong đó $h(x_u,\theta)$ là tương tác được tái tạo lại từ dữ liệu đầu vào cũng chính là tương tác của người dùng $u \in U$ và $x_u \in R^I$.
-    $$h(x_u,\theta) = f(W \times g(V \times x_u + b_1) + b_2)$$
+    \begin{equation}
+        h(x_u,\theta) = g(V \times z_u + b_2) = g(V \times f(W \times x_u + b_1) + b_2)
+    \end{equation}    
     với f(.) và g(.) sẽ là các hàm kích hoạt của mạng nơ-ron và $\theta = {W, V, b_1, b_2}$ với $W,V$ là trọng số tương ứng của encoder và decoder, $b_1,b_2$ tương ứng sẽ là hệ số ``bias'' của decoder và encoder.
-    Với hàm chi phí này thì mô hình sẽ huấn luyện và tìm ra bộ tham số $\theta^*$ sao cho với bộ tham số này, thì mô hình sẽ có thể tự động trích xuất được những đặc trưng ẩn có thể được dùng để hình thành nên các tương tác của người dùng.
+    
+    Với hàm lỗi \ref{ae_rec_loss} mô hình hy vọng sẽ có thể tự động trích xuất được những đặc trưng ẩn có thể được dùng để hình thành nên các tương tác của người dùng.
+    Mô hình sẽ được huấn luyện và tìm ra bộ tham số $\theta^*$ sao cho tối thiểu được độ lỗi \ref{ae_rec_loss}: 
+    \begin{equation}
+        \theta^* = \text{arg}_\theta \text{min}  \mathcal{L}(x;\theta)
+    \end{equation}    
+    
 
-    Tuy nhiên nhiên, để có thể tính toán cũng như cập nhật trọng số cho mô hình trong tình huống mô hình được sử dụng để phát sinh gợi ý cho người dùng. 
-    Cụ thể, đầu tiên, khi chúng ta huấn luyện một mạng nơ-ron phi tuyến thì tình trạng ``overfitting'' sẽ thường xảy ra, gây ảnh hưởng đến độ chính xác của mô hình. Do đó chúng ta cần phải thêm một lượng ``regular'' cho bộ tham số $\theta$.
-    Thứ hai, chúng ta cần phải xét đến việc rằng dữ liệu đầu vào của chúng ta là $x_u \in R^I$ là một véc-tơ có dạng bag-of-world. 
-    Có nghĩa là chỉ có phần sản phẩm là có tương tác, một người dùng chỉ tương tác một lượng ít sản phẩm chứ không phải toàn bộ.
-    Do đó để những trương tác trong quá khứ của một người dùng có thể được dùng để thể hiện được đặc trưng ẩn của người đó, chúng ta chỉ cập nhật trọng số cho những nơ-ron mà có kết nối đến những sản phẩm mà người dùng đã tương tác.
-    Vậy nên đê huấn luyện mô hình auto-encoder với bài toán xây dựng hệ thống gợi ý sản phẩm ta sẽ huấn luyện mô hình để tìm được bộ tham số cho mô hình, ta sẽ huấn luyện với hàm mục tiêu sau:
-    $$ \text{min}_\phi \sum_{x_u \in X}(||r - h(x_u,\theta)||^2_\mathcal{O})  + \frac \lambda 2 \times (||W||^2_2 + ||V||2_2)$$
-    trong đó $||.||^2_\mathcal{O}$ có nghĩa là chúng ta chỉ xét đến những tương tác xảy ra, bỏ qua đóng góp của các nơ-ron liên kết với các sản phẩm không có tương tác. 
+    Tuy nhiên, để tránh tình trạng ``overfitting'' sẽ thường xảy ra khi huấn luyện một mạng nơ-ron phi tuyến, gây ảnh hưởng đến độ chính xác của mô hình. 
+    Chúng ta cần phải thêm một lượng ``chính quy hóa'' cho bộ tham số $\theta$   
+    Vậy nên đê huấn luyện mô hình auto-encoder với bài toán xây dựng hệ thống gợi ý sản phẩm ta sẽ huấn luyện mô hình để tìm được bộ tham số cho mô hình  như sau:
+    \begin{equation}
+        \label{ae_rec_obj}
+        \theta^* = \text{arg}_\theta \text{min}  \mathcal{L}(x;\theta)  + \frac \lambda 2 \times (||W||^2_2 + ||V||2_2)
+    \end{equation}
+    trong đó $\lambda$ là hệ số ``chính quy hóa''.
 
     Với kiến trúc trên, mô hình xây dựng cho hệ thống gợi ý với số lượng sản phẩm là I và đặc trưng ẩn với số chiều là k thì số lượng tham số của mô hình sẽ là $2Ik + I + k$.
     
@@ -113,22 +141,29 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
 
 
     \subsection{Tăng khả năng phát sinh gợi ý cho người dùng bằng kỹ thuật ``drop-out''}
-    Như đã thảo luận ở phần trên, thì chúng ta đã xây dựng một kiến trúc cơ bản nhất trong việc xây dựng một hệ thống gợi ý sản phẩm dựa trên mô hình auto-encoder.
-    Tuy nhiên, mô hình trên vẫn còn nhiều hạn chế sau: 
+    Như đã thảo luận ở phần \ref{chap3/sec11}trên, thì chúng ta đã xây dựng một kiến trúc cơ bản nhất trong việc xây dựng một hệ thống gợi ý sản phẩm dựa trên mô hình auto-encoder.
+    Tuy nhiên, mô hình trên vẫn còn nhiều hạn chế: 
     \begin{itemize}
-        \item  Mặc dù, để phù hợp với bài toán gợi ý sản phẩm thì chúng ta chỉ tập nhật trọng số có liên kết với các phần tử là tương tác của người trong tập $\mathcal{O}$, là tập tương tác của người dùng, nhưng thưc tế thì mô hình vẫn đang làm tác vụ là tái tạo lại tương tác của người dùng từ đặc trưng ẩn phát sinh từ tương tác của người dùng. 
-        \item Một hạn chế khác đó là tính trạng overfiting, khi huấn luyện mạng nơ-ron. Với việc thêm `regular' để huấn luyện nhưng với dữ liệu thưa thì, regular sẽ không thực sự hiệu quả.
+        \item Thực tế thì mô hình vẫn đang làm tác vụ là tái tạo lại tương tác của người dùng từ đặc trưng ẩn phát sinh từ tương tác của người dùng. Chứ mô hình chưa thực sự được huấn luyện để dự đoán những sản phẩm mà người dùng sẽ tương tác từ lịch sử tương tác của họ.
+        \item Một hạn chế khác đó là tính trạng overfiting, khi huấn luyện mạng nơ-ron. Với việc thêm hệ số chính quy hóa để huấn luyện nhưng với dữ liệu thưa thì, việc chính quy hóa sẽ không thực sự hiệu quả.
     \end{itemize}
+    
     Một phương pháp mà chúng tôi sử dụng để có thể giải quyết những vấn đề trên đó là chúng tôi che đi một số tương tác trước khi dữ liệu được truyền thẳng qua mạng encoder. 
     Cụ thể thì chúng tôi áp dụng dropout cho véc-tở đầu vào, droput là một phương pháp ``regularization'' thường được áp dụng khi huấn luyện các mạng học sâu. 
     Dropout sẽ ép mạng nơ-ron tìm ra được những đặc trưng quan trọng hơn, hay là tìm ra những sản phẩm ảnh hưởng lớn đến đặc trưng ẩn của người dùng. 
+    
+    Gọi $\tilde{x}$ sẽ là dữ liệu sau khi đã được thêm nhiễu, $\tilde{x}$ sẽ được truyền thẳng qua mạng encoder để trích xuất được đặc trưng ẩn:
+    \begin{equation}
+        \label{z_u_with_x_tilde}
+        z_u = f(W * \tilde{x}_u + b_1)
+    \end{equation}
     
     Với việc sử dụng thêm nhiễu vào dữ liệu tương tác ban đầu của người dùng sẽ mang lại cho mô hình auto-encoder phù hợp hơn và hiệu quả hơn khi huấn luyện với dữ liệu tương tác của người dùng.
     Điều đầu tiên mang lại cho mô hình khi sử dụng một tầng ``dropout'' đó là mô hình lúc này ngoài việc trọng số được cập nhật để có thể tái tạo lại dữ liệu của ngừoi dùng mà khi này, trong tương tác của người dùng đã thực sự bị che mất một phần vậy nên cả quá trình huấn luyện mô hình cũng sẽ phải học để có thể dự đoán những trương tác bị che trong dữ liệu. Nói cách khác đó là sau khi thực hiện thêm nhiễu, thì mô hình sẽ thực sự là dự đoán những tương tác bị che từ những tương tác có trước đó trong lịch sử của người dùng thay vì chỉ để tái tạo lại tương tác của người dùng trước đó.
 
     Bên cạnh đó, drop out là một cách hiệu quả để ngăn tình trạng ``overfitting'' hiệu quả.
 
-    Đây cũng chính kiến trúc của một biến thể của auto-encoder đó là denosing auto-encoder đã được trình bày trong phần 2.1.3.
+    Đây cũng chính kiến trúc của một biến thể của auto-encoder đó là denosing auto-encoder đã được trình bày trong phần \ref{chap2/subsec12}.
     
 
     
@@ -136,10 +171,11 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
 \section{Áp dụng mô hình ``Variational Auto-encoder'' cho bài toán gợi ý sản phẩm}
     Trong lĩnh vực trí tuệ nhân tạo thì dữ liệu đóng vài trò cực kỳ quan trọng.
     Đặc biệt là lĩnh vực máy học, thì hiểu được dữ liệu sẽ góp phần không ít đến việc xây dựng một mô hình hiệu quả. 
-    Do đó, để có thể tận dụng được tính chất của dữ liệu trong bài toán xây dựng gợi ý sản phẩm đó là thưa, có nghĩa là người dùng trong thực tế sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm.
-    Với đặc điểm này, cũng chính là lý do mà tác giả trong bài báo mà chúng tôi tìm hiểu đã đề xuất việc sử dụng mô hình variational auto-encoder, một biến thể đặc biệt của auto-encoder cơ bản để xây dựng hệ thống gợi ý sản phẩm.
+    Đối với bài toán xây dựng hệ thống gợi ý sản phẩm thì thực tế mỗi người dùng sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm.
+    Điều này dẫn đến dữ liệu tương tác của người dùng sẽ là dữ liệu thưa.
+    Với đặc điểm này, mà tác giả trong bài báo \cite{mvae} mà chúng tôi tìm hiểu đã đề xuất việc sử dụng mô hình variational auto-encoder, một biến thể đặc biệt của auto-encoder cơ bản để xây dựng hệ thống gợi ý sản phẩm.
 
-    Ở phần này chúng tôi sẽ trình bày về kiến trúc mô hình đã tìm hiểu cho bài toán gợi ý sản phẩm trong bài báo cũng như là những đề xuất cải thiện cho mô hình VAEs trong tác vụ gợi ý sản phẩm cho người dùng. 
+    Ở phần này chúng tôi sẽ trình bày về kiến trúc mô hình đã tìm hiểu cho bài toán gợi ý sản phẩm trong bài báo cũng như là những cải thiện được bài báo đề xuất cho mô hình VAEs trong tác vụ gợi ý sản phẩm cho người dùng. 
 
     \subsection{Mô hình variational autoencoder cho bài toán gợi ý sản phẩm}
     Dữ liệu lương tác trong hệ thống gợi ý sản phẩm thường là dữ liệu thưa, có nghĩa là các phần tử trong véc-tơ input đầu vào sẽ đa phần sẽ mang giá trị 0. 
@@ -156,11 +192,17 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
     Những sản phẩm ``không quan trọng'' có thể xen là những sản phẩm mà không xuất hiện theo mẫu tương tác chung giữa các người dùng, những sản phẩm có thể sẽ là những sản phẩm đặc biệt của những người dùng có sở thích ``khác biệt'' so với những người dùng còn lại. 
     Vì theo ý tưởng của collaborative, là hướng tiếp cận mà nhóm tìm hiểu để xây dựng hệ thống gợi ý, thì việc đưa ra gợi ý cho một người dùng sẽ dựa trên việc mô hình tìm ra được những mẫu tương tác chung giữa các người dùng và mẫu tương tác chung này sẽ được thể hiện thông qua đặc trưng ẩn.
     Ngược lại, nếu từ tương tác của người, ta phát sinh một phân bố để thể hiện cho đặc trưng ẩn, thì khi sử dụng đặc trưng ẩn để đưa ra gợi ý, thì điểm ``tốt nhất'' trong phân bố, cụ thể ở bài báo được đề xuất là giá trị trung bình của phân bố sẽ được lấy để đưa ra gợi ý.
-    Vì là một phân bố, những sản phẩm ``ko quan trọng'' sẽ ít đóng góp ít hơn ở điểm trung bình. Vì điểm trung bình sẽ là điểm có phân phối xác suất cao nhất, có nghĩa là tập sản phẩm ít xuất hiện trong xu hướng tương tác chung của các người dùng trong hệ thống sẽ đóng góp ít hơn ở điểm trung bình. 
+    Vì là một phân bố, những sản phẩm ``ko quan trọng'' sẽ ít đóng góp ít hơn ở điểm trung bình. Vì điểm trung bình sẽ là điểm có phân phối xác suất cao nhất, có nghĩa là tập sản phẩm ít xuất hiện trong xu hướng tương tác chung của các người dùng trong hệ thống sẽ đóng góp ít hơn ở điểm trung bình.     
+
+    
+    Để áp dụng variational auto-encoder cho việc xây dựng một hệ thống gợi ý sản phẩm ta sẽ xét variational với 2 tiến trình riêng biệt. 
+    Đầu tiên là tiến trình suy diễn, tiến trình này chính là việc đặc trưng ẩn của dữ liệu, có nghĩa tìm ra phân phối bố của đặc trưng ẩn dựa trên dữ liệu tương tác của người dùng.
+    Tiếp theo là tiến tình phát sinh, tiến trình này dựa trên đặc trưng ẩn được lấy từ phân phối có được từ tiên trình suy diễn để phát sinh ra dữ liệu của người dùng.
 
     
 
-    \subsection{Thay đổi hàm lỗi để phù hợp hơn cho bài toán gợi ý sản phẩm}
+    \subsection{Thay đổi hàm lỗi để Variational Auto-encoder phù hợp hơn cho bài toán gợi ý sản phẩm}
+
         \subsubsection{Multinomial likelihood}
         \subsubsection{Beta variational auto-encoder}
     
