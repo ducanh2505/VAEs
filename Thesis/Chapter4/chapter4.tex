@@ -1,20 +1,28 @@
 \chapter{Thí nghiệm}
 \label{Chapter4}
 
-\textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm nhằm đánh giá những nội dung trình bày ở chương \ref{Chapter3}. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ Movielens-20M \cite{Ml20M} và Million Song Dataset\cite{MSD}; bên cạnh đó, độ đo được sử dụng để đánh giá khả năng đưa ra gợi ý của mô hình là Normalized Discounted Cumulative Gain (NDCG) và  Recall. Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt đạt được kết quả xấp xỉ so với kết quả được công bố trong bài báo \cite{mvae}. Bên cạnh đó, các kết quả thí nghiệm cũng chứng tỏ mô hình đưa ra sản phẩm gợi ý sử dụng mô hình variational auto-encoder có khả đưa ra gợi ý phù hợp hơn so với auto-encoders cơ bản, đặc biệt là trong trường hợp dữ liệu tương tác của người dùng thưa. Ngoài ra, các kết quả thí nghiệm cũng cho thấy việc thay đổi hàm mục tiêu giúp mô hình đưa ra kết quả tốt hơn cho bài toán gợi ý sản phẩm so với các hàm mục tiêu thường được sử dụng khi huấn luyện variational auto-encoder}
+\textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm nhằm đánh giá những nội dung trình bày ở chương \ref{Chapter3}. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ Movielens-20M \cite{Ml20M} và Million Song Dataset \cite{MSD}; bên cạnh đó, độ đo được sử dụng để đánh giá khả năng đưa ra gợi ý của mô hình là Normalized Discounted Cumulative Gain (NDCG) và  Recall. Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt đạt được kết quả xấp xỉ so với kết quả được công bố trong bài báo \cite{mvae}. Bên cạnh đó, các kết quả thí nghiệm cũng chứng tỏ mô hình đưa ra sản phẩm gợi ý sử dụng mô hình variational auto-encoder có khả đưa ra gợi ý phù hợp hơn so với auto-encoders cơ bản, đặc biệt là trong trường hợp dữ liệu tương tác của người dùng thưa. Ngoài ra, các kết quả thí nghiệm cũng cho thấy việc thay đổi hàm mục tiêu giúp mô hình đưa ra kết quả tốt hơn cho bài toán gợi ý sản phẩm so với các hàm mục tiêu thường được sử dụng khi huấn luyện variational auto-encoder}
 
 
 \section{Tập dữ liệu sử dụng}
+\label{chap4sec1}
 Chúng tôi tiến hành thí nghiệm trên các tập dữ liệu vừa và lớn ở các lĩnh vực khác nhau là Movielens-20M \cite{Ml20M} 
-và Million Song Dataset (MSD) \cite{MSD}; đây là các tập dữ liệu thường được dùng cho bài toán xây dựng hệ thống gợi ý,
-với hướng tiếp cận ``Collaborative Filtering''.
+và Million Song Dataset (MSD) \cite{MSD}; đây là các tập dữ liệu thường được dùng cho bài toán xây dựng hệ thống gợi ý
+với hướng tiếp cận ``Collaborative Filtering''. 
 \begin{itemize}
     \item Tập dữ liệu Movielens-20M bao gồm dữ liệu đánh giá của 138,000 người dùng với khoảng 27,000 bộ phim,
-    với 20 triệu đánh giá. Chúng tôi chỉ giữ lại những người dùng đã đánh giá ít nhất 5 bộ phim trở lên. 
-    \item Tập dữ liệu Million Song Dataset bao gồm số lượt nghe của khoảng 1 triệu người dùng và hơn 300,000 bài hát.
-    Chúng tôi chỉ giữ lại những bài hát được nghe bởi 200 người dùng, và những người dùng nghe ít nhất 20 bài hát trong số còn lại.
+    với 20 triệu đánh giá.
+    \item Tập dữ liệu Million Song Dataset bao gồm dữ liệu tương tác (số lượt nghe) của khoảng 1 triệu người dùng và hơn 300,000 bài hát, với hơn 48 triệu tương tác.
 \end{itemize}
-Sau khi lọc dữ liệu theo điều kiện đã nói, số lượng người dùng, số lượng sản phẩm, số lượng tương tác, tỉ lệ tương tác được mô tả trong bảng~\ref{table_dataset}.
+
+Để có thể đánh giá kết quả đạt được so với kết quả trong bài báo \cite{mvae} một cách tốt nhất,
+chúng tôi thực hiện các bước tiền xử lí được các tác giả mô tả trong bài báo \cite{mvae}.
+\begin{itemize}
+    \item Tập dữ liệu Movielens-20M: chúng tôi giữ lại những người dùng đã đánh giá ít nhất 5 bộ phim trở lên. 
+    \item Tập dữ liệu Million Song Dataset: chúng tôi chỉ giữ lại những bài hát được nghe bởi ít nhất 200 người dùng, và những người dùng nghe ít nhất 20 bài hát trong số còn lại.
+\end{itemize}
+
+Sau khi lọc dữ liệu theo điều kiện đã nói, số lượng người dùng, số lượng sản phẩm, số lượng tương tác, tỉ lệ tương tác giữa người dùng và sản phẩm được mô tả trong bảng~\ref{table_dataset}.
 \begin{table}[]
 \centering
     \begin{tabular}{|l|c|c|}
@@ -31,17 +39,35 @@ Sau khi lọc dữ liệu theo điều kiện đã nói, số lượng người 
 \end{table}
 
 
-Ở bước tiền xử lí dữ liệu, đối với tập dữ liệu Movielens là dạng ``explicit feedback'', chúng tôi 
+Chúng tôi tiến hành ``chuẩn hóa'' dữ liệu về dạng ``implicit feedback''. Đối với tập dữ liệu Movielens, chúng tôi 
 chúng tôi chuyển dữ liệu thành dạng ma trận tương tác nhị phân, với các đánh giá của người dùng từ 4 trở lên (nghĩa là người dùng thích bộ phim đó) mang giá trị 1 trong ma trận nhị phân.
-Với tập dữ liệu MSD là dữ liệu ``implicit feedback'', chúng tôi chỉ chuyển các giá trị số lượt nghe của người dùng thành dạng nhị phân và ngược lại.
+Với tập dữ liệu MSD, chúng tôi chỉ chuyển các giá trị số lượt nghe của người dùng thành giá trị nhị phân.
 
-Với mỗi tập dữ liệu, chúng tôi lần lượt lấy ra một số lượng người dùng bằng nhau cho tập đánh giá (validation) và tập kiểm tra (testing), gọi chung là các tập ``held-out''.
-Với 10,000 người dùng cho tập dữ liệu Movielens và 50,000 người dùng cho tập MSD.
-Với mỗi người dùng trong tập ``held-out'', chúng tôi chọn ngẫu nhiên 80\% số sản phẩm mà họ đã tương tác để làm đầu vào của mô hình, và đánh giá trên 20\% còn lại với 
-độ đo Recall@k và NDCG@k.
+Với mỗi tập dữ liệu, chúng tôi lần lượt lấy ra một số lượng người dùng bằng nhau cho tập đánh giá (validation) và tập kiểm tra (testing), gọi chung đây là các tập ``held-out''. Phần còn lại sẽ là tập dữ liệu huấn luyện (training).
 
 
 \section{Các thiết lập thí nghiệm}
+
+Để đánh giá khả năng tổng quát hóa của mô hình, chúng tôi chia dữ liệu thành 3 phần như đã trình bày trong phần~\ref{chap4sec1}, bao gồm các tập huấn luyện, đánh giá, kiểm tra. Với số người dùng của các tập ``held-out'' (tập dữ liệu đánh giá và kiểm tra) lần lượt là 10,000 và 50,000 cho hai bộ dữ liệu MovieLens và MSD.
+
+Để huấn luyện mô hình, chúng tôi sử dụng toàn bộ dữ liệu tương tác của người dùng trong tập huấn luyện. Để đánh giá mô hình, chúng tôi chọn ngẫu nhiên 80\% tương tác của mỗi người dùng để làm đầu vào của mô hình. Sau đó đánh giá các sản phẩm được dự đoán bởi mô hình dựa trên 20\% tương tác còn lại với hai độ đo ``Normalized Discounted Cumulative Gain'' (NDCG) và ``Recall''.
+
+Chúng tôi sử dụng một kiến trúc giống cho hai mô hình ``Auto-encoder'' và ``Variational Auto-encoder'' (VAEs). Với ``encoder'' và ``decoder'' là mạng nơ-ron nhiều tầng ẩn (``Multi-layer Perceptron'' hay MLP) có kiến trúc đối xứng nhau, kích thước véc-tơ biểu diễn ẩn của mô hình là 200. Kiến trúc của các mô hình với MLP có 1 tầng ẩn kích thước 600 có thể mô tả ngắn gọn là $[ I \to 600 \to 200 \to 600 \to I ]$, với I là số lượng sản phẩm. Áp dụng hàm kích hoạt phi tuyến là \textit{tanh} giữa các lớp, tuy nhiên, do đầu ra của ``encoder'' trong mô hình VAEs là một biến ngẫu nhiên từ phân phối xác suất, do đó chúng tôi không áp dụng hàm kích hoạt tầng đó.
+
+Ngoài ra, như đã trình bày ở phần ..., chúng tôi áp dụng kỹ thuật ``drop-out'' cho véc-tơ đầu vào để mô hình sinh ra gợi ý cũng như tránh tình trạng ``over-fitting''.
+
+Như đề xuất của tác giả Liang trong bài báo \cite{mvae}, chúng tôi sử dụng ``Multinomal log-likelihood'' làm hàm tính độ lỗi cho cả hai mô hình. Chúng tôi gọi mô hình là ``Variational Auto-encoder'' với hàm lỗi này là Mult-VAEs, mô hình ``Auto-encoder'' với hàm lỗi và phần ``drop-out'' là Mult-DAE.
+
+Chúng tôi điều chỉnh siêu tham số $\beta$ của mô hình Mult-VAEs theo phương pháp đã trình bày ở phần ... . Và áp dụng một lượng ``weight-decay'' 0.01 cho Mult-DAE. 
+
+Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE bằng thuật toán Adam <cite> trên các tập dữ liệu MovieLens \cite{Ml20M} với 200 ``epoch'' và Million Song Dataset \cite{MSD} với 100 ``epoch'' (mỗi ``epoch'' là một lần mô hình duyệt qua hết dữ liệu huấn luyện). Chúng tôi lưu lại mô hình cho kết quả tốt nhất với độ đo NDCG@100 trên tập đánh giá để đánh giá kết quả trên tập kiểm tra (testing).
+
+
+
+
+
+
+
 \section{Các kết quả thí nghiệm}
     \subsection{Kết quả của mô hình cài đặt so với bài báo}
     \subsection{Phân tích Multinomal Likelihood}
