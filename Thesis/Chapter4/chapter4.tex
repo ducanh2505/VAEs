@@ -136,6 +136,37 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
         \caption[]{Kết quả cài đặt của chúng tôi so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
         \end{table}
     \subsection{Phân tích ``Multinomal Likelihood''}
+
+    Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
+    Cụ thể chúng tôi sẽ so sánh Multinomial log-likelihood so với Gaussian log-likelihood và Logistic log-likelihood. 
+    Hàm multinomaial log-likelihood như đã được trình bày ở phần \ref{mulll} thì multinomial log-likelihood sẽ giả định dữ liệu ban đầu sẽ được phát sinh bởi một phân phối multinomial.
+    Về Gaussian  log-likelihood, cũng chính là độ lỗi ``mean square'', là một độ lỗi thường gặp trong những bài toán hồi quy (regression). 
+    Với độ lỗi này thì dữ liệu tương tác của người dùng được giả định sẽ tuân theo phân phối Gaussian. 
+    Theo đó thì, chúng tôi dựa vào bài báo \cite{yifan_cf} của tác giả Yifan Hu, đã áp dụng Gaussian log-likelihood cho bài toán gợi ý sản phẩm với dữ liệu phản hồi ngầm. 
+    Theo bài báo thì Gaussian log-likelihood cho người dùng $u$ sẽ là:
+    \begin{equation}
+        \log p_\theta(x_u|z_u) = -\sum_i \frac{c_{ui}}{2}(x_{ui} - f_{ui})^2
+    \end{equation}
+    trong đó, $c_{ui}$ là hệ số ``confidence'' của tương tác được thực hiện bởi người dùng $u$ với sản phẩm $i$.
+    Hệ số này kiểm soát sự ảnh hưởng giữa những sản phẩm được tương tác với những sản phẩm không được tương tác.
+    Cụ thể, những sản phẩm được tương tác sẽ có giá trị hệ số ``confidence'' cao hơn so với những sản phẩm không tương tác.
+    Có nghĩa là $c_{1}  > c_0$, với $c_1,c_0$ lần lượt là hệ số ``confidence'' của sản phẩm được tương và sản phẩm không được tương tác. 
+    Bên cạnh đó, Logistic log-likelihood, hay còn được biết đến là độ lỗi `Binary cross entropy', là một độ lỗi thường được dùng trong những bài toán phân loại (classifcation).
+    Về lý thuyết xác suất, sử dụng mô hình này ta sẽ giả định rằng dữ liệu của chúng ta sẽ được phát sinh từ một phân phối Bernoulli. 
+    Với việc sử dụng, Logistic log-likelihood thì bài toán xây dựng hệ thống gợi ý sản phẩm hay cụ thể việc xác định tương tác của một người dùng với một sản phẩm sẽ được xem như bài toán phân loại 2 lớp. 
+    Logistic log-likelihood của người dùng u sẽ được tính như sau:
+    \begin{equation}
+        \log p_\theta(x_u|z_u) = -\sum_i x_{ui}\log \sigma(f_{xui}) + (1-x_{ui})\log(1 - \sigma(f_{ui}))
+    \end{equation}
+    Để thể hiện sự hiệu quả của multinomial log-likelihood so với 2 hàm lỗi còn lại trong bài toán gợi ý sản phẩm với sản phầm phản hồi ngầm, chúng tôi lần lượng thực hiện huấn luyện mô hình với các độ lỗi trên và ghi lại kết quả tốt nhất.
+    Ở thí nghiệm này, việc huấn luyện mô hình chỉ thay đổi độ lỗi và các thiết lập khác được giữ nguyên.
+    Và chúng tôi thực hiện `fine-tune' siêu tham số tách biệt giữa các độ lỗi với nhau.
+    
+    Kết quả thực được ghi nhận lại ở bảng \ref{table:comparell}.
+    Từ kết quả cho thấy multinomaial log-likelihood cho kết quả tốt hơn so với 2 hàm lỗi còn lại.
+    Điều này chứng tỏ được rằng việc lựa chọn hàm lỗi thực sự phụ thuộc vào dữ liệu của mô hình. 
+    Và đối với bài toán gợi ý sản phẩm, cụ thể là với dữ liệu phản hồi ngầm thì multinomial log-likelihood mang lại kết quả ấn tượng. 
+
         Như đã trình bày trong phần~\ref{mulll}, với giả định véc-tơ tương tác của người dùng trên toàn bộ tập sản phẩm được phát sinh từ một phân phối đa thức (``Multinomial Distribution''), kết quả trả về của mô hình Mult-VAEs là một véc-tơ thể hiện xác suất được chọn của từng sản phẩm trong hệ thống (véc-tơ này có tổng bằng 1). Chúng tôi tiến hành thay đổi hàm lỗi ``Multinomial log-likelihood'' thành các hàm lỗi ``Gaussian likelihood'' và ``Logistic log-likelihood'' trên hai mô hình ``Variational Auto-encoder'' và ``Auto-encoder'' với các thiết lập giống phần~\ref{setup_experiment}. 
 
         Vì tính chất của ``Multinomial log-likelihood'' phụ vụ mục đích xếp hạng các sản phẩm ``phù hợp'' với người dùng, do đó chúng tôi dùng độ đo Normalized Discounted Cumulative Gain (NDCG) để đánh giá chất lượng xếp hạng của mô hình. Bảng~\ref{table_comparelikelihood} thể hiện độ đo NDCG@100 với các hàm lỗi và mô hình tương ứng. 
@@ -151,14 +182,13 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
             \textbf{VAEs} &  \textbf{0.429} & 0.422 &  0.419 \\ \hline
             \textbf{DAE}  & \textbf{0.423}                        & 0.409                        & 0.412                        \\ \hline
             \end{tabular}
-        \label{table_comparelikelihood}
+        \label{table:comparell}
         \caption[]{Độ đo NDCG@100 trên các mô hình VAEs và DAE với các hàm lỗi khác nhau trên tập dữ liệu MovieLens}
         \end{table}
 
 
 
     \subsection{So sánh với Variational Auto-encoder và Auto-encoder}
-<<<<<<< HEAD
     Trong phần này, chúng tôi sẽ kiểm chứng về sự phù hợp của Variational auto-encoder so với Auto-encoders, cụ thể là so sánh Mul-VAE và Mul-DAE.
     Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp bayesian inference cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
 
