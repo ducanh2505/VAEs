@@ -189,40 +189,37 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
 
 
     \subsection{So sánh với Variational Auto-encoder và Auto-encoder}
-    Trong phần này, mục tiêu của  chúng tôi là kiểm chứng về sự phù hợp của Variational auto-encoder so với Auto-encoders, cụ thể là so sánh Mul-VAE và Mul-DAE.
-    Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp bayesian inference cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
+    Trong phần này, mục tiêu của  chúng tôi là kiểm chứng về sự phù hợp của ``Variational Auto-encoder'' so với ``Auto-encoder'', cụ thể là so sánh Mul-VAEs và Mul-DAE.
+    Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp ``Bayesian inference'' cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
 
-    Như đã trình bày ở mục \ref{why_vae}, thì mô hình Mul-VAE được xây dựng dựa trên các giả định của chúng tôi về dữ liệu, cụ thể là khi dữ liệu thưa.
-    Do đó chúng tôi sẽ đánh giá hai mô hình Mul-VAE với tình trạng dữ liệu thưa.
+    Như đã trình bày ở mục \ref{why_vae}, thì mô hình Mul-VAEs được xây dựng dựa trên các giả định của chúng tôi về dữ liệu, cụ thể là khi dữ liệu thưa.
+    Do đó chúng tôi sẽ đánh giá hai mô hình Mul-VAEs với tình trạng dữ liệu thưa.
 
-    Theo thí nghiệm ở mục \ref{experiment1} thì ta có thể thấy được ở tập Movielen thì cách biệt giữa Mul-VAE và Mul-DAE là lớn hơn so với tập MSD.
-    Còn ở thí nghiệm này, cụ thể thì trong tập kiểm tra chúng tôi sẽ lần lượt thực hiện giảm số lượng tương tác người dùng trong tập fold-in.
-    Tập fold-in là tập dữ liệu đầu vào của mô hình, thể hiện các tương tác của người dùng trong quá khứ.
-    Chúng tôi lần lượt đánh giá ở các mức độ tương tác khác nhau của người dùng.
-    Mức độ tương tác đơn giản là số lượng tương tác trong quá khứ so với toàn bộ tương tác của người dùng được ghi nhận.       
-
+    Theo thí nghiệm ở mục \ref{experiment1} thì ta có thể thấy được ở tập MovieLens thì cách biệt giữa Mul-VAE và Mul-DAE là lớn hơn so với tập MSD.
+    Ở thí nghiệm này, cụ thể thì trong tập kiểm tra chúng tôi sẽ lần lượt thí hiện giảm số lượng tương tác người dùng trong tập ``fold-in''. Và đánh giá kết quả của mô hình dựa trên số lượng tương tác còn lại.
+    
     \begin{figure}
         \centering
         \includegraphics[width=1\textwidth]{vae_dae_ml.png}
-        \caption{So sánh Mul-VAE và Mul-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập MovieLens}
+        \caption{So sánh Mult-VAE và Mul-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập MovieLens}
         \label{fig_vae_dae_ml}
     \end{figure}
     \begin{figure}
         \centering
         \includegraphics[width=1\textwidth]{vae_dae_msd.png}
-        \caption{So sánh Mul-VAE và Mul-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập Million Song Datasets}
+        \caption{So sánh Mult-VAE và Mul-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập Million Song Datasets}
         \label{fig_vae_dae_msd}
     \end{figure}
 
-    Hình \ref{fig_vae_dae_ml} thể hiện giá trị của độ đo NDCG@100 trên tập Movilen. 
-    Với tập dữ liệu này, ta dễ dàng nhận thấy Mul-VAE vượt trội hơn so với Mul-DAE, đặc biệt là khi dữ liệu tương tác người dùng thấp.
-    Cụ thể trong khoảng mức độ tương tác của người dùng từ 20\% đến 40\% thì Mul-DAE hoàn toàn bị bỏ xa bởi Mul-VAE.
-    Còn ở hình \ref{fig_vae_dae_msd} là kết quả thực hiện thí nghiệm trên tập MSD.
-    Tập dữ liệu này cũng có xu hướng tương tự như trên tập Movielen, tuy nhiên sự cách biệt giữa Mul-DAE và Mul-VAE không quá rõ ràng.
-    Song ta vẫn dễ dàng nhận thấy được rằng với mức độ tương tác thấp Mul-VAE vẫn cho kết quả nhỉnh hơn so với Mul-DAE.
+    Hình \ref{fig_vae_dae_ml} thể hiện giá trị của độ đo NDCG@100 trên tập MovieLens. 
+    Với tập dữ liệu này, ta dễ dàng nhận thấy Mult-VAEs vượt trội hơn so với Mul-DAE, đặc biệt là khi dữ liệu tương tác người dùng thấp.
+    Cụ thể trong khoảng mức độ tương tác của người dùng từ 20\% đến 40\% thì Mul-DAE hoàn toàn bị bỏ xa bởi Mult-VAEs.
+    Hình \ref{fig_vae_dae_msd} là kết quả thực hiện thí nghiệm trên tập MSD.
+    Tập dữ liệu này cũng có xu hướng tương tự như trên tập MovieLens, tuy nhiên sự cách biệt giữa Mul-DAE và Mult-VAEs không quá rõ ràng.
+    Song, ta vẫn dễ dàng nhận thấy được rằng với mức độ tương tác thấp Mult-VAEs vẫn cho kết quả nhỉnh hơn so với Mul-DAE.
 
-    Kết quả thí nghiệm giúp ta đã giúp khẳng định lại được độ hiệu quả của mô hình Mul-VAE được đề xuất trong bài báo \cite{mvae}. 
-    Tuy trên tổng quan thì Mul-VAE không quá vượt trội so với Mul-DAE nhưng ở trường hợp dữ liệu tương tác người dùng ở mức độ thấp thì Mul-VAE mang lại kết quả cực kỳ ấn tượng.
+    Kết quả thí nghiệm giúp ta đã giúp khẳng định lại được độ hiệu quả của mô hình Mult-VAEs được đề xuất trong bài báo \cite{mvae}. 
+    Tuy trên tổng quan thì Mult-VAEs không quá vượt trội so với Mul-DAE nhưng ở trường hợp dữ liệu tương tác người dùng ở mức độ thấp thì Mult-VAEs mang lại kết quả cực kỳ ấn tượng.
 
 
 
