@@ -58,7 +58,7 @@ Ngoài ra, như đã trình bày ở phần ..., chúng tôi áp dụng kỹ thu
 
 Như đề xuất của tác giả Liang trong bài báo \cite{mvae}, chúng tôi sử dụng ``Multinomal log-likelihood'' làm hàm tính độ lỗi cho cả hai mô hình. Chúng tôi gọi mô hình là ``Variational Auto-encoder'' với hàm lỗi này là Mult-VAEs, mô hình ``Auto-encoder'' với hàm lỗi và phần ``drop-out'' là Mult-DAE.
 
-Chúng tôi điều chỉnh siêu tham số $\beta$ của mô hình Mult-VAEs theo phương pháp đã trình bày ở phần ... . Và áp dụng một lượng ``weight-decay'' 0.01 cho Mult-DAE. 
+Chúng tôi điều chỉnh siêu tham số $\beta$ của mô hình Mult-VAEs với 200,000 bước cập nhật theo phương pháp đã trình bày ở phần ... . Và áp dụng một lượng ``weight-decay'' 0.01 cho Mult-DAE. 
 
 Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE bằng thuật toán Adam <cite> trên các tập dữ liệu MovieLens \cite{Ml20M} với 200 ``epoch'' và Million Song Dataset \cite{MSD} với 100 ``epoch'' (mỗi ``epoch'' là một lần mô hình duyệt qua hết dữ liệu huấn luyện). Chúng tôi lưu lại mô hình cho kết quả tốt nhất với độ đo NDCG@100 trên tập đánh giá để đánh giá kết quả trên tập kiểm tra (testing).
 
@@ -70,5 +70,68 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
 
 \section{Các kết quả thí nghiệm}
     \subsection{Kết quả của mô hình cài đặt so với bài báo}
+    Trong phần này, chúng tôi sẽ trình bày kết quả của mô hình mà chúng tôi cài đặt. 
+    Cụ thể, chúng tôi so sánh kết quả mô hình Mult-VAEs và Mult-DAE chúng tôi cài đặt so với kết quả trong bài báo.
+    Các mô hình được đánh giá trên tập kiểm tra gồm 10,000 người dùng trong tập dữ liệu MovieLens và 50,000 người dùng trong tập Million Song Dataset.
+    Chúng tôi dùng các độ đo giống với mô tả trong bài báo là:
+    \begin{itemize}
+        \item NDCG@100: độ đo NDCG trên tối đa 100 sản phẩm được mô hình xếp hạng cao nhất.
+        \item Recall@50: độ đo Recall trên tối đa 50 sản phẩm được mô hình xếp hạng cao nhất.
+        \item Recall@20: độ đo Recall trên tối đa 20 sản phẩm được mô hình xếp hạng cao nhất.
+    \end{itemize}
+
+    Từ kết quả trên bảng~\ref{table_ML20MResult}, ở tập dữ liệu MovieLens, cả hai mô hình chúng tôi cài đặt đều đạt được kết quả tương đồng so với kết quả trong bài báo \cite{mvae}.
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|c|c|c|}
+            \hline
+                            & \textbf{Recall@20} & \textbf{Recall@50} & \textbf{NDCG@100} \\ \hline
+            \textbf{Mult-VAEs} & 0.395              & 0.537              & 0.429             \\ \hline
+            \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả)\end{tabular}} & 0.395 & 0.537 & 0.426 \\ \hline
+            \textbf{Mult-DAE} & 0.398              & 0.535              & 0.423             \\ \hline
+            \textbf{\begin{tabular}[c]{@{}l@{}}Mult-DAE\\ (cài đặt của tác giả)\end{tabular}}  & 0.387 & 0.524 & 0.419 \\ \hline
+            \end{tabular}
+        \label{table_ML20MResult}
+        \caption[Kết quả cài đặt trên tập MovieLens]{Kết quả cài đặt trên tập MovieLens so với kết quả trong bài báo \cite{mvae}}
+        \end{table}
+
+        
+    Với các kết quả tập dữ liệu MSD được thể hiện trong bảng~\ref{table_MSDResult}, cả hai mô hình chúng tôi cài đặt cho kết quả có sai lệch so với kết quả trong bài báo.
+    Nhìn chung, kết quả của Mult-VAEs và Mult-DAE ở cả 3 độ đo đều tương quan so với kết quả của bài báo.
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|c|c|c|}
+        \hline
+                            & \textbf{Recall@20} & \textbf{Recall@50} & \textbf{NDCG@100} \\ \hline
+        \textbf{Mult-VAEs} & 0.257              & 0.353              & 0.308             \\ \hline
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả)\end{tabular}} & 0.266 & 0.364 & 0.316 \\ \hline
+        \textbf{Mult-DAE} & 0.256              & 0.351              & 0.306             \\ \hline
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-DAE\\ (cài đặt của tác giả)\end{tabular}}  & 0.266 & 0.363 & 0.313 \\ \hline
+        \end{tabular}
+        \label{table_MSDResult}
+        \caption[Kết quả cài đặt trên tập MSD]{Kết quả cài đặt trên tập MSD so với kết quả trong bài báo \cite{mvae}}
+    \end{table}
+
+    Với mô hình Mult-VAEs, cài đặt của tác giả Lobel và các cộng sự trong bài báo ``RACT: TOWARDS AMORTIZED RANKING-CRITICAL
+    TRAINING FOR COLLABORATIVE FILTERING'' \cite{ract}, mô hình của tác giả cài đặt cũng cho kết quả tương đồng với mô hình chúng tôi cài đặt, với sai số nhỏ.
+    Theo đó, kết quả trên tập dữ liệu MovieLens tương đồng với bài báo gốc \cite{mvae}và kết quả trên tập dữ liệu MSD thấp hơn bài báo gốc, tuy nhiên sai số không quá lớn. 
+
+    
+    Qua các kết quả trên, chúng tôi rút ra nhận xét như sau. Mult-VAEs cho kết quả tốt hơn Mult-DAE ở cả 3 độ đo trên tập dữ liệu MovieLens.
+    Với tập dữ liệu có kích thước lớn hơn là MSD, cả Mult-VAEs và Mult-DAE đều cho kết quả khá gần nhau ở cả 3 độ đo, giống với kết quả của hai mô hình này trong bài báo gốc \cite{mvae}.
+    
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|c|c|c|}
+        \hline
+                                                                                                & \textbf{Recall@20} & \textbf{Recall@50} & \textbf{NDCG@100} \\ \hline
+        \textbf{Mult-VAEs}                                                                       & 0.257              & 0.353              & 0.308             \\ \hline
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả Lobel)\end{tabular}} & 0.260              & 0.356              & 0.310             \\ \hline
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả Liang)\end{tabular}} & 0.266              & 0.364              & 0.316             \\ \hline
+        \end{tabular}
+        \label{table_compareMSD}
+        \caption[]{Kết quả cài đặt của chúng tôi so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
+        \end{table}
     \subsection{Phân tích Multinomal Likelihood}
     \subsection{So sánh với Variational Auto-encoder và Auto-encoder}
