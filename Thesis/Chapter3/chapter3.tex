@@ -284,7 +284,8 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
     theo đó thì $z_u$ thì vẫn là một giá trị được lấy mẫu ngẫu nhiên từ phân phối xác suất trả về từ encoder, nhưng $z_u$ vẫn được tính thông qua một dấu bằng `='.
     Dựa vào ``Reparametrization trick'' ta đã có thể cập nhật trọng số cho mô hình variational auto-encoder thông qua thuật toán lan truyền ngược. 
     Hình \ref{fig_repatrick} thể hiện cho ý tưởng của ``Reparametrization trick''.
-
+    \subsubsection{Lý do Variational Auto-encoder phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}
+    \label{why_vae}
     \subsection{Thay đổi hàm lỗi để Variational Auto-encoder phù hợp hơn cho bài toán gợi ý sản phẩm}
 
 
@@ -351,5 +352,3 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
 
     Khi huấn luyện mô hình với phương pháp này thì sau mỗi lần cập nhật mô hình thì ta sẽ đánh giá lại mô hình và lưu lại giá trị $\beta$ sau mỗi lần mà mô hình đạt kết quả tốt hơn trên tập kiểm định.
     Tiếp theo đó thì để mô hình có thể đạt được một kết quả tốt hơn thì ta sẽ thực hiện huấn luyện lại mô hình một lần nữa với giá trị $\beta$ tốt nhất đã được lưu lại trước đó.  Ngoài ra, nếu chi phí tài nguyên không cho phép, ta chỉ có thể huấn luyện mô hình chỉ trong một lần thì ta có thể dừng cập nhật lại giá trị $\beta$ sau khi mô hình có dấu hiệu giảm độ hiệu quả trên tập kiểm định. 
-
-    
