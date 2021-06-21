@@ -47,12 +47,13 @@ Với mỗi tập dữ liệu, chúng tôi lần lượt lấy ra một số lư
 
 
 \section{Các thiết lập thí nghiệm}
+\label{setup_experiment}
 
 Để đánh giá khả năng tổng quát hóa của mô hình, chúng tôi chia dữ liệu thành 3 phần như đã trình bày trong phần~\ref{chap4sec1}, bao gồm các tập huấn luyện, đánh giá, kiểm tra. Với số người dùng của các tập ``held-out'' (tập dữ liệu đánh giá và kiểm tra) lần lượt là 10,000 và 50,000 cho hai bộ dữ liệu MovieLens và MSD.
 
 Để huấn luyện mô hình, chúng tôi sử dụng toàn bộ dữ liệu tương tác của người dùng trong tập huấn luyện. Để đánh giá mô hình, chúng tôi chọn ngẫu nhiên 80\% tương tác của mỗi người dùng để làm đầu vào của mô hình. Sau đó đánh giá các sản phẩm được dự đoán bởi mô hình dựa trên 20\% tương tác còn lại với hai độ đo ``Normalized Discounted Cumulative Gain'' (NDCG) và ``Recall''.
 
-Chúng tôi sử dụng một kiến trúc giống cho hai mô hình ``Auto-encoder'' và ``Variational Auto-encoder'' (VAEs). Với ``encoder'' và ``decoder'' là mạng nơ-ron nhiều tầng ẩn (``Multi-layer Perceptron'' hay MLP) có kiến trúc đối xứng nhau, kích thước véc-tơ biểu diễn ẩn của mô hình là 200. Kiến trúc của các mô hình với MLP có 1 tầng ẩn kích thước 600 có thể mô tả ngắn gọn là $[ I \to 600 \to 200 \to 600 \to I ]$, với I là số lượng sản phẩm. Áp dụng hàm kích hoạt phi tuyến là \textit{tanh} giữa các lớp, tuy nhiên, do đầu ra của ``encoder'' trong mô hình VAEs là một biến ngẫu nhiên từ phân phối xác suất, do đó chúng tôi không áp dụng hàm kích hoạt tầng đó.
+Chúng tôi sử dụng một kiến trúc giống cho hai mô hình ``Auto-encoder'' và ``Variational Auto-encoder'' (VAEs). Với ``encoder'' và ``decoder'' là mạng nơ-ron nhiều lớp (``Multi-layer Perceptron'' hay MLP) có kiến trúc đối xứng nhau, kích thước véc-tơ biểu diễn ẩn của mô hình là 200. Kiến trúc của các mô hình trên với MLP có 1 tầng ẩn kích thước 600 có thể mô tả ngắn gọn là $[ I \to 600 \to 200 \to 600 \to I ]$, với I là số lượng sản phẩm. Áp dụng hàm kích hoạt phi tuyến là \textit{tanh} giữa các lớp, tuy nhiên, do đầu ra của ``encoder'' trong mô hình VAEs là một biến ngẫu nhiên từ phân phối xác suất, do đó chúng tôi không áp dụng hàm kích hoạt tầng đó.
 
 Ngoài ra, như đã trình bày ở phần ..., chúng tôi áp dụng kỹ thuật ``drop-out'' cho véc-tơ đầu vào để mô hình sinh ra gợi ý cũng như tránh tình trạng ``over-fitting''.
 
@@ -115,11 +116,11 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
 
     Với mô hình Mult-VAEs, cài đặt của tác giả Lobel và các cộng sự trong bài báo ``RACT: TOWARDS AMORTIZED RANKING-CRITICAL
     TRAINING FOR COLLABORATIVE FILTERING'' \cite{ract}, mô hình của tác giả cài đặt cũng cho kết quả tương đồng với mô hình chúng tôi cài đặt, với sai số nhỏ.
-    Theo đó, kết quả trên tập dữ liệu MovieLens tương đồng với bài báo gốc \cite{mvae}và kết quả trên tập dữ liệu MSD thấp hơn bài báo gốc, tuy nhiên sai số không quá lớn. 
+    Theo đó, kết quả trên tập dữ liệu MovieLens tương đồng với bài báo gốc \cite{mvae}và kết quả trên tập dữ liệu MSD (được trình bày trong bảng~\ref{table_compareMSD}) thấp hơn bài báo gốc, tuy nhiên sai số không quá lớn. 
 
     
     Qua các kết quả trên, chúng tôi rút ra nhận xét như sau. Mult-VAEs cho kết quả tốt hơn Mult-DAE ở cả 3 độ đo trên tập dữ liệu MovieLens.
-    Với tập dữ liệu có kích thước lớn hơn là MSD, cả Mult-VAEs và Mult-DAE đều cho kết quả khá gần nhau ở cả 3 độ đo, giống với kết quả của hai mô hình này trong bài báo gốc \cite{mvae}.
+    Với tập dữ liệu có kích thước lớn hơn là MSD, cả Mult-VAEs và Mult-DAE đều cho kết quả khá gần nhau ở cả 3 độ đo, tương đồng với kết quả của hai mô hình này trong bài báo gốc \cite{mvae}.
     
 
     \begin{table}[]
@@ -134,55 +135,30 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
         \label{table_compareMSD}
         \caption[]{Kết quả cài đặt của chúng tôi so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
         \end{table}
-    \subsection{Phân tích Multinomal Likelihood}
+    \subsection{Phân tích ``Multinomal Likelihood''}
+        Như đã trình bày trong phần~\ref{mulll}, với giả định véc-tơ tương tác của người dùng trên toàn bộ tập sản phẩm được phát sinh từ một phân phối đa thức (``Multinomial Distribution''), kết quả trả về của mô hình Mult-VAEs là một véc-tơ thể hiện xác suất được chọn của từng sản phẩm trong hệ thống (véc-tơ này có tổng bằng 1). Chúng tôi tiến hành thay đổi hàm lỗi ``Multinomial log-likelihood'' thành các hàm lỗi ``Gaussian likelihood'' và ``Logistic log-likelihood'' trên hai mô hình ``Variational Auto-encoder'' và ``Auto-encoder'' với các thiết lập giống phần~\ref{setup_experiment}. 
 
-    Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
-    Cụ thể chúng tôi sẽ so sánh Multinomial log-likelihood so với Gaussian log-likelihood và Logistic log-likelihood. 
-
-    Hàm multinomaial log-likelihood như đã được trình bày ở phần \ref{mulll} thì multinomial log-likelihood sẽ giả định dữ liệu ban đầu sẽ được phát sinh bởi một phân phối multinomial.
-    Về Gaussian  log-likelihood, cũng chính là độ lỗi ``mean square'', là một độ lỗi thường gặp trong những bài toán hồi quy (regression). 
-    Với độ lỗi này thì dữ liệu tương tác của người dùng được giả định sẽ tuân theo phân phối Gaussian. 
-    Theo đó thì, chúng tôi dựa vào bài báo \cite{yifan_cf} của tác giả Yifan Hu, đã áp dụng Gaussian log-likelihood cho bài toán gợi ý sản phẩm với dữ liệu phản hồi ngầm. 
-    Theo bài báo thì Gaussian log-likelihood cho người dùng $u$ sẽ là:
-    \begin{equation}
-        \log p_\theta(x_u|z_u) = -\sum_i \frac{c_{ui}}{2}(x_{ui} - f_{ui})^2
-    \end{equation}
-    trong đó, $c_{ui}$ là hệ số ``confidence'' của tương tác được thực hiện bởi người dùng $u$ với sản phẩm $i$.
-    Hệ số này kiểm soát sự ảnh hưởng giữa những sản phẩm được tương tác với những sản phẩm không được tương tác.
-    Cụ thể, những sản phẩm được tương tác sẽ có giá trị hệ số ``confidence'' cao hơn so với những sản phẩm không tương tác.
-    Có nghĩa là $c_{1}  > c_0$, với $c_1,c_0$ lần lượt là hệ số ``confidence'' của sản phẩm được tương và sản phẩm không được tương tác. 
-
-    Bên cạnh đó, Logistic log-likelihood, hay còn được biết đến là độ lỗi `Binary cross entropy', là một độ lỗi thường được dùng trong những bài toán phân loại (classifcation).
-    Về lý thuyết xác suất, sử dụng mô hình này ta sẽ giả định rằng dữ liệu của chúng ta sẽ được phát sinh từ một phân phối Bernoulli. 
-    Với việc sử dụng, Logistic log-likelihood thì bài toán xây dựng hệ thống gợi ý sản phẩm hay cụ thể việc xác định tương tác của một người dùng với một sản phẩm sẽ được xem như bài toán phân loại 2 lớp. 
-    Logistic log-likelihood của người dùng u sẽ được tính như sau:
-    \begin{equation}
-        \log p_\theta(x_u|z_u) = -\sum_i x_{ui}\log \sigma(f_{xui}) + (1-x_{ui})\log(1 - \sigma(f_{ui}))
-    \end{equation}
-
-    Để thể hiện sự hiệu quả của multinomial log-likelihood so với 2 hàm lỗi còn lại trong bài toán gợi ý sản phẩm với sản phầm phản hồi ngầm, chúng tôi lần lượng thực hiện huấn luyện mô hình với các độ lỗi trên và ghi lại kết quả tốt nhất.
-    Ở thí nghiệm này, việc huấn luyện mô hình chỉ thay đổi độ lỗi và các thiết lập khác được giữ nguyên.
-    Và chúng tôi thực hiện `fine-tune' siêu tham số tách biệt giữa các độ lỗi với nhau.
-    
-    Kết quả thực được ghi nhận lại ở bảng \ref{table:comparell}.
-    Từ kết quả cho thấy multinomaial log-likelihood cho kết quả tốt hơn so với 2 hàm lỗi còn lại.
-    Điều này chứng tỏ được rằng việc lựa chọn hàm lỗi thực sự phụ thuộc vào dữ liệu của mô hình. 
-    Và đối với bài toán gợi ý sản phẩm, cụ thể là với dữ liệu phản hồi ngầm thì multinomial log-likelihood mang lại kết quả ấn tượng. 
-
-    \begin{table}[]
+        Vì tính chất của ``Multinomial log-likelihood'' phụ vụ mục đích xếp hạng các sản phẩm ``phù hợp'' với người dùng, do đó chúng tôi dùng độ đo Normalized Discounted Cumulative Gain (NDCG) để đánh giá chất lượng xếp hạng của mô hình. Bảng~\ref{table_comparelikelihood} thể hiện độ đo NDCG@100 với các hàm lỗi và mô hình tương ứng. 
         
+        Qua các kết quả trên, ta có thể thấy ảnh hưởng của ``Multinomial log-likelihood'' lên chất lượng xếp hạng của mô hình (đánh giá thông qua độ đo NDCG@100). 
+        Từ đó cho thấy ``Multinomial log-likelihood'' là một hàm lỗi phù hợp với hệ thống gợi ý, khi chúng ta muốn ``xếp hạng'' các sản phẩm, từ đó đưa ra các gợi ý tốt nhất cho người dùng.
+
+        \begin{table}[]
         \centering
-        \begin{tabular}{|l|c|c|c|}
-        \hline
-                                                                                                & \textbf{Recall@20} & \textbf{Recall@50} & \textbf{NDCG@100} \\ \hline
-        \textbf{Mult-VAEs}                                                                       & 0.257              & 0.353              & 0.308             \\ \hline
-        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả Lobel)\end{tabular}} & 0.260              & 0.356              & 0.310             \\ \hline
-        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả Liang)\end{tabular}} & 0.266              & 0.364              & 0.316             \\ \hline
-        \end{tabular}
-        \caption[]{Kết quả cài đặt của chúng tôi so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
-        \label{table:comparell}
+            \begin{tabular}{|c|c|c|c|}
+            \hline
+                          & \textbf{Multinomial}                  & \textbf{Gaussian}            & \textbf{Logistics}           \\ \hline
+            \textbf{VAEs} &  \textbf{0.429} & 0.422 &  0.419 \\ \hline
+            \textbf{DAE}  & \textbf{0.423}                        & 0.409                        & 0.412                        \\ \hline
+            \end{tabular}
+        \label{table_comparelikelihood}
+        \caption[]{Độ đo NDCG@100 trên các mô hình VAEs và DAE với các hàm lỗi khác nhau trên tập dữ liệu MovieLens}
         \end{table}
+
+
+
     \subsection{So sánh với Variational Auto-encoder và Auto-encoder}
+<<<<<<< HEAD
     Trong phần này, chúng tôi sẽ kiểm chứng về sự phù hợp của Variational auto-encoder so với Auto-encoders, cụ thể là so sánh Mul-VAE và Mul-DAE.
     Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp bayesian inference cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
 
