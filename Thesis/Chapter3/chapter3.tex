@@ -222,15 +222,17 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
 
     
     Để áp dụng variational Auto-Encoder cho việc xây dựng một hệ thống gợi ý sản phẩm, ta sẽ xét variational với 2 tiến trình riêng biệt. 
-    Đầu tiên là tiến trình suy diễn, tiến trình này chính là việc đặc trưng ẩn của dữ liệu, có nghĩa tìm ra phân phối bố của đặc trưng ẩn dựa trên dữ liệu tương tác của người dùng. 
+    Đầu tiên là tiến trình suy diễn, tiến trình này suy diễn đặc trưng ẩn của dữ liệu từ tương tác của người dùng.
+    Có nghĩa tìm ra phân phối bố của đặc trưng ẩn dựa trên dữ liệu tương tác của người dùng. 
     Tiến trình này được thực hiện thông qua một mạng nơ-ron được gọi là encoder hay còn được gọi là mạng inference.
-    Tiếp theo là tiến tình phát sinh, từ phân phối có được từ tiến trình suy diễn, một đặc trưng ẩn sẽ được lấy từ phân phối trên. 
+    Tiếp theo là tiến tình phát sinh, tiến trình này có mục tiêu là phát sinh tương tác của ngời dùng từ đặc trưng ẩn.
+    Cụ thể, từ phân phối có được từ tiến trình suy diễn, một đặc trưng ẩn sẽ được lấy mẫu từ phân phối trên. 
     Đặc trưng ẩn này sẽ tiếp tục đường truyền thẳng thông qua một mạng nơ-ron được gọi là decoder hay còn được gọi là mạng generative.
-
+    Kết quả trả về sẽ là 1 véc-tơ thể hiện cho tương tác của người dùng được phát sinh từ đặc trưng ẩn.
 
 
     Encoder được dùng để xấp sỉ được ``posterior'' $p(z_u|x_u)$ thông qua phương pháp variational inference. 
-    Như đã trình bày ở phần trước, phương pháp này, xấp sỉ ``posterior'' thông qua một phân phối $q$ cùng ``họ'' phân phối và đơn giản hơn.
+    Như đã trình bày ở phần \ref{chap2/subsec21}, phương pháp này, xấp sỉ ``posterior'' thông qua một phân phối $q$ cùng ``họ'' phân phối và đơn giản hơn để tính toán.
     Giả định rằng $p(z_u) = \mathcal{N}(0,I)$ là một phân phối chuẩn, thể hiện phân phối xác suất trên không gian của đặc trưng ẩn.
     Do đó, $p(z_u|x_u)$ và $q(z_u|x_u)$ sẽ thuộc cùng họ phân phối ``Gaussian''. 
     Khi đó $q(z_u|x_u) = \mathcal{N}(\mu_u,\sigma_u^2)$, bằng cách tối thiểu $\mathbb{KL}(q(z_u||x_u) || p(z_u|x_u))$ tìm ra bộ tham số định nghĩa cho phân phối $q$ sao cho $q(z_u | x_u)$ xấp sỉ được $p(z_u|x_u)$.    
