@@ -346,18 +346,18 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \end{equation}
 
     có nghĩa rằng, $x_u$ sẽ được phát sinh từ một phân phối xác suất, cụ thể là phân phối đa thức (``Multinomial Distribution'').
-    Với $\pi(z_u)$ là một véc-tơ xác suất thể hiện cho xác suất được chọn của tập $N_u$ sản phẩm  với $N_u$ là số lượng sản phẩm mà người dùng $u$ đẫ tương tác. 
+    Với $\pi(z_u)$ là một véc-tơ xác suất thể hiện cho xác suất được chọn của tập $N_u$ sản phẩm  với $N_u$ là số lượng sản phẩm mà người dùng $u$ đẫ tương tác.
     Ta gọi $f_\theta(z_u) \equiv [f_{u1}, f_{u2}, \dots , f_{uI}] $ 
     là kết quả trả về từ decoder, với đầu vào là đặc trưng ẩn $z_u$.
-    Theo đó $\pi(z_u)$ được tính như sau:
+    Theo đó $\pi_{ui}$ được tính như sau:
     \begin{equation}
         \label{mult-ll}
-        \pi(z_u)_{ui} = \frac{\exp(f_{ui})}{\sum_j(\exp(f_{uj}))}
+        \pi_{ui} = \frac{\exp(f_{ui})}{\sum_j(\exp(f_{uj}))}
     \end{equation}
-    trong đó, $u\in \mathcal{U}$ và $i \in \mathcal{I}$.
+    trong đó, $u\in \mathcal{U}$ và $i \in \mathcal{I}$, thể hiện cho xác suất người dùng $u$ sẽ tương tác với sản phẩm $i$ so với toàn bộ tập sản phẩm  $\mathcal{I}$.
     
     
-    Với giả định này thì ở mạng decoder, sau khi nhận đầu vào $z_u$ sẽ trả về véc-tơ $\pi(z_u)$ trên toàn bộ tập sản phẩm trong hệ thống. 
+    Với giả định này thì sau khi decoder nhận đầu vào $z_u$ sẽ trả về véc-tơ $\pi(z_u)$ trên toàn bộ tập sản phẩm trong hệ thống. 
     Hình \ref{fig_mvae} thể hiện kiến trúc mà tác giả đã sử dụng. 
     Theo đó hàm lỗi được tác giả sử dụng trong trường hợp bài toán xây dựng hệ thống gợi ý sản phẩm là ``Multinomial log likelihood'' 
     \begin{equation}
@@ -384,6 +384,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Nhưng trong bài gợi ý sản phẩm thì ta quan tâm hơn việc mô hình hóa dữ liệu hơn là việc đảm bảo các tính chất xác suất của đặc trưng ẩn.
     Do đó tác giả đã đề xuất sử dụng một siêu tham số $\beta$ để có thể dễ dàng kiểm soát được đánh đổi đã được nói ở trên. 
     Siêu tham số là một hệ số không được học từ mô hình mà được chỉ định trước cho mô hình để có thể huấn luyện.
+    
     Theo đó, hàm mục tiêu lúc này của mô hình sẽ là:
     \begin{equation}
         \label{elbo_betamvae}
@@ -394,9 +395,13 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Trong nhiều trường hợp thì việc lựa chọn siêu tham số là một bước mà tốn kém thời gian khi ta phải đánh giá mô hình trên nhiều giá trị siêu tham số khác nhau.  
     Do đó tác giả cũng đề xuất thêm một phương pháp được gọi là ``KL-annealing''.
     Phương pháp này là một phương pháp ``heuristic'' để lựa chọn siêu tham số cho mô hình.
+
     Ý tưởng của phương pháp là ban đầu ta sẽ gán giá trị cho $\beta =0$.
     Và beta được tăng dần giá trị $\beta$ cho đến một giá trị cố định nào đó sau mỗi lần cập nhật trọng số của mô hình.
     Ở bài báo \cite{mvae} thì tác giả tăng dần $\beta$ từ 0 cho đến 1 thì dừng cập nhật cho $\beta$.
+
+    Lý do ta chỉ tăng $\beta$ lên đến giá trị tối đa là 1 bởi vì ta quan tâm đến việc mô hình hóa nhiều hơn là việc phát sinh dữ liệu mới.
+    Vậy nên, ban đầu $\beta$ được gán giá trị rất nhỏ và được tăng dần, điều này sẽ giúp giai đoạn đầu mô hình sẽ cố gắng tái tạo lại dữ liệu tương tác của người dùng một cách hiệu quả nhất.
 
     Khi huấn luyện mô hình với phương pháp này thì sau mỗi lần cập nhật mô hình thì ta sẽ đánh giá lại mô hình và lưu lại giá trị $\beta$ sau mỗi lần mà mô hình đạt kết quả tốt hơn trên tập kiểm định.
     Tiếp theo đó thì để mô hình có thể đạt được một kết quả tốt hơn thì ta sẽ thực hiện huấn luyện lại mô hình một lần nữa với giá trị $\beta$ tốt nhất đã được lưu lại trước đó.  Ngoài ra, nếu chi phí tài nguyên không cho phép, ta chỉ có thể huấn luyện mô hình chỉ trong một lần thì ta có thể dừng cập nhật lại giá trị $\beta$ sau khi mô hình có dấu hiệu giảm độ hiệu quả trên tập kiểm định. 
