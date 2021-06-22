@@ -162,6 +162,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
         \caption{Minh họa kiến trúc mô hình ``Denoising Auto-Encoder'' cho bài toán gợi ý sản phẩm}
         \label{fig_recdae}
     \end{figure}
+
     Như đã thảo luận ở phần \ref{chap3/sec11} trên, chúng ta đã xây dựng một kiến trúc ở mức cơ bản nhất trong việc xây dựng một hệ thống gợi ý sản phẩm dựa trên mô hình ``Auto-Encoder''.
     Tuy nhiên, mô hình trên vẫn còn nhiều hạn chế: 
     \begin{itemize}
@@ -174,8 +175,15 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     ``Dropout'' huấn luyện một tập các mạng con mà các mạng con này được định nghĩa bằng cách bỏ đi một số nơ-ron (không phải nơ-ron đầu ra) của mạng ban đầu. 
     Trong thực tế, để bỏ đi một số nơ-ron ta chỉ nhân cho giá trị đầu ra của nó cho 0. 
     ``Dropout'' sẽ ép mạng nơ-ron tìm ra được những đặc trưng quan trọng hơn, hay là tìm ra những sản phẩm ảnh hưởng lớn đến đặc trưng ẩn của người dùng. 
+    Hình \ref{fig_dropout} minh họa cho kĩ thuật ``Dropout'' khi huấn luyện mạng nơ-ron.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{drop_out.png}
+        \caption[Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. ]{Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. Hình a) minh họa một mạng nơ-ron truyền thẳng có hai tầng ẩn. Hình b) minh họa một mạng nơ- ron con được tạo thành từ việc áp dụng “Dropout” cho mạng nơ-ron ban đầu; lưu ý, ta không áp dụng ``Dropout'' cho tầng đầu ra}
+        \label{fig_dropout}
+    \end{figure}
     
-    Mô hình ``Auto-Encoder'' với đầu vào được ``che'' đi trong quá trình huấn luyện là ``Denoising Auto-Encoder'' như đã trình bày trong phần~\ref{chap2/subsec12}.
+    Mô hình ``Auto-Encoder'' với đầu vào được ``che'' đi trong quá trình huấn luyện chính là ``Denoising Auto-Encoder'' như đã trình bày trong phần~\ref{chap2/subsec12}.
 
     Gọi $\tilde{x}$ sẽ là dữ liệu sau khi đã ``che'' đi một số các tương tác, $\tilde{x}$ sẽ được truyền thẳng qua mạng encoder để trích xuất được đặc trưng ẩn:
     \begin{equation}
@@ -187,7 +195,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Nói cách khác đó là sau khi thực hiện thêm nhiễu, mô hình sẽ thực sự là dự đoán những tương tác bị che từ những tương tác có trước đó trong lịch sử của người dùng thay vì chỉ để tái tạo lại tương tác của người dùng trước đó.
 
     Bên cạnh đó, ``dropout'' là một kỹ thuật khi huấn luyện mạng nơ-ron để ngăn tình trạng ``overfitting'' hiệu quả.
-    Hình \ref{fig_recdae} thể hiện cho ý tưởng sử dụng kiến trúc denosing Auto-Encoder cho bài toán gợi ý sản phẩm.     
+    Hình \ref{fig_recdae} thể hiện cho ý tưởng sử dụng kiến trúc Denosing Auto-Encoder cho bài toán gợi ý sản phẩm.     
 
     
 
