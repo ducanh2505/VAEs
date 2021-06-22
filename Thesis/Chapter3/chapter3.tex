@@ -1,13 +1,12 @@
-\chapter{Xây dựng hệ thống gợi ý sản phẩm dựa trên mô hình ``Auto-encoder''}
+\chapter{Xây dựng hệ thống gợi ý sản phẩm dựa trên mô hình ``Auto-Encoder''}
 \graphicspath{{Chapter3/Chapter3Figs}}
 \label{Chapter3}
 
-\textit{Chương này chúng tôi sẽ trình bày về những tìm hiểu của chúng tôi trong việc giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm. 
+\textit{Chương này trình bày về cách áp dụng mô hình "Variational Auto-Encoder" để giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm \cite{mvae}; đây là cách giải quyết bài toán mà chúng tôi tập trung tìm hiểu trong khóa luận. 
 Đầu tiên, chúng tôi phân tích hai loại dữ liệu phản hồi được dùng trong bài toán này từ người dùng là:
-``explicit feedback'' và ``implicit feedback'' và lý do chúng tôi đặc biệt quan tâm xây dựng bài toán với dữ liệu implicit feedback.
-Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có thể xây dựng một hệ thống gợi ý sản phẩm thông qua việc trích xuất đặc trưng ẩn từ dữ liệu phản hồi, từ đặc trưng ẩn này dự đoán về các tương tác của người dùng với các sản phẩm (mà người dùng chưa tương tác), và từ dự đoán nà đưa ra gợi ý cho người dùng.
-Từ đó làm nền tảng cho việc áp dụng Variational auto-encoder để giải quyết bài toán được đặt ra. 
-Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm mục tiêu để có thể phù hợp với việc gợi ý được tập sản phẩm có khả năng cao sẽ phù hợp với người dùng hơn.}
+``explicit feedback'' và ``implicit feedback'' và lý do chúng tôi đặc biệt quan tâm xây dựng hệ thống gợi ý với dữ liệu ``implicit feedback''.
+Sau đó, chúng tôi trình bày về cách áp dụng mô hình ``Auto-Encoder'' để có thể xây dựng được một hệ thống gợi ý sản phẩm ở mức cơ bản. 
+Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có được một mô hình gợi ý sản phẩm tốt hơn, bao gồm: áp dụng kỹ thuật ``drop-out'' khi huấn luyện mô hình, thay mô hình ``Auto-Encoder'' bằng một biến thể của nó là ``Variational Auto-Encoder'' và thay đổi hàm mục tiêu để phù hợp hơn với bài toán xây dựng hệ thống gợi ý.}
 
 
 \section{Dữ liệu phản hồi của người dùng trong bài toán xây dựng hệ thống gợi ý sản phẩm}
@@ -19,7 +18,7 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
         \item Phản hồi ngầm ``implicit feedback''
     \end{itemize}
     Trong phần này, chúng tôi sẽ làm rõ về tính chất của hai loại dữ liệu phản hồi cũng như ảnh hưởng của chúng đến hệ thống gợi ý.
-    \subsection{Dữ liệu phản hồi cụ thể ``explicit feedback''}
+    \subsection{Dữ liệu phản hồi cụ thể (``explicit feedback'')}
     Dữ liệu phản hồi cụ thể (``explicit feedback'') được hiểu là những
     phản hồi của khách hàng về sản phẩm một cách tường minh và cụ thể, ví dụ như: số điểm đánh giá,
     bình luận, ... ``Explicit feedback'' có thể thể hiện rõ về mức độ thích/không thích của người dùng về sản phẩm;
@@ -36,7 +35,7 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     tác động đáng kể đến hiệu quả của hệ thống. Mặt khác, ``collaborative filtering'' sẽ có cơ sở đánh giá nhóm người dùng ``tương đồng'' với nhau
     một cách khắt khe hơn, giúp các gợi ý là những sản phẩm ``tốt'' hơn, tuy nhiên đôi lúc làm cho các gợi ý không được đa dạng.
 
-    \subsection{Dữ liệu phản hồi ngầm ``implicit feedback''}
+    \subsection{Dữ liệu phản hồi ngầm (``implicit feedback'')}
     Dữ liệu phản hồi ngầm (``implicit feedback'') là dữ liệu được suy ra từ hành động của người dùng, nếu họ xem một bộ phim
     thì ta có thể hiểu là họ ``thích'' bộ phim đó. ``Implicit feedback'' cũng có thể được suy ra từ ``tín hiệu ngầm'' (``implicit signal''),
     xét ví dụ người dùng đánh giá một sản phẩm là 4 sao (trên thang đánh giá từ 1 đến 5 sao), từ ``tín hiệu ngầm'' dựa trên số sao họ đánh giá,
@@ -59,13 +58,13 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     cũng như giải quyết được các khó khăn của ``explicit feedback''.
 
 % \section{``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý}
-\section{Xây dựng một hệ thông gợi ý sản phẩm cơ bản bằng Auto-encoder}
-    Mô hình Auto-encoder là một mạng nơ-ron thường được sử dụng trong tác vụ trích xuất đặc trưng ẩn thông qua phương pháp học không giám sát.
-    Ở phần này, chúng tôi sẽ trình bày việc xây dựng một hệ thống gợi ý sản phẩm cơ bản dựa trên mô hình Auto-encoder.
+\section{Áp dụng mô hình ``Auto-Encoder'' để xây dựng hệ thống gợi ý sản phẩm ở mức cơ bản}
+    Như đã trình bày ở chương~\ref{Chapter2}, mô hình ``Auto-Encoder'' là một mạng nơ-ron thường được sử dụng trong tác vụ trích xuất đặc trưng ẩn thông qua phương pháp học không giám sát.
+    Ở phần này, chúng tôi sẽ trình bày việc xây dựng một hệ thống gợi ý sản phẩm cơ bản dựa trên mô hình ``Auto-Encoder''.
 
     \subsection{Kiến trúc mô hình}
     \label{chap3/sec11}
-    Phuơng pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử dụng kiến trúc Auto-encoder, một mạng nơ ron-nhận input đầu vào là một phần tương tác của người dùng trong quá khứ và mô hình được huấn luyện để tái tạo lại toàn bộ tương tác của người dùng. 
+    Phương pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử dụng kiến trúc Auto-Encoder, một mạng nơ ron-nhận input đầu vào là một phần tương tác của người dùng trong quá khứ và mô hình được huấn luyện để tái tạo lại toàn bộ tương tác của người dùng. 
     Mô hình sẽ đưa ra gợi ý các tương tác cho người dùng dựa trên những tương tác được tái tạo lại.
     Mô hình này là một mạng nơ-ron bao gồm hai thành phần:
     \begin{itemize}
@@ -87,16 +86,16 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     Điều đó sẽ giúp ta có được một đặc trưng ẩn thể hiện được những yếu tố quyết định đến tương tác của người dùng.
     Hay nói cách khác, ta hy vọng đặc trưng ẩn được trích xuất sẽ thể hiện cho sở thích của người dùng. 
 
-    Auto-encoder là một mạng nơ-ron thường được sử dụng để trích xuất đặc trưng ẩn bằng phương pháp học không giám sát.
-    Một cách đơn giản để huấn luyện mô hình Auto-encoder cho bài toán xây dựng hệ thống gợi ý là ta sẽ cố gắng tái tạo lại tương tác của người dùng.
+    Auto-Encoder là một mạng nơ-ron thường được sử dụng để trích xuất đặc trưng ẩn bằng phương pháp học không giám sát.
+    Một cách đơn giản để huấn luyện mô hình Auto-Encoder cho bài toán xây dựng hệ thống gợi ý là ta sẽ cố gắng tái tạo lại tương tác của người dùng.
     Dựa vào kết quả tương tác được tái tạo để gợi ý tập sản phẩm ``tốt'' nhất mà người dùng chưa tương tác trước đó. 
     Hoặc ta có thể xem như là một bài toán hồi quy, khi mà dữ liệu đầu vào là một con số thể hiện cho tương tác của người dùng.
     Kết quả của mô hình cũng là một véc tơ số ``gần'' với dữ liệu tương tác ban đầu.  
-    Để áp dụng hướng tiếp cận cơ bản này, chúng tôi sẽ trình bày về kiến trúc của một mô hình Auto-encoder để xây dựng hệ thống gợi ý cơ bản.
+    Để áp dụng hướng tiếp cận cơ bản này, chúng tôi sẽ trình bày về kiến trúc của một mô hình Auto-Encoder để xây dựng hệ thống gợi ý cơ bản.
     \begin{figure}
         \centering
         \includegraphics[width=0.2\textwidth]{ae.png}
-        \caption{Minh họa kiến trúc mô hình auto-encoder cho bài toán gợi ý sản phẩm}
+        \caption{Minh họa kiến trúc mô hình Auto-Encoder cho bài toán gợi ý sản phẩm}
         \label{fig_recae}
     \end{figure}
 
@@ -116,11 +115,11 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     \end{equation}
 
     Tương tự với encoder, $\theta = (V,b_2)$, với $V\in R^{k\times I}$, $b_2 \in R^{k}$  sẽ tương ứng là các trọng số và ``bias'' của mạng nơ ron và $f(.)$ chính là hàm kích hoạt phi tuyến của mạng nơ-ron.
-    Hình \ref{fig_recae} minh họa cho kiến trúc auto-encoder cho bài toán gợi ý sản phẩm
+    Hình \ref{fig_recae} minh họa cho kiến trúc Auto-Encoder cho bài toán gợi ý sản phẩm
 
     \subsection{Quá trình huấn luyện và đưa ra gợi ý}
     
-    Để huấn luyện một mô hình Auto-encoder để thực hiện gợi ý sản phẩm ta dùng hàm lỗi sau:
+    Để huấn luyện một mô hình Auto-Encoder để thực hiện gợi ý sản phẩm ta dùng hàm lỗi sau:
     \begin{equation}
         \label{ae_rec_loss}
         \mathcal{L}(x;\phi,\theta) = \frac {1}{U}\sum_{x_u \in X}(||x_u - h_{\phi,\theta}(x_u)||^2_2)
@@ -142,7 +141,7 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     Chúng ta cần phải thêm một lượng ``regularization'' cho bộ tham số $(\phi,\theta)$.
     Regularization, một cách cơ bản, là thay đổi mô hình một chút để tránh overfitting trong khi vẫn giữ được tính tổng quát của nó (tính tổng quát là tính mô tả được nhiều dữ liệu, trong cả tập dữ liệu huấn luyện và dữ liệu kiểm định).
     Cụ thể chúng tôi dùng ``L2 regularization'' cho mô hình.
-    Vậy nên để huấn luyện mô hình Auto-encoder với bài toán xây dựng hệ thống gợi ý sản phẩm ta sẽ huấn luyện mô hình để tìm được bộ tham số cho mô hình  như sau:
+    Vậy nên để huấn luyện mô hình Auto-Encoder với bài toán xây dựng hệ thống gợi ý sản phẩm ta sẽ huấn luyện mô hình để tìm được bộ tham số cho mô hình  như sau:
     \begin{equation}
         \label{ae_rec_obj}
         \theta^* = \text{arg}_\theta \text{min}  \mathcal{L}(x;\theta)  + \frac \lambda 2 \times (||W||^2_2 + ||V||2_2)
@@ -156,15 +155,15 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     Với tương tác được dự đoán, cụ thể là những tương tác lên những san phẩm chưa được người dùng thực hiện trước đó, ta chọn ra những sản phẩm có kết quả trả vê cao nhất để có thể đưa ra gợi ý cho người dùng. 
 
 
-    \subsection{Thay đổi input và output trong quá trình huấn luyện mô hình để phù hợp hơn với bài toán gợi ý sản phẩm}
+    \subsection{Thay đổi ``input'' và ``output'' trong quá trình huấn luyện mô hình để phù hợp hơn với bài toán gợi ý sản phẩm}
     \label{DAE_recsys}
     \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{dae.png}
-        \caption{Minh họa kiến trúc mô hình denosing auto-encoder cho bài toán gợi ý sản phẩm}
+        \caption{Minh họa kiến trúc mô hình denosing Auto-Encoder cho bài toán gợi ý sản phẩm}
         \label{fig_recdae}
     \end{figure}
-    Như đã thảo luận ở phần \ref{chap3/sec11} trên, thì chúng ta đã xây dựng một kiến trúc ở mức cơ bản nhất trong việc xây dựng một hệ thống gợi ý sản phẩm dựa trên mô hình Auto-encoder.
+    Như đã thảo luận ở phần \ref{chap3/sec11} trên, thì chúng ta đã xây dựng một kiến trúc ở mức cơ bản nhất trong việc xây dựng một hệ thống gợi ý sản phẩm dựa trên mô hình Auto-Encoder.
     Tuy nhiên, mô hình trên vẫn còn nhiều hạn chế: 
     \begin{itemize}
         \item Thực tế thì mô hình vẫn đang làm tác vụ là tái tạo lại tương tác của người dùng. Chứ mô hình chưa thực sự được huấn luyện để dự đoán những sản phẩm mà người dùng sẽ tương tác dựa lịch sử tương tác của họ.
@@ -183,36 +182,36 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
         z_u = g(W^T \tilde{x}_u + b_1)
     \end{equation}
     
-    Với việc sử dụng thêm ``nhiễu'' vào dữ liệu tương tác ban đầu của người dùng sẽ mang lại cho mô hình auto-encoder phù hợp hơn và hiệu quả hơn khi huấn luyện với dữ liệu tương tác của người dùng.
+    Với việc sử dụng thêm ``nhiễu'' vào dữ liệu tương tác ban đầu của người dùng sẽ mang lại cho mô hình Auto-Encoder phù hợp hơn và hiệu quả hơn khi huấn luyện với dữ liệu tương tác của người dùng.
     Nói cách khác đó là sau khi thực hiện thêm nhiễu, thì mô hình sẽ thực sự là dự đoán những tương tác bị che từ những tương tác có trước đó trong lịch sử của người dùng thay vì chỉ để tái tạo lại tương tác của người dùng trước đó.
 
     Bên cạnh đó, drop out là một cách hiệu quả để ngăn tình trạng ``overfitting'' hiệu quả.
 
-    Đây cũng chính kiến trúc của một biến thể của Auto-encoder đó là Denosing auto-encoder đã được trình bày trong phần \ref{chap2/subsec12}.
-    Hình \ref{fig_recdae} thể hiện cho ý tưởng sử dụng kiến trúc denosing auto-encoder cho bài toán gợi ý sản phẩm.     
+    Đây cũng chính kiến trúc của một biến thể của Auto-Encoder đó là Denosing Auto-Encoder đã được trình bày trong phần \ref{chap2/subsec12}.
+    Hình \ref{fig_recdae} thể hiện cho ý tưởng sử dụng kiến trúc denosing Auto-Encoder cho bài toán gợi ý sản phẩm.     
 
     
 
-\section{Tinh chỉnh cách áp dụng mô hình "Auto-Encoder" để có được hệ thống gợi ý sản phẩm hoạt động tốt hơn}
+\section{Tinh chỉnh cách áp dụng mô hình ``Auto-Encoder'' để có được hệ thống gợi ý sản phẩm hoạt động tốt hơn}
     Trong lĩnh vực trí tuệ nhân tạo thì dữ liệu đóng vài trò cực kỳ quan trọng.
     Đặc biệt là lĩnh vực máy học, thì hiểu được dữ liệu sẽ góp phần không ít đến việc xây dựng một mô hình hiệu quả. 
     Đối với bài toán xây dựng hệ thống gợi ý sản phẩm thì thực tế mỗi người dùng sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm.
     Điều này dẫn đến dữ liệu tương tác của người dùng sẽ là dữ liệu thưa.
-    Với đặc điểm này, tác giả Liang trong bài báo \cite{mvae} mà chúng tôi tìm hiểu trong khóa luận đã đề xuất việc sử dụng mô hình Variational Auto-encoder (VAE), một biến thể đặc biệt của Auto-encoder cơ bản để xây dựng hệ thống gợi ý sản phẩm. 
+    Với đặc điểm này, tác giả Liang trong bài báo \cite{mvae} mà chúng tôi tìm hiểu trong khóa luận đã đề xuất việc sử dụng mô hình Variational Auto-Encoder (VAE), một biến thể đặc biệt của Auto-Encoder cơ bản để xây dựng hệ thống gợi ý sản phẩm. 
     Bên cạnh đó, tác giả Liang cũng đã có một số tinh chỉnh về hàm chi phí giúp mô hình hoạt động tốt hơn.
 
     Ở phần này chúng tôi sẽ trình bày về kiến trúc mô hình đã tìm hiểu cho bài toán gợi ý sản phẩm được đề xuất bài báo cũng như là những cải thiện được bài báo đề xuất cho mô hình VAE trong tác vụ gợi ý sản phẩm cho người dùng. 
 
-    \subsection{Thay "Auto-Encoder" bằng "Variational Auto-Encoder"}
+    \subsection{Thay ``Auto-Encoder'' bằng ``Variational Auto-Encoder''}
     
     Dữ liệu tương tác trong hệ thống gợi ý sản phẩm thường là dữ liệu thưa, có nghĩa là các phần tử trong véc-tơ input đầu vào sẽ đa phần sẽ mang giá trị 0. 
     Ngoài ra, mục tiêu của một hệ thống gợi ý sản phẩm chính là việc tăng thêm số lượng tương tác của người dùng lên hệ thống, đặc biệt là khi người dùng chưa tương tác nhiều.
-    Do đó, trong trường hợp này, nếu áp dụng những phương pháp dựa trên mạng nơ-ron thông thường sẽ dễ dẫn đến tình trạng ``overfiting'' khi mà dữ liệu đầu vào ít nên mô hình không học được.
+    Do đó, trong trường hợp này, nếu áp dụng những phương pháp dựa trên mạng nơ-ron thông thường sẽ dễ dẫn đến tình trạng ``overfitting'' khi mà dữ liệu đầu vào ít nên mô hình không học được.
     
-    Dựa vào hạn chế này, bài báo đã đề xuất việc sử dụng mô hình variation auto-encoder. 
-    Tuy là một mô hình mạng nơ-ron nhưng với nền tảng xác suất, cụ thể là phương pháp variational inference, là một phương pháp suy diễn dữ liệu trong lĩnh vực xác suất thống kê.
-    Như đã trình bày ở phần 2.2, đây là một biến thể đặc biệt của auto-encoder cơ bản, với việc đặc trưng ẩn được rút trích là một phân phôi xác suất, mô hình đã mang lại ý nghĩa xác suất cho đặc trưng ẩn.
-    Nói cách khác, đặc trưng giờ đây không chỉ thể hiện cho tương tác của người dùng, ngoài ra, là một phân phối xác suất thì đặc trưng ẩn còn có thể thể hiện được sự không chắc chắn ở trong đó, và sự không chắc chắn này có thể phần nào giúp chống overfitting.
+    Dựa vào hạn chế này, bài báo đã đề xuất việc sử dụng mô hình ``Variational Auto-Encoder''. 
+    Tuy là một mô hình mạng nơ-ron nhưng với nền tảng xác suất, cụ thể là phương pháp Variational Inference, là một phương pháp suy diễn dữ liệu trong lĩnh vực xác suất thống kê.
+    Như đã trình bày ở phần~\ref{chap2/sec2}, đây là một biến thể đặc biệt của ``Auto-Encoder'' cơ bản, với việc đặc trưng ẩn được rút trích là một phân phối xác suất, mô hình đã mang lại ý nghĩa xác suất cho đặc trưng ẩn.
+    Nói cách khác, đặc trưng giờ đây không chỉ thể hiện cho tương tác của người dùng, ngoài ra, là một phân phối xác suất thì đặc trưng ẩn còn có thể thể hiện được sự không chắc chắn ở trong đó, và sự không chắc chắn này có thể phần nào giúp giảm hiện tượng ``over-fitting''.
 
 
     % Nếu ta sử dụng tất cả tương tác của người dùng để trích xuất được những đặc trưng ẩn, thì có thể sẽ bị ảnh hưởng bởi nhiễu, hay có thể sẽ có những sản phẩm ``không quan trọng'' trong việc thê hiện đặc trưng của người dùng nên đặc trưng ẩn sẽ mang theo tất cả các thông tin đó, điều này có thể dẫn đến việc overfiting khi dữ liệu thưa, hay tương tác của người dùng còn ít.
@@ -222,7 +221,7 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     % Vì là một phân bố, những sản phẩm ``ko quan trọng'' sẽ ít đóng góp ít hơn ở điểm trung bình. Vì điểm trung bình sẽ là điểm có phân phối xác suất cao nhất, có nghĩa là tập sản phẩm ít xuất hiện trong xu hướng tương tác chung của các người dùng trong hệ thống sẽ đóng góp ít hơn ở điểm trung bình.     
 
     
-    Để áp dụng variational auto-encoder cho việc xây dựng một hệ thống gợi ý sản phẩm, ta sẽ xét variational với 2 tiến trình riêng biệt. 
+    Để áp dụng variational Auto-Encoder cho việc xây dựng một hệ thống gợi ý sản phẩm, ta sẽ xét variational với 2 tiến trình riêng biệt. 
     Đầu tiên là tiến trình suy diễn, tiến trình này chính là việc đặc trưng ẩn của dữ liệu, có nghĩa tìm ra phân phối bố của đặc trưng ẩn dựa trên dữ liệu tương tác của người dùng. 
     Tiến trình này được thực hiện thông qua một mạng nơ-ron được gọi là encoder hay còn được gọi là mạng inference.
     Tiếp theo là tiến tình phát sinh, từ phân phối có được từ tiến trình suy diễn, một đặc trưng ẩn sẽ được lấy từ phân phối trên. 
@@ -260,16 +259,16 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
         \label{sampling_zu}
         z_u \sim q_\phi(z_u|\tilde{x}_u)
     \end{equation}
-    Tương tự với Auto-encoder thì $z_u$ sẽ được truyền thẳng qua một mạng nơ-ron phi tuyến. 
+    Tương tự với Auto-Encoder thì $z_u$ sẽ được truyền thẳng qua một mạng nơ-ron phi tuyến. 
     Như đã trình bày ở phần trên thì mô hình decoder sẽ định nghĩa cho likelihood của mô hình, có nghĩa là:
     \begin{equation}
         \label{generative_net}
         p_\theta(x_u|z_u) = g(z_u;\theta)
     \end{equation}
 
-    Kết hợp encoder \ref{inference_net} và decoder \ref{generative_net} lại ta sẽ có một kiến trúc cơ bản của mô hinh Variational auto-encoder cho bài toán xây dựng hệ thống gợi ý sản phẩm.
+    Kết hợp encoder \ref{inference_net} và decoder \ref{generative_net} lại ta sẽ có một kiến trúc cơ bản của mô hinh ``Variational Auto-Encoder'' cho bài toán xây dựng hệ thống gợi ý sản phẩm.
 
-    Để huấn luyện một mô hình Variational auto-encoder thì ta sẽ có hàm mục tiêu là hàm evidence lower bound (ELBO) như sau:
+    Để huấn luyện một mô hình Variational Auto-Encoder thì ta sẽ có hàm mục tiêu là hàm evidence lower bound (ELBO) như sau:
     \begin{equation}
         \label{elbo_mvae}
         \mathcal{L}(x_u;\phi,\theta) = E_{q_\phi(z_u|x_u)}[\log p_\theta(x_u|z_u)] - \mathbb{KL}(q_\phi(z_u|x_u) || p(z_u))
@@ -293,9 +292,9 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
         z_u = \mu_\phi(\tilde{x}_u) + \epsilon \odot \sigma_\phi(\tilde{x}_u))
     \end{equation}
     theo đó thì $z_u$ thì vẫn là một giá trị được lấy mẫu ngẫu nhiên từ phân phối xác suất trả về từ encoder, nhưng $z_u$ vẫn được tính thông qua một dấu bằng `='.
-    Dựa vào ``Reparametrization trick'' ta đã có thể cập nhật trọng số cho mô hình variational auto-encoder thông qua thuật toán lan truyền ngược. 
+    Dựa vào ``Reparametrization trick'' ta đã có thể cập nhật trọng số cho mô hình variational Auto-Encoder thông qua thuật toán lan truyền ngược. 
     Hình \ref{fig_repatrick} thể hiện cho ý tưởng của ``Reparametrization trick''.
-    \subsubsection{Lý do Variational Auto-encoder phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}
+    \subsubsection{Lý do Variational Auto-Encoder phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}
     Ly do chúng tôi lựa chọn
 
     \label{why_vae}
@@ -308,7 +307,7 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{vae.png}
-        \caption{Minh họa kiến trúc mô hình variational auto-encoder cho bài toán gợi ý sản phẩm}
+        \caption{Minh họa kiến trúc mô hình ``Variational Auto-Encoder'' cho bài toán gợi ý sản phẩm}
         \label{fig_mvae}
     \end{figure}
     Trong bất kỳ mô hình học máy nào, hàm lỗi luôn đóng một vai trò cực kỳ quan trọng trong việc quyết định đến độ hiệu quả của mô hình. 
@@ -318,7 +317,7 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
 
     Sau khi xác định được hàm lỗi thì ta sẽ có thể dễ dàng sử dụng phương pháp Maximum Likelihood Estimation như đã được trình bày trong phần \ref{sec_mle}.
 
-    Nhưng khác với Auto-encoder, hay cả variational auto-encoder thông thường, thì tác giả trong bài báo \cite{mvae} đã giả định rằng 
+    Nhưng khác với Auto-Encoder, hay cả variational Auto-Encoder thông thường, thì tác giả trong bài báo \cite{mvae} đã giả định rằng 
     \begin{equation}
         \label{asumpt_xu}
         x \sim \text{Mul}(N_u,\pi{z_u})
@@ -345,7 +344,7 @@ Cụ thể, mô hình Variational auto-encoder sẽ được thay đổi hàm m�
     Theo hàm mục tiêu được định nghĩa ở công thức \ref{elbo_mvae}, ở một góc nhìn khác ta có thể phân tích 2 thành phần cấu thành ELBO với 2 mục tiêu khác nhau.
     Ở thành phần đầu tiên, sẽ thể hiện cho độ lỗi tái tạo lại tương tác của người dùng, hay là tập sản phẩm được gợi ý có đúng với nhu cầu người dùng hay không. 
     Thành phần thứ hai, thì ta có thể xem như là một ``regularization'' cho hàm lỗi.
-    Góc nhìn này, ta đã được thảo luận qua ở mục \ref{trade_off} thì đây cũng chính là việc đánh đổi giữa độ lỗi trong việc mô hình hóa dữ liệu và chuẩn hóa cho đặc trưng ẩn gần với phân phối chuẩn trong mô hình variational auto-encoder.
+    Góc nhìn này, ta đã được thảo luận qua ở mục \ref{trade_off} thì đây cũng chính là việc đánh đổi giữa độ lỗi trong việc mô hình hóa dữ liệu và chuẩn hóa cho đặc trưng ẩn gần với phân phối chuẩn trong mô hình variational Auto-Encoder.
 
     Với một bài toán phát sinh dữ liệu mới, thì đánh đổi này là cần thiết bởi nó sẽ đảm bảo cho dữ liệu mới được phát sinh được chuẩn hóa.
     Nhưng trong bài gợi ý sản phẩm, thì ta quan tâm hơn việc mô hình hóa dữ liệu hơn là việc đảm bảo các tính chất xác suất của đặc trưng ẩn.
