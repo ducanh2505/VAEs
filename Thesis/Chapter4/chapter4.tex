@@ -51,17 +51,17 @@ Với mỗi tập dữ liệu, chúng tôi lần lượt lấy ra một số lư
 
 Để đánh giá khả năng tổng quát hóa của mô hình, chúng tôi chia dữ liệu thành 3 phần như đã trình bày trong phần~\ref{chap4sec1}, bao gồm các tập huấn luyện, đánh giá, kiểm tra. Với số người dùng của các tập ``held-out'' (tập dữ liệu đánh giá và kiểm tra) lần lượt là 10,000 và 50,000 cho hai bộ dữ liệu MovieLens và MSD.
 
-Để huấn luyện mô hình, chúng tôi sử dụng toàn bộ dữ liệu tương tác của người dùng trong tập huấn luyện. Để đánh giá mô hình, chúng tôi chọn ngẫu nhiên 80\% tương tác của mỗi người dùng để làm đầu vào của mô hình. Sau đó đánh giá các sản phẩm được dự đoán bởi mô hình dựa trên 20\% tương tác còn lại với hai độ đo ``Normalized Discounted Cumulative Gain'' (NDCG) và ``Recall''.
+Để huấn luyện mô hình, chúng tôi sử dụng toàn bộ dữ liệu tương tác của người dùng trong tập huấn luyện. Để đánh giá mô hình, chúng tôi chọn ngẫu nhiên 80\% tương tác của mỗi người dùng để làm đầu vào của mô hình. Gọi tập tương tác làm đầu vào này là tập ``fold-in''. Sau đó đánh giá các sản phẩm được dự đoán bởi mô hình dựa trên số tương tác còn lại (20\% còn lại) với hai độ đo ``Normalized Discounted Cumulative Gain'' (NDCG) và ``Recall'' (chi tiết về độ đo đánh giá hệ thống gợi ý sản phẩm được trình bày trong phụ lục~\ref{chap_metrics}).
 
-Chúng tôi sử dụng một kiến trúc giống cho hai mô hình ``Auto-encoder'' và ``Variational Auto-encoder'' (VAEs). Với ``encoder'' và ``decoder'' là mạng nơ-ron nhiều lớp (``Multi-layer Perceptron'' hay MLP) có kiến trúc đối xứng nhau, kích thước véc-tơ biểu diễn ẩn của mô hình là 200. Kiến trúc của các mô hình trên với MLP có 1 tầng ẩn kích thước 600 có thể mô tả ngắn gọn là $[ I \to 600 \to 200 \to 600 \to I ]$, với I là số lượng sản phẩm. Áp dụng hàm kích hoạt phi tuyến là \textit{tanh} giữa các lớp, tuy nhiên, do đầu ra của ``encoder'' trong mô hình VAEs là một biến ngẫu nhiên từ phân phối xác suất, do đó chúng tôi không áp dụng hàm kích hoạt tầng đó.
+Chúng tôi sử dụng một kiến trúc giống nhau cho hai mô hình ``Auto-encoder'' và ``Variational Auto-encoder'' (VAEs). Với ``encoder'' và ``decoder'' là mạng nơ-ron nhiều lớp (``Multi-layer Perceptron'' hay MLP) có kiến trúc đối xứng nhau, kích thước véc-tơ biểu diễn ẩn của mô hình là 200. Kiến trúc của các mô hình trên với MLP có 1 tầng ẩn kích thước 600 có thể mô tả ngắn gọn là $[ I \to 600 \to 200 \to 600 \to I ]$, với I là số lượng sản phẩm. Áp dụng hàm kích hoạt phi tuyến là \textit{tanh} giữa các lớp, tuy nhiên, do đầu ra của ``encoder'' trong mô hình VAEs là một phân phối xác suất, do đó chúng tôi không áp dụng hàm kích hoạt tầng đó.
 
-Ngoài ra, như đã trình bày ở phần ..., chúng tôi áp dụng kỹ thuật ``drop-out'' cho véc-tơ đầu vào để mô hình sinh ra gợi ý cũng như tránh tình trạng ``over-fitting''.
+Ngoài ra, như đã trình bày ở phần~\ref{DAE_recsys}, chúng tôi áp dụng kỹ thuật ``drop-out'' cho véc-tơ đầu vào để tăng khả năng sinh ra gợi ý của mô hình cũng như tránh tình trạng ``over-fitting''.
 
-Như đề xuất của tác giả Liang trong bài báo \cite{mvae}, chúng tôi sử dụng ``Multinomal log-likelihood'' làm hàm tính độ lỗi cho cả hai mô hình. Chúng tôi gọi mô hình là ``Variational Auto-encoder'' với hàm lỗi này là Mult-VAEs, mô hình ``Auto-encoder'' với hàm lỗi và phần ``drop-out'' là Mult-DAE.
+Như đề xuất của tác giả Liang trong bài báo \cite{mvae}, chúng tôi sử dụng ``Multinomal log-likelihood'' làm hàm tính độ lỗi cho cả hai mô hình. Chúng tôi gọi mô hình ``Variational Auto-encoder'' với hàm lỗi này là Mult-VAEs, mô hình ``Auto-encoder'' với hàm lỗi này và phần ``drop-out'' là Mult-DAE.
 
-Chúng tôi điều chỉnh siêu tham số $\beta$ của mô hình Mult-VAEs với 200,000 bước cập nhật theo phương pháp đã trình bày ở phần ... . Và áp dụng một lượng ``weight-decay'' 0.01 cho Mult-DAE. 
+Chúng tôi điều chỉnh siêu tham số $\beta$ của mô hình Mult-VAEs với 200,000 bước cập nhật theo phương pháp ``KL-annealing'' được trình bày ở phần~\ref{subsubsecELBO}. Và áp dụng một lượng ``weight-decay'' 0.01 cho Mult-DAE. 
 
-Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE bằng thuật toán Adam <cite> trên các tập dữ liệu MovieLens \cite{Ml20M} với 200 ``epoch'' và Million Song Dataset \cite{MSD} với 100 ``epoch'' (mỗi ``epoch'' là một lần mô hình duyệt qua hết dữ liệu huấn luyện). Chúng tôi lưu lại mô hình cho kết quả tốt nhất với độ đo NDCG@100 trên tập đánh giá để đánh giá kết quả trên tập kiểm tra (testing).
+Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE bằng thuật toán Adam \cite{Goodfellow-et-al-2016-Book} với hệ số học (``learning rate'') là \textit{0.001} trên các tập dữ liệu MovieLens \cite{Ml20M} với 200 ``epoch'' và Million Song Dataset \cite{MSD} với 100 ``epoch'' (mỗi ``epoch'' là một lần mô hình duyệt qua hết dữ liệu huấn luyện).
 
 
 
@@ -82,7 +82,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
         \item Recall@20: độ đo Recall trên tối đa 20 sản phẩm được mô hình xếp hạng cao nhất.
     \end{itemize}
 
-    Từ kết quả trên bảng~\ref{table_ML20MResult}, ở tập dữ liệu MovieLens, cả hai mô hình chúng tôi cài đặt đều đạt được kết quả tương đồng so với kết quả trong bài báo \cite{mvae}.
+    Từ kết quả trên bảng~\ref{table:ML20MResult}, ở tập dữ liệu MovieLens, cả hai mô hình chúng tôi cài đặt đều đạt được kết quả tương đồng so với kết quả trong bài báo \cite{mvae}.
     \begin{table}[]
         \centering
         \begin{tabular}{|l|c|c|c|}
@@ -93,12 +93,12 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
             \textbf{Mult-DAE} & 0.398              & 0.535              & 0.423             \\ \hline
             \textbf{\begin{tabular}[c]{@{}l@{}}Mult-DAE\\ (cài đặt của tác giả)\end{tabular}}  & 0.387 & 0.524 & 0.419 \\ \hline
             \end{tabular}
-        \label{table_ML20MResult}
         \caption[Kết quả cài đặt trên tập MovieLens]{Kết quả cài đặt trên tập MovieLens so với kết quả trong bài báo \cite{mvae}}
+        \label{table:ML20MResult}
         \end{table}
 
         
-    Với các kết quả tập dữ liệu MSD được thể hiện trong bảng~\ref{table_MSDResult}, cả hai mô hình chúng tôi cài đặt cho kết quả có sai lệch so với kết quả trong bài báo.
+    Với các kết quả tập dữ liệu MSD được thể hiện trong bảng~\ref{table:MSDResult}, cả hai mô hình chúng tôi cài đặt cho kết quả có sai lệch so với kết quả trong bài báo.
     Nhìn chung, kết quả của Mult-VAEs và Mult-DAE ở cả 3 độ đo đều tương quan so với kết quả của bài báo.
     \begin{table}[]
         \centering
@@ -110,12 +110,13 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
         \textbf{Mult-DAE} & 0.256              & 0.351              & 0.306             \\ \hline
         \textbf{\begin{tabular}[c]{@{}l@{}}Mult-DAE\\ (cài đặt của tác giả)\end{tabular}}  & 0.266 & 0.363 & 0.313 \\ \hline
         \end{tabular}
-        \label{table_MSDResult}
+
         \caption[Kết quả cài đặt trên tập MSD]{Kết quả cài đặt trên tập MSD so với kết quả trong bài báo \cite{mvae}}
+        \label{table:MSDResult}
     \end{table}
 
     Với mô hình Mult-VAEs, cài đặt của tác giả Lobel và các cộng sự trong bài báo ``RACT: Towards amortized ranking-critical trainning for collaborative filtering'' \cite{ract}, mô hình của tác giả cài đặt cũng cho kết quả tương đồng với mô hình chúng tôi cài đặt, với sai số nhỏ.
-    Theo đó, kết quả trên tập dữ liệu MovieLens tương đồng với bài báo gốc \cite{mvae}và kết quả trên tập dữ liệu MSD (được trình bày trong bảng~\ref{table_compareMSD}) thấp hơn bài báo gốc, tuy nhiên sai số không quá lớn. 
+    Theo đó, kết quả trên tập dữ liệu MovieLens tương đồng với bài báo gốc \cite{mvae} và kết quả trên tập dữ liệu MSD (được trình bày trong bảng~\ref{table_compareMSD}) thấp hơn bài báo gốc, tuy nhiên sai số không quá lớn. 
 
     
     Qua các kết quả trên, chúng tôi rút ra nhận xét như sau. Mult-VAEs cho kết quả tốt hơn Mult-DAE ở cả 3 độ đo trên tập dữ liệu MovieLens.
@@ -131,8 +132,8 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
         \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả Lobel)\end{tabular}} & 0.260              & 0.356              & 0.310             \\ \hline
         \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAEs\\ (cài đặt của tác giả Liang)\end{tabular}} & 0.266              & 0.364              & 0.316             \\ \hline
         \end{tabular}
-        \label{table_compareMSD}
         \caption[]{Kết quả cài đặt của chúng tôi so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
+        \label{table_compareMSD}
         \end{table}
     \subsection{Phân tích ``Multinomal Likelihood''}
 
@@ -196,7 +197,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
     Do đó chúng tôi sẽ đánh giá hai mô hình Mul-VAEs với tình trạng dữ liệu thưa.
 
     Theo thí nghiệm ở mục \ref{experiment1} thì ta có thể thấy được ở tập MovieLens thì cách biệt giữa Mul-VAE và Mul-DAE là lớn hơn so với tập MSD.
-    Ở thí nghiệm này, cụ thể thì trong tập kiểm tra chúng tôi sẽ lần lượt thí hiện giảm số lượng tương tác người dùng trong tập ``fold-in''. Và đánh giá kết quả của mô hình dựa trên số lượng tương tác còn lại.
+    Để kiểm chứng hiệu quả của Mult-VAEs tốt hơn Mult-DAE ở điều kiện dữ liệu thưa, ở thí nghiệm này, cụ thể thì trong tập kiểm tra chúng tôi sẽ lần lượt thí hiện giảm số lượng tương tác người dùng trong tập ``fold-in'' (ở đánh giá trước các đánh giá dựa trên tập ``fold-in'' gồm 80\% tương tác của người dùng). Và đánh giá kết quả của mô hình dựa trên số lượng tương tác còn lại.
     
     \begin{figure}
         \centering

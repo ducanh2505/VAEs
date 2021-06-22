@@ -150,6 +150,7 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
 
 
     \subsection{Tăng khả năng phát sinh gợi ý cho người dùng bằng kỹ thuật ``drop-out''}
+    \label{DAE_recsys}
     \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{dae.png}
@@ -330,6 +331,7 @@ Sau đó là việc áp dụng một mô hình Auto-encoder cơ bản để có 
     Do đó, mô hình sẽ cố gắng dạt được mục tiêu là các sản phẩm trả về sẽ được xếp hạng đúng theo mức độ phù hợp với người dùng. 
     
     \subsubsection{Một góc nhìn khác của hàm ELBO}
+    \label{subsubsecELBO}
     Theo hàm mục tiêu được định nghĩa ở công thức \ref{elbo_mvae}, ở một góc nhìn khác ta có thể phân tích 2 thành phần cấu thành ELBO với 2 mục tiêu khác nhau.
     Ở thành phần đầu tiên, sẽ thể hiện cho độ lỗi tái tạo lại tương tác của người dùng, hay là tập sản phẩm được gợi ý có đúng với nhu cầu người dùng hay không. 
     Thành phần thứ hai, thì ta có thể xem như là một ``regularization'' cho hàm lỗi.
