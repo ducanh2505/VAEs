@@ -230,7 +230,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
 
 
     \subsubsection{Kiến trúc mô hình}
-
+    \label{vae_arch}
     
     Để áp dụng ``Variational Auto-Encoder'' (VAE) cho việc xây dựng một hệ thống gợi ý sản phẩm, ta sẽ xét VAE với 2 tiến trình riêng biệt. 
 
@@ -342,8 +342,18 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Tập sản phẩm được gợi ý sẽ là tập sản phẩm có kết quả tương tác trả về cao nhất. 
 
     \subsubsection{Lý do ``Variational Auto-Encoder'' phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}\label{why_vae}
-    
 
+
+    
+    ``Variational Auto-Encoder'' đã đạt được một số thành công nhất định trong bài toán xây dựng hệ thống gợi ý. 
+    Theo nghiên cứu của Dacrema \cite{dacrema2019we}, mô hình được đề xuất trong \cite{mvae} đạt được các kết quả tốt trong việc gợi ý và xếp hạng. 
+
+    Lý do mà chúng cho rằng ``Variational Auto-Encoder'' phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm là vì: 
+    \begin{itemize}
+        \item Đầu tiên, ``Variational Auto-Encoder'' có tính tổng quát hóa cao. Có nghĩa là chúng ta có thể có được những mô hình cơ bản hơn như ``Matrix Factorization'', hay ``Auto-Encoder'' cơ bản bằng cách sửa các thiết lập của mô hình. 
+        \item Bên cạnh đó, nền tảng của mô hình là ``Variational Inference'', là một phương pháp suy diễn dữ liệu hiệu quả. Dựa vào phương pháp này, ta có được đặc trưng ẩn là một phân phối xác suất. Mô hình này ước lượng phân bố xác xuất của véc-tơ đặc trưng ẩn thay vì ước lượng một véc-tơ đặc trưng ẩn cố định; nghĩa là có sự không chắc chắn ở trong đó, và sự không chắc chắn này có thể phần nào giúp chống overfitting.
+        \item Cuối cùng, như trình bày ở mục \ref{vae_arch} thì mô hình dựa trên ``Amortized inference''. Khi đó, mọi người dùng sẽ chia sẻ chung bộ tham số trong quá trình huấn luyện và đưa ra gợi ý. Điều này có liên hệ với ý tưởng của hướng tiếp cận ``Collaborative filttering'': đó là phân tích tương tác của các người dùng trong quá khứ và tìm ra những mẫu ``pattern'' chung giữa các người dùng để dựa vào đó đưa ra gợi ý cho người dùng khác.
+    \end{itemize}
     \subsection{Dùng hàm chi phí trong quá trình huấn luyện phù hợp hơn với bài toán gợi ý sản phẩm}
 
 
