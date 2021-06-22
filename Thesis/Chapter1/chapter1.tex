@@ -24,8 +24,7 @@ Tuy nhiên, người dùng cũng đang gặp nhiều khó khăn khi tìm kiếm 
 Với mục đích nhằm giải quyết vấn đề trên, hệ thống gợi ý sản phẩm được xây dựng để có thể dự đoán cho người dùng những nội dung - hay còn được gọi là sản phẩm - phù hợp với họ.
 Hơn nữa, nó còn đóng vai trò quan trọng trong sự phát triển của các nhà cung cấp dịch vụ - doanh nghiệp,
 khi góp phần giúp nâng cao trải nghiệm người dùng cũng như tăng sự thu hút khách hàng. Theo số liệu tổng hợp được từ tổ chức Ivy Pro School \cite{ivy}, 
-38\% lượt click từ người dùng Google đến từ hệ thống gợi ý; và 
-Amazon - một nền tảng mua bán trực tuyến mà 35\% sản phẩm được bán thông qua hệ thống gợi ý sản phẩm.
+38\% lượt click từ người dùng Google đến từ hệ thống gợi ý và 35\% sản phẩm được bán trên Amazon thông qua hệ thống gợi ý sản phẩm.
 
 Trong lĩnh vực khoa học máy tính, hệ thống gợi ý sản phẩm là một chủ đề 
 đang được quan tâm và nghiên cứu từ cộng đồng nghiên cứu khoa học.
@@ -38,22 +37,22 @@ Bài toán xây dựng hệ thống gợi ý được phát biểu như sau:
 \end{itemize}
 
 Tuy vậy, việc xây dựng một hệ thống gợi ý sản phẩm một cách hiệu quả là không đơn giản.
-Đầu tiên, không có một ``lời giải'' chung cho tất cả trường hợp,
-mặc dù đa số các lĩnh vực hiện nay đều có thể áp dụng các hệ thống gợi ý, tuy nhiên không phải là tất cả,
-ta cần xét đến nhiều yếu tố khác nhau, 
-từ đó mới có thể lựa chọn được ``cách'' để xây dựng hệ thống gợi ý phù hợp. % ``cách'' == ``hướng tiếp cận''
+% Đầu tiên, không có một ``lời giải'' chung cho tất cả trường hợp,
+% mặc dù đa số các lĩnh vực hiện nay đều có thể áp dụng các hệ thống gợi ý, tuy nhiên không phải là tất cả,
+% ta cần xét đến nhiều yếu tố khác nhau, 
+% từ đó mới có thể lựa chọn được ``cách'' để xây dựng hệ thống gợi ý phù hợp. % ``cách'' == ``hướng tiếp cận''
+Đầu tiên, tùy vào từng lĩnh vực cụ thể, ta cần xét đến nhiều yếu tố khác nhau khi xây dựng một hệ thống gợi ý.
 Từ thực tế cho thấy, các lĩnh vực mà sản phẩm ``tiêu thụ'' và ``sản xuất'' nhanh như: phim, hình ảnh, âm nhạc, ... 
 thì hệ thống gợi ý sẽ ít nhiều đóng vai trò quan trọng. 
-Cũng theo số liệu từ Ivy Pro School \cite{ivy}, một nền tảng cung cấp video nổi tiếng hiện nay - Netflix,
-75\% số bộ phim được thuê đến từ hệ thống gợi ý, chứng tỏ sự ảnh hưởng lớn của hệ thống gợi ý đối với lĩnh vực này. 
+Cũng theo số liệu từ Ivy Pro School \cite{ivy}, 75\% số bộ phim được thuê trên Netflix thông qua hệ thống gợi ý, chứng tỏ sự ảnh hưởng lớn của hệ thống gợi ý đối với lĩnh vực này. 
 Mặt khác, hệ thống gợi ý tác động không nhiều đến các lĩnh vực cung cấp dịch vụ hay sản phẩm giá trị cao như:
 thuê nhà, phương tiện giao thông, thiết bị điện tử, ... vì người dùng cần đánh giá thông qua nhiều yếu tố mới có thể quyết định được. 
 Thứ hai, tùy thuộc vào nhu cầu của người sử dụng mới có thể lựa chọn ``cách'' mà hệ thống gợi ý hoạt động.
 Việc gợi ý các sản phẩm phù hợp với người dùng dựa vào nhóm người dùng có sở thích tương tự với họ 
 hay cách dựa trên các sản phẩm có liên quan với các sản phẩm mà họ đã ``thích'' trước đó là khác nhau.
 Bài toán gợi ý sản phẩm có thể xem như là một bài toán hồi quy (``regression'') 
-nếu kết quả trả về là điểm số được dự đoán của người dùng trên tập các sản phẩm 
-hoặc có thể xem là một bài toán xếp hạng (``top-N ranking'') nếu ta cần kết quả trả về 
+nếu mô hình dự đoán mức độ yêu thích của người dùng cho sản phẩm.
+Hoặc bài toán này có thể xem là một bài toán xếp hạng (``top-N ranking'') nếu ta cần kết quả trả về 
 là tập các sản phẩm phù hợp nhất với người dùng.
 Một điều nữa cũng có thể được xem là khó khăn thứ ba khi xây dựng hệ thống gợi ý, cả trong cộng đồng nghiên cứu khoa học cũng như thực tiễn, 
 đó là ta cần một độ đo và một phương pháp để đánh giá một cách tổng thể và khách quan nhất, 
@@ -75,8 +74,10 @@ không đòi hỏi dữ liệu tương tác từ người dùng khác
 vì các gợi ý là dành riêng cho từng cá nhân, do đó nó có khả năng nắm bắt tốt các sở thích
 đặc biệt của người dùng.
 Vì dựa trên ``tính tương đồng'' của sản phẩm, hệ thống có thể gợi ý một sản phẩm phù hợp với người dùng nhưng sản phẩm này có thể không được nhiều người dùng khác quan tâm.
-Để áp dụng ``Content-Based Filtering'' cho từng loại dữ liệu cụ thể,
-ta cần ``domain knowledge'' cho lĩnh vực đó để thiết kế mô hình.
+% Để áp dụng ``Content-Based Filtering'' cho từng loại dữ liệu cụ thể,
+% ta cần ``domain knowledge'' cho lĩnh vực đó để thiết kế mô hình.
+Vì dữ liệu đầu vào phụ thuộc vào từng lĩnh vực, 
+ta cần chọn những thuộc tính có khả năng ảnh hưởng đến quyết định của mô hình cũng như loại bỏ các thuộc tính không cần thiết. Do đó cần phải có ``domain knowledge'' cụ thể khi muốn áp dụng ``Content-Based Filtering'' để xây dựng hệ thống gợi ý sản phẩm cho một lĩnh vực nào đó.
 Trong trường hợp các lĩnh vực có ít thông tin chi tiết về sản phẩm, hay các dữ liệu về sản phẩm thường không đầy đủ, rõ ràng thì 
 hướng tiếp cận này sẽ tỏ ra không hiệu quả. 
 
@@ -99,46 +100,45 @@ so với các sản phẩm người dùng đã ``thích'' trước đó. Dữ li
 của người dùng với các sản phẩm, do đó có thể áp dụng cho nhiều lĩnh vực khác nhau mà không cần thiết phải thay đổi cấu trúc hệ thống 
 hoặc nếu có thì cũng không cần phải thay đổi quá nhiều.
 Tuy nhiên, ``Collaborative Filtering'' gặp phải một vấn đề được gọi là ``khởi động nguội'' (``cold-start''),
-đó là khi mà một người dùng mới đến với hệ thống thì hệ thống sẽ thường khó đưa ra được gợi ý tốt cho họ,
-hoặc khi một sản phẩm được ít được người dùng tương tác, hệ thống thường sẽ không gợi ý sản phẩm đó cho những người dùng khác.
+đó là khi mà một người dùng chưa có hoặc có ít tương tác thì hệ thống sẽ thường khó đưa ra được gợi ý ``tốt'' cho họ. ``Collaborative Filtering'' vẫn sẽ đưa ra gợi ý cho người dùng này tuy nhiên mức độ phù hợp đối với người dùng không cao, giảm khả năng thu hút khách hàng.
+Đối với ``Content-based Filtering'', việc gợi ý các sản phẩm liên quan đến sản phẩm đòi hỏi người dùng đã tương tác với một vài sản phẩm trước đó, dựa trên đó mới có thể tính độ tương đồng giữa sản phẩm để đưa ra gợi ý.
 
-Ngoài ra, một hướng tiếp cận khác là ``Hybrid'', là sự kết hợp giữa hai hướng tiếp cận bên trên.
+``Cold-start'' cũng là khi các sản phẩm chỉ được một số ít người dùng tương tác, các sản phẩm này sẽ ít được hệ thống gợi ý cho người dùng.
+
 Trong giới hạn của khóa luận này, chúng tôi chỉ tập trung tìm hiểu về hướng tiếp cận ``Collaborative Filtering'' 
 vì ba lý do chính là:
 \begin{itemize}
-\item ``Collaborative Filtering'' tổng quan hơn so với ``Content-Based Filtering''
-- hướng tiếp cận cần ``domain knowledge'' để thiết kế hệ thống cho từng lĩnh vực cụ thể.
-\item Với số lượng lớn và cùng với sự đa dạng của các ``sản phẩm'' hiện nay, tận dụng điều này, 
-việc hệ thống gợi ý các sản phẩm đa dạng hơn dựa trên sở thích của các người dùng sẽ phù hợp hơn so với việc
-đưa ra các sản phẩm tương đồng với nhau.
-\item Ngoài ra, khi số lượng người dùng trên mạng Internet càng ngày càng tăng nhanh, thì ``collaborative filtering'' 
-sẽ có được nhiều lợi thế hơn khi có thể kết hợp dữ liệu tương tác của các người dùng để đưa ra gợi ý.
+\item ``Collaborative Filtering'' có thể áp dụng cho nhiều lĩnh vực khác nhau bởi đầu vào của mô hình là ma trận tương tác giữa người dùng và sản phẩm, khác với ``Content-Based Filtering'' cần thiết kế mô hình cụ thể cho từng lĩnh vực khác nhau.
+\item Với số lượng lớn và cùng với sự đa dạng của các ``sản phẩm'' hiện nay, việc gợi ý các sản phẩm tương đồng với nhau dễ trở nên nhàm chán, thay vào đó ``Collaborative Filtering'' gợi ý sản phẩm dựa trên sở thích của người dùng, giúp các sản phẩm bớt nhàm chán hơn.
+\item Ngoài ra, khi số lượng người dùng trên mạng Internet càng ngày càng tăng nhanh, thì ``Collaborative Filtering'' 
+sẽ có được nhiều lợi thế hơn khi có thể kết hợp dữ liệu tương tác của các người dùng khác để đưa ra gợi ý.
 \end{itemize}
 
-Việc kết hợp các thông tin chi tiết về người dùng hay từ sản phẩm sẽ là một thông tin hữu ích cho việc xây dựng
-một hệ thống gợi ý sản phẩm hiệu quả hơn. Nhưng đây là một điều không đơn giản bởi nó phụ thuộc vào ``domain knowledge'' ở từng lĩnh vực và chúng tôi để lại như một định hướng trong việc nghiên cứu và phát triển trong tương tai.
+Việc kết hợp giữa thông tin tương tác từ người dùng khác và thông tin chi tiết của sản phẩm được gọi là hướng tiếp cận ``Hybrid'', đây là hướng tiếp cận kết hợp giữa ``Collaborative Filtering'' và ``Content-Based Filtering''.
+Hướng tiếp này sẽ giúp một hệ thống gợi ý sản phẩm hoạt động hiệu quả hơn. Nhưng đây là một điều không đơn giản bởi nó phụ thuộc vào ``domain knowledge'' ở từng lĩnh vực và chúng tôi để lại như một định hướng trong việc nghiên cứu và phát triển trong tương tai.
 
 Phương pháp đầu tiên trong việc xây dựng một hệ thống gợi ý sản phẩm theo hướng tiếp cận ``Collaborative Filtering'' là thuật toán ``Matrix Factorization'' được giới thiệu bởi Hu \cite{MF}. 
 Ý tưởng là từ dữ liệu tương tác (ví dụ, điểm đánh giá) của các người dùng với các sản phẩm, ta sẽ tìm ra các véc-tơ đặc trưng cho người dùng và các véc-tơ đặc trưng cho sản phẩm. 
 Sau đó, ta sẽ dùng các véc-tơ đặc trưng này để dự đoán tương tác của người dùng với  cácc sản phẩm mà họ chưa tương tác; từ kết quả dự đoán, ta sẽ đưa ra các đề xuất sản phẩm cho các người dùng.
 Cho đến hiện nay, ``Matrix Factorization'' vẫn  là một phương pháp đơn giản nhưng vẫn mang lại kết quả cao.
 Tuy nhiên, thuật toán này có các nhược điểm mà khó có thể được áp dụng để xây dựng một hệ thống gợi ý sản phẩm quy mô lớn.
-Đầu tiên, đó là số lượng tham số của mô hình tỉ lệ tuyến tính vào cả số lượng người dùng và số lượng sản phẩm.
-Khi mà ngày nay, số lượng người dùng và sản phẩm tăng rất nhanh theo thời gian.
-Ngoài ra sau khi huấn luyện mô hình, mô hình cần thực hiện các bước tối ưu đặc biệt để có thể gợi ý cho người dùng mới. 
-Bởi vì mô hình cần phải tìm ra các vec-tơ đặc trưng cho cả người dùng và sản phẩm, cho nên khi có người dùng mới, mô hình cần phải thực hiện một số bước tính toán để có thể tìm được đặc trưng của người dùng.
+Đầu tiên, đó là số lượng tham số của mô hình tỉ lệ tuyến tính vào cả số lượng người dùng và số lượng sản phẩm. Ngày nay, số lượng người dùng và sản phẩm tăng rất nhanh theo thời gian, do đó số lượng tham số cũng như chi phí tính toán của mô hình là rất lớn.
+Vì mô hình cần phải tìm ra các véc-tơ đặc trưng cho cả người dùng và sản phẩm, khi có người dùng mới, mô hình cần phải thực hiện một số bước tính toán để có thể tìm được đặc trưng của người dùng đó.
 Ngoài ra, ``Matrix Factorization'' vẫn còn hạn chế đó là mô hình này là một mô hình tuyến tính, do đó nó chưa có khả năng ``học'' được các ``đặc trưng phi tuyến'' của dữ liệu.
 
 ``Asymetric Matrix Factorization'' là một phương pháp cải tiến từ ``Matrix Factorization'' với ý tưởng rút trích các đặc trưng của người dùng thông qua các sản phẩm mà họ đã tương tác. 
 Phương pháp này đã khắc phục được nhược điểm của ``Matrix Factorization'' khi mà số lượng tham số của mô hình giờ chỉ phụ thuộc vào số lượng sản phẩm có trong hệ thống. 
-Trong thực tế, số lượng sản phẩm sẽ tăng chậm hơn đáng kể so với số lượng người dùng trong hệ thống thì khắc phục này sẽ là một điểm mạnh của ``Asymetric matrix factorization''. 
-Ngoài ra nó cũng đã giảm bớt được chi phí để đưa ra dự đoán cho người dùng mới. 
-Tuy nhiên, với hạn chế của các hàm tuyến tính nên phương pháp này vẫn chưa thực sự mạnh.
+Trong thực tế, số lượng sản phẩm sẽ tăng chậm hơn đáng kể so với số lượng người dùng trong hệ thống thì khắc phục này sẽ là một điểm mạnh của ``Asymetric Matrix Factorization''. 
+Cũng như mô hình này đã giảm bớt được chi phí tính toán để đưa ra dự đoán cho người dùng mới. 
+Tuy nhiên, với hạn chế của các hàm tuyến tính nên phương pháp này vẫn chưa thực sự hiệu quả.
 
 Ở công trình nghiên cứu \cite{AMF} của tác giả Steck đã chỉ ra rằng ``Asymetric Matrix Factorization'' có thể được xem như là một mô hình ``Auto-Encoder'' tuyến tính.
 ``Auto-Encoder'' là một mô hình học đặc trưng ẩn không giám sát. Mô hình này thường được sử dụng trong những tác vụ như rút trích đặc trưng hay giảm chiều dữ liệu, ... 
-Dựa trên ý tưởng rằng, giả định tương tác của người dùng sẽ được ``phát sinh'' từ một ``đặc trưng ẩn'', ta có thể xem rằng ``đặc trưng ẩn'' này là sở thích của họ, và ta sẽ xây dựng một mô hình phát sinh được đặc trưng ẩn của người dùng từ dữ liệu tương tác của người dùng với hệ thống các sản phẩm. Sau đó đặc trưng ẩn này được sử dụng để đưa ra các gợi ý cho người dùng.
-Trong thời gian gần đây đã có nhiều nghiên cứu áp dụng mô hình ``Auto-Encoder'' trong bài toán xây dựng hệ thống gợi ý sản phẩm \cite{autorec,cdae,mvae} để có thể tận dụng sức mạnh của các hàm phi tuyến, cụ thể là sử dụng mạng nơ-ron với các hàm kích hoạt phi tuyến (là kiến trúc cơ bản của các mô hình được dùng huấn luyện trong lĩnh vực học máy) để có được một mô hình ``mạnh'' hơn so với các phương pháp tuyến tính trước đó.
+
+% Dựa trên ý tưởng rằng, giả định tương tác của người dùng sẽ được ``phát sinh'' từ một ``đặc trưng ẩn'', ta có thể xem rằng ``đặc trưng ẩn'' này là sở thích của họ, và ta sẽ xây dựng một mô hình phát sinh được đặc trưng ẩn của người dùng từ dữ liệu tương tác của người dùng với hệ thống các sản phẩm. 
+Dựa trên ý tưởng là tồn tại các ``đặc trưng ẩn'' thể hiện sở thích của người dùng, các đặc trưng ẩn này sẽ dẫn đến người dùng ``tương tác'' với sản phẩm nào. Việc áp dụng mô hình ``Auto-Encoder'' hoàn toàn khớp với ý tưởng này, theo đó ``Auto-Encoder'' sẽ rút trích các ``đặc trưng ẩn'' này thông qua ``encoder'' (một phần trong mô hình ``Auto-Encoder''), sau đó tái tạo lại tương tác của người dùng dựa vào đặc trưng ẩn này. Tương tác được tái tạo lại sẽ bao gồm các gợi ý mà hệ thống đưa ra.
+
+Trong thời gian gần đây đã có nhiều nghiên cứu áp dụng mô hình ``Auto-Encoder'' trong bài toán xây dựng hệ thống gợi ý sản phẩm để có thể tận dụng sức mạnh của các hàm phi tuyến, cụ thể là sử dụng mạng nơ-ron với các hàm kích hoạt phi tuyến (là kiến trúc cơ bản của các mô hình được dùng huấn luyện trong lĩnh vực học máy) để có được một mô hình ``mạnh'' hơn so với các phương pháp tuyến tính trước đó.
 ``AutoRec'' \cite{autorec} được Sedhain giới thiệu tại hội nghị WWW2015, là mô hình được coi là đầu tiên trong việc sử dụng kiến trúc mô hình ``Auto-Encoder'' để đưa ra gợi ý cho người dùng bằng cách huấn luyện mô hình để tái tạo lại dữ liệu tương tác của người dùng sau khi trích xuất đặc trưng ẩn từ dữ liệu tương tác của họ. ``Collaborative denoising auto-encoders for top-n recommender systems'' \cite{cdae} (CDAE) được Wu cùng các cộng sự đề xuất nhằm hướng đến bài toán đưa ra gợi ý theo hướng xếp hạng và đưa ra ``top-N sản phẩm'' phù hợp nhất với người dùng hay nói cách khác là dự đoán tập các sản phẩm mà người dùng ``thích'' nhất. Mô hình này dã được xây dựng dựa trên ``AutoRec'' nhưng có các chỉnh sửa để phù hợp hơn với bài toán xây dựng hệ thống gợi ý sản phẩm khi mà ta quan tâm đến việc đưa ra xếp hạng các sản phẩm phù hợp với người dùng thay vì tái tạo lại tương tác của họ. 
 Ngoài ra, việc thêm ``nhiễu'' vào dữ liệu huấn luyện của CDAE giúp mô hình ``Auto-Encoder'' phải học cách trích xuất các đặc trưng ẩn tốt và tạo ra gợi ý thay vì chỉ cố gắng tái tạo lại dữ liệu tương tác ``giống'' đầu vào nhất có thể, cũng như ``nhiễu'' sẽ giúp quá trình huấn luyện mạng nơ-ron với hàm kích hoạt phi tuyến tránh được tình trạng ``over-fitting'' (tình trạng học ``tủ'' trên tập dữ liệu huấn luyện, dẫn đến mô hình đạt được kết quả thấp trên các tập dữ liệu kiểm định).
 
