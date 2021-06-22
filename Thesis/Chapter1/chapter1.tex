@@ -162,15 +162,15 @@ Với nền tảng của mô hình VAE dựa trên phương pháp ``Variational 
 ``Variational Inference'' dùng để suy diễn dữ liệu ẩn từ dữ liệu ta quan sát được, hay cụ thể trong bài toán này là suy diễn các ``đặc trưng ẩn'' dựa vào dữ liệu quan sát được là các tương tác của người dùng. 
 Đặc điểm của phương pháp này là có thể áp dụng tốt cho dữ liệu thưa, có nghĩa là đối với ``dữ liệu quan sát được'' bị hạn chế thì việc ``suy diễn'' dữ liệu vẫn đạt được kết quả tốt. 
 Dữ liệu thưa là dữ liệu mà đa phần các phần tử trong một điểm dữ liệu mang giá trị 0.
-Trong hệ thống gợi ý, tính chất của dữ liệu thường là thưa, do mỗi người dùng chỉ tương tác với một lượng nhỏ sản phẩm trên toàn hệ thống, từ đó việc suy diễn trở nên hiệu quả trong hệ thống gợi ý.
+Trong hệ thống gợi ý, tính chất của dữ liệu thường là thưa do mỗi người dùng chỉ tương tác với một lượng nhỏ sản phẩm trên toàn hệ thống, từ đó việc suy diễn trở nên hiệu quả trong hệ thống gợi ý.
 
 Mục tiêu sau cùng của hệ thống gợi ý sản phẩm đó là tập sản phẩm được gợi ý sẽ phù hợp nhất đối với người dùng. 
-Trong tập sản phẩm này thì cũng cần phải được sắp xếp theo thứ tự giảm dần theo thứ tự giảm dần về độ phù hợp.
+Do đó, trong tập sản phẩm này thì cũng cần phải được sắp xếp theo thứ tự giảm dần theo thứ tự giảm dần về độ phù hợp.
 Để kết quả trả về từ mô hình có thể đạt được mục tiêu trên thì tác giả Liang đã giới thiệu ``Multinomial log-likelihood'' cho việc tính toán độ lỗi. 
 Với tính chất trả về một giá trị xác suất cho mỗi sản phẩm, và tổng giá trị xác suất trên toàn bộ sản phẩm là 1. 
 Các sản phẩm sẽ phải ``cạnh tranh'' với nhau để có được xác suất cao hơn. 
 
-Mặc dù mô hình được tác giả Liang đề xuất ở bài báo \cite{mvae} không phải là mô hình đạt được kết quả tốt nhất hiện nay trong việc xây dựng hệ thống gợi ý sản phẩm, tuy nhiên với những lí do nêu trên, chúng tôi tin rằng kiến thức nền tảng để xây dựng mô hình này bao phủ về lĩnh vực học máy cũng như là kiến thức về mô hình xác suất. Vậy nên chúng tôi quyết định sẽ tập trung tìm hiểu mô hình này. 
+Mặc dù mô hình được tác giả Liang đề xuất ở bài báo \cite{mvae} không phải là mô hình đạt được kết quả tốt nhất hiện nay trong việc xây dựng hệ thống gợi ý sản phẩm, tuy nhiên kiến thức nền tảng để xây dựng mô hình này bao phủ về lĩnh vực học máy cũng như là kiến thức về mô hình xác suất. Đó là lý do chúng tôi quyết định sẽ tập trung tìm hiểu mô hình này trong khóa luận.
 
 
 %--------------------------------------------------%

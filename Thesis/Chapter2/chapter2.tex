@@ -2,15 +2,11 @@
 \label{Chapter2}
 \graphicspath{{Chapter2/Chapter2Figs}}
 
-\textit{Tong chương này, đầu tiên chúng tôi sẽ trình bày về mô hình 
-``Auto-Encoders'', một mạng nơ-ron được dùng để học đặc trưng ẩn dựa trên
+\textit{Trong chương này, đầu tiên chúng tôi sẽ trình bày về mô hình 
+``Auto-Encoder'' (AE), một mạng nơ-ron được dùng để học đặc trưng ẩn dựa trên
 phương pháp học không giám sát.
-Sau đó, chúng tôi giới thiệu và trình bày về nền tảng xác suất 
-của ``Variational Auto-encoders'' (VAE). Bao gồm kiến thức về định lý Bayes, định lý cơ bản được áp dụng rộng rãi trong lĩnh vực xác suất thống kê; 
-phương pháp Variational Inference, một phương pháp suy diễn dữ liệu hiệu quả; và Maximum Likelihood Estimation, một phương pháp để ước lượng một bộ tham số tốt cho mô hình.
-Chương này đặc biệt là phần về ``Variational Auto-Encoders'' 
-cung cấp những kiến thức nền tảng để có thể hiểu rõ về những đề xuất 
-của chúng tôi ở chương kế tiếp.}
+Kế tiếp, chúng tôi giới thiệu và trình bày về mô hình ``Variational Auto-Encoder'' (VAE) và các nền tảng xác suất của nó. Các nền tảng xác suất bao gồm: Variational Inference - một phương pháp suy diễn dữ liệu hiệu quả - và Maximum Likelihood Estimation - một phương pháp để ước lượng một bộ tham số tốt cho mô hình.
+}
 
 
 % \textit{Bên cạnh đó, chúng tôi sẽ trình bày về ``Log-likelihood fuctions'' - 
@@ -18,12 +14,12 @@ của chúng tôi ở chương kế tiếp.}
 % cũng như các lựa chọn Log-likelihood fucntion cho các bài toán học máy hiện nay.}
 % 7->10; 15->20; 15->20; 10->15; 2 (~60)
 
-\section{Mô hình rút trích đặc trưng ``Auto-Encoder''}
+\section{Mô hình rút trích đặc trưng ẩn ``Auto-Encoder''}
 \label{chap2/sec1}
-Mô hình ``Auto-Encoder'' là một mạng nơ-ron truyền thẳng được huấn luyện
+Mô hình ``Auto-Encoder'' (AE) là một mạng nơ-ron truyền thẳng được huấn luyện
 để cố gắng sao chép đầu vào của nó thành đầu ra với mục đích trích xuất được các đặc trưng ẩn. Bên trong ``Auto-Encoder''
 có một lớp ẩn \textbf{\textit{h}} mô tả đặc trưng ẩn, gọi là véc-tơ biểu diễn ẩn đại diện cho đầu vào của nó.
- 
+
 Kiến trúc của một ``Auto-Encoder'' (được minh họa trong hình~\ref{fig_AE}) bao gồm hai phần:
 \begin{itemize}
     \item Bộ mã hóa (encoder) ánh xạ véc-tơ đầu vào sang véc-tơ biểu diễn ẩn: 
@@ -101,23 +97,12 @@ lưu trữ, truy vấn, tìm kiếm.
     bởi vì tính chất ``under-complete'' của mô hình giúp dễ dàng thu được véc-tơ biểu diễn ẩn mang những thông tin hữu ích.
 
 
-    \subsection{Biến thể của Auto-encoder: ``Denoising Auto-Encoder''}
+    \subsection{Biến thể của Auto-Encoder: ``Denoising Auto-Encoder''}
     \label{chap2/subsec12}
     
     Hàm lỗi của một ``Auto-Encoder'' thông thường sẽ ``phạt'' một mức nhất định với các mẫu dữ liệu được tái tạo lại
     khác với dữ liệu đầu vào. Điều này vô hình chung khuyến khích việc 
-    \begin{math}
-        f \circ g
-    \end{math}
-    là một hàm đồng nhất nếu khả năng tính toán của 
-    \begin{math}
-        f
-    \end{math} 
-    và
-    \begin{math}
-        g
-    \end{math}
-    cho phép. Nói đơn giản hơn, điều này là việc mô hình sao chép ``hoàn hảo'' đầu vào thành đầu ra của nó.
+    $ f \circ g $ là một hàm đồng nhất nếu khả năng tính toán của $f$ và $g$ cho phép. Nói đơn giản hơn, điều này là việc mô hình sao chép ``hoàn hảo'' đầu vào thành đầu ra của nó.
     Khi đó, véc-tơ biểu diễn ẩn sẽ không có các thông tin hữu ích. 
 
     Bằng cách thay đổi cách tính toán độ lỗi khi tái tạo lại, cụ thể là thêm nhiễu vào véc-tơ đầu vào, 
@@ -131,7 +116,7 @@ lưu trữ, truy vấn, tìm kiếm.
     \begin{math}
         x
     \end{math} 
-    được thêm một độ nhiễu, ta có được mô hình ``Denoising Auto-Encoder'' (hình~\ref{fig_DAE}). 
+    được thêm một độ nhiễu, ta có được mô hình ``Denoising Auto-Encoder'' (DAE) (hình~\ref{fig_DAE}). 
     \begin{figure}
         \centering
         \includegraphics[width=0.6\textwidth]{DAE.pdf}
@@ -139,13 +124,7 @@ lưu trữ, truy vấn, tìm kiếm.
         \label{fig_DAE}
     \end{figure}
     
-    ``Denoising Auto-Encoder'' phải học cách khử độ nhiễu đã được thêm vào véc-tơ đầu vào,
-    giảm khả năng sao chép của mô hình.
-
-
-
-
-
+    ``Denoising Auto-Encoder'' phải học cách khử độ nhiễu đã được thêm vào véc-tơ đầu vào, giảm khả năng sao chép của mô hình.
 
 \section{Mô hình phát sinh dữ liệu ``Variational Auto-Encoder''} \label{chap2/sec2}
         \begin{figure}
@@ -154,7 +133,7 @@ lưu trữ, truy vấn, tìm kiếm.
             \caption{Minh họa ``Variational Auto-Encoder''}
             \label{fig_VAE}
         \end{figure}
-        ``Variational Auto-encoder'' (VAE) là một biến thể đặc biệt của ``Auto-encoder'' cơ bản (được minh họa trong hình~\ref{fig_VAE}). 
+        ``Variational Auto-Encoder'' (VAE) là một biến thể đặc biệt của ``Auto-Encoder'' cơ bản (được minh họa trong hình~\ref{fig_VAE}). 
         VAE ngoài là một mô hình rút trích đặc trưng ẩn dựa trên phương pháp học không giám sát, còn là một mô hình phát sinh dữ liệu hiệu quả. 
         Phát sinh dữ liệu là việc mô hình có khả năng tạo ra những điểm dữ liệu `mới' dựa trên đặc trưng ẩn đã học được.
         Đây là một điểm khác biệt so với mô hình ``Auto-Encoder'' khi mà đặc trưng ẩn học từ ``Auto-Encoder'' cơ bản không thể được sử dụng để phát sinh. 
@@ -369,7 +348,7 @@ lưu trữ, truy vấn, tìm kiếm.
     
 
 
-    \subsection{Mô hình ``Variational Auto-encoder''} 
+    \subsection{Mô hình ``Variational Auto-Encoder''} 
         \subsubsection{Mô hình xác suất}
         \textbf{\textit{Mô hình xác suất}} là một mô hình được dùng để mô tả một phân 
         phối xác suất hợp của dữ liệu bằng cách sử dụng một đồ thị để mô tả các biến 
@@ -388,17 +367,17 @@ lưu trữ, truy vấn, tìm kiếm.
         Sự kết hợp giữa xác suất vào một mô hình học máy sẽ giúp mô hình ``giải thích'' vấn đề thực tế một cách tốt hơn. 
         Theo đó thì vấn đề cần quan tâm hoặc dữ liệu liên quan bởi các biến ngẫu nhiên. Và các biến ngẫu nhiên này chính là các đỉnh trong đồ thị và mối quan hệ giữa các đỉnh sẽ hình thành cạnh. Bằng cách thể hiện mối quan hệ giữa các biến dữ liệu bởi đồ thị ta dựa vào đó để có thể giải quyết các vấn đề mà chúng ta quan tâm. Ngoài ra bằng cách thể hiện bằng đồ thị, ta cũng thể hiện được tương quan giữa các biến dữ liệu, mà đa số các thuật toán máy học hiện nay thì tính tương quan giữa dữ liệu sẽ ảnh hưởng đến kết quả của mô hình. Dữ liệu có tính tương quan càng cao thì có thể sẽ ít đóng góp thêm ``thông tin'' cho mô hình thì có thể dẫn đến việc kết quả mô hình mang lại sẽ không cao. Do đó khi xây dựng thuật toán hay mô hình cho một vấn đề cụ thể, ta có thể áp dụng các kiến thức ta biết trước về lĩnh vực đó, về dữ liệu để có thể xác định các đặc trưng cho mô hình thông qua đồ thị. Ngoài ra việc sử dụng graphical cũng sẽ cung cấp một cái nhìn tổng quan về mô hình cũng như dữ liệu, từ đó việc phân tích, thiết kế và cài đặt cũng sẽ dễ dàng hơn.
 
-        \subsubsection{Variational Auto-encoder dưới góc nhìn xác suất}
-        Với góc nhìn của một mô hình mạng nơ-ron thì ``Variational Auto-encoder'' chỉ là một mạng nơ ron đơn giản với cấu trúc hai phần như mô hình ``Auto-encoder'' tổng quát, gồm encoder và decoder. 
-        Encoder được dùng để trích xuất đặc trưng ẩn từ dữ liệu, điểm khác biệt so với ``Auto-encoder'' cơ bản là encoder của VAE sẽ là một phân phối xác suất.
+        \subsubsection{Variational Auto-Encoder dưới góc nhìn xác suất}
+        Với góc nhìn của một mô hình mạng nơ-ron thì ``Variational Auto-Encoder'' chỉ là một mạng nơ ron đơn giản với cấu trúc hai phần như mô hình ``Auto-Encoder'' tổng quát, gồm encoder và decoder. 
+        Encoder được dùng để trích xuất đặc trưng ẩn từ dữ liệu, điểm khác biệt so với ``Auto-Encoder'' cơ bản là encoder của VAE sẽ là một phân phối xác suất.
         Và tương tự thì decoder sẽ là mạng nơ-ron cố gắng để tái tạo lại dữ liệu ban đầu từ đặc trưng ẩn.
-        Hình \ref{fig_VAE} thể hiện kiến trúc cơ bản của mô hình variational auto-encoder.
+        Hình \ref{fig_VAE} thể hiện kiến trúc cơ bản của mô hình variational Auto-Encoder.
 
 
         \begin{figure}
             \centering
             \includegraphics[scale=0.5]{dag_vae.png}
-            \caption{Graphical model thể hiện cho mô hình ``Variational Auto-encoder''. Dữ liệu quan sát được sẽ được giả định được phát sinh từ biến ẩn $z$} 
+            \caption{Graphical model thể hiện cho mô hình ``Variational Auto-Encoder''. Dữ liệu quan sát được sẽ được giả định được phát sinh từ biến ẩn $z$} 
             \label{fig_dag_vae}
         \end{figure}
 
@@ -407,7 +386,7 @@ lưu trữ, truy vấn, tìm kiếm.
  
         
         Xét graphical model thể hiện cho mô hình VAE trong hình~\ref{fig_dag_vae}:
-        ``Variational Auto-encoder'' bao gồm một biến $x$ thể hiện cho dữ liệu, đây là biến dữ liệu quan sát được, và $z$ là biến ẩn thể hiện cho đặc trưng ẩn của dữ liệu. 
+        ``Variational Auto-Encoder'' bao gồm một biến $x$ thể hiện cho dữ liệu, đây là biến dữ liệu quan sát được, và $z$ là biến ẩn thể hiện cho đặc trưng ẩn của dữ liệu. 
         Là một đồ thị có hướng do đó quá trình phát sinh dữ liệu của VAE được thực hiện qua các bước theo thứ tự như sau: 
         
         Với mỗi điểm dữ liệu: 
@@ -418,10 +397,10 @@ lưu trữ, truy vấn, tìm kiếm.
 
         Cụ thể, biến đặc trưng ẩn $z$ được chọn ra từ một phân phối ``prior'' $p(z)$ chính là những kiến thức ta biết trước ta biết trước hoặc là giả định của chúng ta về $z$. Điểm dữ liệu $x$ có một phân phối likelihood $p(x|z)$ thể hiện quan hệ giữa dữ liệu ta có với đặc trưng ẩn.
         Mô hình định nghĩa một phân phối hợp của dữ liệu và đặc trưng ẩn: $p(x,z)$. 
-        Với quy tắc nhân trong xác suất, chúng ta có thể phân tách phân phối hợp trên thành ``prior'' và ``likelihood'' như sau: $p(x,z) = p(x|z)p(z)$. Đây chính là mục tiêu chính khi ta xét ``Variational Auto-encoder'' dưới góc độ của xác suất.
+        Với quy tắc nhân trong xác suất, chúng ta có thể phân tách phân phối hợp trên thành ``prior'' và ``likelihood'' như sau: $p(x,z) = p(x|z)p(z)$. Đây chính là mục tiêu chính khi ta xét ``Variational Auto-Encoder'' dưới góc độ của xác suất.
 
 
-        Mô hình này sử dụng phương pháp Variational inference được nhắc đến ở phần~\ref{chap2/subsec21} để tìm ra đặc trưng ẩn, đây cũng là lý do dẫn đến cái tên ``Variational Auto-encoder''. Và VAE có thể được huấn luyện dựa trên các thuật toán  học dựa trên gradient truyền thống.
+        Mô hình này sử dụng phương pháp Variational inference được nhắc đến ở phần~\ref{chap2/subsec21} để tìm ra đặc trưng ẩn, đây cũng là lý do dẫn đến cái tên ``Variational Auto-Encoder''. Và VAE có thể được huấn luyện dựa trên các thuật toán  học dựa trên gradient truyền thống.
         
         
         Tiếp theo, ta xét đến việc suy diễn (inference) trong mô hình này. 
