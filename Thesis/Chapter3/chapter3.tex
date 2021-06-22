@@ -219,7 +219,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     % Ngược lại, nếu từ tương tác của người, ta phát sinh một phân bố để thể hiện cho đặc trưng ẩn, thì khi sử dụng đặc trưng ẩn để đưa ra gợi ý, thì điểm ``tốt nhất'' trong phân bố, cụ thể ở bài báo được đề xuất là giá trị trung bình của phân bố sẽ được lấy để đưa ra gợi ý.
     % Vì là một phân bố, những sản phẩm ``ko quan trọng'' sẽ ít đóng góp ít hơn ở điểm trung bình. Vì điểm trung bình sẽ là điểm có phân phối xác suất cao nhất, có nghĩa là tập sản phẩm ít xuất hiện trong xu hướng tương tác chung của các người dùng trong hệ thống sẽ đóng góp ít hơn ở điểm trung bình.     
 
-    
+    \subsubsection{Kiến trúc mô hình}
     Để áp dụng variational Auto-Encoder cho việc xây dựng một hệ thống gợi ý sản phẩm, ta sẽ xét variational với 2 tiến trình riêng biệt. 
     Đầu tiên là tiến trình suy diễn, tiến trình này suy diễn đặc trưng ẩn của dữ liệu từ tương tác của người dùng.
     Có nghĩa tìm ra phân phối bố của đặc trưng ẩn dựa trên dữ liệu tương tác của người dùng. 
@@ -241,7 +241,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Do đó ta sẽ sử dụng phương pháp ``amortized inference'', phương pháp này là thay vì ta tìm trọng số mỗi người dùng độc lập với nhau thì các người dùng sẽ được chia sẽ chung bộ trọng số.
     Có nghĩa là phân phối đặc trưng ẩn của toàn bộ người dùng, $\mu_u \in R^k $ và $\sigma_u \in R^k $ sẽ được định nghĩa bởi mạng nơ-ron:
     \begin{equation}
-        [\mu_u,\sigma_u] = f(x_u;\phi) \in R^{2k}
+        [\mu_u,\sigma_u] = g(x_u;\phi) \in R^{2k}
     \end{equation}
     với $k$ là số chiều của đặc trưng ẩn, $[.]$ là phép nối 2 véc-tơ, $f(.)$ sẽ là mạng nơ-ron với hàm kích hoạt phi tuyến với bộ trọng số $\phi$ được học qua quá trình lan truyền ngược.
     Lúc này, encoder sẽ là một mạng nơ-ron định nghĩa cho phân phối:
@@ -251,24 +251,25 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \end{equation}
     
 
-    Với $x_u$ là dữ liệu tương tác của người dùng, tương tự như kiến trúc mô hình đã được tình bày trước đó.
+    Với $x_u$ là dữ liệu tương tác của người dùng, tương tự như kiến trúc mô hình đã được tình bày trước đó ở mục \ref{chap3/sec11}.
     Trước khi dữ liệu được truyền thẳng qua mạng encoder thì $x_u$ sẽ được thêm nhiễu thông qua một tầng drop-out. 
     Sau khi drop-out ta có được $\tilde{x}_u$. 
-    Lúc này $\tilde{x_u}$ sẽ được truyền qua mạng Encoder. 
+    Lúc này $\tilde{x}_u$ sẽ được truyền qua mạng encoder. 
     Sau khi $\tilde{x}_u$ được truyền qua mạng encoder \ref{inference_net}, thì ta có được $z_u$.
     \begin{equation}
         \label{sampling_zu}
         z_u \sim q_\phi(z_u|\tilde{x}_u)
     \end{equation}
     Tương tự với Auto-Encoder thì $z_u$ sẽ được truyền thẳng qua một mạng nơ-ron phi tuyến. 
-    Như đã trình bày ở phần trên thì mô hình decoder sẽ định nghĩa cho likelihood của mô hình, có nghĩa là:
+    Như đã trình bày ở phần \ref{chap2/subsec21} thì mô hình decoder sẽ định nghĩa cho likelihood của mô hình, có nghĩa là:
     \begin{equation}
         \label{generative_net}
-        p_\theta(x_u|z_u) = g(z_u;\theta)
+        p_\theta(x_u|z_u) = f(z_u;\theta)
     \end{equation}
 
     Kết hợp encoder \ref{inference_net} và decoder \ref{generative_net} lại ta sẽ có một kiến trúc cơ bản của mô hinh ``Variational Auto-Encoder'' cho bài toán xây dựng hệ thống gợi ý sản phẩm.
 
+    \subsubsection{Quá trình huấn luyện}
     Để huấn luyện một mô hình Variational Auto-Encoder thì ta sẽ có hàm mục tiêu là hàm evidence lower bound (ELBO) như sau:
     \begin{equation}
         \label{elbo_mvae}
@@ -277,6 +278,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     trong đó $p_\theta(x_u|z_u)$ được thể hiện bởi một mạng nơ ron, qua công thức \ref{generative_net} và $q_\phi(z_u|x_u)$ là một mạng nơ-ron, được thể hiện ở công thức \ref{inference_net}.
 
     Để tìm được $\phi$ và $\theta$ ta sẽ thực hiện cực đại hóa, hay tối thiểu hóa giá trị âm của ELBO, sau đó thực hiện thuật toán lan truyền ngược để tìm được bộ trọng số cho mô hình. 
+    
     Tuy nhiên, ta cần chú ý một điều là $z_u$ ở công thức \ref{sampling_zu}, là một đại lượng ngẫu nhiên được lấy mẫu từ một phân phối xác suất.
     Do vậy, giá $z_u$ theo đó không còn phụ thuộc cứng vào $\phi$.
     Mà mặc khác, khi lan truyền ngược để cập nhật trọng số, thì ta cần trọng số đó đóng góp trực tiếp vào giá trị của một nơ-ron.
@@ -287,14 +289,18 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
         \caption{Minh họa ``Reparametrization trick''. Reparametrization trick giúp ta loại bỏ tính ngẫu nhiên khi lấy mẫu dữ liệu từ phân phối xác suất. Nút hình thoi thể hiện biến cố định, nút hình tròn thể hiện cho biến ngẫu nhiên.}
         \label{fig_repatrick}
     \end{figure}
-    ``Reparametrization trick'' là một phương pháp được sử dụng trong mô hình variational autoencoder để có thể cập nhật trọng số $\phi$ mà $z_u$ vẫn đảm bảo là được lấy mẫu từ phân phối xác suất $q_\phi(z_u|\tilde{x_u})$. 
+
+    ``Reparametrization trick'' là một phương pháp được sử dụng trong mô hình Variational Auto-Encoder để có thể cập nhật trọng số $\phi$ mà $z_u$ vẫn đảm bảo là được lấy mẫu từ phân phối xác suất $q_\phi(z_u|\tilde{x_u})$. 
     Bằng cách ta lấy mẫu $\epsilon \sim \mathcal{N}(0,I_K)$ và khi đó ta tính $z_u$ thông qua công thức:
     \begin{equation}
-        z_u = \mu_\phi(\tilde{x}_u) + \epsilon \odot \sigma_\phi(\tilde{x}_u))
+        z_u = \mu_\phi(\tilde{x}_u) + \epsilon \odot \sigma_\phi(\tilde{x}_u)
     \end{equation}
-    theo đó thì $z_u$ thì vẫn là một giá trị được lấy mẫu ngẫu nhiên từ phân phối xác suất trả về từ encoder, nhưng $z_u$ vẫn được tính thông qua một dấu bằng `='.
+    theo đó thì $z_u$ thì vẫn là một giá trị được lấy mẫu ngẫu nhiên từ phân phối xác suất trả về từ encoder, nhưng $z_u$ vẫn được tính thông qua phép tính với dấu bằng `='.
+    
     Dựa vào ``Reparametrization trick'' ta đã có thể cập nhật trọng số cho mô hình variational Auto-Encoder thông qua thuật toán lan truyền ngược. 
     Hình \ref{fig_repatrick} thể hiện cho ý tưởng của ``Reparametrization trick''.
+    \subsubsection{Quá trình đưa ra gợi ý sản phẩm cho người dùng}
+
     \subsubsection{Lý do Variational Auto-Encoder phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}
     Ly do chúng tôi lựa chọn
 
@@ -307,31 +313,41 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \label{mulll}
     \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{vae.png}
+        \includegraphics[width=0.5\textwidth]{vae.png}
         \caption{Minh họa kiến trúc mô hình ``Variational Auto-Encoder'' cho bài toán gợi ý sản phẩm}
         \label{fig_mvae}
     \end{figure}
     Trong bất kỳ mô hình học máy nào, hàm lỗi luôn đóng một vai trò cực kỳ quan trọng trong việc quyết định đến độ hiệu quả của mô hình. 
     Hàm lỗi sẽ định nghĩa mục tiêu mà mô hình cần đạt được thông qua việc ước lượng sự khác biệt giữa giá trị được dự đoán của mô hình trả về so giá trị thực tế của nó.
-    Ngoài ra, việc tìm được bộ trọng số tốt nhất của mô hình cũng dựa cách tìm ra bộ tham số để tối thiểu hàm này.
+    Ngoài ra, việc tìm được bộ tham số tốt nhất của mô hình cũng dựa cách tìm ra bộ tham số để tối thiểu hàm này.
     Do đó việc lựa chọn một hàm lỗi phù hợp sẽ ảnh hưởng ít nhiều đến kết quả của mô hình 
 
     Sau khi xác định được hàm lỗi thì ta sẽ có thể dễ dàng sử dụng phương pháp Maximum Likelihood Estimation như đã được trình bày trong phần \ref{sec_mle}.
 
-    Nhưng khác với Auto-Encoder, hay cả variational Auto-Encoder thông thường, thì tác giả trong bài báo \cite{mvae} đã giả định rằng 
+    Nhưng khác với Auto-Encoder, hay cả Variational Auto-Encoder thông thường, thì tác giả trong bài báo \cite{mvae} đã giả định rằng 
     \begin{equation}
         \label{asumpt_xu}
-        x \sim \text{Mul}(N_u,\pi{z_u})
+        x \sim \text{Mul}(N_u,\pi({z_u}))
     \end{equation}
-    có nghĩa rằng, $x_u$ sẽ được phát sinh từ một phân phối xác suất, cụ thể là phân phối multinomial.
+    có nghĩa rằng, $x_u$ sẽ được phát sinh từ một phân phối xác suất, cụ thể là phân phối đa thức (multinomial).
     Với $\pi(z_u)$ là một véc-tơ xác suất thể hiện cho xác suất được chọn của tập $N_u$ sản phẩm  với $N_u$ là số lượng sản phẩm mà người dùng $u$ đẫ tương tác. 
+    Ta gọi $f_\theta(z_u) \equiv [f_{u1}, f_{u2}, \dots , f_{uI}] $ 
+    là kết quả trả về từ decoder, với đầu vào là đặc trưng ẩn $z_u$.
+    Theo đó $\pi(z_u)$ được tính như sau:
+    \begin{equation}
+        \label{mult-ll}
+        \pi(z_u)_{ui} = \frac{\exp(f_{ui})}{\sum_j(\exp(f_{uj}))}
+    \end{equation}
+    trong đó, $u\in \mathcal{U}$ và $i \in \mathcal{I}$.
+    
+    
     Với giả định này thì ở mạng decoder, sau khi nhận đầu vào $z_u$ sẽ trả về véc-tơ $\pi(z_u)$ trên toàn bộ tập sản phẩm trong hệ thống. 
     Hình \ref{fig_mvae} thể hiện kiến trúc mà tác giả đã sử dụng. 
-
     Theo đó hàm lỗi được tác giả sử dụng trong trường hợp bài toán xây dựng hệ thống gợi ý sản phẩm là ``Multinomial log likelihood'' 
     \begin{equation}
         \log p_\theta(x_u|z_u) = \sum_i x_{ui}\log (\pi_i(z_u))
     \end{equation}
+    
     Hàm lỗi này thì thường được sử dụng trong những mô hình ngôn ngữ như latent Dirichlet allocation, và kinh tế multinomial logit choice model. 
     Multinomial likelihood thường được sử dụng với những bài toán liên quan đến dữ liệu chuỗi thời gian (time-series) hay dữ liệu dạng chuỗi (sequence) tuy nhiên lại ít được tập trung, nghiên cứu sử dụng trong lĩnh vực mô hình đặc trưng ẩn. 
     Ở mô hình này, thì tác giả trong bài báo \cite{mvae} đã sử dụng hàm lỗi này cho bài toán gợi ý sản phẩm dựa trên giả định \ref{asumpt_xu}.
