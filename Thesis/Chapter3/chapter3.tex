@@ -182,7 +182,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
         \caption[Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. ]{Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. Hình a) minh họa một mạng nơ-ron truyền thẳng có hai tầng ẩn. Hình b) minh họa một mạng nơ- ron con được tạo thành từ việc áp dụng “Dropout” cho mạng nơ-ron ban đầu; lưu ý, ta không áp dụng ``Dropout'' cho tầng đầu ra}
         \label{fig_dropout}
     \end{figure}
-    
+
     Mô hình ``Auto-Encoder'' với đầu vào được ``che'' đi trong quá trình huấn luyện chính là ``Denoising Auto-Encoder'' như đã trình bày trong phần~\ref{chap2/subsec12}.
 
     Gọi $\tilde{x}$ sẽ là dữ liệu sau khi đã ``che'' đi một số các tương tác, $\tilde{x}$ sẽ được truyền thẳng qua mạng encoder để trích xuất được đặc trưng ẩn:
@@ -319,13 +319,31 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     
     Dựa vào ``Reparametrization trick'' ta đã có thể cập nhật trọng số cho mô hình variational Auto-Encoder thông qua thuật toán lan truyền ngược. 
     Hình \ref{fig_repatrick} thể hiện cho ý tưởng của ``Reparametrization trick''.
+
+    Quá trình huấn luyện mô hình chúng ta sẽ tìm được bộ tham số $(\theta^*, \phi^*)$ sao cho tối thiểu được hàm lỗi \ref{elbo_mvae}:
+    \begin{equation}
+        \label{vae_w}
+        (\phi^*,\theta^*) = \text{arg}_{\phi,\theta)} \text{min} \mathcal{L}(x_u;\phi,\theta)
+    \end{equation}
+
     \subsubsection{Quá trình đưa ra gợi ý sản phẩm cho người dùng}
+    Sau quá trình huấn luyện mô hình, chúng ta có được bộ tham số tốt nhất với bộ dữ liệu đã được huấn luyện.
+    Để có thể đưa ra được gợi ý cho người dùng, chúng ta đơn giản chỉ truyền thẳng dữ liệu qua mạng, với dữ liệu đầu vào tương tác của người dùng.
+    Ở quá trình huấn luyện ta áp dụng kỹ thuật ``Dropout'' tuy nhiên ở quá đưa ra gợi ý thì chúng ta không áp dụng ``Dropout'' lên dữ liệu đầu vào. 
+    Khi dữ liệu tương tác của người dùng được truyền qua mạng encoder, thì ta lấy kết quả trả về từ $\mu(x)$ để làm đặc trưng ẩn.
+    Tiếp theo đó đặc trưng ẩn này truyền thẳng qua mạng decoder để có được tương tác của người dùng được dự đoán từ mô hình.
+    
+    Ta gọi: 
+    \begin{equation}
+        f_\theta(z_u) \equiv [f_{u1}, f_{u2}, \dots , f_{uI}]
+    \end{equation}
+    là kết quả trả về từ decoder, với đầu vào là đặc trưng ẩn $z_u = \mu{x_u}$.
+    Từ kết quả được dự đoán, ta thực hiện sắp xếp lại kết quả (bỏ qua các tương tác trong quá khứ của người dùng).
+    Tập sản phẩm được gợi ý sẽ là tập sản phẩm có kết quả tương tác trả về cao nhất. 
 
-    \subsubsection{Lý do ``Variational Auto-Encoder'' phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}
+    \subsubsection{Lý do ``Variational Auto-Encoder'' phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}\label{why_vae}
+    
 
-    Ly do chúng tôi lựa chọn
-    \label{why_vae}
-    something in here
     \subsection{Dùng hàm chi phí trong quá trình huấn luyện phù hợp hơn với bài toán gợi ý sản phẩm}
 
 
