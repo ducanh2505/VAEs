@@ -1,7 +1,7 @@
 \chapter{Thí nghiệm}
 \label{Chapter4}
 \graphicspath{{Chapter4/Chapter4Figs}}
-\textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm nhằm đánh giá những nội dung trình bày ở chương \ref{Chapter3}. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ Movielens-20M \cite{Ml20M} và Million Song Dataset \cite{MSD}; bên cạnh đó, độ đo được sử dụng để đánh giá khả năng đưa ra gợi ý của mô hình là Normalized Discounted Cumulative Gain (NDCG) và  Recall. Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt đạt được kết quả xấp xỉ so với kết quả được công bố trong bài báo \cite{mvae}. Bên cạnh đó, các kết quả thí nghiệm cũng chứng tỏ mô hình đưa ra sản phẩm gợi ý sử dụng mô hình variational auto-encoder có khả đưa ra gợi ý phù hợp hơn so với auto-encoders cơ bản, đặc biệt là trong trường hợp dữ liệu tương tác của người dùng thưa. Ngoài ra, các kết quả thí nghiệm cũng cho thấy việc thay đổi hàm mục tiêu giúp mô hình đưa ra kết quả tốt hơn cho bài toán gợi ý sản phẩm so với các hàm mục tiêu thường được sử dụng khi huấn luyện variational auto-encoder}
+\textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm nhằm đánh giá những nội dung trình bày ở chương \ref{Chapter3}. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ Movielens-20M \cite{Ml20M} và Million Song Dataset \cite{MSD}; bên cạnh đó, độ đo được sử dụng để đánh giá khả năng đưa ra gợi ý của mô hình là Normalized Discounted Cumulative Gain (NDCG) và  Recall. Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt đạt được kết quả xấp xỉ so với kết quả được công bố trong bài báo \cite{mvae}. Bên cạnh đó, các kết quả thí nghiệm cũng chứng tỏ mô hình "Variational Auto-Encoder" có khả đưa ra các gợi ý sản phẩm phù hợp hơn so với mô hình "Auto-Encoder" cơ bản, đặc biệt là trong trường hợp dữ liệu tương tác của người dùng thưa. Ngoài ra, các kết quả thí nghiệm cũng cho thấy việc thay đổi hàm mục tiêu trong quá trình huấn luyện giúp mô hình đưa ra kết quả tốt hơn cho bài toán gợi ý sản phẩm.}
 
 
 \section{Tập dữ liệu sử dụng}
@@ -70,7 +70,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
 
 
 \section{Các kết quả thí nghiệm}
-    \subsection{Kết quả của mô hình cài đặt so với bài báo}
+    \subsection{Kết quả cài đặt của khóa luận so với bài báo}
     \label{experiment1}
     Trong phần này, chúng tôi sẽ trình bày kết quả của mô hình mà chúng tôi cài đặt. 
     Cụ thể, chúng tôi so sánh kết quả mô hình Mult-VAEs và Mult-DAE chúng tôi cài đặt so với kết quả trong bài báo.
@@ -135,7 +135,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
         \caption[]{Kết quả cài đặt của chúng tôi so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
         \label{table_compareMSD}
         \end{table}
-    \subsection{Phân tích ``Multinomal Likelihood''}
+    \subsection{Phân tích ``Multinomial Likelihood''}
 
     Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
     Cụ thể chúng tôi sẽ so sánh Multinomial log-likelihood so với Gaussian log-likelihood và Logistic log-likelihood. 
@@ -189,7 +189,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAEs và Mult-DAE b�
 
 
 
-    \subsection{So sánh với Variational Auto-encoder và Auto-encoder}
+    \subsection{``Variational Auto-encoder'' và ``Auto-encoder'' đối với trường hợp dữ liệu thưa}
     Trong phần này, mục tiêu của  chúng tôi là kiểm chứng về sự phù hợp của ``Variational Auto-encoder'' so với ``Auto-encoder'', cụ thể là so sánh Mul-VAEs và Mul-DAE.
     Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp ``Bayesian inference'' cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
 
