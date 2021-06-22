@@ -220,14 +220,12 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     % Ngược lại, nếu từ tương tác của người, ta phát sinh một phân bố để thể hiện cho đặc trưng ẩn, thì khi sử dụng đặc trưng ẩn để đưa ra gợi ý, thì điểm ``tốt nhất'' trong phân bố, cụ thể ở bài báo được đề xuất là giá trị trung bình của phân bố sẽ được lấy để đưa ra gợi ý.
     % Vì là một phân bố, những sản phẩm ``ko quan trọng'' sẽ ít đóng góp ít hơn ở điểm trung bình. Vì điểm trung bình sẽ là điểm có phân phối xác suất cao nhất, có nghĩa là tập sản phẩm ít xuất hiện trong xu hướng tương tác chung của các người dùng trong hệ thống sẽ đóng góp ít hơn ở điểm trung bình.     
 
-<<<<<<< HEAD
+
     \subsubsection{Kiến trúc mô hình}
-    Để áp dụng variational Auto-Encoder cho việc xây dựng một hệ thống gợi ý sản phẩm, ta sẽ xét variational với 2 tiến trình riêng biệt. 
-=======
+
     
     Để áp dụng ``Variational Auto-Encoder'' (VAE) cho việc xây dựng một hệ thống gợi ý sản phẩm, ta sẽ xét VAE với 2 tiến trình riêng biệt. 
 
->>>>>>> 1fb170123ba595a507b570a6bb9f69e8c4a0167d
     Đầu tiên là tiến trình suy diễn, tiến trình này suy diễn đặc trưng ẩn của dữ liệu từ tương tác của người dùng.
     Có nghĩa là tìm ra phân phối bố của đặc trưng ẩn dựa trên dữ liệu tương tác của người dùng. 
     Tiến trình này được thực hiện thông qua một mạng nơ-ron được gọi là encoder hay còn được gọi là mạng inference.
@@ -259,29 +257,22 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \end{equation}
     
 
-<<<<<<< HEAD
+
     Với $x_u$ là dữ liệu tương tác của người dùng, tương tự như kiến trúc mô hình đã được tình bày trước đó ở mục \ref{chap3/sec11}.
-    Trước khi dữ liệu được truyền thẳng qua mạng encoder thì $x_u$ sẽ được thêm nhiễu thông qua một tầng drop-out. 
-    Sau khi drop-out ta có được $\tilde{x}_u$. 
-    Lúc này $\tilde{x}_u$ sẽ được truyền qua mạng encoder. 
-=======
-    Với $x_u$ là dữ liệu tương tác của người dùng, tương tự như kiến trúc mô hình đã được tình bày trước đó.
     Trước khi dữ liệu được truyền thẳng qua mạng encoder thì $x_u$ sẽ được thêm nhiễu thông qua một tầng ``drop-out''. 
     Sau khi drop-out ta có được $\tilde{x}_u$. 
     Lúc này $\tilde{x_u}$ sẽ được truyền qua mạng encoder. 
->>>>>>> 1fb170123ba595a507b570a6bb9f69e8c4a0167d
     Sau khi $\tilde{x}_u$ được truyền qua mạng encoder \ref{inference_net}, thì ta có được $z_u$.
     \begin{equation}
         \label{sampling_zu}
         z_u \sim q_\phi(z_u|\tilde{x}_u)
     \end{equation}
-<<<<<<< HEAD
-    Tương tự với Auto-Encoder thì $z_u$ sẽ được truyền thẳng qua một mạng nơ-ron phi tuyến. 
-    Như đã trình bày ở phần \ref{chap2/subsec21} thì mô hình decoder sẽ định nghĩa cho likelihood của mô hình, có nghĩa là:
-=======
+
+    
+
     Tương tự với ``Auto-Encoder'' thì $z_u$ sẽ được truyền thẳng qua một mạng nơ-ron phi tuyến là decoder. 
-    Như đã trình bày ở phần trên thì mô hình decoder sẽ định nghĩa cho likelihood của mô hình, có nghĩa là:
->>>>>>> 1fb170123ba595a507b570a6bb9f69e8c4a0167d
+    Như đã trình bày ở phần \ref{chap2/subsec21} thì mô hình decoder sẽ định nghĩa cho likelihood của mô hình, có nghĩa là:
+
     \begin{equation}
         \label{generative_net}
         p_\theta(x_u|z_u) = f(z_u;\theta)
@@ -345,20 +336,16 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
 
     Sau khi xác định được hàm lỗi thì ta sẽ có thể dễ dàng sử dụng phương pháp ``Maximum Likelihood Estimation'' như đã được trình bày trong phần \ref{sec_mle}.
 
-<<<<<<< HEAD
-    Nhưng khác với Auto-Encoder, hay cả Variational Auto-Encoder thông thường, thì tác giả trong bài báo \cite{mvae} đã giả định rằng 
-=======
+
+
     Nhưng khác với ``Auto-Encoder'', hay cả ``Variational Auto-Encoder'' thông thường, tác giả trong bài báo \cite{mvae} đã giả định rằng 
->>>>>>> 1fb170123ba595a507b570a6bb9f69e8c4a0167d
+
     \begin{equation}
         \label{asumpt_xu}
         x \sim \text{Mul}(N_u,\pi({z_u}))
     \end{equation}
-<<<<<<< HEAD
-    có nghĩa rằng, $x_u$ sẽ được phát sinh từ một phân phối xác suất, cụ thể là phân phối đa thức (multinomial).
-=======
+
     có nghĩa rằng, $x_u$ sẽ được phát sinh từ một phân phối xác suất, cụ thể là phân phối đa thức (``Multinomial Distribution'').
->>>>>>> 1fb170123ba595a507b570a6bb9f69e8c4a0167d
     Với $\pi(z_u)$ là một véc-tơ xác suất thể hiện cho xác suất được chọn của tập $N_u$ sản phẩm  với $N_u$ là số lượng sản phẩm mà người dùng $u$ đẫ tương tác. 
     Ta gọi $f_\theta(z_u) \equiv [f_{u1}, f_{u2}, \dots , f_{uI}] $ 
     là kết quả trả về từ decoder, với đầu vào là đặc trưng ẩn $z_u$.
@@ -376,14 +363,10 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \begin{equation}
         \log p_\theta(x_u|z_u) = \sum_i x_{ui}\log (\pi_i(z_u))
     \end{equation}
-<<<<<<< HEAD
-    
-    Hàm lỗi này thì thường được sử dụng trong những mô hình ngôn ngữ như latent Dirichlet allocation, và kinh tế multinomial logit choice model. 
-    Multinomial likelihood thường được sử dụng với những bài toán liên quan đến dữ liệu chuỗi thời gian (time-series) hay dữ liệu dạng chuỗi (sequence) tuy nhiên lại ít được tập trung, nghiên cứu sử dụng trong lĩnh vực mô hình đặc trưng ẩn. 
-=======
+
     Hàm lỗi này thì thường được sử dụng trong những mô hình ngôn ngữ như ``Latent Dirichlet allocation'', và kinh tế ``Multinomial logit choice model''. 
     ``Multinomial likelihood'' thường được sử dụng với những bài toán liên quan đến dữ liệu chuỗi thời gian (time-series) hay dữ liệu dạng chuỗi (sequence) tuy nhiên lại ít được tập trung, nghiên cứu sử dụng trong lĩnh vực mô hình đặc trưng ẩn. 
->>>>>>> 1fb170123ba595a507b570a6bb9f69e8c4a0167d
+
     Ở mô hình này, thì tác giả trong bài báo \cite{mvae} đã sử dụng hàm lỗi này cho bài toán gợi ý sản phẩm dựa trên giả định \ref{asumpt_xu}.
     Lý do mà tác giả đã sử dụng hàm này bởi vì 
     ``Multinomial log-likelihood'' sẽ đặt giá trị thể hiện độ lớn xác suất lên tập sản phẩm được gợi ý mà mô hình trả về. 
