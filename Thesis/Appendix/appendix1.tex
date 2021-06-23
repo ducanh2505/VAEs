@@ -5,5 +5,38 @@
 \graphicspath{{Appendix/AppendixFigs/}}
 \section{Các độ đo đánh giá hệ thống gợi ý}
 \label{chap_metrics}
-\subsection{NDCG}
-\subsection{Recall}
+\subsection{Độ đo ``Normalized Discounted Cumulative Gain''}
+    Thông thường, các hệ thống gợi ý sản phẩm sẽ đánh giá một số điểm thể hiện mức độ phù hợp giữa sản phẩm được gợi ý và người dùng. Để đánh giá chất lượng của sản phẩm được gợi ý, độ đo ``Cumulative Gain'' được sử dụng. 
+    ``Cumulative Gain'' (CG) là tổng mức độ phù hợp của tất cả các kết quả trong danh sách kết quả tìm kiếm. 
+    \begin{equation}
+        CG_p = \sum_{i=1}^p rel_i
+    \end{equation}
+    Trong đó, $rel_i$ là độ phù hợp của sản phẩm thứ $i$ trong danh sách kết quả trả về của hệ thống, $p$ là số sản phẩm được gợi ý.
+
+    Khi đánh giá bằng độ đo CG, CG không xem xét đến xếp hạng của các sản phẩm được gợi ý. Với ý tưởng các sản phẩm có mức độ phù hợp với người dùng cao khi được gợi ý sớm hơn sẽ hữu ích hơn. 
+    Khi đó, độ đo ``Discounted Cumulative Gain'' sẽ được sử dụng. 
+    ``Discounted Cumulative Gain'' (DCG) là một độ đo thường được sử dụng để đánh giá chất lượng của các thuật toán xếp hạng. Bằng các phạt các sản phẩm có mức độ phù hợp cao nhưng được xếp hạng thấp khi gợi ý, DCG được tính bởi công thức:
+    \begin{equation}
+        DCG = \sum_{i = 1}^{N} \frac{2^{rel_i} - 1}{\log_2 (i + 1)}
+    \end{equation}
+    
+    Trong đó, $rel_i$ là mức độ phù hợp của sản phẩm với người dùng, $N$ là số lượng sản phẩm được gợi ý.
+
+    Trong bài toán xây dựng hệ thống gợi ý, với mục tiêu đưa ra ``top-k'' sản phẩm thay vì đánh giá mức độ sản phẩm phù hợp với người dùng, độ đo DCG cho ``top-k'' sản phẩm sẽ được định nghĩa như sau:
+    \begin{equation}
+        DCG@k = \sum_{i = 1}^k \frac{2^{\mathbb{I}[\omega(i) \in I_u]} - 1}{\log_2(i + 1)}
+    \end{equation}
+    Trong đó, $\omega(i)$ là sản phẩm được gợi ý thứ $i$, $I_u$ là tập sản phẩm người dùng tương tác. $\mathbb{I}[.]$ là hàm chỉ thị (``indicator function''), hàm này sẽ trả về 1 nếu sản phẩm được gợi ý thứ $i$ có trong tương tác của người dùng. 
+
+    Độ đo DCG là một tổng, do đó khi $k$ tăng sẽ dẫn đến DCG cũng tăng theo. Khi muốn so sánh hai hệ thống gợi ý, ta cần một độ đo được chuẩn hóa để thuận tiện cho việc so sánh. ``Normalized Discounted Cumulative Gain'' (NDCG) là độ đo DCG được chuẩn hóa, được tính bằng công thức:
+    \begin{equation}
+        NDCG = \frac{DCG}{IDCG}
+    \end{equation}
+    Với IDCG là DCG trong trường hợp lý tưởng. Nghĩa là hàm $\mathbb{I}[.]$ trả về giá trị 1 tại mọi $i$.
+
+    NDCG sẽ có miền giá trị thuộc $[0, 1]$.
+
+\subsection{Độ đo ``Recall''}
+    
+
+

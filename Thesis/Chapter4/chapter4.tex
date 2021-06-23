@@ -1,16 +1,16 @@
 \chapter{Thí nghiệm}
 \label{Chapter4}
 \graphicspath{{Chapter4/Chapter4Figs}}
-\textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm nhằm đánh giá những nội dung trình bày ở chương \ref{Chapter3}. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ Movielens-20M \cite{Ml20M} và Million Song Dataset \cite{MSD}; bên cạnh đó, độ đo được sử dụng để đánh giá khả năng đưa ra gợi ý của mô hình là Normalized Discounted Cumulative Gain (NDCG) và  Recall. Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt đạt được kết quả xấp xỉ so với kết quả được công bố trong bài báo \cite{mvae}. Bên cạnh đó, các kết quả thí nghiệm cũng chứng tỏ mô hình "Variational Auto-Encoder" có khả đưa ra các gợi ý sản phẩm phù hợp hơn so với mô hình "Auto-Encoder" cơ bản, đặc biệt là trong trường hợp dữ liệu tương tác của người dùng thưa. Ngoài ra, các kết quả thí nghiệm cũng cho thấy việc thay đổi hàm mục tiêu trong quá trình huấn luyện giúp mô hình đưa ra kết quả tốt hơn cho bài toán gợi ý sản phẩm.}
+\textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm nhằm đánh giá những nội dung trình bày ở chương \ref{Chapter3}. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ MovieLens-20M \cite{Ml20M} và Million Song Dataset \cite{MSD}; bên cạnh đó, độ đo được sử dụng để đánh giá khả năng đưa ra gợi ý của mô hình là Normalized Discounted Cumulative Gain (NDCG) và  Recall. Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt đạt được kết quả xấp xỉ so với kết quả được công bố trong bài báo \cite{mvae}. Bên cạnh đó, các kết quả thí nghiệm cũng chứng tỏ mô hình "Variational Auto-Encoder" có khả đưa ra các gợi ý sản phẩm phù hợp hơn so với mô hình "Auto-Encoder" cơ bản, đặc biệt là trong trường hợp dữ liệu tương tác của người dùng thưa. Ngoài ra, các kết quả thí nghiệm cũng cho thấy việc thay đổi hàm mục tiêu trong quá trình huấn luyện giúp mô hình đưa ra kết quả tốt hơn cho bài toán gợi ý sản phẩm.}
 
 
 \section{Tập dữ liệu sử dụng}
 \label{chap4sec1}
-Chúng tôi tiến hành thí nghiệm trên các tập dữ liệu vừa và lớn ở các lĩnh vực khác nhau là Movielens-20M \cite{Ml20M} 
+Chúng tôi tiến hành thí nghiệm trên các tập dữ liệu vừa và lớn ở các lĩnh vực khác nhau là MovieLens-20M \cite{Ml20M} 
 và Million Song Dataset (MSD) \cite{MSD}; đây là các tập dữ liệu thường được dùng cho bài toán xây dựng hệ thống gợi ý
 với hướng tiếp cận ``Collaborative Filtering''. 
 \begin{itemize}
-    \item Tập dữ liệu Movielens-20M bao gồm dữ liệu đánh giá của 138,000 người dùng với khoảng 27,000 bộ phim,
+    \item Tập dữ liệu MovieLens-20M bao gồm dữ liệu đánh giá của 138,000 người dùng với khoảng 27,000 bộ phim,
     với 20 triệu đánh giá.
     \item Tập dữ liệu Million Song Dataset bao gồm dữ liệu tương tác (số lượt nghe) của khoảng 1 triệu người dùng và hơn 300,000 bài hát, với hơn 48 triệu tương tác.
 \end{itemize}
@@ -18,7 +18,7 @@ với hướng tiếp cận ``Collaborative Filtering''.
 Để có thể đánh giá kết quả đạt được so với kết quả trong bài báo \cite{mvae} một cách tốt nhất,
 chúng tôi thực hiện các bước tiền xử lí được các tác giả mô tả trong bài báo \cite{mvae}.
 \begin{itemize}
-    \item Tập dữ liệu Movielens-20M: chúng tôi giữ lại những người dùng đã đánh giá ít nhất 5 bộ phim trở lên. 
+    \item Tập dữ liệu MovieLens-20M: chúng tôi giữ lại những người dùng đã đánh giá ít nhất 5 bộ phim trở lên. 
     \item Tập dữ liệu Million Song Dataset: chúng tôi chỉ giữ lại những bài hát được nghe bởi ít nhất 200 người dùng, và những người dùng nghe ít nhất 20 bài hát trong số còn lại.
 \end{itemize}
 
@@ -40,18 +40,18 @@ Sau khi lọc dữ liệu theo điều kiện đã nói, số lượng người 
 \end{table}
 
 
-Chúng tôi tiến hành ``chuẩn hóa'' dữ liệu về dạng ``implicit feedback''. Đối với tập dữ liệu Movielens, chúng tôi 
+Chúng tôi tiến hành ``chuẩn hóa'' dữ liệu về dạng ``implicit feedback''. Đối với tập dữ liệu MovieLens, chúng tôi 
 chúng tôi chuyển dữ liệu thành dạng ma trận tương tác nhị phân, với các đánh giá của người dùng từ 4 trở lên (nghĩa là người dùng thích bộ phim đó) mang giá trị 1 trong ma trận nhị phân.
-Với tập dữ liệu MSD, chúng tôi chỉ chuyển các giá trị số lượt nghe của người dùng thành giá trị nhị phân.
+Với tập dữ liệu MSD, chúng tôi chuyển các giá trị tương tác của người dùng (số lượt nghe) thành giá trị nhị phân, có nghĩa là nếu người dùng đã nghe bài hát đó thì sẽ mang giá trị 1 trong ma trận nhị phân.
 
 Với mỗi tập dữ liệu, chúng tôi lần lượt lấy ra một số lượng người dùng bằng nhau cho tập đánh giá (validation) và tập kiểm tra (testing), gọi chung đây là các tập ``held-out''. 
 Số lượng người dùng cho mỗi tập ``held-out'' được thống kê lại trong \ref{table_dataset}.
 Phần còn lại sẽ là tập dữ liệu huấn luyện (training).
-Ngoài ra mỗi tập trên, đều sẽ được chia làm 2 phần với mục đích tính toán độ đo để đánh giá mô hình.
+Ngoài ra mỗi tập trên đều sẽ được chia làm 2 phần với mục đích tính toán độ đo để đánh giá mô hình.
 Cụ thể thì mỗi tập sẽ được chia thành hai phần ``fold-in'' và ``fold-out''.
 ``fold-in'' là phần sẽ là đầu vào của mô hình thể hiện cho dữ liệu tương tác trong qua khứ của người dùng. 
 Phần còn lại dùng để đánh giá kết quả của mô hình.
-Trong quá trình huấn luyện, trên cả hai tập MovieLens và MSD, tỉ lệ phần ``fold-in'' và ``fold-out'' tương ứng là 8:2.
+Tỉ lệ giữa ``fold-in'' và ``fold-out'' mặc định là 8:2 khi đánh giá mô hình.
 
 
 \section{Các thiết lập thí nghiệm}
@@ -59,22 +59,17 @@ Trong quá trình huấn luyện, trên cả hai tập MovieLens và MSD, tỉ l
 
 Để đánh giá khả năng tổng quát hóa của mô hình, chúng tôi chia dữ liệu thành 3 phần như đã trình bày trong phần~\ref{chap4sec1}, bao gồm các tập huấn luyện, đánh giá, kiểm tra. Với số người dùng của các tập ``held-out'' (tập dữ liệu đánh giá và kiểm tra) lần lượt là 10,000 và 50,000 cho hai bộ dữ liệu MovieLens và MSD.
 
-Để huấn luyện mô hình, chúng tôi sử dụng toàn bộ dữ liệu tương tác của người dùng trong tập huấn luyện. Để đánh giá mô hình, chúng tôi chọn ngẫu nhiên 80\% tương tác của mỗi người dùng để làm đầu vào của mô hình. Gọi tập tương tác làm đầu vào này là tập ``fold-in''. Sau đó đánh giá các sản phẩm được dự đoán bởi mô hình dựa trên số tương tác còn lại (20\% còn lại) với hai độ đo ``Normalized Discounted Cumulative Gain'' (NDCG) và ``Recall'' (chi tiết về độ đo đánh giá hệ thống gợi ý sản phẩm được trình bày trong phụ lục~\ref{chap_metrics}).
+Để huấn luyện mô hình, chúng tôi sử dụng toàn bộ dữ liệu tương tác của người dùng trong tập huấn luyện. Để đánh giá mô hình, chúng tôi dùng phần ``fold-in'' trong tập ``held-out'' làm đầu vào của mô hình. Sau đó đánh giá các sản phẩm được dự đoán bởi mô hình dựa trên tập ``fold-out'' với hai độ đo ``Normalized Discounted Cumulative Gain'' (NDCG) và ``Recall'' (chi tiết về độ đo đánh giá hệ thống gợi ý sản phẩm được trình bày trong phụ lục~\ref{chap_metrics}).
 
 Chúng tôi sử dụng một kiến trúc giống nhau cho hai mô hình ``Auto-encoder'' và ``Variational Auto-encoder'' (VAE). Với ``encoder'' và ``decoder'' là mạng nơ-ron nhiều lớp (``Multi-layer Perceptron'' hay MLP) có kiến trúc đối xứng nhau, kích thước véc-tơ biểu diễn ẩn của mô hình là 200. Kiến trúc của các mô hình trên với MLP có 1 tầng ẩn kích thước 600 có thể mô tả ngắn gọn là $[ I \to 600 \to 200 \to 600 \to I ]$, với I là số lượng sản phẩm. Áp dụng hàm kích hoạt phi tuyến là \textit{tanh} giữa các lớp, tuy nhiên, do đầu ra của ``encoder'' trong mô hình VAE là một phân phối xác suất, do đó chúng tôi không áp dụng hàm kích hoạt tầng đó.
 
-Ngoài ra, như đã trình bày ở phần~\ref{DAE_recsys}, chúng tôi áp dụng kỹ thuật ``drop-out'' cho véc-tơ đầu vào để tăng khả năng sinh ra gợi ý của mô hình cũng như tránh tình trạng ``overfitting''.
+Ngoài ra, như đã trình bày ở phần~\ref{DAE_recsys}, chúng tôi áp dụng kỹ thuật ``dropout'' cho véc-tơ đầu vào để tăng khả năng sinh ra gợi ý của mô hình cũng như tránh tình trạng ``overfitting''.
 
-Như đề xuất của tác giả Liang trong bài báo \cite{mvae}, chúng tôi sử dụng ``Multinomal log-likelihood'' làm hàm tính độ lỗi cho cả hai mô hình. Chúng tôi gọi mô hình ``Variational Auto-encoder'' với hàm lỗi này là Mult-VAE, mô hình ``Auto-encoder'' với hàm lỗi này và phần ``drop-out'' là Mult-DAE.
+Như đề xuất của tác giả Liang trong bài báo \cite{mvae}, chúng tôi sử dụng ``Multinomal log-likelihood'' làm hàm tính độ lỗi cho cả hai mô hình. Chúng tôi gọi mô hình ``Variational Auto-encoder'' với hàm lỗi này là Mult-VAE, mô hình ``Auto-encoder'' với hàm lỗi này và phần ``dropout'' là Mult-DAE.
 
 Chúng tôi điều chỉnh siêu tham số $\beta$ của mô hình Mult-VAE với 200,000 bước cập nhật theo phương pháp ``KL-annealing'' được trình bày ở phần~\ref{subsubsecELBO}. Và áp dụng một lượng ``weight-decay'' 0.01 cho Mult-DAE. 
 
 Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE bằng thuật toán Adam \cite{Goodfellow-et-al-2016-Book} với hệ số học (``learning rate'') là \textit{0.001} trên các tập dữ liệu MovieLens \cite{Ml20M} với 200 ``epoch'' và Million Song Dataset \cite{MSD} với 100 ``epoch'' (mỗi ``epoch'' là một lần mô hình duyệt qua hết dữ liệu huấn luyện).
-
-
-
-
-
 
 
 \section{Các kết quả thí nghiệm}
@@ -140,21 +135,21 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
         \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (cài đặt của tác giả Lobel)\end{tabular}} & 0.260              & 0.356              & 0.310             \\ \hline
         \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (cài đặt của tác giả Liang)\end{tabular}} & 0.266              & 0.364              & 0.316             \\ \hline
         \end{tabular}
-        \caption[]{Kết quả cài đặt của chúng tôi so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
+        \caption[]{Kết quả cài đặt của khoá luận so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
         \label{table_compareMSD}
         \end{table}
     \subsection{Phân tích ``Multinomial Likelihood''}
 
-    Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
+    Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi Multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
     Cụ thể chúng tôi sẽ so sánh Multinomial log-likelihood so với Gaussian log-likelihood và Logistic log-likelihood. 
 
 
-    Hàm ``Multinomaial log-likelihood'' như đã được trình bày ở phần \ref{mulll} thì ``Multinomial log-likelihood'' sẽ giả định dữ liệu ban đầu sẽ được phát sinh bởi một phân phối đa thức (``Multinomial Distribution'').
+    Hàm ``Multinomaial log-likelihood'' như đã được trình bày ở phần \ref{mulll} sẽ giả định dữ liệu ban đầu sẽ được phát sinh bởi một phân phối đa thức (``Multinomial Distribution'').
     Và kết quả trả về của mô hình Mult-VAE là một véc-tơ thể hiện xác suất được chọn của từng sản phẩm trong hệ thống (véc-tơ này có tổng bằng 1).
     
-    Về Gaussian  log-likelihood, cũng chính là độ lỗi ``mean square'', là một độ lỗi thường gặp trong những bài toán hồi quy (regression). 
+    Về Gaussian log-likelihood, cũng chính là độ lỗi ``Mean Square Error'', là một độ lỗi thường gặp trong những bài toán hồi quy (regression). 
     Với độ lỗi này thì dữ liệu tương tác của người dùng được giả định sẽ tuân theo phân phối Gaussian. 
-    Theo đó thì, chúng tôi dựa vào bài báo \cite{yifan_cf} của tác giả Yifan Hu, đã áp dụng Gaussian log-likelihood cho bài toán gợi ý sản phẩm với dữ liệu phản hồi ngầm. 
+    Theo đó, chúng tôi dựa vào bài báo \cite{yifan_cf} của tác giả Yifan Hu, đã áp dụng Gaussian log-likelihood cho bài toán gợi ý sản phẩm với dữ liệu ``implicit feedback''. 
     Theo bài báo thì Gaussian log-likelihood cho người dùng $u$ sẽ là:
     \begin{equation}
         \log p_\theta(x_u|z_u) = -\sum_i \frac{c_{ui}}{2}(x_{ui} - f_{ui})^2
@@ -164,7 +159,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     Cụ thể, những sản phẩm được tương tác sẽ có giá trị hệ số ``confidence'' cao hơn so với những sản phẩm không tương tác.
     Có nghĩa là $c_{1}  > c_0$, với $c_1,c_0$ lần lượt là hệ số ``confidence'' của sản phẩm được tương và sản phẩm không được tương tác. 
     
-    Bên cạnh đó, Logistic log-likelihood, hay còn được biết đến là độ lỗi `Binary cross entropy', là một độ lỗi thường được dùng trong những bài toán phân loại (classifcation).
+    Bên cạnh đó, Logistic log-likelihood, hay còn được biết đến là độ lỗi ``Binary cross entropy'', là một độ lỗi thường được dùng trong những bài toán phân loại (classification).
     Về lý thuyết xác suất, sử dụng mô hình này ta sẽ giả định rằng dữ liệu của chúng ta sẽ được phát sinh từ một phân phối Bernoulli. 
     Với việc sử dụng, Logistic log-likelihood thì bài toán xây dựng hệ thống gợi ý sản phẩm hay cụ thể việc xác định tương tác của một người dùng với một sản phẩm sẽ được xem như bài toán phân loại 2 lớp. 
     Logistic log-likelihood của người dùng u sẽ được tính như sau:
@@ -175,7 +170,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     Để thể hiện sự hiệu quả của multinomial log-likelihood so với hai hàm lỗi còn lại trong bài toán gợi ý sản phẩm với sản phầm phản hồi ngầm, chúng tôi lần lượng thực hiện huấn luyện mô hình với các độ lỗi trên và ghi lại kết quả tốt nhất. 
     Trong thí nghiệm này việc huấn luyện mô hình chỉ thay đổi độ lỗi và các thiết lập khác sẽ được giữ nguyên.
     Cụ thể, chúng tôi tiến hành thay đổi hàm lỗi ``Multinomial log-likelihood'' thành các hàm lỗi ``Gaussian likelihood'' và ``Logistic log-likelihood'' trên hai mô hình ``Variational Auto-encoder'' và ``Auto-encoder'' với các thiết lập giống phần~\ref{setup_experiment}.
-    Và chúng tôi thực hiện `fine-tune' siêu tham số tách biệt giữa các độ lỗi với nhau.
+    Và chúng tôi thực hiện ``fine-tune'' siêu tham số tách biệt giữa các độ lỗi với nhau.
     Vì tính chất của ``Multinomial log-likelihood'' phục vụ mục đích xếp hạng các sản phẩm ``phù hợp'' với người dùng, do đó chúng tôi dùng độ đo Normalized Discounted Cumulative Gain (NDCG) để đánh giá chất lượng xếp hạng của mô hình. 
     
     Kết quả thực nghiệm được ghi nhận lại ở bảng~\ref{table:comparell} thể hiện độ đo NDCG@100 với các hàm lỗi và mô hình tương ứng. 
@@ -200,37 +195,37 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
 
 
     \subsection{``Variational Auto-encoder'' và ``Auto-encoder'' đối với trường hợp dữ liệu thưa}
-    Trong phần này, mục tiêu của  chúng tôi là kiểm chứng về sự phù hợp của ``Variational Auto-encoder'' so với ``Auto-encoder'', cụ thể là so sánh Mul-VAE và Mul-DAE.
+    Trong phần này, mục tiêu của  chúng tôi là kiểm chứng về sự phù hợp của ``Variational Auto-encoder'' so với ``Auto-encoder'', cụ thể là so sánh Mult-VAE và Mult-DAE.
     Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp ``Bayesian inference'' cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
 
-    Như đã trình bày ở mục \ref{why_vae}, thì mô hình Mul-VAE được xây dựng dựa trên các giả định của chúng tôi về dữ liệu, cụ thể là khi dữ liệu thưa.
-    Do đó chúng tôi sẽ đánh giá hai mô hình Mul-VAE với tình trạng dữ liệu thưa.
+    Như đã trình bày ở mục \ref{why_vae}, thì mô hình Mult-VAE được xây dựng dựa trên các giả định của chúng tôi về dữ liệu, cụ thể là khi dữ liệu thưa.
+    Do đó chúng tôi sẽ đánh giá hai mô hình Mult-VAE với tình trạng dữ liệu thưa.
 
-    Theo thí nghiệm ở mục \ref{experiment1} thì ta có thể thấy được ở tập MovieLens thì cách biệt giữa Mul-VAE và Mul-DAE là lớn hơn so với tập MSD.
+    Theo thí nghiệm ở mục \ref{experiment1} thì ta có thể thấy được ở tập MovieLens thì cách biệt giữa Mult-VAE và Mult-DAE là lớn hơn so với tập MSD.
     Để kiểm chứng hiệu quả của Mult-VAE tốt hơn Mult-DAE ở điều kiện dữ liệu thưa, ở thí nghiệm này, cụ thể thì trong tập kiểm tra chúng tôi sẽ lần lượt thí hiện giảm số lượng tương tác người dùng trong tập ``fold-in'' (ở đánh giá trước các đánh giá dựa trên tập ``fold-in'' gồm 80\% tương tác của người dùng). Và đánh giá kết quả của mô hình dựa trên số lượng tương tác còn lại.
     
     \begin{figure}
         \centering
         \includegraphics[width=1\textwidth]{vae_dae_ml.png}
-        \caption{So sánh Mult-VAE và Mul-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập MovieLens}
+        \caption{So sánh Mult-VAE và Mult-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập MovieLens}
         \label{fig_vae_dae_ml}
     \end{figure}
     \begin{figure}
         \centering
         \includegraphics[width=1\textwidth]{vae_dae_msd.png}
-        \caption{So sánh Mult-VAE và Mul-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập Million Song Datasets}
+        \caption{So sánh Mult-VAE và Mult-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập Million Song Datasets}
         \label{fig_vae_dae_msd}
     \end{figure}
 
     Hình \ref{fig_vae_dae_ml} thể hiện giá trị của độ đo NDCG@100 trên tập MovieLens. 
-    Với tập dữ liệu này, ta dễ dàng nhận thấy Mult-VAE vượt trội hơn so với Mul-DAE, đặc biệt là khi dữ liệu tương tác người dùng thấp.
-    Cụ thể trong khoảng mức độ tương tác của người dùng từ 20\% đến 40\% thì Mul-DAE hoàn toàn bị bỏ xa bởi Mult-VAE.
+    Với tập dữ liệu này, ta dễ dàng nhận thấy Mult-VAE vượt trội hơn so với Mult-DAE, đặc biệt là khi dữ liệu tương tác người dùng thấp.
+    Cụ thể trong khoảng mức độ tương tác của người dùng từ 20\% đến 40\% thì Mult-DAE hoàn toàn bị bỏ xa bởi Mult-VAE.
     Hình \ref{fig_vae_dae_msd} là kết quả thực hiện thí nghiệm trên tập MSD.
-    Tập dữ liệu này cũng có xu hướng tương tự như trên tập MovieLens, tuy nhiên sự cách biệt giữa Mul-DAE và Mult-VAE không quá rõ ràng.
-    Song, ta vẫn dễ dàng nhận thấy được rằng với mức độ tương tác thấp Mult-VAE vẫn cho kết quả nhỉnh hơn so với Mul-DAE.
+    Tập dữ liệu này cũng có xu hướng tương tự như trên tập MovieLens, tuy nhiên sự cách biệt giữa Mult-DAE và Mult-VAE không quá rõ ràng.
+    Song, ta vẫn dễ dàng nhận thấy được rằng với mức độ tương tác thấp Mult-VAE vẫn cho kết quả nhỉnh hơn so với Mult-DAE.
 
     Kết quả thí nghiệm giúp ta đã giúp khẳng định lại được độ hiệu quả của mô hình Mult-VAE được đề xuất trong bài báo \cite{mvae}. 
-    Tuy trên tổng quan thì Mult-VAE không quá vượt trội so với Mul-DAE nhưng ở trường hợp dữ liệu tương tác người dùng ở mức độ thấp thì Mult-VAE mang lại kết quả cực kỳ ấn tượng.
+    Tuy trên tổng quan thì Mult-VAE không quá vượt trội so với Mult-DAE nhưng ở trường hợp dữ liệu tương tác người dùng ở mức độ thấp thì Mult-VAE mang lại kết quả cực kỳ ấn tượng.
 
 
 

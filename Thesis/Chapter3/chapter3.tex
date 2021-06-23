@@ -63,12 +63,12 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
 
     \subsection{Kiến trúc mô hình}
     \label{chap3/sec11}
-    Phương pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử dụng kiến trúc ``Auto-Encoder'', một mạng nơ ron-nhận input đầu vào là một phần tương tác của người dùng trong quá khứ và mô hình được huấn luyện để tái tạo lại toàn bộ tương tác của người dùng. 
+    Phương pháp xây dựng mô hình gợi ý sản phẩm mà chúng tôi tìm hiểu đó là sử dụng kiến trúc ``Auto-Encoder'', một mạng nơ-ron nhận input đầu vào là tương tác của người dùng trong lịch sử và mô hình được huấn luyện để tái tạo lại tương tác của người dùng.
     Mô hình sẽ đưa ra gợi ý các tương tác cho người dùng dựa trên những tương tác được tái tạo lại.
     Mô hình này là một mạng nơ-ron bao gồm hai thành phần:
     \begin{itemize}
-        \item Mạng nơ-ron ``encoder'' có chức năng rút trích đặc trưng ẩn từ những tương tác của người dùng trong lịch sử.
-        \item Mạng nơ-ron ``decoder'' có chức năng tái tạo lại tương tác của người dùng từ đặc trưng ẩn.
+        \item Mạng nơ-ron encoder có chức năng rút trích đặc trưng ẩn từ những tương tác của người dùng trong lịch sử.
+        \item Mạng nơ-ron decoder có chức năng tái tạo lại tương tác của người dùng từ đặc trưng ẩn.
     \end{itemize}
 
     % Mặc dù cách hoạt động của mô hình trong giai đoạn huấn luyện và trong giai đoạn kiểm tra có phần khác nhau, nhưng ở phần này chúng tôi chỉ trình bày cách hoạt động của mô hình trong giai đoạn huấn luyện để qua đó diễn giải kiến trúc mô hình một cách thuận tiện. Và sau đó chúng tôi sẽ trình bày cách để đưa ra gợi ý cho người dùng mới sau.
@@ -167,7 +167,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Tuy nhiên, mô hình trên vẫn còn nhiều hạn chế: 
     \begin{itemize}
         \item Thực tế thì mô hình vẫn đang làm tác vụ là tái tạo lại tương tác của người dùng chứ chưa thực sự được huấn luyện để dự đoán những sản phẩm mà người dùng sẽ tương tác dựa lịch sử tương tác của họ.
-        \item Một hạn chế khác đó là tình trạng ``overfiting'', khi huấn luyện mạng nơ-ron. Với việc thêm hệ số ``regularization'' để huấn luyện nhưng với dữ liệu thưa thì việc chính quy hóa sẽ không thực sự hiệu quả. 
+        \item Một hạn chế khác đó là tình trạng ``overfiting'' khi huấn luyện mạng nơ-ron. Với việc thêm hệ số ``regularization'' để huấn luyện nhưng với dữ liệu thưa thì việc chính quy hóa sẽ không thực sự hiệu quả. 
     \end{itemize}
     
     Một phương pháp mà chúng tôi sử dụng để có thể giải quyết những vấn đề trên đó là chúng tôi ``che'' đi một số tương tác trước khi dữ liệu được truyền thẳng qua mạng encoder. 
@@ -179,7 +179,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \begin{figure}
         \centering
         \includegraphics[width=0.6\textwidth]{drop_out.png}
-        \caption[Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. ]{Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. Hình a) minh họa một mạng nơ-ron truyền thẳng có hai tầng ẩn. Hình b) minh họa một mạng nơ- ron con được tạo thành từ việc áp dụng “Dropout” cho mạng nơ-ron ban đầu; lưu ý, ta không áp dụng ``Dropout'' cho tầng đầu ra}
+        \caption[Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. ]{Minh họa áp dụng ``Dropout'' cho mạng nơ-ron truyền thẳng. Hình a) minh họa một mạng nơ-ron truyền thẳng có hai tầng ẩn. Hình b) minh họa một mạng nơ-ron con được tạo thành từ việc áp dụng “Dropout” cho mạng nơ-ron ban đầu; lưu ý, ta không áp dụng ``Dropout'' cho tầng đầu ra}
         \label{fig_dropout}
     \end{figure}
 
@@ -244,11 +244,11 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Kết quả trả về sẽ là 1 véc-tơ thể hiện cho tương tác của người dùng được phát sinh từ đặc trưng ẩn.
 
 
-    Encoder được dùng để xấp sỉ được ``posterior'' $p(z_u|x_u)$ thông qua phương pháp Variational Inference. 
+    Encoder được dùng để xấp xỉ được ``posterior'' $p(z_u|x_u)$ thông qua phương pháp Variational Inference. 
     Như đã trình bày ở phần \ref{chap2/subsec21}, phương pháp này xấp xỉ ``posterior'' thông qua một phân phối $q$ cùng ``họ'' phân phối và đơn giản hơn để tính toán.
     Giả định rằng $p(z_u) = \mathcal{N}(0,I)$ là một phân phối chuẩn, thể hiện phân phối xác suất trên không gian của đặc trưng ẩn.
     Do đó, $p(z_u|x_u)$ và $q(z_u|x_u)$ sẽ thuộc cùng họ phân phối ``Gaussian''. 
-    Khi đó $q(z_u|x_u) = \mathcal{N}(\mu_u,\sigma_u^2)$, bằng cách tối thiểu $\mathbb{KL}(q(z_u||x_u) || p(z_u|x_u))$ tìm ra bộ tham số định nghĩa cho phân phối $q$ sao cho $q(z_u | x_u)$ xấp sỉ được $p(z_u|x_u)$.    
+    Khi đó $q(z_u|x_u) = \mathcal{N}(\mu_u,\sigma_u^2)$, bằng cách tối thiểu $\mathbb{KL}(q(z_u||x_u) || p(z_u|x_u))$ tìm ra bộ tham số định nghĩa cho phân phối $q$ sao cho $q(z_u | x_u)$ xấp xỉ được $p(z_u|x_u)$.    
 
     Tuy nhiên với phương pháp này, thì số lượng tham số sẽ tỉ lệ với số lượng người dùng và số lượng sản phẩm.
     Với số lượng tham số như vậy thì nó có thể sẽ dẫn đến các khó khăn khi xây dựng hệ thống gợi ý sản phẩm.
@@ -304,8 +304,8 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Điều này dẫn đến ta không thể cập nhật trọng số $\phi$. 
     \begin{figure}
         \centering
-        \includegraphics[width=1\textwidth]{reparametrization_trick.png}
-        \caption{Minh họa ``Reparametrization trick''. Reparametrization trick giúp ta loại bỏ tính ngẫu nhiên khi lấy mẫu dữ liệu từ phân phối xác suất. Nút hình thoi thể hiện biến cố định, nút hình tròn thể hiện cho biến ngẫu nhiên.}
+        \includegraphics[width=0.7\textwidth]{reparametrization_trick.png}
+        \caption[Minh họa ``Reparametrization trick'']{Minh họa ``Reparametrization trick''. Hình bên trái thể hiện cách bình thường, hình bên phải thể hiện Reparametrization trick. Reparametrization trick giúp ta loại bỏ tính ngẫu nhiên khi lấy mẫu dữ liệu từ phân phối xác suất. Nút hình thoi thể hiện biến cố định, nút hình tròn thể hiện cho biến ngẫu nhiên.}
         \label{fig_repatrick}
     \end{figure}
 
@@ -338,7 +338,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
         f_\theta(z_u) \equiv [f_{u1}, f_{u2}, \dots , f_{uI}]
     \end{equation}
     là kết quả trả về từ decoder, với đầu vào là đặc trưng ẩn $z_u = \mu{x_u}$.
-    Từ kết quả được dự đoán, ta thực hiện sắp xếp lại kết quả (bỏ qua các tương tác trong quá khứ của người dùng).
+    Từ kết quả được dự đoán, ta thực hiện sắp xếp lại kết quả (bỏ qua các tương tác trong lịch sử của người dùng).
     Tập sản phẩm được gợi ý sẽ là tập sản phẩm có kết quả tương tác trả về cao nhất. 
 
     \subsubsection{Lý do ``Variational Auto-Encoder'' phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm}\label{why_vae}
@@ -348,11 +348,11 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     ``Variational Auto-Encoder'' đã đạt được một số thành công nhất định trong bài toán xây dựng hệ thống gợi ý. 
     Theo nghiên cứu của Dacrema \cite{dacrema2019we}, mô hình được đề xuất trong \cite{mvae} đạt được các kết quả tốt trong việc gợi ý và xếp hạng. 
 
-    Lý do mà chúng cho rằng ``Variational Auto-Encoder'' phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm là vì: 
+    Lý do mà chúng tôi cho rằng ``Variational Auto-Encoder'' phù hợp với bài toán xây dựng hệ thống gợi ý sản phẩm là vì: 
     \begin{itemize}
         \item Đầu tiên, ``Variational Auto-Encoder'' có tính tổng quát hóa cao. Có nghĩa là chúng ta có thể có được những mô hình cơ bản hơn như ``Matrix Factorization'', hay ``Auto-Encoder'' cơ bản bằng cách sửa các thiết lập của mô hình. 
         \item Bên cạnh đó, nền tảng của mô hình là ``Variational Inference'', là một phương pháp suy diễn dữ liệu hiệu quả. Dựa vào phương pháp này, ta có được đặc trưng ẩn là một phân phối xác suất. Mô hình này ước lượng phân bố xác xuất của véc-tơ đặc trưng ẩn thay vì ước lượng một véc-tơ đặc trưng ẩn cố định; nghĩa là có sự không chắc chắn ở trong đó, và sự không chắc chắn này có thể phần nào giúp chống overfitting.
-        \item Cuối cùng, như trình bày ở mục \ref{vae_arch} thì mô hình dựa trên ``Amortized inference''. Khi đó, mọi người dùng sẽ chia sẻ chung bộ tham số trong quá trình huấn luyện và đưa ra gợi ý. Điều này có liên hệ với ý tưởng của hướng tiếp cận ``Collaborative filttering'': đó là phân tích tương tác của các người dùng trong quá khứ và tìm ra những mẫu ``pattern'' chung giữa các người dùng để dựa vào đó đưa ra gợi ý cho người dùng khác.
+        \item Cuối cùng, như trình bày ở mục \ref{vae_arch} thì mô hình dựa trên ``Amortized inference''. Khi đó, mọi người dùng sẽ chia sẻ chung bộ tham số trong quá trình huấn luyện và đưa ra gợi ý. Điều này có liên hệ với ý tưởng của hướng tiếp cận ``Collaborative filttering'': đó là phân tích tương tác của các người dùng trong lịch sử và tìm ra những mẫu ``pattern'' chung giữa các người dùng để dựa vào đó đưa ra gợi ý cho người dùng khác.
     \end{itemize}
     \subsection{Dùng hàm chi phí trong quá trình huấn luyện phù hợp hơn với bài toán gợi ý sản phẩm}
 
@@ -382,7 +382,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \end{equation}
 
     có nghĩa rằng, $x_u$ sẽ được phát sinh từ một phân phối xác suất, cụ thể là phân phối đa thức (``Multinomial Distribution'').
-    Với $\pi(z_u)$ là một véc-tơ xác suất thể hiện cho xác suất được chọn của tập $N_u$ sản phẩm  với $N_u$ là số lượng sản phẩm mà người dùng $u$ đẫ tương tác.
+    Với $\pi(z_u)$ là một véc-tơ xác suất thể hiện cho xác suất được chọn của tập $N_u$ sản phẩm  với $N_u$ là số lượng sản phẩm mà người dùng $u$ đã tương tác.
     Ta gọi $f_\theta(z_u) \equiv [f_{u1}, f_{u2}, \dots , f_{uI}] $ 
     là kết quả trả về từ decoder, với đầu vào là đặc trưng ẩn $z_u$.
     Theo đó $\pi_{ui}$ được tính như sau:
@@ -395,7 +395,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     
     Với giả định này thì sau khi decoder nhận đầu vào $z_u$ sẽ trả về véc-tơ $\pi(z_u)$ trên toàn bộ tập sản phẩm trong hệ thống. 
     Hình \ref{fig_mvae} thể hiện kiến trúc mà tác giả đã sử dụng. 
-    Theo đó hàm lỗi được tác giả sử dụng trong trường hợp bài toán xây dựng hệ thống gợi ý sản phẩm là ``Multinomial log likelihood'' 
+    Theo đó hàm lỗi được tác giả sử dụng trong trường hợp bài toán xây dựng hệ thống gợi ý sản phẩm là ``Multinomial log-likelihood'' (logarit của hàm ``Multinomial likelihood'' để thuận tiện cho việc tối ưu hóa được trình bày ở phần~\ref{sec_mle}).
     \begin{equation}
         \log p_\theta(x_u|z_u) = \sum_i x_{ui}\log (\pi_i(z_u))
     \end{equation}
@@ -432,8 +432,8 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Do đó tác giả cũng đề xuất thêm một phương pháp được gọi là ``KL-annealing''.
     Phương pháp này là một phương pháp ``heuristic'' để lựa chọn siêu tham số cho mô hình.
 
-    Ý tưởng của phương pháp là ban đầu ta sẽ gán giá trị cho $\beta =0$.
-    Và beta được tăng dần giá trị $\beta$ cho đến một giá trị cố định nào đó sau mỗi lần cập nhật trọng số của mô hình.
+    Ý tưởng của phương pháp là ban đầu ta sẽ khởi tạo giá trị cho $\beta =0$.
+    Và tăng dần giá trị $\beta$ cho đến một giá trị cố định nào đó sau mỗi lần cập nhật trọng số của mô hình.
     Ở bài báo \cite{mvae} thì tác giả tăng dần $\beta$ từ 0 cho đến 1 thì dừng cập nhật cho $\beta$.
 
     Lý do ta chỉ tăng $\beta$ lên đến giá trị tối đa là 1 bởi vì ta quan tâm đến việc mô hình hóa nhiều hơn là việc phát sinh dữ liệu mới.
