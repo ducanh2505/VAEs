@@ -1,5 +1,24 @@
 \chapter{Kết luận và hướng phát triển}
 \label{Chapter5}
-
 \section{Kết luận}
+Trong khóa luận này, chúng tôi nghiên cứu về bài toán xây dựng hệ thống gợi ý sản phẩm theo hướng tiếp cận ``Collaborative Filtering''.
+Cụ thể, chúng tôi tập trung tìm hiểu cách tiếp cận được đề xuất bởi bài báo \cite{mvae}.
+Hướng tiếp cận này sử dụng mô hình ``Variation Auto-Encoder'', một biến thể đặc biệt của mô hình trích xuất đặc trưng ẩn ``Auto-Encoder'' cơ bản. 
+Mô hình này gồm có hai thành phần là mạng nơ-ron encoder có vai trò trích xuất đặc trưng ẩn từ dữ liệu tương tác của người dùng, và mạng nơ-ron decoder có vai trò dự đoán tương tác của người dùng từ đặc trưng ẩn.
+Ta dựa vào tương tác được dự đoán được trả về từ decoder để đưa ra gợi ý tương tác (chưa được người dùng tương tác trước đó) cho người dùng.
+Mô hình này được mở rộng đề phù hợp hơn với bài toán xây dựng hệ thống gợi ý sản phẩm bằng cách thay đổi hàm lỗi trong quá trình huấn luyện.
+Dưới đây là một số kết quả đạt được của khóa luận. 
+
+Chúng tôi tìm hiểu, cài đặt lại, huấn luyện và kiểm tra mô hình bằng cách sử dụng tập dữ liệu MovieLens và Million Song Datasets. 
+Và để đánh sự hiệu quả của mô hình, chúng tôi sử dụng độ đo ``Normalized Discounted Cumulative Gain'' (NDCG) và ``Recall''.
+Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt và huấn luyện đạt được kết quả tương đương với kết quả được công bố trong bài báo. 
+
+Chúng tôi thực hiện một số thí nghiệm nhằm phân tích khả năng đưa ra gợi ý của mô hình.
+Chẳng hạn, chúng tôi phân tích khả năng đưa ra đưa ra gợi ý dựa trên các tương tác trong lịch sử qua việc phân tích kĩ thuật ``Dropout''.
+Bên cạnh đó chúng tôi còn so sánh, dánh giá việc sử dụng mô hình ``Auto-Encoder'' cơ bản và ``Variational Auto-Encoder'' để mô hình hóa dữ liệu tương tác của người dùng. 
+Kết quả cho thấy, ``Variational Auto-Encoder'' phù hợp hơn với dữ liệu thưa.
+Cuối cùng, chúng tôi thực hiện thí nghiệm để dánh giá việc thay đổi hàm lỗi của mô hình là phù hợp hơn với bài toán xây dựng hệ thống gợi ý sản phẩm.
+Chúng tôi thực hiện huấn luyện và so sánh kết quả của mô hình với các hàm lỗi thông dụng khác. 
+Cụ thể, chúng tôi thực hiện thí nghiệm để phân tích sự hiệu quả của hàm lỗi ``Multinomaial likelihood'' trong việc xếp hạng tập sản phẩm được mô hình trả về.
+
 \section{Hướng phát triển}
