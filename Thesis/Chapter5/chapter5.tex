@@ -15,10 +15,26 @@ Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt và hu
 
 Chúng tôi thực hiện một số thí nghiệm nhằm phân tích khả năng đưa ra gợi ý của mô hình.
 Chẳng hạn, chúng tôi phân tích khả năng đưa ra đưa ra gợi ý dựa trên các tương tác trong lịch sử qua việc phân tích kĩ thuật ``Dropout''.
-Bên cạnh đó chúng tôi còn so sánh, dánh giá việc sử dụng mô hình ``Auto-Encoder'' cơ bản và ``Variational Auto-Encoder'' để mô hình hóa dữ liệu tương tác của người dùng. 
+Bên cạnh đó chúng tôi còn so sánh, đánh giá việc sử dụng mô hình ``Auto-Encoder'' cơ bản và ``Variational Auto-Encoder'' để mô hình hóa dữ liệu tương tác của người dùng. 
 Kết quả cho thấy, ``Variational Auto-Encoder'' phù hợp hơn với dữ liệu thưa.
-Cuối cùng, chúng tôi thực hiện thí nghiệm để dánh giá việc thay đổi hàm lỗi của mô hình là phù hợp hơn với bài toán xây dựng hệ thống gợi ý sản phẩm.
+Cuối cùng, chúng tôi thực hiện kiểm chứng việc thay đổi hàm lỗi của mô hình là phù hợp hơn với bài toán xây dựng hệ thống gợi ý sản phẩm.
 Chúng tôi thực hiện huấn luyện và so sánh kết quả của mô hình với các hàm lỗi thông dụng khác. 
 Cụ thể, chúng tôi thực hiện thí nghiệm để phân tích sự hiệu quả của hàm lỗi ``Multinomaial likelihood'' trong việc xếp hạng tập sản phẩm được mô hình trả về.
 
 \section{Hướng phát triển}
+Mô hình mà chúng tôi lựa chọn để giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm là một trong những mô hình đầu tiên áp dụng mô hình ``Variational Auto-encoder'' và cho kết quả tốt hơn so với những hướng tiếp cận trước đó.
+Nền tảng cua mô hình này là phương pháp ``Variational Inference'', là một phương pháp suy diễn hiệu quả.
+Dựa trên phương pháp này, mô hình phần nào xét thêm các yếu tố ``không chắc chắn'' do đó mô hình có thể hoạt động tốt với dữ liệu thưa.
+Tuy nhiên, nhìn một cách tổng quát thì hệ thống gợi ý sản phẩm có mục đích là tăng lượng tương tác của người dùng lên hệ thống.
+Mặc dù, đa phần người dùng chỉ tương tác một tỉ lệ nhỏ các sản phẩm có trong hệ thống, nhưng không thể bỏ qua trường hợp hệ thống được xây dựng ``đủ lâu'' để lượng tương tác kia tăng lên.
+Khi đó, dữ liệu tương tác của người dùng sẽ giảm đi tính thưa. 
+Kết quả thực nghiệm lại cho thấy khi dữ liệu thưa thì ``Variational Auto-Encoder'' mang lại hiệu quả một cách rõ rệt,
+nhưng khi dữ liệu người dùng tương tác đủ nhiều thì cách biệt không quá lớn so với những phượng pháp trước đó.
+Việc cải thiện mô hình với dữ liệu ``ít'' thưa sẽ là một hướng phát triển trong tương lai để mô hình hoạt động hiệu quả hơn.
+
+Bên cạnh đó, mô hình hiện tại chỉ sử dụng dữ liệu tương tác của các người dùng với các sản phẩm trong hệ thống.
+Thông tin chi tiết của người dùng, hay thông tin chi tiết về sản phẩm sẽ là một nguồn dữ liệu hữu ích để xây dựng một mô hình gợi ý sản phẩm hiệu quả hơn. 
+Việc kết hợp dữ liệu chi tiết về người dùng và sản phẩm để có thể xây dựng hệ thống gợi ý sản phẩm sẽ phải phụ thuộc nhiều về ``Domain Knowlede''.
+Từng lĩnh vực, sẽ có các thông tin về sản phẩm khác nhau, từng hệ thống sẽ có các thông tin về người dùng khác nhau.
+Hơn nữa việc kết hợp các thông tin đó với dữ liệu tương tác của người dùng cũng sẽ là một bài toán cần nghiên cứu và phát triển.
+Vậy nên, việc phát triển mô hình bằng cách kết hợp thêm các thông tin chi tiết về sản phẩm và thông tin chi tiết về người dùng cũng là một hướng nghiên cứu trong tương lai.
