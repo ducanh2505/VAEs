@@ -6,7 +6,7 @@
 Đầu tiên, chúng tôi phân tích hai loại dữ liệu phản hồi được dùng trong bài toán này từ người dùng là:
 ``explicit feedback'' và ``implicit feedback'' và lý do chúng tôi đặc biệt quan tâm xây dựng hệ thống gợi ý với dữ liệu ``implicit feedback''.
 Sau đó, chúng tôi trình bày về cách áp dụng mô hình ``Auto-Encoder'' để có thể xây dựng được một hệ thống gợi ý sản phẩm ở mức cơ bản. 
-Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có được một mô hình gợi ý sản phẩm tốt hơn, bao gồm: áp dụng kỹ thuật ``drop-out'' khi huấn luyện mô hình, thay mô hình ``Auto-Encoder'' bằng một biến thể của nó là ``Variational Auto-Encoder'' và thay đổi hàm mục tiêu để phù hợp hơn với bài toán xây dựng hệ thống gợi ý.}
+Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có được một mô hình gợi ý sản phẩm tốt hơn, bao gồm: áp dụng kỹ thuật ``dropout'' khi huấn luyện mô hình, thay mô hình ``Auto-Encoder'' bằng một biến thể của nó là ``Variational Auto-Encoder'' và thay đổi hàm mục tiêu để phù hợp hơn với bài toán xây dựng hệ thống gợi ý.}
 
 
 \section{Dữ liệu phản hồi của người dùng trong bài toán xây dựng hệ thống gợi ý sản phẩm}
@@ -267,8 +267,8 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
 
 
     Với $x_u$ là dữ liệu tương tác của người dùng, tương tự như kiến trúc mô hình đã được tình bày trước đó ở mục \ref{chap3/sec11}.
-    Trước khi dữ liệu được truyền thẳng qua mạng encoder thì $x_u$ sẽ được thêm nhiễu thông qua một tầng ``drop-out''. 
-    Sau khi drop-out ta có được $\tilde{x}_u$. 
+    Trước khi dữ liệu được truyền thẳng qua mạng encoder thì $x_u$ sẽ được thêm nhiễu thông qua một tầng ``dropout''. 
+    Sau khi dropout ta có được $\tilde{x}_u$. 
     Lúc này $\tilde{x_u}$ sẽ được truyền qua mạng encoder. 
     Sau khi $\tilde{x}_u$ được truyền qua mạng encoder \ref{inference_net}, thì ta có được $z_u$.
     \begin{equation}

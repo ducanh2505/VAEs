@@ -31,7 +31,7 @@ Trong lĩnh vực khoa học máy tính, hệ thống gợi ý sản phẩm là 
 Bài toán xây dựng hệ thống gợi ý được phát biểu như sau:
 \begin{itemize}
     \item Đầu vào là lịch sử tương tác của người dùng (user) với các sản phẩm (items) hoặc có thêm các thông tin mô tả của sản phẩm 
-    (các sản phẩm ở đây có thể là: quảng cáo, bộ phim, bài hát, văn bản để đọc, ... tùy thuộc vào lĩnh vực cụ thể).
+    (các sản phẩm ở đây có thể là: quảng cáo, bộ phim, bài hát, sách, ... tùy thuộc vào lĩnh vực cụ thể).
     \item Yêu cầu máy tính tự động đưa ra các sản phẩm (không có trong lịch sử tương tác) được dự đoán là phù hợp với người dùng.
     %Chúng tôi gọi sản phẩm phù hợp với người dùng là sản phẩm được người dùng ``thích''.
 \end{itemize}
@@ -44,7 +44,7 @@ Tuy vậy, việc xây dựng một hệ thống gợi ý sản phẩm một cá
 Đầu tiên, tùy vào từng lĩnh vực cụ thể, ta cần xét đến nhiều yếu tố khác nhau khi xây dựng một hệ thống gợi ý.
 Từ thực tế cho thấy, các lĩnh vực mà sản phẩm ``tiêu thụ'' và ``sản xuất'' nhanh như: phim, hình ảnh, âm nhạc, ... 
 thì hệ thống gợi ý sẽ ít nhiều đóng vai trò quan trọng. 
-Cũng theo số liệu từ Ivy Pro School \cite{ivy}, 75\% số bộ phim được thuê trên Netflix thông qua hệ thống gợi ý, chứng tỏ sự ảnh hưởng lớn của hệ thống gợi ý đối với lĩnh vực này. 
+Cũng theo số liệu từ Ivy Pro School \cite{ivy}, 75\% số bộ phim được thuê trên Netflix (một nền tảng chiếu phim trực tuyến lớn nhất hiện nay) thông qua hệ thống gợi ý, chứng tỏ sự ảnh hưởng lớn của hệ thống gợi ý đối với lĩnh vực này. 
 Mặt khác, hệ thống gợi ý tác động không nhiều đến các lĩnh vực cung cấp dịch vụ hay sản phẩm giá trị cao như:
 thuê nhà, phương tiện giao thông, thiết bị điện tử, ... vì người dùng cần đánh giá thông qua nhiều yếu tố mới có thể quyết định được. 
 Thứ hai, tùy thuộc vào nhu cầu của người sử dụng mới có thể lựa chọn ``cách'' mà hệ thống gợi ý hoạt động.
@@ -64,7 +64,7 @@ hướng tiếp cận này được gọi là ``Content-Based Filtering'' (lọc
 \begin{figure}
     \centering
 	\includegraphics[width=0.6\textwidth]{CBF.pdf}
-    \caption{Minh họa cách hoạt động của ``Content-Based Filtering'':
+    \caption[Minh họa cách hoạt động của ``Content-Based Filtering'']{Minh họa cách hoạt động của ``Content-Based Filtering'':
     mô hình gợi ý bộ phim có độ tương đồng cao với các bộ phim
     người dùng đã xem trước đó}
     \label{fig_CBF}
@@ -88,7 +88,7 @@ thì hướng tiếp cận này được gọi là ``Collaborative Filtering'' (
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{CF.pdf}
-    \caption{Minh họa cách hoạt động của ``Collaborative Filtering'': hai người dùng cùng xem một (hoặc nhiều) bộ phim 
+    \caption[Minh họa cách hoạt động của ``Collaborative Filtering'']{Minh họa cách hoạt động của ``Collaborative Filtering'': hai người dùng cùng xem một (hoặc nhiều) bộ phim 
     sẽ được hệ thống đánh giá là hai người dùng ``tương đồng'' nhau, khi đó một bộ phim được
     người dùng A xem sẽ được gợi ý cho người dùng B}
     \label{fig_CF}
@@ -144,7 +144,7 @@ Ngoài ra, việc thêm ``nhiễu'' vào dữ liệu huấn luyện của CDAE g
 
 % Ngoài ra, CDAE còn cải tiến từ ``AutoRec'' đó là thêm ``nhiễu'' vào dữ liệu huấn luyện nhằm giúp mô hình tránh được tình trạng ``Over-fitting'' (là trình trạng mà mô hình học ``tủ'' trên tập dữ liệu được huấn luyện nên mô hình đạt kết quả thấp trên các tập dữ liệu kiểm định), thường gặp phải khi huấn luyện mạng nơ-ron với hàm kích hoạt phi tuyến.
 
-Một trong những phương pháp nổi bật nhất tới thời điểm hiện tại trong việc sử dụng kiến trúc mô hình ``Auto-Encoder'' để xây dựng mô hệ thống gợi ý sản phẩm là ``Variational Autoencoder for Collaborative Filtering''\cite{mvae} được giới thiệu bởi tác giả Liang cùng các cộng sự công bố tại hội nghị ``International World Wide Web Conference Committee 2018''. 
+Một trong những phương pháp nổi bật nhất tới thời điểm hiện tại trong việc sử dụng kiến trúc mô hình ``Auto-Encoder'' để xây dựng mô hệ thống gợi ý sản phẩm là ``Variational Autoencoder for Collaborative Filtering'' \cite{mvae} được giới thiệu bởi tác giả Liang cùng các cộng sự tại hội nghị ``International World Wide Web Conference Committee 2018''. 
 Đây là một phương pháp sử dụng mô hình ``Variational Auto-encoder'' (VAE) - một biến thể của mô hình ``Auto-Encoder'' cơ bản để có thể xây dựng một hệ thống gợi ý sản phẩm hiệu quả.
 ``Variational Auto-encoder'' đã đạt được một số thành công nhất định trong bài toán xây dựng hệ thống gợi ý. 
 Theo nghiên cứu của Dacrema \cite{dacrema2019we}, mô hình được đề xuất trong \cite{mvae} đạt được các kết quả tốt trong việc gợi ý và xếp hạng. 
@@ -221,7 +221,8 @@ Phần còn lại của khóa luận được trình bày như sau:
 
 \begin{itemize}
     \item Chương~\ref{Chapter2} trình bày sơ lược về mô hình ``Auto-Encoder'' và các kiến thức nền tảng của mô hình ``Variational Auto-Encoder''.
-    \item Chương~\ref{Chapter3} trình bày về cách áp dụng mô hình ``Variational Auto-Encoder'' cùng với hàm lỗi ``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý. Bên cạnh đó, chương này cũng phân tích các hạn chế của mô hình đồng thời đề xuất phương pháp giúp giải quyết các hạn chế đó. Chương này là phần chính của khóa luận.
+    % \item Chương~\ref{Chapter3} trình bày về cách áp dụng mô hình ``Variational Auto-Encoder'' cùng với hàm lỗi ``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý. Bên cạnh đó, chương này cũng phân tích các hạn chế của mô hình đồng thời đề xuất phương pháp giúp giải quyết các hạn chế đó. Chương này là phần chính của khóa luận.
+    \item Chương~\ref{Chapter3} trình bày về mô hình được đề xuất ở bài báo \cite{mvae}. Đầu tiên, chúng tôi sẽ trình bày cách áp dụng mô hình ``Auto-Encoder'' để xây dựng một hệ thống gợi ý sản phẩm ở mức cơ bản. Kế tiếp, chúng tôi trình bày những hạn chế của mô hình này và dẫn dắt đến mô hình ``Variational Auto-Encoder'' cùng với một số tinh chỉnh để có được hệ thống gợi ý sản phẩm tốt hơn. Chương này là phần chính của khóa luận.  
     \item Chương~\ref{Chapter4} trình bày về các thí nghiệm và các kết quả đạt được.
     \item Cuối cùng, tổng kết và hướng phát triển được trình bày ở chương~\ref{Chapter5}.
 \end{itemize}

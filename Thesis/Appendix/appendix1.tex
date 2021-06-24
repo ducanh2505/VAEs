@@ -37,10 +37,14 @@
     NDCG sẽ có miền giá trị thuộc $[0, 1]$.
 
 \subsection{Độ đo ``Recall''}
-    Độ đo ``Recall'' cho $k$ sản phẩm trong hệ thống gợi ý là độ đo đánh giá tỉ lệ sản phẩm được gợi ý phù hợp với người dùng trong k sản phẩm được gợi ý.
+    Độ đo ``Recall'' cho ``top-k'' sản phẩm được hệ thống gợi ý là độ đo đánh giá tỉ lệ sản phẩm được gợi ý phù hợp với người dùng trong k sản phẩm được gợi ý.
     Độ đo ``Recall'' cho k sản phẩm được tính bằng công thức:
     \begin{equation}
         Recall@k = \frac{\sum_{i = 1}^k \mathbb{I}[\omega(i) \in I_u]}{min(k, |I_u|)}
     \end{equation}
-    Trong đó, $\omega(i)$ là sản phẩm được gợi ý thứ $i$, $I_u$ là tập sản phẩm người dùng tương tác. $\mathbb{I}[.]$ là hàm chỉ thị (``indicator function''), hàm này sẽ trả về 1 nếu sản phẩm được gợi ý thứ $i$ có trong tương tác của người dùng. $|I_u|$ là số lượng sản phẩm người dùng tương tác.
+    
+    Trong đó, $\omega(i)$ là sản phẩm được gợi ý thứ $i$, $I_u$ là tập ản phẩm người dùng tương tác. $\mathbb{I}[.]$ là hàm chỉ thị (``indicator function''), hàm này sẽ trả về 1 nếu sản phẩm được gợi ý thứ $i$ có trong tương tác của người dùng. $|I_u|$ là số lượng sản phẩm người dùng tương tác.
+
+    Độ đo Recall sẽ có miền giá trị thuộc $[0, 1]$.
+
 
