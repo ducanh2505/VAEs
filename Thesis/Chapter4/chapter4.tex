@@ -135,9 +135,20 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
         \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (cài đặt của tác giả Lobel)\end{tabular}} & 0.260              & 0.356              & 0.310             \\ \hline
         \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (cài đặt của tác giả Liang)\end{tabular}} & 0.266              & 0.364              & 0.316             \\ \hline
         \end{tabular}
-        \caption[]{Kết quả cài đặt của khoá luận so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
+        \caption[Kết quả trên tập MSD so với hai bài báo \cite{mvae} và \cite{ract}]{Kết quả cài đặt của khoá luận so với kết quả cài đặt trong bài báo của tác giả Lobel \cite{ract} và  bài báo của tác giả Liang \cite{mvae} trên tập dữ liệu MSD}
         \label{table_compareMSD}
         \end{table}
+    
+    \subsection{Phân tích ảnh hưởng bởi ``input'' trong quá trình huấn luyện}
+    
+    Như đã trình bày ở phần~\ref{DAE_recsys}, chúng tôi sử dụng kỹ thuật ``dropout'' để làm nhiễu véc-tơ tương tác của người dùng trước khi đưa vào huấn luyện. Ở phần này, chúng tôi sẽ chứng minh ảnh hưởng của việc sử dụng ``dropout'' khi huấn luyện mô hình. 
+
+    Chúng tôi thiết lập các thí nghiệm nhằm so sánh ảnh hưởng của ``dropout'' để đánh giá với hai mô hình sử dụng ``dropout'' trong~\ref{experiment1}. Chúng tôi sử dụng mô hình ``Auto-Encoder'' (AE) và ``Variational Auto-Encoder'' (VAE) với thiết lập giống các thiết lập trong~\ref{setup_experiment} nhưng không áp dụng ``dropout'' cho véc-tơ đầu vào. 
+    Chúng tôi huấn luyện và đánh giá hai mô hình này trên tập dữ liệu MovieLens \cite{Ml20M} và MSD \cite{MSD}.
+    
+
+    
+    
     \subsection{Phân tích ``Multinomial Likelihood''}
 
     Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi Multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
@@ -188,7 +199,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
         \textbf{DAE}  & \textbf{0.423}                        & 0.409                        & 0.412                        \\ \hline
         \end{tabular}
     
-    \caption[]{Độ đo NDCG@100 trên các mô hình VAE và DAE với các hàm lỗi khác nhau trên tập dữ liệu MovieLens}
+    \caption[Kết quả mô hình với các hàm lỗi khác nhau]{Độ đo NDCG@100 trên các mô hình VAE và DAE với các hàm lỗi khác nhau trên tập dữ liệu MovieLens}
     \label{table:comparell}
     \end{table}   
    
@@ -251,13 +262,13 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     \begin{figure}
         \centering
         \includegraphics[width=1\textwidth]{vae_dae_ml.png}
-        \caption{So sánh Mult-VAE và Mult-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập MovieLens}
+        \caption[So sánh Mult-VAE và Mult-DAE trên tập MovieLens]{So sánh Mult-VAE và Mult-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập MovieLens}
         \label{fig_vae_dae_ml}
     \end{figure}
     \begin{figure}
         \centering
         \includegraphics[width=1\textwidth]{vae_dae_msd.png}
-        \caption{So sánh Mult-VAE và Mult-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập Million Song Datasets}
+        \caption[So sánh Mult-VAE và Mult-DAE trên tập MSD]{So sánh Mult-VAE và Mult-DAE ở các mức độ tương tác khác nhau trên tập kiểm tra trên tập Million Song Datasets}
         \label{fig_vae_dae_msd}
     \end{figure}
 
@@ -270,7 +281,3 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
 
     Kết quả thí nghiệm giúp ta đã giúp khẳng định lại được độ hiệu quả của mô hình Mult-VAE được đề xuất trong bài báo \cite{mvae}. 
     Tuy trên tổng quan thì Mult-VAE không quá vượt trội so với Mult-DAE nhưng ở trường hợp dữ liệu tương tác người dùng ở mức độ thấp thì Mult-VAE mang lại kết quả cực kỳ ấn tượng.
-
-
-
-    
