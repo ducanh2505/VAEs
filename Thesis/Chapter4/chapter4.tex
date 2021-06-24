@@ -190,10 +190,54 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     
     \caption[]{Độ đo NDCG@100 trên các mô hình VAE và DAE với các hàm lỗi khác nhau trên tập dữ liệu MovieLens}
     \label{table:comparell}
-    \end{table}
+    \end{table}   
+   
+   \subsection{Phân tích sự đánh đổi trong hàm ELBO}
+   Như đã trình bày ở phần \ref{subsubsecELBO} thì trong hàm ELBO, hàm mục tiêu trong quá trình huấn luyện ``Variational Auto-Encoder'', có tồn tại một sự đánh đổi.
+   Đó là sự đánh đổi giữa việc mô hình hóa dữ liệu và việc đặc trưng ẩn được phát sinh tuân theo phân phối xác suất đã được giả định trước trong việc huấn luyện mô hình.
+   Và chúng tôi đã đưa ra khẳng định rằng trong bài toán xây dựng gợi ý sản phẩm thì ta sẽ quan tâm đến khả năng mô hình hoá nhiều hơn là việc đảm bảo đặc trưng ẩn tuân theo một phân phối xác suất.
+   Do đó, ở mục này chúng tôi sẽ tiến hành kiểm chứng lại điều này.
+
+   Chúng tôi thực hiện huấn luyện mô hình ``Variational Auto-Encoder'' với hai độ lỗi khác nhau, tương ứng với hàm ELBO thông thường (công thức \ref{elbo_mvae}) và hàm ELBO với tham số $\beta$ (công thức \ref{elbo_betamvae}) để kiểm soát sự đánh đổi nói trên.
+   Để thống nhất thì chúng tôi sẽ huấn luyện một mô hình với kĩ thuật ``KL-annealing'' (được trình bày ở mục \ref{subsubsecELBO}) và một mô hình với giá trị $\beta =1$ cố định.
+   Với $\beta = 1$ thì ta có được hàm ELBO thông thường, do đó this nghiệm này nhằm mục đích để kiểm chứng sự ảnh hưởng của siêu tham số $\beta$ trong bài toán xây dựng hệ thống gợi ý sản phẩm.
+   Với kĩ thuật ``KL-annealing'' chúng tôi sẽ để giới hạn cho mô hình là 0.2, có nghĩa là $\beta$ được tăng dần từ 0 đến 0.2.
+   Giá trị giới hạn được lựa chọn dựa trên những thực nghiệm trước đó, chung tôi dựa vào những lần huấn luyện trước đó và nhận thấy rằng giới hạn $\beta$ bằng 0.2 cho kết quả mô hình tốt nhất.
+   %Ngoài ra với tập dữ liệu MSD thì chúng tôi còn thực hiện thêm việc huấn luyện mô hình với giá trị giới hạn của $\beta = 1$.
+   %Nhằm mục có thể thể hiện rõ hơn sự ảnh hưởng của giá trị của siêu tham số $\beta$
+   Quá trình huấn luyện sẽ được thực hiện như các thiết lập đã trình bày ở mục \ref{setup_experiment}.
+   Việc đánh giá dựa trên độ đo NDCG@100 ở tập đánh giá (validation set) và được thực hiện trên cả hai tập dữ liệu MovieLen và Million Song Datasets.
+   
+   \begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{movilen_beta.png}
+    \caption[Mô hình Mult-VAE trong việc kiểm soát siêu tham số]{So sánh Mult-VAE trong việc kiểm soát tham sự đánh đổi giữa khả năng mô hình hóa và việc đặc trưng ẩn tuân theo phân phối xác suất trên tập MovieLen}
+    \label{beta_movielen}
+    \end{figure}
+
+    Hình \ref{beta_movielen} thể hiện kết quả khi huấn luyện mô hình trên tập dữ liệu MovieLen.
+    Ta dễ dàng thấy được rằng, khi thực hiện huấn luyện mô hình với hàm ELBO thông thường ($\beta=1$ tương ứng với hàm ELBO thông thường) thì cho kết quả thấp hơn hẳn so với phiên bản có sự kiểm soát của siêu tham số $\beta$.
+    Với những epoch đầu, thì cách biệt không quá lớn và cũng k ổn định, tuy nhiên sau một số lượng epoch nhất định thì cách biệt này dần trở nên rõ rệt hơn.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{msd_beta.png}
+        \caption[Mô hình Mult-VAE trong việc kiểm soát siêu tham số]{So sánh Mult-VAE trong việc kiểm soát tham sự đánh đổi giữa khả năng mô hình hóa và việc đặc trưng ẩn tuân theo phân phối xác suất trên tập MovieLen}
+        \label{beta_msd}
+    \end{figure}
+
+
+    
+    Hình \ref{beta_msd} thể hiện kết quả khi thí nghiệm trên tập dữ liệu MSD. 
+    Ở tập dữ liệu này ta có thể thấy rõ ràng sự khác biệt trong việc kiểm soát siêu tham số $\beta$.
+    Theo đó, ta dễ dàng thấy được ngay từ những epoch đầu, với hàm ELBO thông thường sẽ cho kết quả cực kỳ thấp. 
+    Ngược lại với việc có siêu tham số $\beta$ kiểm soát thì kết quả ngày từ những epoch đầu cũng đã vượt trội hơn và phần nào mô hình cũng ổn định hơn. 
+
+    Qua kết quả trên, ta có thể thấy được rằng trong bài toán xây dựng hệ thống gợi ý sản phẩm thì việc có sự kiểm soát giữa khả năng mô hình hóa dữ liệu của mô hình và việc đặc trưng ẩn được phát sinh là một yếu tố quan trọng để xây dựng một hệ thống gợi ý sản phẩm hiệu quả.
 
 
 
+   
     \subsection{``Variational Auto-encoder'' và ``Auto-encoder'' đối với trường hợp dữ liệu thưa}
     Trong phần này, mục tiêu của  chúng tôi là kiểm chứng về sự phù hợp của ``Variational Auto-encoder'' so với ``Auto-encoder'', cụ thể là so sánh Mult-VAE và Mult-DAE.
     Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp ``Bayesian inference'' cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
@@ -229,3 +273,4 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
 
 
 
+    
