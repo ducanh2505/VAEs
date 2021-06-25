@@ -69,7 +69,7 @@ Như đề xuất của tác giả Liang trong bài báo \cite{mvae}, chúng tô
 
 Chúng tôi điều chỉnh siêu tham số $\beta$ của mô hình Mult-VAE với 200,000 bước cập nhật theo phương pháp ``KL-annealing'' được trình bày ở phần~\ref{subsubsecELBO}. Và áp dụng một lượng ``weight-decay'' 0.01 cho Mult-DAE. 
 
-Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE bằng thuật toán Adam \cite{Goodfellow-et-al-2016-Book} với hệ số học (``learning rate'') là \textit{0.001} trên các tập dữ liệu MovieLens \cite{Ml20M} với 200 ``epoch'' và Million Song Dataset \cite{MSD} với 100 ``epoch'' (mỗi ``epoch'' là một lần mô hình duyệt qua hết dữ liệu huấn luyện).
+Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE bằng thuật toán Adam \cite{Goodfellow-et-al-2016-Book} với hệ số học (``learning rate'') là \textit{0.001} trên các tập dữ liệu MovieLens \cite{Ml20M} với 200 ``epoch'' và Million Song Dataset \cite{MSD} với 100 ``epoch'' (mỗi ``epoch'' là một lần mô hình duyệt qua hết dữ liệu huấn luyện) và lưu lại mô hình cho kết quả tốt nhất trên tập dữ liệu kiểm định (validation) để đánh giá kết quả. 
 
 
 \section{Các kết quả thí nghiệm}
@@ -139,26 +139,46 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
         \label{table_compareMSD}
         \end{table}
     
+    
+    
+    \newpage
     \subsection{Phân tích ảnh hưởng bởi ``input'' trong quá trình huấn luyện}
     
     Như đã trình bày ở phần~\ref{DAE_recsys}, chúng tôi sử dụng kỹ thuật ``dropout'' để làm nhiễu véc-tơ tương tác của người dùng trước khi đưa vào huấn luyện. Ở phần này, chúng tôi sẽ chứng minh ảnh hưởng của việc sử dụng ``dropout'' khi huấn luyện mô hình. 
 
     Chúng tôi thiết lập các thí nghiệm nhằm so sánh ảnh hưởng của ``dropout'' để đánh giá với hai mô hình sử dụng ``dropout'' trong~\ref{experiment1}. Chúng tôi sử dụng mô hình ``Auto-Encoder'' (AE) và ``Variational Auto-Encoder'' (VAE) với thiết lập giống các thiết lập trong~\ref{setup_experiment} nhưng không áp dụng ``dropout'' cho véc-tơ đầu vào. 
-    Chúng tôi huấn luyện và đánh giá hai mô hình này trên tập dữ liệu MovieLens \cite{Ml20M} và MSD \cite{MSD}.
-    
+    Chúng tôi huấn luyện và đánh giá hai mô hình này trên tập dữ liệu MovieLens \cite{Ml20M}.
     \begin{table}[]
         \centering
-        \begin{tabular}{llll}
-                          & \textbf{Recall@20} & \textbf{Recall@50} & \textbf{NDCG@100} \\
-        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (không ``dropout'')\end{tabular}}   & 0.36  & 0.50  & 0.391 \\
-        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (áp dụng ``dropout'')\end{tabular}} & 0.395 & 0.537 & 0.429 \\
-        \textbf{Mult-AE}  & 0.361              & 0.50               & 0.390             \\
-        \textbf{Mult-DAE} & 0.398              & 0.535              & 0.422            
+        \begin{tabular}{|l|c|c|c|}
+        \hline
+        & \multicolumn{1}{l|}{\textbf{Recall@20}} & \multicolumn{1}{l|}{\textbf{Recall@50}} & \multicolumn{1}{l|}{\textbf{NDCG@100}} \\ \hline
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (không ``dropout'')\end{tabular}}   & 0.36  & 0.50  & 0.391 \\ \hline
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (áp dụng ``dropout'')\end{tabular}} & 0.395 & 0.537 & 0.429 \\ \hline
+        \textbf{Mult-AE}                                                                  & 0.361 & 0.50  & 0.390 \\ \hline
+        \textbf{Mult-DAE}                                                                 & 0.398 & 0.535 & 0.422 \\ \hline
         \end{tabular}
-    \caption{Kết quả của mô hình VAE và AE khi không sử dụng ``dropout'' so với mô hình có sử dụng ``dropout''}
+    \caption{Kết quả của mô hình VAE và AE khi không sử dụng ``dropout'' so với mô hình có sử dụng ``dropout'' trên tập MovieLens}
+    \label{table:comparedropoutML}
     \end{table}
     
+    Bảng~\ref{table:comparedropoutML} thể hiện kết quả của các mô hình khi không sử dụng `dropout' cho véc-tơ đầu vào so với các mô hình được thiết lập trong~\ref{setup_experiment}. Ta có thể thấy khi không áp dụng ``dropout'', ``Auto-Encoder'' (AE) và ``Variational Auto-Encoder'' (VAE) cho kết quả tương đương nhau và đều thấp hơn hai mô hình có áp dụng ``dropout''. Như đã đề cập ở phần~\ref{setup_experiment}, mô hình được dùng để đánh giá trên tập dữ liệu kiểm tra là mô hình cho kết quả tốt nhất trên tập dữ liệu kiểm định. Theo hình~\ref{ndcg_AE_ML20} và hình~\ref{ndcg_VAE_ML20}, khi bắt đầu huấn luyện các mô hình ở một số epoch đầu, các mô hình không sử dụng ``dropout'' có độ đo NDCG@100 cao, sau đó giảm ở những epoch tiếp theo. Việc này là do các mô hình không sử dụng ``dropout'' không có ràng buộc để đưa ra gợi ý, do đó các mô hình này vẫn thực hiện mục đích chính là tái tạo dữ liệu giống với dữ liệu đầu vào nhất có thể. 
     
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{ndcg_AEvsDAE_ML20.png}
+        \caption[Độ đo NDCG trên tập kiểm tra của mô hình AE trên tập dữ liệu MovieLens]{Độ đo NDCG@100 trên tập dữ liệu kiểm định của bộ dữ liệu MovieLens của hai mô hình AE khi áp dụng ``dropout'' và không sử dụng ``dropout''}
+        \label{ndcg_AE_ML20}
+    \end{figure}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{ndcg_VAE_ML20.png}
+        \caption[Độ đo NDCG trên tập kiểm tra của mô hình VAE trên tập dữ liệu MovieLens]{Độ đo NDCG@100 trên tập dữ liệu kiểm định của bộ dữ liệu MovieLens của hai mô hình VAE khi áp dụng ``dropout'' và không sử dụng ``dropout''}
+        \label{ndcg_VAE_ML20}
+    \end{figure}
+
+
     \subsection{Phân tích ``Multinomial Likelihood''}
 
     Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi Multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
