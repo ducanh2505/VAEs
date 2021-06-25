@@ -1,4 +1,6 @@
 \chapter{Thí nghiệm}
+
+\setlength{\parindent}{6.5ex}
 \label{Chapter4}
 \graphicspath{{Chapter4/Chapter4Figs}}
 \textit{Trong chương này, chúng tôi trình bày các kết quả thí nghiệm nhằm đánh giá những nội dung trình bày ở chương \ref{Chapter3}. Bộ dữ liệu được dùng để tiến hành các thí nghiệm là bộ MovieLens-20M \cite{Ml20M} và Million Song Dataset \cite{MSD}; bên cạnh đó, độ đo được sử dụng để đánh giá khả năng đưa ra gợi ý của mô hình là Normalized Discounted Cumulative Gain (NDCG) và  Recall. Kết quả thí nghiệm cho thấy mô hình do chúng tôi cài đặt đạt được kết quả xấp xỉ so với kết quả được công bố trong bài báo \cite{mvae}. Bên cạnh đó, các kết quả thí nghiệm cũng chứng tỏ mô hình "Variational Auto-Encoder" có khả đưa ra các gợi ý sản phẩm phù hợp hơn so với mô hình "Auto-Encoder" cơ bản, đặc biệt là trong trường hợp dữ liệu tương tác của người dùng thưa. Ngoài ra, các kết quả thí nghiệm cũng cho thấy việc thay đổi hàm mục tiêu trong quá trình huấn luyện giúp mô hình đưa ra kết quả tốt hơn cho bài toán gợi ý sản phẩm.}
@@ -38,7 +40,6 @@ Sau khi lọc dữ liệu theo điều kiện đã nói, số lượng người 
     \caption{Thống kê số lượng người dùng, số lượng sản phẩm, số lượng tương tác trong các tập dữ liệu}
     \label{table_dataset}    
 \end{table}
-
 
 Chúng tôi tiến hành ``chuẩn hóa'' dữ liệu về dạng ``implicit feedback''. Đối với tập dữ liệu MovieLens, chúng tôi 
 chúng tôi chuyển dữ liệu thành dạng ma trận tương tác nhị phân, với các đánh giá của người dùng từ 4 trở lên (nghĩa là người dùng thích bộ phim đó) mang giá trị 1 trong ma trận nhị phân.
