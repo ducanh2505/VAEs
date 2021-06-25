@@ -152,7 +152,9 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     Sau khi huấn luyện mô hình với hàm mục tiêu trên, ta tìm được được bô tham số $\theta^*$, thì để dự đoán tương tác của người dùng u với sản phẩm i cụ thể sẽ là: 
     $$\widehat{x}_{ui} = h(x_{ui},\theta^*)$$
     Với tương tác được dự đoán, cụ thể là những tương tác lên những sản phẩm chưa được người dùng thực hiện trước đó, ta chọn ra những sản phẩm có kết quả trả về cao nhất để có thể đưa ra gợi ý cho người dùng. 
+    
 
+\section{Tinh chỉnh cách áp dụng mô hình ``Auto-Encoder'' để có được hệ thống gợi ý sản phẩm hoạt động tốt hơn}
 
     \subsection{Thay đổi ``input'' và ``output'' trong quá trình huấn luyện mô hình để phù hợp hơn với bài toán gợi ý sản phẩm}
     \label{DAE_recsys}
@@ -169,7 +171,7 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
         \item Thực tế thì mô hình vẫn đang làm tác vụ là tái tạo lại tương tác của người dùng chứ chưa thực sự được huấn luyện để dự đoán những sản phẩm mà người dùng sẽ tương tác dựa lịch sử tương tác của họ.
         \item Một hạn chế khác đó là tình trạng ``overfiting'' khi huấn luyện mạng nơ-ron. Với việc thêm hệ số ``regularization'' để huấn luyện nhưng với dữ liệu thưa thì việc chính quy hóa sẽ không thực sự hiệu quả. 
     \end{itemize}
-    
+
     Một phương pháp mà chúng tôi sử dụng để có thể giải quyết những vấn đề trên đó là chúng tôi ``che'' đi một số tương tác trước khi dữ liệu được truyền thẳng qua mạng encoder. 
     Nói cách khác là chúng tôi áp dụng kỹ thuật ``dropout'' cho véc-tơ đầu vào, ``dropout'' là một phương pháp ``regularization'' thường được áp dụng khi huấn luyện các mạng học nơ-ron \cite{Goodfellow-et-al-2016-Book}.
     ``Dropout'' huấn luyện một tập các mạng con mà các mạng con này được định nghĩa bằng cách bỏ đi một số nơ-ron (không phải nơ-ron đầu ra) của mạng ban đầu. 
@@ -190,33 +192,33 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
         \label{z_u_with_x_tilde}
         z_u = g(W^T \tilde{x}_u + b_1)
     \end{equation}
-    
+
     Với việc sử dụng thêm ``nhiễu'' vào dữ liệu tương tác ban đầu của người dùng sẽ mang lại cho mô hình ``Auto-Encoder'' phù hợp hơn và hiệu quả hơn khi huấn luyện với dữ liệu tương tác của người dùng.
     Nói cách khác đó là sau khi thực hiện thêm nhiễu, mô hình sẽ thực sự là dự đoán những tương tác bị che từ những tương tác có trước đó trong lịch sử của người dùng thay vì chỉ để tái tạo lại tương tác của người dùng trước đó.
 
     Bên cạnh đó, ``dropout'' là một kỹ thuật khi huấn luyện mạng nơ-ron để ngăn tình trạng ``overfitting'' hiệu quả.
     Hình \ref{fig_recdae} thể hiện cho ý tưởng sử dụng kiến trúc Denosing Auto-Encoder cho bài toán gợi ý sản phẩm.     
 
-    
-
-\section{Tinh chỉnh cách áp dụng mô hình ``Auto-Encoder'' để có được hệ thống gợi ý sản phẩm hoạt động tốt hơn}
-    Trong lĩnh vực trí tuệ nhân tạo, dữ liệu đóng vài trò cực kỳ quan trọng.
-    Đặc biệt là lĩnh vực máy học, việc hiểu được dữ liệu sẽ góp phần không nhỏ đến việc xây dựng một mô hình hiệu quả. 
-    Đối với bài toán xây dựng hệ thống gợi ý sản phẩm, trong thực tế mỗi người dùng sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm trên toàn bộ hệ thống.
-    Điều này dẫn đến dữ liệu tương tác của người dùng sẽ là dữ liệu thưa.
-    Với đặc điểm này, tác giả Liang trong bài báo \cite{mvae} mà chúng tôi tìm hiểu trong khóa luận đã đề xuất việc sử dụng mô hình ``Variational Auto-Encoder'' (VAE), một biến thể đặc biệt của ``Auto-Encoder'' cơ bản để xây dựng hệ thống gợi ý sản phẩm. 
-    Bên cạnh đó, tác giả Liang cũng đã có một số tinh chỉnh về hàm chi phí giúp mô hình hoạt động tốt hơn.
+    % Trong lĩnh vực trí tuệ nhân tạo, dữ liệu đóng vài trò cực kỳ quan trọng.
+    % Đặc biệt là lĩnh vực máy học, việc hiểu được dữ liệu sẽ góp phần không nhỏ đến việc xây dựng một mô hình hiệu quả. 
+    % Đối với bài toán xây dựng hệ thống gợi ý sản phẩm, trong thực tế mỗi người dùng sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm trên toàn bộ hệ thống.
+    % Điều này dẫn đến dữ liệu tương tác của người dùng sẽ là dữ liệu thưa.
+    % Với đặc điểm này, tác giả Liang trong bài báo \cite{mvae} mà chúng tôi tìm hiểu trong khóa luận đã đề xuất việc sử dụng mô hình ``Variational Auto-Encoder'' (VAE), một biến thể đặc biệt của ``Auto-Encoder'' cơ bản để xây dựng hệ thống gợi ý sản phẩm. 
+    % Bên cạnh đó, tác giả Liang cũng đã có một số tinh chỉnh về hàm chi phí giúp mô hình hoạt động tốt hơn.
 
     Trong phần này chúng tôi sẽ trình bày về kiến trúc mô hình VAE cũng như là những cải thiện cho mô hình trong tác vụ gợi ý sản phẩm cho người dùng được đề xuất trong bài báo \cite{mvae}. 
 
     \subsection{Thay ``Auto-Encoder'' bằng ``Variational Auto-Encoder''}
-    
-    Dữ liệu tương tác trong hệ thống gợi ý sản phẩm thường là dữ liệu thưa, có nghĩa là các phần tử trong véc-tơ input đầu vào sẽ đa phần sẽ mang giá trị 0. 
+    Đối với bài toán xây dựng hệ thống gợi ý sản phẩm, trong thực tế mỗi người dùng sẽ chỉ tương tác với một lượng nhỏ số lượng sản phẩm trên toàn bộ hệ thống.
+    Điều này dẫn đến dữ liệu tương tác của người dùng sẽ là dữ liệu thưa.    
+    Có nghĩa là các phần tử trong véc-tơ input đầu vào sẽ đa phần sẽ mang giá trị 0. 
     Ngoài ra, mục tiêu của một hệ thống gợi ý sản phẩm chính là việc tăng thêm số lượng tương tác của người dùng lên hệ thống, đặc biệt là khi người dùng chưa tương tác nhiều.
     % Do đó, trong trường hợp này, nếu áp dụng những phương pháp dựa trên mạng nơ-ron thông thường sẽ dễ dẫn đến tình trạng ``overfitting'' khi mà dữ liệu đầu vào ít nên mô hình không học được.
+
     Do đó, trong trường hợp này nếu áp dụng các mô hình ``Auto-Encoder'' truyền thống sẽ dẫn đến tình trạng ``overfitting'', nghĩa là không sinh ra được gợi ý cho người dùng.
+    Với đặc điểm này, tác giả Liang trong bài báo \cite{mvae} mà chúng tôi tìm hiểu trong khóa luận đã đề xuất việc sử dụng mô hình ``Variational Auto-Encoder'' (VAE), một biến thể đặc biệt của ``Auto-Encoder'' cơ bản để xây dựng hệ thống gợi ý sản phẩm. 
+    Bên cạnh đó, tác giả Liang cũng đã có một số tinh chỉnh về hàm chi phí giúp mô hình hoạt động tốt hơn.
     
-    Dựa vào hạn chế này, bài báo đã đề xuất việc sử dụng mô hình ``Variational Auto-Encoder''.
     Đây là một mô hình mạng nơ-ron nhưng với nền tảng xác suất, cụ thể là phương pháp Variational Inference - một phương pháp suy diễn dữ liệu trong lĩnh vực xác suất thống kê.
     Như đã trình bày ở phần~\ref{chap2/sec2}, đây là một biến thể đặc biệt của ``Auto-Encoder'' cơ bản, với việc đặc trưng ẩn được rút trích là một phân phối xác suất, mô hình đã mang lại ý nghĩa xác suất cho đặc trưng ẩn.
     Nói cách khác, đặc trưng giờ đây không chỉ thể hiện cho tương tác của người dùng, ngoài ra, là một phân phối xác suất thì đặc trưng ẩn còn có thể thể hiện được sự không chắc chắn ở trong đó, và sự không chắc chắn này có thể phần nào giúp giảm hiện tượng ``overfitting''.

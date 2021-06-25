@@ -146,7 +146,17 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     Chúng tôi thiết lập các thí nghiệm nhằm so sánh ảnh hưởng của ``dropout'' để đánh giá với hai mô hình sử dụng ``dropout'' trong~\ref{experiment1}. Chúng tôi sử dụng mô hình ``Auto-Encoder'' (AE) và ``Variational Auto-Encoder'' (VAE) với thiết lập giống các thiết lập trong~\ref{setup_experiment} nhưng không áp dụng ``dropout'' cho véc-tơ đầu vào. 
     Chúng tôi huấn luyện và đánh giá hai mô hình này trên tập dữ liệu MovieLens \cite{Ml20M} và MSD \cite{MSD}.
     
-
+    \begin{table}[]
+        \centering
+        \begin{tabular}{llll}
+                          & \textbf{Recall@20} & \textbf{Recall@50} & \textbf{NDCG@100} \\
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (không ``dropout'')\end{tabular}}   & 0.36  & 0.50  & 0.391 \\
+        \textbf{\begin{tabular}[c]{@{}l@{}}Mult-VAE\\ (áp dụng ``dropout'')\end{tabular}} & 0.395 & 0.537 & 0.429 \\
+        \textbf{Mult-AE}  & 0.361              & 0.50               & 0.390             \\
+        \textbf{Mult-DAE} & 0.398              & 0.535              & 0.422            
+        \end{tabular}
+    \caption{Kết quả của mô hình VAE và AE khi không sử dụng ``dropout'' so với mô hình có sử dụng ``dropout''}
+    \end{table}
     
     
     \subsection{Phân tích ``Multinomial Likelihood''}

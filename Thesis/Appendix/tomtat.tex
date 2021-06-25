@@ -12,11 +12,11 @@ Với việc bùng nổ dữ liệu trên Internet hiện nay, việc xây dựn
     \item Tiến trình phát sinh: mạng nơ-ron decoder dựa trên mô hình ``Auto-Encoder'' nhằm tái tạo lại tương tác của người dùng từ đặc trưng ẩn.
 \end{itemize}
 
-Ưu điểm của mô hình này này là dựa phương pháp ``Variational Inference'', một phương pháp dùng để suy diễn dữ liệu hiệu quả. Mô hình sẽ ước lượng một phân phối xác suất cho đặc trưng ẩn thay vì một véc-tơ cố định; nghĩa là không có sự chắc chắn trong đó, sự không chắc chắn này phần nào giúp hạn chế việc ``overfitting''. Trong thực tế, dữ liệu tương tác của người dùng thường là dữ liệu thưa (đa số các phần tử trong véc-tơ này là 0) vì mỗi người dùng chỉ tương tác với một lượng nhỏ sản phẩm trên toàn bộ hệ thống, do đó việc suy diễn trở nên hiệu quả hơn. 
+Ưu điểm của mô hình này này là dựa trên phương pháp ``Variational Inference'', một phương pháp dùng để suy diễn dữ liệu hiệu quả. Mô hình sẽ ước lượng một phân phối xác suất cho đặc trưng ẩn thay vì một véc-tơ cố định; nghĩa là không có sự chắc chắn trong đó, sự không chắc chắn này phần nào giúp hạn chế việc ``overfitting''. Trong thực tế, dữ liệu tương tác của người dùng thường là dữ liệu thưa (đa số các phần tử trong véc-tơ này là 0) vì mỗi người dùng chỉ tương tác với một lượng nhỏ sản phẩm trên toàn bộ hệ thống, do đó việc suy diễn trở nên hiệu quả hơn. 
 
 Với mục tiêu đưa ra ``top-N'' sản phẩm phù hợp nhất với người dùng, các tác giả giới thiệu thêm hàm lỗi ``Multinomial log-likelihood'', với tính chất trả về một giá trị xác suất cho mỗi sản phẩm, và tổng giá trị xác suất trên toàn bộ sản phẩm là 1. Các sản phẩm sẽ phải ``cạnh tranh'' với nhau để có được xác suất cao hơn. 
 
-Kết quả đạt được của khóa luận là cài đặt lại được mô hình tìm hiểu với kết quả tương đương bài báo gốc \cite{mvae}. Khóa luận cũng tiến hành thêm một số thí nghiệm nhằm đánh giá rõ hơn về tính chất của mô hình.
+Kết quả đạt được của khóa luận là tìm hiểu và cài đặt lại được mô hình với kết quả tương đương bài báo gốc \cite{mvae}. Khóa luận cũng tiến hành thêm một số thí nghiệm nhằm đánh giá rõ hơn về tính chất của mô hình.
 
 % Hệ thống gợi ý sản phẩm đã và đang đóng góp vai trò quan trọng trong các doanh nghiệp. Có thể nói hệ thống gợi ý sản phẩm đóng vai trò quan trọng trong sự phát triển của doanh nghiệp. Cũng như góp phần không nhỏ nhằm tăng trải nghiệm và tiết kiệm thời gian cho người dùng. 
 % Hiện nay, hệ thống gợi ý đang là một vấn đề được cộng đồng nghiên cứu khoa học quan tâm trong thời gian gần đây bởi những ứng dụng của nó trong thực tiễn. 
