@@ -1,6 +1,7 @@
 \chapter{Xây dựng hệ thống gợi ý sản phẩm dựa trên mô hình ``Auto-Encoder''}
 \graphicspath{{Chapter3/Chapter3Figs}}
 \label{Chapter3}
+\justifying
 
 \setlength{\parindent}{6.5ex}
 \textit{Chương này trình bày về cách áp dụng mô hình "Variational Auto-Encoder" để giải quyết bài toán xây dựng hệ thống gợi ý sản phẩm \cite{mvae}; đây là cách giải quyết bài toán mà chúng tôi tập trung tìm hiểu trong khóa luận. 
@@ -317,7 +318,6 @@ Cuối cùng, chúng tôi trình bày các phần tinh chỉnh để có đượ
     \begin{equation}
         z_u = \mu_\phi(\tilde{x}_u) + \epsilon \odot \sigma_\phi(\tilde{x}_u)
     \end{equation}
-
     theo đó thì $z_u$ thì vẫn là một giá trị được lấy mẫu ngẫu nhiên từ phân phối xác suất trả về từ encoder, nhưng $z_u$ vẫn được tính thông qua phép tính với dấu bằng `='.
     
     Dựa vào ``Reparametrization trick'' ta đã có thể cập nhật trọng số cho mô hình variational Auto-Encoder thông qua thuật toán lan truyền ngược. 
