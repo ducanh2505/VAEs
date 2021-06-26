@@ -131,7 +131,7 @@ Từ các giá trị thiếu được điền này, ta có thể đưa ra các g
 Từ mô hình ``Auto-Encoder'' tuyến tính, ta có thể dễ dàng mở rộng thành ``Auto-Encoder'' phi tuyến bằng cách thay các hàm tuyến tính ứng với bộ mã hóa và bộ giả mã bằng các hàm phi tuyến. 
 Đây chính là ý tưởng của mô hình ``AutoRec'' được đề xuất trong bài báo \cite{autorec}. 
 Đây là một trong những mô hình phi tuyến đầu tiên được đề xuất để giải quyết bài toán gợi ý sản phẩm. 
-Tính phi tuyến đã giúp mô hình này đạt được kết quả tốt hơn so với các mô hình tuyến tính trên các bộ dữ liệu được bài báo thử nghiệm
+Tính phi tuyến đã giúp mô hình này đạt được kết quả tốt hơn so với các mô hình tuyến tính trên các bộ dữ liệu được bài báo thử nghiệm.
 
 % Dựa trên ý tưởng rằng, giả định tương tác của người dùng sẽ được ``phát sinh'' từ một ``đặc trưng ẩn'', ta có thể xem rằng ``đặc trưng ẩn'' này là sở thích của họ, và ta sẽ xây dựng một mô hình phát sinh được đặc trưng ẩn của người dùng từ dữ liệu tương tác của người dùng với hệ thống các sản phẩm. 
 % Dựa trên ý tưởng là tồn tại các ``đặc trưng ẩn'' thể hiện sở thích của người dùng, các đặc trưng ẩn này sẽ dẫn đến người dùng ``tương tác'' với sản phẩm nào. Việc áp dụng mô hình ``Auto-Encoder'' hoàn toàn khớp với ý tưởng này, theo đó ``Auto-Encoder'' sẽ rút trích các ``đặc trưng ẩn'' này thông qua ``encoder'' (một phần trong mô hình ``Auto-Encoder''), sau đó tái tạo lại tương tác của người dùng dựa vào đặc trưng ẩn này. Tương tác được tái tạo lại sẽ bao gồm các gợi ý mà hệ thống đưa ra.
@@ -174,7 +174,7 @@ Các sản phẩm sẽ phải ``cạnh tranh'' với nhau để có được xá
 
 Với những gì đã trình bày ở trên, trong khóa luận, chúng tôi sẽ tập trung tìm hiểu về mô hình VAE cho bài toán gợi ý sản phẩm \cite{mvae}. 
 Chúng tôi sẽ cài đặt lại mô hình này và so sánh kết quả cài đặt của chúng tôi với kết quả của bài báo gốc.
-Ngoài ra, chúng tôi sẽ tiến hành thêm các thí nghiệm nhằm phân tích rõ hơn về các khía cạnh khác nhau của mô hình này
+Ngoài ra, chúng tôi sẽ tiến hành thêm các thí nghiệm nhằm phân tích rõ hơn về các khía cạnh khác nhau của mô hình này.
 
 
 %--------------------------------------------------%
@@ -222,7 +222,6 @@ Ngoài ra, chúng tôi sẽ tiến hành thêm các thí nghiệm nhằm phân t
 
 
 Phần còn lại của khóa luận được trình bày như sau:
-
 \begin{itemize}
     \item Chương~\ref{Chapter2} trình bày sơ lược về mô hình ``Auto-Encoder'' và các kiến thức nền tảng của mô hình ``Variational Auto-Encoder''.
     % \item Chương~\ref{Chapter3} trình bày về cách áp dụng mô hình ``Variational Auto-Encoder'' cùng với hàm lỗi ``Multinomial log-likelihood'' cho bài toán xây dựng hệ thống gợi ý. Bên cạnh đó, chương này cũng phân tích các hạn chế của mô hình đồng thời đề xuất phương pháp giúp giải quyết các hạn chế đó. Chương này là phần chính của khóa luận.
