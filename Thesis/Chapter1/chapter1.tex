@@ -19,14 +19,8 @@
 %Mẫu trình bày trang bìa của tóm tắt khóa luận (phụ lục 1).
 
 
-Hiện nay, với việc bùng nổ dữ liệu trên mạng Internet, người dùng có cơ hội tiếp cận
-nhiều hơn với đa dạng các sản phẩm trên nền tảng số. Song song đó,
-các nhà cung cấp dịch vụ cũng có cơ hội tiếp cận với người dùng nhiều hơn. % đó = nền tảng số = internet
-Tuy nhiên, người dùng cũng đang gặp nhiều khó khăn khi tìm kiếm những nội dung phù hợp với nhu cầu của mình khi hiện nay có quá nhiều sự lựa chọn được đưa ra.
-Với mục đích nhằm giải quyết vấn đề trên, hệ thống gợi ý sản phẩm được xây dựng để có thể dự đoán cho người dùng những nội dung - hay còn được gọi là sản phẩm - phù hợp với họ.
-Hơn nữa, nó còn đóng vai trò quan trọng trong sự phát triển của các nhà cung cấp dịch vụ - doanh nghiệp,
-khi góp phần giúp nâng cao trải nghiệm người dùng cũng như tăng sự thu hút khách hàng. Theo số liệu tổng hợp được từ tổ chức Ivy Pro School \cite{ivy}, 
-38\% lượt click từ người dùng Google đến từ hệ thống gợi ý và 35\% sản phẩm được bán trên Amazon thông qua hệ thống gợi ý sản phẩm.
+Hiện nay, với việc bùng nổ dữ liệu trên mạng Internet, người dùng có cơ hội tiếp cận nhiều hơn với đa dạng các sản phẩm trên nền tảng số. Tuy nhiên, do có quá nhiều sản phẩm nên người dùng cũng sẽ gặp khó khăn trong việc tự tìm kiếm các sản phẩm phù hợp với mình; nhà cung cấp sản phẩm cũng sẽ gặp khó khăn về lợi nhuận nếu họ có rất nhiều sản phẩm nhưng chỉ có một số ít được người dùng biết đến.
+Hệ thống gợi ý sản phẩm (recommender system) được đưa ra nhằm giải quyết vấn đề này; hệ thống sẽ tự động gợi ý các sản phẩm mà được dự đoán là phù hợp cho từng người dùng. Hiện nay, hệ thống gợi ý đóng vai trò quan trọng đối với nhiều nhà cung cấp sản phẩm. Chẳng hạn, theo số liệu tổng hợp được từ tổ chức Ivy Pro School \cite{ivy}, 38\% lượt click từ người dùng Google đến từ hệ thống gợi ý và 35 sản phẩm được bán trên Amazon thông qua hệ thống gợi ý sản phẩm.
 
 Trong lĩnh vực khoa học máy tính, hệ thống gợi ý sản phẩm là một chủ đề 
 đang được quan tâm và nghiên cứu từ cộng đồng nghiên cứu khoa học.
@@ -39,29 +33,21 @@ Bài toán xây dựng hệ thống gợi ý được phát biểu như sau:
 \end{itemize}
 
 Tuy vậy, việc xây dựng một hệ thống gợi ý sản phẩm một cách hiệu quả là không đơn giản.
-% Đầu tiên, không có một ``lời giải'' chung cho tất cả trường hợp,
-% mặc dù đa số các lĩnh vực hiện nay đều có thể áp dụng các hệ thống gợi ý, tuy nhiên không phải là tất cả,
-% ta cần xét đến nhiều yếu tố khác nhau, 
-% từ đó mới có thể lựa chọn được ``cách'' để xây dựng hệ thống gợi ý phù hợp. % ``cách'' == ``hướng tiếp cận''
-Đầu tiên, tùy vào từng lĩnh vực cụ thể, ta cần xét đến nhiều yếu tố khác nhau khi xây dựng một hệ thống gợi ý.
+Đầu tiên, bản chất của từng lĩnh vực cụ thể sẽ ảnh hưởng đến khả năng giúp ích của hệ thống gợi ý.
 Từ thực tế cho thấy, các lĩnh vực mà sản phẩm ``tiêu thụ'' và ``sản xuất'' nhanh như: phim, hình ảnh, âm nhạc, ... 
 thì hệ thống gợi ý sẽ ít nhiều đóng vai trò quan trọng. 
 Cũng theo số liệu từ Ivy Pro School \cite{ivy}, 75\% số bộ phim được thuê trên Netflix (một nền tảng chiếu phim trực tuyến lớn nhất hiện nay) thông qua hệ thống gợi ý, chứng tỏ sự ảnh hưởng lớn của hệ thống gợi ý đối với lĩnh vực này. 
 Mặt khác, hệ thống gợi ý tác động không nhiều đến các lĩnh vực cung cấp dịch vụ hay sản phẩm giá trị cao như:
 thuê nhà, phương tiện giao thông, thiết bị điện tử, ... vì người dùng cần đánh giá thông qua nhiều yếu tố mới có thể quyết định được. 
-Thứ hai, tùy thuộc vào nhu cầu của người sử dụng mới có thể lựa chọn ``cách'' mà hệ thống gợi ý hoạt động.
+Thứ hai, tùy thuộc vào nhu cầu của người sử dụng mới có thể lựa chọn cách mà hệ thống gợi ý hoạt động.
 Việc gợi ý các sản phẩm phù hợp với người dùng dựa vào nhóm người dùng có sở thích tương tự với họ 
 hay cách dựa trên các sản phẩm có liên quan với các sản phẩm mà họ đã ``thích'' trước đó là khác nhau.
-Bài toán gợi ý sản phẩm có thể xem như là một bài toán hồi quy (``regression'') 
-nếu mô hình dự đoán mức độ yêu thích của người dùng cho sản phẩm.
-Hoặc bài toán này có thể xem là một bài toán xếp hạng (``top-N ranking'') nếu ta cần kết quả trả về 
-là tập các sản phẩm phù hợp nhất với người dùng.
 Một điều nữa cũng có thể được xem là khó khăn thứ ba khi xây dựng hệ thống gợi ý, cả trong cộng đồng nghiên cứu khoa học cũng như thực tiễn, 
 đó là ta cần một độ đo và một phương pháp để đánh giá một cách tổng thể và khách quan nhất, 
 khi mà dữ liệu và các thuật toán để xây dựng hệ thống gợi ý là rất đa dạng.
 
 Để xây dựng hệ thống gợi ý, một hướng tiếp cận chúng ta thường nghĩ ngay đến đầu tiên
-là dự đoán các sản phẩm có ``độ tương đồng'' cao so với các sản phẩm người dùng đã ``thích'' trước đó,
+là dự đoán các sản phẩm có ``độ tương đồng'' cao so với các sản phẩm người dùng đã ``thích'' trước đó;
 hướng tiếp cận này được gọi là ``Content-Based Filtering'' (lọc dựa trên nội dung) (hình~\ref{fig_CBF} mô tả hướng tiếp cận này).
 \begin{figure}
     \centering
@@ -71,22 +57,16 @@ hướng tiếp cận này được gọi là ``Content-Based Filtering'' (lọc
     người dùng đã xem trước đó}
     \label{fig_CBF}
 \end{figure}
-Với hướng tiếp cận này, mô hình chỉ cần các thuộc tính mô tả của sản phẩm mà 
-không đòi hỏi dữ liệu tương tác từ người dùng khác
-vì các gợi ý là dành riêng cho từng cá nhân, do đó nó có khả năng nắm bắt tốt các sở thích
+Hướng tiếp cận này làm cục bộ trong dữ liệu tương tác của mỗi người dùng và cần có thông tin mô tả của các sản phẩm, do đó nó có khả năng nắm bắt tốt các sở thích
 đặc biệt của người dùng.
 Vì dựa trên ``tính tương đồng'' của sản phẩm, hệ thống có thể gợi ý một sản phẩm phù hợp với người dùng nhưng sản phẩm này có thể không được nhiều người dùng khác quan tâm.
 % Để áp dụng ``Content-Based Filtering'' cho từng loại dữ liệu cụ thể,
 % ta cần ``domain knowledge'' cho lĩnh vực đó để thiết kế mô hình.
-Vì dữ liệu đầu vào phụ thuộc vào từng lĩnh vực, 
-ta cần chọn những thuộc tính có khả năng ảnh hưởng đến quyết định của mô hình cũng như loại bỏ các thuộc tính không cần thiết. Do đó cần phải có ``domain knowledge'' cụ thể khi muốn áp dụng ``Content-Based Filtering'' để xây dựng hệ thống gợi ý sản phẩm cho một lĩnh vực nào đó.
-Trong trường hợp các lĩnh vực có ít thông tin chi tiết về sản phẩm, hay các dữ liệu về sản phẩm thường không đầy đủ, rõ ràng thì 
-hướng tiếp cận này sẽ tỏ ra không hiệu quả. 
+Nhược điểm của hướng tiếp cận ``Content-Based Filtering'' là cần phải có thông tin mô tả của các sản phẩm. Hơn nữa, từ thông tin mô tả sản phẩm, ta cũng cần đưa ra các đặc trưng mà sẽ giúp ích cho quá trình tính độ tương đồng của các sản phẩm; việc đưa ra các đặc trưng thường phụ thuộc vào lĩnh vực cụ thể và cần có hiểu biết về lĩnh vực đó (``domain knowledge'').
 
-Một hướng tiếp cận khác là tìm ra ``độ tương đồng'' giữa các người dùng với nhau, hay tìm ra được một nhóm người dùng
+Một hướng tiếp cận khác là tìm ra ``độ tương đồng'' giữa các người dùng với nhau, hay tìm ra được các nhóm người dùng
 có cùng sở thích dựa trên dữ liệu tương tác của tất cả người dùng. Khi đó, để có thể gợi ý cho một người dùng cụ thể,
-hệ thống sẽ tìm ra các sản phẩm không có trong lịch sử tương tác của người dùng đó, và đã được những người dùng ``tương đồng'' với họ tương tác trước đó,
-thì hướng tiếp cận này được gọi là ``Collaborative Filtering'' (lọc cộng tác) (hình~\ref{fig_CF} mô tả hướng tiếp cận này).
+hệ thống sẽ tìm ra các sản phẩm không có trong lịch sử tương tác của người dùng đó, và đã được những người dùng ``tương đồng'' với họ tương tác trước đó; hướng tiếp cận này được gọi là ``Collaborative Filtering'' (lọc cộng tác) (hình~\ref{fig_CF} mô tả hướng tiếp cận này).
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{CF.pdf}
@@ -98,21 +78,22 @@ thì hướng tiếp cận này được gọi là ``Collaborative Filtering'' (
 Đối với hướng tiếp cận ``Collaborative Filtering'', mô hình dựa vào lịch sử tương tác từ người dùng khác
 và không dùng các thuộc tính mô tả của sản phẩm, do đó nó có khả năng tạo ra sự tình cờ cho người dùng:
 hệ thống có thể gợi ý một sản phẩm ``tốt'' cho người dùng trong trường hợp sản phẩm đó có ít điểm tương đồng
-so với các sản phẩm người dùng đã ``thích'' trước đó. Dữ liệu đầu vào của hướng tiếp cận này là các tương tác
-của người dùng với các sản phẩm, do đó có thể áp dụng cho nhiều lĩnh vực khác nhau mà không cần thiết phải thay đổi cấu trúc hệ thống 
+so với các sản phẩm người dùng đã ``thích'' trước đó. Hướng tiếp cận này chỉ cần dữ liệu đầu vào là các tương tác của các người dùng với các sản phẩm, do đó có thể áp dụng cho nhiều lĩnh vực khác nhau mà không cần thiết phải thay đổi cấu trúc hệ thống 
 hoặc nếu có thì cũng không cần phải thay đổi quá nhiều.
-Tuy nhiên, ``Collaborative Filtering'' gặp phải một vấn đề được gọi là ``khởi động nguội'' (``cold-start''),
-đó là khi mà một người dùng chưa có hoặc có ít tương tác thì hệ thống sẽ thường khó đưa ra được gợi ý ``tốt'' cho họ. ``Collaborative Filtering'' vẫn sẽ đưa ra gợi ý cho người dùng này tuy nhiên mức độ phù hợp đối với người dùng không cao, giảm khả năng thu hút khách hàng.
-Đối với ``Content-based Filtering'', việc gợi ý các sản phẩm liên quan đến sản phẩm đòi hỏi người dùng đã tương tác với một vài sản phẩm trước đó, dựa trên đó mới có thể tính độ tương đồng giữa sản phẩm để đưa ra gợi ý.
+Nhược điểm của ``Collaborative Filtering'' là cần dữ liệu tương tác của nhiều người dùng và mỗi người dùng cũng cần phải tương tác với khá nhiều sản phẩm. Việc gợi ý dựa trên các người dùng khác có thể là ưu điểm nhưng cũng có thể là nhược điểm của ``Collaborative Filtering'' trong trường hợp người dùng có sở thích rất khác biệt với số đông.
+Một nhược điểm khác là các sản phẩm khi chỉ được một số rất ít người dùng tương tác, hệ thống gợi ý sản phẩm thường có xu hướng ít gợi ý những sản phẩm này đến các người dùng khác; vấn đề này gọi là ``cold-start''.
+% Tuy nhiên, ``Collaborative Filtering'' gặp phải một vấn đề được gọi là ``khởi động nguội'' (``cold-start''),
+% đó là khi mà một người dùng chưa có hoặc có ít tương tác thì hệ thống sẽ thường khó đưa ra được gợi ý ``tốt'' cho họ. ``Collaborative Filtering'' vẫn sẽ đưa ra gợi ý cho người dùng này tuy nhiên mức độ phù hợp đối với người dùng không cao, giảm khả năng thu hút khách hàng.
+% Đối với ``Content-based Filtering'', việc gợi ý các sản phẩm liên quan đến sản phẩm đòi hỏi người dùng đã tương tác với một vài sản phẩm trước đó, dựa trên đó mới có thể tính độ tương đồng giữa sản phẩm để đưa ra gợi ý.
 
-``Cold-start'' cũng là khi các sản phẩm chỉ được một số ít người dùng tương tác, các sản phẩm này sẽ ít được hệ thống gợi ý cho người dùng.
+% ``Cold-start'' cũng là khi các sản phẩm chỉ được một số ít người dùng tương tác, các sản phẩm này sẽ ít được hệ thống gợi ý cho người dùng.
 
 Trong giới hạn của khóa luận này, chúng tôi chỉ tập trung tìm hiểu về hướng tiếp cận ``Collaborative Filtering'' 
 vì ba lý do chính là:
 \begin{itemize}
 \item ``Collaborative Filtering'' có thể áp dụng cho nhiều lĩnh vực khác nhau bởi đầu vào của mô hình là ma trận tương tác giữa người dùng và sản phẩm, khác với ``Content-Based Filtering'' cần thiết kế mô hình cụ thể cho từng lĩnh vực khác nhau.
-\item Với số lượng lớn và cùng với sự đa dạng của các ``sản phẩm'' hiện nay, việc gợi ý các sản phẩm tương đồng với nhau dễ trở nên nhàm chán, thay vào đó ``Collaborative Filtering'' gợi ý sản phẩm dựa trên sở thích của người dùng, giúp các sản phẩm bớt nhàm chán hơn.
-\item Ngoài ra, khi số lượng người dùng trên mạng Internet càng ngày càng tăng nhanh, thì ``Collaborative Filtering'' 
+\item Với số lượng lớn và cùng với sự đa dạng của các ``sản phẩm'' hiện nay, việc gợi ý các sản phẩm tương đồng với nhau dễ trở nên nhàm chán, thay vào đó ``Collaborative Filtering'' gợi ý sản phẩm dựa trên những người dùng khác, có thể tạo ra sự tình cờ, giúp các sản phẩm bớt nhàm chán hơn.
+\item Ngoài ra, khi số lượng người dùng trên mạng Internet càng ngày càng tăng nhanh, ``Collaborative Filtering'' 
 sẽ có được nhiều lợi thế hơn khi có thể kết hợp dữ liệu tương tác của các người dùng khác để đưa ra gợi ý.
 \end{itemize}
 
