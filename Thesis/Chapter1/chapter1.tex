@@ -92,7 +92,7 @@ Trong giới hạn của khóa luận này, chúng tôi chỉ tập trung tìm h
 vì ba lý do chính là:
 \begin{itemize}
 \item ``Collaborative Filtering'' có thể áp dụng cho nhiều lĩnh vực khác nhau bởi đầu vào của mô hình là ma trận tương tác giữa người dùng và sản phẩm, khác với ``Content-Based Filtering'' cần thiết kế mô hình cụ thể cho từng lĩnh vực khác nhau.
-\item Với số lượng lớn và cùng với sự đa dạng của các ``sản phẩm'' hiện nay, việc gợi ý các sản phẩm tương đồng với nhau dễ trở nên nhàm chán, thay vào đó ``Collaborative Filtering'' gợi ý sản phẩm dựa trên những người dùng khác, có thể tạo ra sự tình cờ, giúp các sản phẩm bớt nhàm chán hơn.
+\item Với số lượng lớn và cùng với sự đa dạng của các ``sản phẩm'' hiện nay, việc gợi ý các sản phẩm tương đồng với nhau dễ trở nên nhàm chán, thay vào đó ``Collaborative Filtering'' gợi ý sản phẩm dựa trên những người dùng khác, có thể tạo ra sự tình cờ cũng như đa dạng sản phẩm hơn, giúp các sản phẩm được gợi ý bớt nhàm chán.
 \item Ngoài ra, khi số lượng người dùng trên mạng Internet càng ngày càng tăng nhanh, ``Collaborative Filtering'' 
 sẽ có được nhiều lợi thế hơn khi có thể kết hợp dữ liệu tương tác của các người dùng khác để đưa ra gợi ý.
 \end{itemize}
@@ -101,7 +101,7 @@ Việc kết hợp giữa thông tin tương tác từ người dùng khác và 
 Hướng tiếp này sẽ giúp một hệ thống gợi ý sản phẩm hoạt động hiệu quả hơn. Nhưng đây là một điều không đơn giản bởi nó phụ thuộc vào ``domain knowledge'' ở từng lĩnh vực và chúng tôi để lại như một định hướng trong việc nghiên cứu và phát triển trong tương tai.
 
 Phương pháp đầu tiên trong việc xây dựng một hệ thống gợi ý sản phẩm theo hướng tiếp cận ``Collaborative Filtering'' là thuật toán ``Matrix Factorization'' được giới thiệu bởi Hu \cite{MF}. 
-Ý tưởng là từ dữ liệu tương tác (ví dụ, điểm đánh giá) của các người dùng với các sản phẩm, ta sẽ tìm ra các véc-tơ đặc trưng cho người dùng và các véc-tơ đặc trưng cho sản phẩm. 
+Ý tưởng là từ dữ liệu tương tác (ví dụ là số điểm đánh giá) của các người dùng với các sản phẩm, ta sẽ tìm ra các véc-tơ đặc trưng cho người dùng và các véc-tơ đặc trưng cho sản phẩm. 
 Sau đó, ta sẽ dùng các véc-tơ đặc trưng này để dự đoán tương tác của người dùng với các sản phẩm mà họ chưa tương tác; từ kết quả dự đoán, ta sẽ đưa ra các đề xuất sản phẩm cho các người dùng.
 Sau khi học và tìm ra được đặc trưng cho người dùng và sản phẩm trong tập huấn luyện, để đưa ra gợi ý cho người dùng mới, ta sẽ tìm véc-tơ đặc trưng ứng với người dùng mới và kết hợp với véc-tơ đặc trưng của sản phẩm để dự đoán được véc-tơ tương tác của người dùng mới này.
 Dựa vào véc-tơ tương tác được dự đoán ta sẽ đưa ra gợi ý cho người dùng.
@@ -120,16 +120,16 @@ Ngoài ra, mô hình này đã giảm bớt được chi phí tính toán để 
 Tuy nhiên, với hạn chế của các hàm tuyến tính nên phương pháp này vẫn chưa thực sự hiệu quả.
 
 Ở công trình nghiên cứu [11] của tác giả Steck đã chỉ ra rằng “Asymetric Matrix Factorization” có thể được xem như là một mô hình “Auto-Encoder” tuyến tính. 
-Cụ thể, mô hình "Auto-Encoder" tuyến tính này sẽ có véc-tơ đầu vào là véc-tơ chứa các tương tác của một người dùng với các sản phẩm (véc-tơ này sẽ có các giá trị thiếu ứng với các sản phẩm mà người dùng chưa tương tác). 
+Cụ thể, mô hình ``Auto-Encoder'' tuyến tính này sẽ có véc-tơ đầu vào là véc-tơ chứa các tương tác của một người dùng với các sản phẩm (véc-tơ này sẽ có các giá trị thiếu ứng với các sản phẩm mà người dùng chưa tương tác). 
 Véc-tơ đầu vào này sẽ đi qua bộ mã hóa của "Auto-Encoder" - là một hàm tuyến tính - để ra được véc-tơ đặc trưng của người dùng. 
-Từ véc-tơ đặc trưng này, "Auto-Encoder" sẽ dùng bộ giải mã - là một hàm tuyến tính khác - để tái tạo lại véc-tơ đầu vào. 
+Từ véc-tơ đặc trưng này, ``Auto-Encoder'' sẽ dùng bộ giải mã - là một hàm tuyến tính khác - để tái tạo lại véc-tơ đầu vào. 
 Các tham số của bộ mã hóa và bộ giải mã sẽ được học từ dữ liệu tương tác của người dùng với các sản phẩm. 
 Trong quá trình học, ta sẽ cố gắng tái tạo lại véc-tơ đầu vào nhưng không xét các giá trị thiếu. 
 Miễn là các sản phẩm ứng với các giá trị thiếu của một véc-tơ đầu vào không bị thiếu trong các véc-tơ đầu vào khác thì ``Auto-Encoder'' vẫn sẽ có thể học được các tham số của bộ giải mã ứng với các sản phẩm này. 
 Sau khi học xong, với véc-tơ đầu vào của một người dùng (có các giá trị thiếu), ta sẽ lan truyền qua bộ mã hóa và bộ giải mã của ``Auto-Encoder'' để có được véc-tơ đầu vào được tái tạo lại, trong đó các giá trị thiếu sẽ được điền giá trị. 
 Từ các giá trị thiếu được điền này, ta có thể đưa ra các gợi ý sản phẩm cho người dùng. 
-Từ mô hình "Auto-Encoder" tuyến tính, ta có thể dễ dàng mở rộng thành "Auto-Encoder" phi tuyến bằng cách thay các hàm tuyến tính ứng với bộ mã hóa và bộ giả mã bằng các hàm phi tuyến. 
-Đây chính là ý tưởng của mô hình "AutoRec" được đề xuất trong bài báo \cite{autorec}. 
+Từ mô hình ``Auto-Encoder'' tuyến tính, ta có thể dễ dàng mở rộng thành ``Auto-Encoder'' phi tuyến bằng cách thay các hàm tuyến tính ứng với bộ mã hóa và bộ giả mã bằng các hàm phi tuyến. 
+Đây chính là ý tưởng của mô hình ``AutoRec'' được đề xuất trong bài báo \cite{autorec}. 
 Đây là một trong những mô hình phi tuyến đầu tiên được đề xuất để giải quyết bài toán gợi ý sản phẩm. 
 Tính phi tuyến đã giúp mô hình này đạt được kết quả tốt hơn so với các mô hình tuyến tính trên các bộ dữ liệu được bài báo thử nghiệm
 
