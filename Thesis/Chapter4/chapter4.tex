@@ -149,7 +149,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     
     
     \newpage
-    \subsection{Phân tích ảnh hưởng bởi ``input'' trong quá trình huấn luyện}
+    \subsection{Phân tích hiệu quả của việc thay đổi ``input'' trong quá trình huấn luyện}
     
     Như đã trình bày ở phần~\ref{DAE_recsys}, chúng tôi sử dụng kỹ thuật ``dropout'' để làm nhiễu véc-tơ tương tác của người dùng trước khi đưa vào huấn luyện. Ở phần này, chúng tôi sẽ chứng minh ảnh hưởng của việc sử dụng ``dropout'' khi huấn luyện mô hình. 
 
@@ -186,16 +186,20 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     \end{figure}
 
 
-    \subsection{Phân tích ``Multinomial Likelihood''}
 
-    Ở phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi Multinomial log-likelihood so với các hàm lỗi thường được dùng khác.
-    Cụ thể chúng tôi sẽ so sánh Multinomial log-likelihood so với Gaussian log-likelihood và Logistic log-likelihood. 
 
+    \subsection{Phân tích hiệu quả của hàm mục tiêu được sử dụng trong quá trình huấn luyện ``Variational Auto-Encoder''}
+
+    Trong phần \ref{train_VAE}, hàm mục tiêu của mô hình VAE được thay đổi bằng cách sử dụng hàm lỗi ``Multinomial log-likelihood'' và tham số $\beta$ dùng để kiểm soát sự đánh đổi giữa việc mô hình hóa dữ liệu và đặc trưng ẩn tuân theo một phân phối xác suất. Ở phần này, chúng tôi sẽ thực hiện các thí nghiệm để phân tích rõ hơn về hiệu quả của việc thay đổi hàm mục tiêu trong quá trình huấn luyện mô hình VAE.
+        \subsubsection{Phân tích ``Multinomial Likelihood''}
+
+    Trong phần này, chúng tôi sẽ trình bày thí nghiệm để kiểm chứng hàm lỗi ``Multinomial log-likelihood'' so với các hàm lỗi thường được dùng khác.
+    Cụ thể chúng tôi sẽ so sánh ``Multinomial log-likelihood'' so với ``Gaussian log-likelihood'' và ``Logistic log-likelihood''. 
 
     Hàm ``Multinomaial log-likelihood'' như đã được trình bày ở phần \ref{mulll} sẽ giả định dữ liệu ban đầu sẽ được phát sinh bởi một phân phối đa thức (``Multinomial Distribution'').
     Và kết quả trả về của mô hình Mult-VAE là một véc-tơ thể hiện xác suất được chọn của từng sản phẩm trong hệ thống (véc-tơ này có tổng bằng 1).
     
-    Về Gaussian log-likelihood, cũng chính là độ lỗi ``Mean Square Error'', là một độ lỗi thường gặp trong những bài toán hồi quy (regression). 
+    Về ``Gaussian log-likelihood'', cũng chính là độ lỗi ``Mean Square Error'', là một độ lỗi thường gặp trong những bài toán hồi quy (regression). 
     Với độ lỗi này thì dữ liệu tương tác của người dùng được giả định sẽ tuân theo phân phối Gaussian. 
     Theo đó, chúng tôi dựa vào bài báo \cite{yifan_cf} của tác giả Yifan Hu, đã áp dụng Gaussian log-likelihood cho bài toán gợi ý sản phẩm với dữ liệu ``implicit feedback''. 
     Theo bài báo thì Gaussian log-likelihood cho người dùng $u$ sẽ là:
@@ -239,24 +243,24 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     \caption[Kết quả mô hình với các hàm lỗi khác nhau]{Độ đo NDCG@100 trên các mô hình VAE và DAE với các hàm lỗi khác nhau trên tập dữ liệu MovieLens}
     \label{table:comparell}
     \end{table}   
-   
-   \subsection{Phân tích sự đánh đổi trong hàm ELBO}
-   Như đã trình bày ở phần \ref{subsubsecELBO} thì trong hàm ELBO, hàm mục tiêu trong quá trình huấn luyện ``Variational Auto-Encoder'', có tồn tại một sự đánh đổi.
-   Đó là sự đánh đổi giữa việc mô hình hóa dữ liệu và việc đặc trưng ẩn được phát sinh tuân theo phân phối xác suất đã được giả định trước trong việc huấn luyện mô hình.
-   Và chúng tôi đã đưa ra khẳng định rằng trong bài toán xây dựng gợi ý sản phẩm thì ta sẽ quan tâm đến khả năng mô hình hoá nhiều hơn là việc đảm bảo đặc trưng ẩn tuân theo một phân phối xác suất.
-   Do đó, ở mục này chúng tôi sẽ tiến hành kiểm chứng lại điều này.
 
-   Chúng tôi thực hiện huấn luyện mô hình ``Variational Auto-Encoder'' với hai độ lỗi khác nhau, tương ứng với hàm ELBO thông thường (công thức \ref{elbo_mvae}) và hàm ELBO với tham số $\beta$ (công thức \ref{elbo_betamvae}) để kiểm soát sự đánh đổi nói trên.
-   Để thống nhất thì chúng tôi sẽ huấn luyện một mô hình với kĩ thuật ``KL-annealing'' (được trình bày ở mục \ref{subsubsecELBO}) và một mô hình với giá trị $\beta =1$ cố định.
-   Với $\beta = 1$ thì ta có được hàm ELBO thông thường, do đó thí nghiệm này nhằm mục đích để kiểm chứng sự ảnh hưởng của siêu tham số $\beta$ trong bài toán xây dựng hệ thống gợi ý sản phẩm.
-   Với kĩ thuật ``KL-annealing'' chúng tôi sẽ để giới hạn cho mô hình là 0.2, có nghĩa là $\beta$ được tăng dần từ 0 đến 0.2.
-   Giá trị giới hạn được lựa chọn dựa trên những thực nghiệm trước đó, chung tôi dựa vào những lần huấn luyện trước đó và nhận thấy rằng giới hạn $\beta$ bằng 0.2 cho kết quả mô hình tốt nhất.
-   %Ngoài ra với tập dữ liệu MSD thì chúng tôi còn thực hiện thêm việc huấn luyện mô hình với giá trị giới hạn của $\beta = 1$.
-   %Nhằm mục có thể thể hiện rõ hơn sự ảnh hưởng của giá trị của siêu tham số $\beta$
-   Quá trình huấn luyện sẽ được thực hiện như các thiết lập đã trình bày ở mục \ref{setup_experiment}.
-   Việc đánh giá dựa trên độ đo NDCG@100 ở tập đánh giá (validation) và được thực hiện trên cả hai tập dữ liệu MovieLens và Million Song Datasets. 
-   
-   \begin{figure}
+        \subsubsection{Phân tích sự đánh đổi trong hàm ELBO}
+    Như đã trình bày ở phần \ref{subsubsecELBO} thì trong hàm ELBO, hàm mục tiêu trong quá trình huấn luyện ``Variational Auto-Encoder'' có tồn tại một sự đánh đổi.
+    Đó là sự đánh đổi giữa việc mô hình hóa dữ liệu và việc đặc trưng ẩn được phát sinh tuân theo phân phối xác suất đã được giả định trước trong việc huấn luyện mô hình.
+    Và chúng tôi đã đưa ra khẳng định rằng trong bài toán xây dựng gợi ý sản phẩm thì ta sẽ quan tâm đến khả năng mô hình hoá nhiều hơn là việc đảm bảo đặc trưng ẩn tuân theo một phân phối xác suất.
+    Do đó, ở mục này chúng tôi sẽ tiến hành kiểm chứng lại điều này.
+
+    Chúng tôi thực hiện huấn luyện mô hình ``Variational Auto-Encoder'' với hai độ lỗi khác nhau, tương ứng với hàm ELBO thông thường (công thức \ref{elbo_mvae}) và hàm ELBO với tham số $\beta$ (công thức \ref{elbo_betamvae}) để kiểm soát sự đánh đổi nói trên.
+    Để thống nhất thì chúng tôi sẽ huấn luyện một mô hình với kĩ thuật ``KL-annealing'' (được trình bày ở mục \ref{subsubsecELBO}) và một mô hình với giá trị $\beta =1$ cố định.
+    Với $\beta = 1$ thì ta có được hàm ELBO thông thường, do đó thí nghiệm này nhằm mục đích để kiểm chứng sự ảnh hưởng của siêu tham số $\beta$ trong bài toán xây dựng hệ thống gợi ý sản phẩm.
+    Với kĩ thuật ``KL-annealing'' chúng tôi sẽ để giới hạn cho mô hình là 0.2, có nghĩa là $\beta$ được tăng dần từ 0 đến 0.2.
+    Giá trị giới hạn được lựa chọn dựa trên những thực nghiệm trước đó, chung tôi dựa vào những lần huấn luyện trước đó và nhận thấy rằng giới hạn $\beta$ bằng 0.2 cho kết quả mô hình tốt nhất.
+    %Ngoài ra với tập dữ liệu MSD thì chúng tôi còn thực hiện thêm việc huấn luyện mô hình với giá trị giới hạn của $\beta = 1$.
+    %Nhằm mục có thể thể hiện rõ hơn sự ảnh hưởng của giá trị của siêu tham số $\beta$
+    Quá trình huấn luyện sẽ được thực hiện như các thiết lập đã trình bày ở mục \ref{setup_experiment}.
+    Việc đánh giá dựa trên độ đo NDCG@100 ở tập đánh giá (validation) và được thực hiện trên cả hai tập dữ liệu MovieLens và Million Song Datasets. 
+    
+    \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{movilen_beta.png}
     \caption[Mô hình Mult-VAE trong việc kiểm soát siêu tham số]{So sánh Mult-VAE trong việc kiểm soát tham sự đánh đổi giữa khả năng mô hình hóa và việc đặc trưng ẩn tuân theo phân phối xác suất trên tập MovieLens}
@@ -286,7 +290,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
 
 
    
-    \subsection{``Variational Auto-encoder'' và ``Auto-encoder'' đối với trường hợp dữ liệu thưa}
+    \subsection{Phân tích hiệu quả của ``Variational Auto-encoder'' đối với trường hợp dữ liệu thưa}
     Trong phần này, mục tiêu của  chúng tôi là kiểm chứng về sự phù hợp của ``Variational Auto-encoder'' so với ``Auto-encoder'', cụ thể là so sánh Mult-VAE và Mult-DAE.
     Theo góc nhìn khác thì ta có thể xem như đây là thí nghiệm so sánh giữa phương pháp ``Bayesian inference'' cho đặc trưng ẩn là một phân bố so với hướng tiếp cận xấp xỉ đặc trưng ẩn là một điểm xác định.
 
