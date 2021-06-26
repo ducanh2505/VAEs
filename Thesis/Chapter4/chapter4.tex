@@ -164,7 +164,7 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
     \label{table:comparedropoutML}
     \end{table}
     
-    Bảng~\ref{table:comparedropoutML} thể hiện kết quả của các mô hình khi không sử dụng `dropout' cho véc-tơ đầu vào so với các mô hình được thiết lập trong~\ref{setup_experiment}. Ta có thể thấy khi không áp dụng ``dropout'', ``Auto-Encoder'' (AE) và ``Variational Auto-Encoder'' (VAE) cho kết quả tương đương nhau và đều thấp hơn hai mô hình có áp dụng ``dropout''. Như đã đề cập ở phần~\ref{setup_experiment}, mô hình được dùng để đánh giá trên tập dữ liệu kiểm tra là mô hình cho kết quả tốt nhất trên tập dữ liệu kiểm định. Theo hình~\ref{ndcg_AE_ML20} và hình~\ref{ndcg_VAE_ML20}, khi bắt đầu huấn luyện các mô hình ở một số epoch đầu, các mô hình không sử dụng ``dropout'' có độ đo NDCG@100 cao, sau đó giảm ở những epoch tiếp theo. Việc này là do các mô hình không sử dụng ``dropout'' không có ràng buộc để đưa ra gợi ý, do đó các mô hình này vẫn thực hiện mục đích chính là tái tạo dữ liệu giống với dữ liệu đầu vào nhất có thể. 
+    Bảng~\ref{table:comparedropoutML} thể hiện kết quả của các mô hình khi không sử dụng ``dropout'' cho véc-tơ đầu vào so với các mô hình được thiết lập trong~\ref{setup_experiment}. Ta có thể thấy khi không áp dụng ``dropout'', ``Auto-Encoder'' (AE) và ``Variational Auto-Encoder'' (VAE) cho kết quả tương đương nhau và đều thấp hơn hai mô hình có áp dụng ``dropout''. Theo hình~\ref{ndcg_AE_ML20} và hình~\ref{ndcg_VAE_ML20}, khi bắt đầu huấn luyện các mô hình ở một số epoch đầu, các mô hình không sử dụng ``dropout'' có độ đo NDCG@100 cao, sau đó giảm ở những epoch tiếp theo. Việc này là do các mô hình không sử dụng ``dropout'' không có ràng buộc để đưa ra gợi ý, do đó các mô hình này vẫn thực hiện mục đích chính là tái tạo dữ liệu giống với dữ liệu đầu vào nhất có thể. 
     
     \begin{figure}
         \centering
@@ -243,29 +243,29 @@ Chúng tôi lần lượt huấn luyện hai mô hình Mult-VAE và Mult-DAE b�
 
    Chúng tôi thực hiện huấn luyện mô hình ``Variational Auto-Encoder'' với hai độ lỗi khác nhau, tương ứng với hàm ELBO thông thường (công thức \ref{elbo_mvae}) và hàm ELBO với tham số $\beta$ (công thức \ref{elbo_betamvae}) để kiểm soát sự đánh đổi nói trên.
    Để thống nhất thì chúng tôi sẽ huấn luyện một mô hình với kĩ thuật ``KL-annealing'' (được trình bày ở mục \ref{subsubsecELBO}) và một mô hình với giá trị $\beta =1$ cố định.
-   Với $\beta = 1$ thì ta có được hàm ELBO thông thường, do đó this nghiệm này nhằm mục đích để kiểm chứng sự ảnh hưởng của siêu tham số $\beta$ trong bài toán xây dựng hệ thống gợi ý sản phẩm.
+   Với $\beta = 1$ thì ta có được hàm ELBO thông thường, do đó thí nghiệm này nhằm mục đích để kiểm chứng sự ảnh hưởng của siêu tham số $\beta$ trong bài toán xây dựng hệ thống gợi ý sản phẩm.
    Với kĩ thuật ``KL-annealing'' chúng tôi sẽ để giới hạn cho mô hình là 0.2, có nghĩa là $\beta$ được tăng dần từ 0 đến 0.2.
    Giá trị giới hạn được lựa chọn dựa trên những thực nghiệm trước đó, chung tôi dựa vào những lần huấn luyện trước đó và nhận thấy rằng giới hạn $\beta$ bằng 0.2 cho kết quả mô hình tốt nhất.
    %Ngoài ra với tập dữ liệu MSD thì chúng tôi còn thực hiện thêm việc huấn luyện mô hình với giá trị giới hạn của $\beta = 1$.
    %Nhằm mục có thể thể hiện rõ hơn sự ảnh hưởng của giá trị của siêu tham số $\beta$
    Quá trình huấn luyện sẽ được thực hiện như các thiết lập đã trình bày ở mục \ref{setup_experiment}.
-   Việc đánh giá dựa trên độ đo NDCG@100 ở tập đánh giá (validation set) và được thực hiện trên cả hai tập dữ liệu MovieLen và Million Song Datasets.
+   Việc đánh giá dựa trên độ đo NDCG@100 ở tập đánh giá (validation) và được thực hiện trên cả hai tập dữ liệu MovieLens và Million Song Datasets. 
    
    \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{movilen_beta.png}
-    \caption[Mô hình Mult-VAE trong việc kiểm soát siêu tham số]{So sánh Mult-VAE trong việc kiểm soát tham sự đánh đổi giữa khả năng mô hình hóa và việc đặc trưng ẩn tuân theo phân phối xác suất trên tập MovieLen}
+    \caption[Mô hình Mult-VAE trong việc kiểm soát siêu tham số]{So sánh Mult-VAE trong việc kiểm soát tham sự đánh đổi giữa khả năng mô hình hóa và việc đặc trưng ẩn tuân theo phân phối xác suất trên tập MovieLens}
     \label{beta_movielen}
     \end{figure}
 
-    Hình \ref{beta_movielen} thể hiện kết quả khi huấn luyện mô hình trên tập dữ liệu MovieLen.
+    Hình \ref{beta_movielen} thể hiện kết quả khi huấn luyện mô hình trên tập dữ liệu MovieLens.
     Ta dễ dàng thấy được rằng, khi thực hiện huấn luyện mô hình với hàm ELBO thông thường ($\beta=1$ tương ứng với hàm ELBO thông thường) thì cho kết quả thấp hơn hẳn so với phiên bản có sự kiểm soát của siêu tham số $\beta$.
     Với những epoch đầu, thì cách biệt không quá lớn và cũng k ổn định, tuy nhiên sau một số lượng epoch nhất định thì cách biệt này dần trở nên rõ rệt hơn.
 
     \begin{figure}
         \centering
         \includegraphics[width=1\textwidth]{msd_beta.png}
-        \caption[Mô hình Mult-VAE trong việc kiểm soát siêu tham số]{So sánh Mult-VAE trong việc kiểm soát tham sự đánh đổi giữa khả năng mô hình hóa và việc đặc trưng ẩn tuân theo phân phối xác suất trên tập MovieLen}
+        \caption[Mô hình Mult-VAE trong việc kiểm soát siêu tham số]{So sánh Mult-VAE trong việc kiểm soát tham sự đánh đổi giữa khả năng mô hình hóa và việc đặc trưng ẩn tuân theo phân phối xác suất trên tập MSD}
         \label{beta_msd}
     \end{figure}
 
